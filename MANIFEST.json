@@ -76,6 +76,11 @@
       "sha256": "517b8df0e2e2edbbf24db0ab7ca1cb5bd6ac3b7a38a62a6ddb3f49688f875e1a"
     },
     {
+      "path": "data/growth_ladder.json",
+      "size_bytes": 3618,
+      "sha256": "35f0feaa4188e25d7e00ee2b94e83737f5425d9de36689b5ef5ca6011b5e11b3"
+    },
+    {
       "path": "data/job_templates.json",
       "size_bytes": 4588,
       "sha256": "c3d7c224f2c680bee4d4a1c0f23204c36fe8974af86e510402ffacb9b2aeb219"
@@ -112,8 +117,8 @@
     },
     {
       "path": "data/scenarios.json",
-      "size_bytes": 29794,
-      "sha256": "1cc27de744f2b0e1d688b30e9ad974a67d20448a270e21f79be5c8c8f8768f4a"
+      "size_bytes": 30257,
+      "sha256": "34764ece52133851d386c0839199b901b3537213d019cc0ff78bc76b843c9d80"
     },
     {
       "path": "data/securities.json",
@@ -264,6 +269,11 @@
       "path": "schemas/goods.schema.json",
       "size_bytes": 2237,
       "sha256": "3aaf2369b22b102df0a48d6792d120a4c4b7f233991cb1eb389e79104496b2d1"
+    },
+    {
+      "path": "schemas/growth_ladder.schema.json",
+      "size_bytes": 11409,
+      "sha256": "6eed023b476b72ecd2d0a3e22ace59acf05b02ba514ba878b5b9b16dc4cab8ea"
     },
     {
       "path": "schemas/job_templates.schema.json",
@@ -602,13 +612,13 @@
     },
     {
       "path": "tools/test_validate_data.py",
-      "size_bytes": 107775,
-      "sha256": "d9770e03ff48191385e37f65c11ff11e04fb4e134e78d58ad3b8dd2faaa66f29"
+      "size_bytes": 109781,
+      "sha256": "8d25541e5316e886288fdb3443d3be3f76ef8e6f8ab63209c26896222b21428f"
     },
     {
       "path": "tools/validate_data.py",
-      "size_bytes": 99630,
-      "sha256": "ba9732dcebf3973157d5c326e71ab1aff0855f19e61cc4e689630ffd4a517514"
+      "size_bytes": 103091,
+      "sha256": "14fdcd8a4ed8c8b247b260b3ded0434da6e49edd129137f62bcc2a75c574fea4"
     }
   ]
 }

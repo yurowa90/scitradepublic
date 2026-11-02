@@ -206,7 +206,7 @@ export type BookingStatus = 'BOOKED' | 'DEPARTED' | 'CANCELLED';
 
 export interface OfferState {
   id: string;
-  status: 'OPEN' | 'ACCEPTED' | 'EXPIRED';
+  status: 'OPEN' | 'ACCEPTED' | 'EXPIRED' | 'LOCKED';
 }
 
 export interface Contract {
@@ -228,7 +228,7 @@ export interface Contract {
   /** 고객에게 청구할 계약 금액: 직접 무역은 상품 판매대금, 운송 주선은 서비스 대금. */
   saleAmountMinor: number;
   creditTermId?: CreditTermId;
-  creditEligible?: { dateRule: boolean; limitBlocked: ('D15' | 'D30')[] };
+  creditEligible?: { dateRule: boolean; limitBlocked: ('D15' | 'D30')[]; stageLocked?: ('D15' | 'D30')[] };
   currency: Currency;
   originCityId: string;
   destinationCityId: string;
@@ -554,7 +554,12 @@ export interface CreditProfile {
   carryBpPerDay: number;
   recoveryBp: number;
 }
+export interface GrowthLadderConfig {
+  ladder: (typeof import('../../data/growth_ladder.json'))['items'][number];
+  debugAllUnlocked?: boolean;
+}
 export interface OperationsConfig {
+  growth?: GrowthLadderConfig;
   risk?: { profile: RiskProfile; layers: RiskLayer[]; credit?: CreditProfile };
   market: {
     publish: { firstDay: number; intervalDays: number; lastDay: number; validDays: number };
@@ -609,7 +614,22 @@ export interface UnaffordableRecord {
   day: number; buyOfferId: string; sellOfferId: string; quantity: number;
   shortfalls: { currency: Currency; needMinor: number; availableMinor: number }[];
 }
+export type CompanyStage = 'S1' | 'S2' | 'S3' | 'S4';
+export type CustomerTrust = 'NEW' | 'REGULAR' | 'PRIORITY';
+export interface GrowthMetrics {
+  delivered: number; onTimeBp: number | null; claimsSinceLastEval: number;
+  regularCustomers: number; priorityCustomers: number; contributionKrw: number;
+  netWorthGainKrw: number; claimRateBp: number | null;
+}
+export interface GrowthState {
+  stage: CompanyStage;
+  reachedDays: { S1: number; S2?: number; S3?: number; S4?: number };
+  customers: Record<string, { level: CustomerTrust; changedDay: number | null; lastChangeReason: 'UP' | 'DOWN_LATE' | 'DOWN_CLAIM' | null }>;
+  lastEvalDay: number | null;
+  evaluations: { day: number; stageBefore: CompanyStage; stageAfter: CompanyStage; metrics: GrowthMetrics }[];
+}
 export interface OperationsState {
+  growth?: GrowthState;
   unaffordable?: UnaffordableRecord[];
   batches: MarketBatch[]; offers: OfferDef[];
   expansions: { id: string; orderedDay: number; effectiveDay: number }[];

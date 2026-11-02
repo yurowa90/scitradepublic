@@ -828,6 +828,19 @@
       "scope_note": "M2a-5 실험: 화장품 + 조미김의 반복 견적·수량 고르기·창고·고정비·환전·지급 불이행. 측정용이며 학생 선택 목록에는 넣지 않는다."
     },
     {
+      "id": "SCENARIO_M2_OPS_LADDER",
+      "ipo_enabled": false,
+      "securities_enabled": false,
+      "source_refs": [
+        "DESIGN-V04"
+      ],
+      "stage": "M2",
+      "base_scenario_id": "SCENARIO_M2_OPS_CREDIT",
+      "growth_ladder_ref": "growth_ladder.json#LADDER_CH1",
+      "title_ko": "회사 성장 사다리 — 평택 본사 90일 운영",
+      "scope_note": "화면 지시서 전까지 학생 선택 목록에 넣지 않음"
+    },
+    {
       "id": "SCENARIO_M2_OPS_CREDIT",
       "ipo_enabled": false,
       "securities_enabled": false,

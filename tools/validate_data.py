@@ -1059,6 +1059,53 @@ def check_credit_profile(p, rules):
               prefix + 'credit_limits: limit_minor = credit_limit_unit_minor × lots 불일치')
 
 
+def check_growth_ladder(tables):
+    """성장 문턱·해금 참조와 너비 중립, 잠금 설명을 검사한다."""
+    document = {'$schema': '../schemas/growth_ladder.schema.json',
+                'items': list(tables['growth_ladder'].values())}
+    before = len(ERRORS)
+    shape(document, read('schemas/growth_ladder.schema.json'), 'growth_ladder')
+    if len(ERRORS) != before:
+        return
+    market = read('data/market_rules.json')
+    for ladder in document['items']:
+        prefix = ladder['id']
+        stages = ladder['stages']
+        check([s['id'] for s in stages] == ['S1', 'S2', 'S3', 'S4']
+              and [s['order'] for s in stages] == [1, 2, 3, 4], prefix + ': 단계 순서')
+        check(not stages[0]['requires'], prefix + ': S1 문턱은 비어 있어야 함')
+        for key in ('delivered_min', 'on_time_bp_min'):
+            values = [s['requires'][key] for s in stages if key in s['requires']]
+            check(values == sorted(values), prefix + ': 문턱 역전 ' + key)
+        linked = [resolve_scenario(tables['scenarios'], sid) for sid in tables['scenarios']
+                  if tables['scenarios'][sid].get('growth_ladder_ref') == 'growth_ladder.json#' + prefix]
+        check(bool(linked), prefix + ': 연결 시나리오 없음')
+        for scenario in linked:
+            rule = next((r for r in market['rule_sets'] if r['id'] == scenario['operations']['market_rules_ref'].split('#')[-1]), None)
+            if rule is None:
+                check(False, prefix + ': rule_set 없음')
+                continue
+            goods = [g for s in stages for g in s['unlocks']['goods']]
+            check(set(goods) == set(rule['index']['goods']) and len(goods) == len(set(goods)),
+                  prefix + ': 없는 품목 또는 해금 누락·중복')
+            profile = next(p for p in market['risk_profiles'] if p['id'] == scenario['risk_setup']['profile_id'])
+            terms = [t for s in stages for t in s['unlocks']['credit_terms']]
+            check(set(terms) == {t['id'] for t in profile['credit_terms']} and len(terms) == len(set(terms)),
+                  prefix + ': 외상 조건 해금 누락·중복·참조')
+        slots = {'stage', 'metric', 'current', 'required', 'next_eval_day'}
+        for kind, texts in ladder['lock_texts'].items():
+            for key, text in texts.items():
+                check(bool(text.strip()), prefix + ': 잠금 문구 빠짐 ' + kind + '/' + key)
+                check(set(re.findall(r'\{([^{}]+)\}', text)) <= slots, prefix + ': 허용되지 않은 자리표시')
+            check(set(re.findall(r'\{([^{}]+)\}', texts['how_to_unlock_ko'])) == slots,
+                  prefix + ': 여는 방법 자리표시 누락')
+        check(bool(ladder['trust']['simplification_note_ko'].strip()), prefix + ': 게임 가정 설명 누락')
+    for sid, scenario in tables['scenarios'].items():
+        ref = scenario.get('growth_ladder_ref')
+        if ref is not None:
+            check(ref in {'growth_ladder.json#' + key for key in tables['growth_ladder']}, sid + ': 사다리 참조 오류')
+
+
 def check_market_rules(documents, tables):
     """반복 시장과 운영 시나리오의 참조·경제 조건을 검사한다."""
     market = documents['market_rules']
@@ -1073,7 +1120,11 @@ def check_market_rules(documents, tables):
               and all(k in profile.get('collections', {}) for k in ('carry_bp_per_day', 'recovery_bp'))
               and {g['grade'] for g in profile.get('collections', {}).get('grades', []) if 'p_default_bp' in g} == {'A', 'B', 'C'},
               f'{sid}: risk_setup.profile_id는 외상 칸이 모두 있는 위험 프로필이어야 함')
-        check(scenario.get('base_scenario_id') in EXPERIMENT_SCENARIO_IDS,
+        # 위험 설정을 선언한 조상의 기반을 검사한다(사다리는 CREDIT을 상속한다).
+        owner = tables['scenarios'][sid]
+        while 'risk_setup' not in owner and owner.get('base_scenario_id') in tables['scenarios']:
+            owner = tables['scenarios'][owner['base_scenario_id']]
+        check(owner.get('base_scenario_id') in EXPERIMENT_SCENARIO_IDS,
               f'{sid}: risk_setup.base_scenario_id는 실험 시나리오여야 함')
     names = {p['id'] for p in market['counterparties']}
     party_counts = {}
@@ -1324,7 +1375,7 @@ def main():
     curriculum = index(documents['curriculum_links']['links'], 'curriculum')
     source_ids = set(tables['sources'])
     expected_counts = {'world': 21, 'goods': 9, 'routes': 6, 'employees': 6,
-                       'market_offers': 7, 'scenarios': 11, 'securities': 4,
+                       'market_offers': 7, 'scenarios': 12, 'growth_ladder': 1, 'securities': 4,
                        'events': 6, 'culture_activities': 6, 'venues': 5, 'contacts': 2,
                        'observed_fx_sample': 10, 'characters': 85, 'organization': 7,
                        'job_templates': 6, 'team_synergies': 3, 'ui_screens': 15}
@@ -1505,6 +1556,7 @@ def main():
     check_m2a(tables)
     validate_cancellation(tables['scenarios'], tables['routes'])
     check_market_rules(documents, tables)
+    check_growth_ladder(tables)
     check_experiments(documents, tables)
 
     acceptance = read('tests/acceptance_cases.json')

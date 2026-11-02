@@ -1,0 +1,372 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "$schema",
+    "items"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "stages",
+          "trust",
+          "lock_texts"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "enum": [
+              "LADDER_CH1"
+            ]
+          },
+          "stages": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "order",
+                "name_ko",
+                "requires",
+                "unlocks"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "enum": [
+                    "S1",
+                    "S2",
+                    "S3",
+                    "S4"
+                  ]
+                },
+                "order": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 4
+                },
+                "name_ko": {
+                  "type": "string"
+                },
+                "requires": {
+                  "type": "object",
+                  "required": [],
+                  "properties": {
+                    "delivered_min": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "on_time_bp_min": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 10000
+                    },
+                    "claims_since_last_eval_max": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "trusted_customers_min": {
+                      "type": "object",
+                      "required": [
+                        "level",
+                        "count"
+                      ],
+                      "properties": {
+                        "level": {
+                          "type": "string",
+                          "enum": [
+                            "REGULAR",
+                            "PRIORITY"
+                          ]
+                        },
+                        "count": {
+                          "type": "integer",
+                          "minimum": 0
+                        }
+                      },
+                      "additionalProperties": false
+                    },
+                    "contribution_krw_min": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "net_worth_gain_krw_min": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "claim_rate_bp_max": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 10000
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "unlocks": {
+                  "type": "object",
+                  "required": [
+                    "goods",
+                    "credit_terms"
+                  ],
+                  "properties": {
+                    "goods": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "uniqueItems": true
+                    },
+                    "credit_terms": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "BASE",
+                          "D15",
+                          "D30"
+                        ]
+                      },
+                      "uniqueItems": true
+                    },
+                    "lot_cap_multiple": {
+                      "type": "integer",
+                      "minimum": 1
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false
+            },
+            "uniqueItems": true,
+            "minItems": 4
+          },
+          "trust": {
+            "type": "object",
+            "required": [
+              "NEW",
+              "REGULAR",
+              "PRIORITY",
+              "evidence_grade",
+              "simplification_note_ko"
+            ],
+            "properties": {
+              "NEW": {
+                "type": "object",
+                "required": [
+                  "requires",
+                  "sale_premium_bp",
+                  "credit_grade_step"
+                ],
+                "properties": {
+                  "requires": {
+                    "type": "object",
+                    "required": [],
+                    "properties": {
+                      "on_time_with_customer_min": {
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "claims_since_last_eval_max": {
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "recent_n": {
+                        "type": "integer",
+                        "minimum": 1
+                      },
+                      "recent_claims_max": {
+                        "type": "integer",
+                        "minimum": 0
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  "sale_premium_bp": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 10000
+                  },
+                  "credit_grade_step": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 1
+                  }
+                },
+                "additionalProperties": false
+              },
+              "REGULAR": {
+                "type": "object",
+                "required": [
+                  "requires",
+                  "sale_premium_bp",
+                  "credit_grade_step"
+                ],
+                "properties": {
+                  "requires": {
+                    "type": "object",
+                    "required": [],
+                    "properties": {
+                      "on_time_with_customer_min": {
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "claims_since_last_eval_max": {
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "recent_n": {
+                        "type": "integer",
+                        "minimum": 1
+                      },
+                      "recent_claims_max": {
+                        "type": "integer",
+                        "minimum": 0
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  "sale_premium_bp": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 10000
+                  },
+                  "credit_grade_step": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 1
+                  }
+                },
+                "additionalProperties": false
+              },
+              "PRIORITY": {
+                "type": "object",
+                "required": [
+                  "requires",
+                  "sale_premium_bp",
+                  "credit_grade_step"
+                ],
+                "properties": {
+                  "requires": {
+                    "type": "object",
+                    "required": [],
+                    "properties": {
+                      "on_time_with_customer_min": {
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "claims_since_last_eval_max": {
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "recent_n": {
+                        "type": "integer",
+                        "minimum": 1
+                      },
+                      "recent_claims_max": {
+                        "type": "integer",
+                        "minimum": 0
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  "sale_premium_bp": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 10000
+                  },
+                  "credit_grade_step": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 1
+                  }
+                },
+                "additionalProperties": false
+              },
+              "evidence_grade": {
+                "type": "string",
+                "enum": [
+                  "GAME_ASSUMPTION"
+                ]
+              },
+              "simplification_note_ko": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          },
+          "lock_texts": {
+            "type": "object",
+            "required": [
+              "GOOD",
+              "CREDIT_TERM",
+              "LOT_CAP"
+            ],
+            "properties": {
+              "GOOD": {
+                "type": "object",
+                "required": [
+                  "reason_ko",
+                  "how_to_unlock_ko"
+                ],
+                "properties": {
+                  "reason_ko": {
+                    "type": "string"
+                  },
+                  "how_to_unlock_ko": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false
+              },
+              "CREDIT_TERM": {
+                "type": "object",
+                "required": [
+                  "reason_ko",
+                  "how_to_unlock_ko"
+                ],
+                "properties": {
+                  "reason_ko": {
+                    "type": "string"
+                  },
+                  "how_to_unlock_ko": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false
+              },
+              "LOT_CAP": {
+                "type": "object",
+                "required": [
+                  "reason_ko",
+                  "how_to_unlock_ko"
+                ],
+                "properties": {
+                  "reason_ko": {
+                    "type": "string"
+                  },
+                  "how_to_unlock_ko": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      },
+      "uniqueItems": true,
+      "minItems": 1
+    }
+  },
+  "additionalProperties": false
+}

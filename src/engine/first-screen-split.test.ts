@@ -51,14 +51,31 @@ function lazyOnlyExports(file: string, source: string) {
     for (const n of nodes) if (n.type !== 'ExportNamedDeclaration') walk(n, (x) => { if (x.type === 'Identifier' && x.name === e.local.name) count++; });
     if (count !== 1) return [];
     const declaration = nodes.find((n: any) => n.id?.name === e.local.name) as any;
-    // 허용하는 setter는 인수 하나를 모듈 변수에 넣는 문장 하나뿐이다.
+    // 축약 이름 대신 본문과 모듈 변수를 확인한다. 호출·계산·추가 문장은 허용하지 않는다.
+    const variables = nodes.filter((n) => n.type === 'VariableDeclaration').flatMap((n: any) => n.declarations);
+    const moduleSlot = (name: string) => variables.some((v: any) => v.id.type === 'Identifier' && v.id.name === name && v.init === null);
     const statements = declaration?.body?.body;
+    if (declaration?.type !== 'FunctionDeclaration' || declaration.async || declaration.generator) return [`허용하지 않은 export: ${e.local.name}`];
     const assignment = statements?.[0]?.expression;
-    const setter = declaration?.type === 'FunctionDeclaration' && declaration.params.length === 1 && statements.length === 1
-      && assignment?.type === 'AssignmentExpression' && assignment.operator === '='
-      && assignment.left.type === 'Identifier' && assignment.right.type === 'Identifier'
+    const setter = declaration.params.length === 1 && declaration.params[0].type === 'Identifier' && statements.length === 1
+      && statements[0].type === 'ExpressionStatement' && assignment?.type === 'AssignmentExpression' && assignment.operator === '='
+      && assignment.left.type === 'Identifier' && moduleSlot(assignment.left.name) && assignment.right.type === 'Identifier'
       && assignment.right.name === declaration.params[0].name;
-    return [setter ? 'setOpsData' : `허용하지 않은 export: ${e.local.name}`];
+    const guard = statements?.[0], result = statements?.[1];
+    const thrown = guard?.consequent?.argument;
+    const message = thrown?.arguments?.[0];
+    const literal = message?.type === 'Identifier' ? variables.find((v: any) => v.id.name === message.name)?.init : message;
+    const missing = literal?.type === 'Literal' ? literal.value
+      : literal?.type === 'TemplateLiteral' && literal.expressions.length === 0 ? literal.quasis[0]?.value.cooked : undefined;
+    const getter = declaration.params.length === 0 && statements.length === 2
+      && guard.type === 'IfStatement' && guard.alternate === null
+      && guard.test.type === 'UnaryExpression' && guard.test.operator === '!'
+      && guard.test.argument.type === 'Identifier' && moduleSlot(guard.test.argument.name)
+      && guard.consequent.type === 'ThrowStatement' && (thrown?.type === 'CallExpression' || thrown?.type === 'NewExpression')
+      && thrown.callee.type === 'Identifier' && thrown.callee.name === 'Error' && thrown.arguments.length === 1
+      && missing === '운영 자료 없음'
+      && result.type === 'ReturnStatement' && result.argument?.type === 'Identifier' && result.argument.name === guard.test.argument.name;
+    return [setter ? '등록부 setter' : getter ? '등록부 getter' : `허용하지 않은 export: ${e.local.name}`];
   }).sort();
 }
 
@@ -87,7 +104,7 @@ describe('TASK-0076 첫 화면 경계', () => {
     expect(dynamic.sort()).toEqual(['./card-najeon.css', './culture-panel', './office-scene', './ops-screens', './situation']);
     expect(dataImports).toEqual(['../content/ops-data-entry.ts']);
   });
-  it('실제 빌드의 고유 자료 표지는 지연에만 있고 탐지 허용 목록은 setOpsData 하나다', async () => {
+  it('실제 빌드의 고유 자료 표지는 지연에만 있고 단순 등록부만 export된다', async () => {
     const fs = await nodeFiles(), dir = '/tmp/T76-test-dist';
     const vite = await import('vite' as string) as { build(config: object): Promise<unknown> };
     const bundle = await import('../../tools/bundle-size.mjs' as string) as { collectDist(path: string): {
@@ -104,9 +121,21 @@ describe('TASK-0076 첫 화면 경계', () => {
       for (const c of dist.firstScreen) expect(fs.readFileSync(`${dir}/${c.file}`, 'utf8')).not.toContain(marker);
       const index = dist.firstScreen.find((c) => /index-.*\.js$/.test(c.file))!;
       const code = fs.readFileSync(`${dir}/${index.file}`, 'utf8');
-      expect(lazyOnlyExports(index.file, code)).toEqual(['setOpsData']);
-      // 허용 목록을 늘린 V13은 탐지되지 않은 함수가 추가되어도 실패한다.
-      expect(lazyOnlyExports(index.file, code)).not.toEqual(['creditTermOptions', 'setOpsData']);
+      expect(lazyOnlyExports(index.file, code)).toEqual(['등록부 getter', '등록부 setter', '등록부 setter', '등록부 setter']);
+      // 같은 이름이라도 부수 효과·계산·다른 반환값·다른 오류는 허용하지 않는다.
+      const registry = 'let slot; const missing="운영 자료 없음"; ';
+      const inspect = (body: string) => lazyOnlyExports('음성.js', registry + body + ' export { extra };');
+      expect(inspect('function extra(value){slot=value}')).toEqual(['등록부 setter']);
+      expect(inspect('function extra(){if(!slot)throw Error(missing);return slot}')).toEqual(['등록부 getter']);
+      for (const body of [
+        'function extra(value){slot=calculate(value)}',
+        'function extra(value){slot=value;effect()}',
+        'function extra(value){other=value}',
+        'function extra(){if(!slot)throw Error(missing);return calculate(slot)}',
+        'function extra(){if(!slot)throw Error(missing);return other}',
+        'function extra(){if(!slot)throw Error("다른 오류");return slot}',
+        'function extra(){if(!slot)throw Error(missing);effect();return slot}',
+      ]) expect(inspect(body)).toEqual(['허용하지 않은 export: extra']);
     } finally { fs.rmSync(dir, { recursive: true, force: true }); }
   }, 60000);
 });

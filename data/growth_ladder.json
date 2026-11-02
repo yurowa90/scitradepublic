@@ -1,0 +1,124 @@
+{
+  "$schema": "../schemas/growth_ladder.schema.json",
+  "items": [
+    {
+      "id": "LADDER_CH1",
+      "stages": [
+        {
+          "id": "S1",
+          "order": 1,
+          "name_ko": "창업",
+          "requires": {},
+          "unlocks": {
+            "goods": [
+              "COSMETICS"
+            ],
+            "credit_terms": [
+              "BASE"
+            ],
+            "lot_cap_multiple": 1
+          }
+        },
+        {
+          "id": "S2",
+          "order": 2,
+          "name_ko": "정기 거래 확보",
+          "requires": {
+            "delivered_min": 3,
+            "on_time_bp_min": 8000,
+            "claims_since_last_eval_max": 0
+          },
+          "unlocks": {
+            "goods": [],
+            "credit_terms": [
+              "D15"
+            ],
+            "lot_cap_multiple": 2
+          }
+        },
+        {
+          "id": "S3",
+          "order": 3,
+          "name_ko": "품목·시장 확장 자격",
+          "requires": {
+            "delivered_min": 8,
+            "on_time_bp_min": 8500,
+            "trusted_customers_min": {
+              "level": "REGULAR",
+              "count": 1
+            },
+            "contribution_krw_min": 3000000
+          },
+          "unlocks": {
+            "goods": [
+              "SEASONED_LAVER"
+            ],
+            "credit_terms": [
+              "D30"
+            ],
+            "lot_cap_multiple": 3
+          }
+        },
+        {
+          "id": "S4",
+          "order": 4,
+          "name_ko": "업계 인정(가상 평판)",
+          "requires": {
+            "delivered_min": 15,
+            "on_time_bp_min": 9000,
+            "claim_rate_bp_max": 1000,
+            "net_worth_gain_krw_min": 2000000,
+            "trusted_customers_min": {
+              "level": "PRIORITY",
+              "count": 1
+            }
+          },
+          "unlocks": {
+            "goods": [],
+            "credit_terms": []
+          }
+        }
+      ],
+      "trust": {
+        "NEW": {
+          "requires": {},
+          "sale_premium_bp": 0,
+          "credit_grade_step": 0
+        },
+        "REGULAR": {
+          "requires": {
+            "on_time_with_customer_min": 2,
+            "claims_since_last_eval_max": 0
+          },
+          "sale_premium_bp": 100,
+          "credit_grade_step": 0
+        },
+        "PRIORITY": {
+          "requires": {
+            "on_time_with_customer_min": 5,
+            "recent_n": 5,
+            "recent_claims_max": 1
+          },
+          "sale_premium_bp": 250,
+          "credit_grade_step": 1
+        },
+        "evidence_grade": "GAME_ASSUMPTION",
+        "simplification_note_ko": "납기 지연과 클레임이 거래처 신뢰를 바꾸는 규칙은 현실 인과가 확인되지 않은 게임 가정입니다."
+      },
+      "lock_texts": {
+        "GOOD": {
+          "reason_ko": "회사 단계에서 아직 열리지 않은 품목입니다.",
+          "how_to_unlock_ko": "{stage} 조건 {metric}: 현재 {current}, 필요 {required}. 다음 평가일은 {next_eval_day}일입니다."
+        },
+        "CREDIT_TERM": {
+          "reason_ko": "회사 단계에서 아직 열리지 않은 외상 조건입니다.",
+          "how_to_unlock_ko": "{stage} 조건 {metric}: 현재 {current}, 필요 {required}. 다음 평가일은 {next_eval_day}일입니다."
+        },
+        "LOT_CAP": {
+          "reason_ko": "현재 회사 단계의 물량 상한을 넘었습니다.",
+          "how_to_unlock_ko": "{stage} 조건 {metric}: 현재 {current}, 필요 {required}. 다음 평가일은 {next_eval_day}일입니다."
+        }
+      }
+    }
+  ]
+}

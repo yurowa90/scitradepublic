@@ -78,7 +78,8 @@ it('저장 열거 목록 전부가 엔진 타입과 일치하고 통화·계정�
   expect(() => checkSaveShape(base)).not.toThrow();
   for (const name of Object.keys(targets) as (keyof EnumTypes)[]) {
     for (const value of Object.keys(SAVE_ENUMS[name])) {
-      const s = structuredClone(base);
+      const s = name === 'offerStatus' && value === 'LOCKED'
+        ? createGame(loadScenario('SCENARIO_M2_OPS_LADDER')) : structuredClone(base);
       set(s, targets[name], value);
       expect(() => checkSaveShape(s), `${name}: ${value}`).not.toThrow();
     }

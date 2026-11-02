@@ -11,6 +11,53 @@ from pathlib import Path
 import validate_data as validator
 
 
+class GrowthLadderTest(unittest.TestCase):
+    def setUp(self):
+        self.tables = {name: {row['id']: row for row in validator.read('data/' + name + '.json')['items']}
+                       for name in ('growth_ladder', 'scenarios')}
+        self.ladder = self.tables['growth_ladder']['LADDER_CH1']
+
+    def errors(self):
+        validator.ERRORS.clear()
+        validator.check_growth_ladder(self.tables)
+        return list(validator.ERRORS)
+
+    def test_current_ladder(self):
+        self.assertEqual(self.errors(), [])
+
+    def test_reversed_threshold(self):
+        self.ladder['stages'][2]['requires']['delivered_min'] = 2
+        self.assertTrue(any('문턱 역전' in e for e in self.errors()))
+
+    def test_unknown_good(self):
+        self.ladder['stages'][2]['unlocks']['goods'] = ['UNKNOWN']
+        self.assertTrue(any('없는 품목' in e for e in self.errors()))
+
+    def test_missing_lock_text(self):
+        del self.ladder['lock_texts']['GOOD']['reason_ko']
+        self.assertTrue(any('missing reason_ko' in e for e in self.errors()))
+
+    def test_s4_width_neutral(self):
+        self.ladder['stages'][3]['requires']['goods_count_min'] = 2
+        self.assertTrue(any('unexpected goods_count_min' in e for e in self.errors()))
+
+    def test_missing_evidence(self):
+        del self.ladder['trust']['evidence_grade']
+        self.assertTrue(any('missing evidence_grade' in e for e in self.errors()))
+
+    def test_unknown_placeholder(self):
+        self.ladder['lock_texts']['GOOD']['how_to_unlock_ko'] += '{secret}'
+        self.assertTrue(any('허용되지 않은 자리표시' in e for e in self.errors()))
+
+    def test_missing_good(self):
+        self.ladder['stages'][2]['unlocks']['goods'] = []
+        self.assertTrue(any('해금 누락' in e for e in self.errors()))
+
+    def test_debug_is_not_data(self):
+        self.ladder['debug_all_unlocked'] = True
+        self.assertTrue(any('unexpected debug_all_unlocked' in e for e in self.errors()))
+
+
 class ConservationTest(unittest.TestCase):
     def setUp(self):
         self.tables = {'characters': {item['id']: item for item in
@@ -1460,7 +1507,7 @@ class MarketRulesTest(unittest.TestCase):
         new_parties.update(g['buy_counterparty_id'] for r in rules for g in r['trade']['goods'])
         added_parties = new_parties - old_parties
         added_goods = {g['good_id'] for g in rules[1]['trade']['goods']} - {g['good_id'] for g in old['trade']['goods']}
-        for sid in (*validator.EXPERIMENT_SCENARIO_IDS, 'SCENARIO_M2_OPS_CREDIT'):
+        for sid in (*validator.EXPERIMENT_SCENARIO_IDS, 'SCENARIO_M2_OPS_CREDIT', 'SCENARIO_M2_OPS_LADDER'):
             del t['scenarios'][sid]
         for oid in set(scenarios[0]['offer_ids']) - set(base['offer_ids']):
             del t['market_offers'][oid]

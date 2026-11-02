@@ -7,7 +7,7 @@ import { spriteHtml } from './sprite';
 import { esc } from './html';
 import { CULTURE_KO, cultureAnchorBlocks, culturePanelScreen, cultureResultTasks, cultureTab, cultureToastText } from './culture';
 import { employedDefs } from '../engine/employees';
-import { LOADABLE_SCENARIO_IDS, scenarioTitle, isOperationsScenario, assumptionNotes, loadScenario, type AnyScenarioId } from '../content/scenario';
+import { LOADABLE_SCENARIO_IDS, SELECTABLE_SCENARIO_IDS, scenarioTitle, isOperationsScenario, assumptionNotes, loadScenario, type AnyScenarioId } from '../content/scenario';
 import { cargoSpace, goodOf, routeBetween, unitKo } from '../engine/catalog';
 import { cityName, createGame, listSailings, openDay, planCommands, planState, restartWithSameSeed } from '../engine/engine';
 import { formatMoney } from '../engine/money';
@@ -41,7 +41,7 @@ const BUILD_ID = typeof __BUILD_ID__ === 'string' ? __BUILD_ID__ : 'dev';
 const SAVE_KEY = 'scitrade-save';
 /** M1 시제품이 쓰던 저장 칸. 불러오기만 하며, 저장 형식 1~6은 엔진이 명시 문구로 거절한다. */
 const LEGACY_SAVE_KEY = 'scitrade-m1-save';
-const SCENARIO_TITLES = Object.fromEntries(LOADABLE_SCENARIO_IDS.map((id) => [id, scenarioTitle(id)])) as Record<(typeof LOADABLE_SCENARIO_IDS)[number], string>;
+const SCENARIO_TITLES = Object.fromEntries(SELECTABLE_SCENARIO_IDS.map((id) => [id, scenarioTitle(id)])) as Record<(typeof SELECTABLE_SCENARIO_IDS)[number], string>;
 
 let opsScreens: typeof import('./ops-screens') | null = null;
 let culturePanel: typeof import('./culture-panel') | null = null;
@@ -411,7 +411,7 @@ function topbar(): string {
     <div class="brand"><span class="logo">Scitrade</span><span class="sub">시제품 · 모든 숫자는 가상값 · 빌드 ${esc(BUILD_ID)}</span></div>
     <label class="scenario">시나리오
       <select data-action="scenario">
-        ${LOADABLE_SCENARIO_IDS.map((id) => `<option value="${id}" ${id === config.id ? 'selected' : ''}>${esc(SCENARIO_TITLES[id])}</option>`).join('')}
+        ${SELECTABLE_SCENARIO_IDS.map((id) => `<option value="${id}" ${id === config.id ? 'selected' : ''}>${esc(SCENARIO_TITLES[id])}</option>`).join('')}
       </select>
     </label>
     <div class="actions">

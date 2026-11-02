@@ -1,3 +1,4 @@
+import { growthEngine } from '../content/ops-data';
 import { unaffordableRecords } from './unaffordable';
 import { carryAccrued, defaultFor, divHalfAway, isRiskRules, claimFor, collectionPlan, receivedForInvoice, dutyFor, surchargeBp, surchargeWeek, tariffSchedule } from './risk';
 import { batchZero, generateBatch, offerDef, prepWorkUnitsFor } from './market';
@@ -68,7 +69,7 @@ export function createGame(config: ScenarioConfig): GameState {
       reason: '시작 자금',
     });
   }
-  return {
+  const s: GameState = {
     meta: {
       engineVersion: ENGINE_VERSION,
       rulesVersion: config.rules.rulesVersion,
@@ -112,6 +113,8 @@ export function createGame(config: ScenarioConfig): GameState {
     closedDays: [],
     log: [],
   };
+  if (config.operations?.growth) growthEngine()[1](s, config);
+  return s;
 }
 
 /** 예약한 출항편들이 차지한 무게·부피 합계 (취소된 예약 제외). */
@@ -300,7 +303,7 @@ function nextContractIds(s: GameState) {
 export interface CreditTermCheck {
   allowed: boolean; reasonKo: string | null; saleAmountMinor: number; paymentDueDay: number;
   grade: string; limitMinor: number; exposureMinor: number;
-  dateRule: boolean; limitBlocked: ('D15' | 'D30')[];
+  dateRule: boolean; limitBlocked: ('D15' | 'D30')[]; stageLocked?: ('D15' | 'D30')[];
 }
 
 /** 인수와 공개 선택지가 공유하는 순수 판정. 자금·수량 검사는 인수 경로가 이어서 한다. */
@@ -310,14 +313,16 @@ export function creditTermCheck(s: GameState, config: ScenarioConfig, buyOfferId
   const due = config.terms.paymentDueDay ?? sell?.paymentDueDay ?? config.campaignDays;
   const result: CreditTermCheck = { allowed: true, reasonKo: null, saleAmountMinor: (sell?.unitPriceMinor ?? 0) * quantity,
     paymentDueDay: due, grade: '', limitMinor: 0, exposureMinor: 0, dateRule: false, limitBlocked: [] };
-  const reject = (reasonKo: string): CreditTermCheck => ({ ...result, allowed: false, reasonKo });
+  const finish = (value: CreditTermCheck) => config.operations?.growth ? growthEngine()[4](s, config, value, termId) : value;
+  const reject = (reasonKo: string): CreditTermCheck => finish({ ...result, allowed: false, reasonKo });
   if (!buy || !sell || buy.kind !== 'supplier' || sell.kind !== 'customer') return reject('이 시나리오에 없는 견적입니다.');
   if (config.rules.rulesVersion !== 'M2a-rules-4') {
     return termId === undefined ? result : reject('외상 조건은 이 규칙에서 쓸 수 없습니다');
   }
   const risk = config.operations?.risk, credit = risk?.credit;
   if (!credit || credit.profileId !== risk.profile.id) throw new Error('외상 설정이 없거나 위험 프로필과 다릅니다');
-  const grade = risk.profile.collections.byCounterparty.find((r) => r.counterpartyId === sell.counterpartyId)?.grade;
+  let grade = risk.profile.collections.byCounterparty.find((r) => r.counterpartyId === sell.counterpartyId)?.grade;
+  if (config.operations?.growth) grade = growthEngine()[6](s, config, sell.counterpartyId, grade);
   const limit = credit.limits.find((r) => r.grade === grade);
   if (!grade || !limit) throw new Error(`외상 등급·한도가 없습니다: ${sell.counterpartyId}`);
   result.grade = grade; result.limitMinor = limit.limitMinor;
@@ -346,7 +351,7 @@ export function creditTermCheck(s: GameState, config: ScenarioConfig, buyOfferId
   result.saleAmountMinor = amount(term); result.paymentDueDay = due + term.days;
   if (term.id !== 'BASE' && !fitsDate(term)) return reject('외상 기간이 캠페인 안에 끝나지 않습니다');
   if (term.id !== 'BASE' && !fitsLimit(term)) return reject('외상 한도 초과');
-  return result;
+  return finish(result);
 }
 
 export interface TradeFundsCheck {
@@ -379,6 +384,10 @@ function acceptTrade(s: GameState, config: ScenarioConfig, buyOfferId: string, s
   const buy = offerDef(s, config, buyOfferId);
   const sell = offerDef(s, config, sellOfferId);
   if (!buy || !sell || buy.kind !== 'supplier' || sell.kind !== 'customer') return '이 시나리오에 없는 견적입니다.';
+  if (config.operations?.growth) {
+    const reason = growthEngine()[7](s, config, [buy, sell]);
+    if (reason) return reason;
+  }
   for (const offer of [buy, sell]) {
     const closed = offerOpen(s, offer);
     if (closed) return closed;
@@ -432,7 +441,7 @@ function acceptTrade(s: GameState, config: ScenarioConfig, buyOfferId: string, s
     saleAmountMinor: credit.saleAmountMinor,
     ...(config.rules.rulesVersion === 'M2a-rules-4' ? {
       creditTermId: creditTermId ?? 'BASE',
-      creditEligible: { dateRule: credit.dateRule, limitBlocked: credit.limitBlocked },
+      creditEligible: { dateRule: credit.dateRule, limitBlocked: credit.limitBlocked, ...(credit.stageLocked ? { stageLocked: credit.stageLocked } : {}) },
     } : {}),
     currency: sell.currency,
     originCityId: buy.cityId,
@@ -946,9 +955,11 @@ export function commitDay(
   if (s.operations && config.operations) {
     const pub = config.operations.market.publish, next = day + 1;
     if (next <= pub.lastDay && (next - pub.firstDay) % pub.intervalDays === 0) {
+      if (config.operations.growth) growthEngine()[2](s, config, day);
       const generated = generateBatch(s.rng.seed, (next - pub.firstDay) / pub.intervalDays, s.operations.batches.at(-1)!.index, config);
       s.operations.batches.push(generated.batch); s.operations.offers.push(...generated.offers);
       s.offers.push(...generated.offers.map((o) => ({ id: o.id, status: 'OPEN' as const })));
+      if (config.operations.growth) growthEngine()[3](s, config, generated.offers);
     }
   }
   }
@@ -957,6 +968,7 @@ export function commitDay(
   s.day = day + 1;
   s.phase = s.day > config.campaignDays || s.operations?.outcome === 'FAILED' ? 'ENDED' : 'PENDING_OPEN';
   if (s.operations && s.operations.outcome !== 'FAILED' && s.phase === 'ENDED') s.operations.outcome = 'COMPLETED';
+  if (config.operations?.growth && s.phase === 'ENDED') growthEngine()[5](s, config);
   // 종료 표시까지 반영한 상태를 검증한다. 기존 검사는 마감 날짜를 유지한다.
   const checking = { ...s, day };
   checkInvariants(checking, config, { closing: true });

@@ -11,3 +11,5 @@ export function creditTermOptions(s: GameState, config: ScenarioConfig, buyOffer
     return { termId, allowed, reasonKo, saleAmountMinor, paymentDueDay, grade, limitMinor, exposureMinor };
   });
 }
+
+export { companyStageReport, customerTrustReport } from './growth-ladder';

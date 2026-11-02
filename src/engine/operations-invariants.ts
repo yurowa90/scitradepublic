@@ -1,3 +1,4 @@
+import { growthEngine } from '../content/ops-data';
 import { isRiskRules, receivedForInvoice, referenceRate } from './risk';
 import { offerDef } from './market';
 // 저장 복원과 마감이 함께 쓰는 운영 규칙 검사. 경제 값은 수정하지 않는다.
@@ -11,6 +12,7 @@ export function operationsProblems(s: GameState, config: ScenarioConfig, closing
   if ((s.operations !== null) !== (config.operations !== null)) problems.push('설정과 상태의 operations 유무가 다릅니다');
   const o = s.operations, c = config.operations;
   if (!o || !c) return problems;
+  if (c.growth) problems.push(...growthEngine()[9](s, config));
   const seen = new Set<string>();
   let previousDay = 0;
   for (const row of o.unaffordable ?? []) {

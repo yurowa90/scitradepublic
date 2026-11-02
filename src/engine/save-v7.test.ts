@@ -46,7 +46,7 @@ describe('TASK-0074 형식 7·놓친 견적', () => {
     const { id: _d, titleKo: _e, baseScenarioId: _f, ...expected } = simConfigV2(loadScenario('SCENARIO_M2_OPS_COS_LAVER'), 'R4', 'RISK_PROFILE_V2');
     expect(actual).toStrictEqual(expected);
     expect(ALL_SCENARIO_IDS).not.toContain('SCENARIO_M2_OPS_CREDIT');
-    expect(LOADABLE_SCENARIO_IDS).toEqual([...ALL_SCENARIO_IDS, 'SCENARIO_M2_OPS_CREDIT']);
+    expect(LOADABLE_SCENARIO_IDS).toEqual([...ALL_SCENARIO_IDS, 'SCENARIO_M2_OPS_CREDIT', 'SCENARIO_M2_OPS_LADDER']);
   });
   it.each([2001, 2002, 2003])('시드 %i의 날마다 형식 7 왕복과 다시 열기는 바이트·기록이 같다', (seed) => {
     const c = config(seed); let checked = 0;

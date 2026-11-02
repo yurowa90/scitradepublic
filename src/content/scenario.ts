@@ -1,5 +1,5 @@
 import { withRiskLevelV2 } from '../engine/risk';
-import { opsData } from './ops-data';
+import { opsData, growthEngine } from './ops-data';
 import type { OperationsConfig, RiskProfile, Task } from '../engine/types';
 import { applyBasisPoints } from '../engine/money';
 // data/*.json의 DESIGN fixture를 엔진 시나리오 설정으로 변환한다 (M1 거래 한 건, M2a 복수 계약).
@@ -45,7 +45,8 @@ export const SCENARIO_IDS = [...M2_SCENARIO_IDS, ...M1_SCENARIO_IDS] as const;
 export const OPERATIONS_SCENARIO_IDS = ['SCENARIO_M2_OPERATIONS'] as const;
 export const EXPERIMENT_SCENARIO_IDS = ['SCENARIO_M2_OPS_COSMETICS', 'SCENARIO_M2_OPS_COS_LAVER'] as const;
 export const ALL_SCENARIO_IDS = [...SCENARIO_IDS, ...OPERATIONS_SCENARIO_IDS] as const;
-export const LOADABLE_SCENARIO_IDS = [...ALL_SCENARIO_IDS, 'SCENARIO_M2_OPS_CREDIT'] as const;
+export const LOADABLE_SCENARIO_IDS = [...ALL_SCENARIO_IDS, 'SCENARIO_M2_OPS_CREDIT', 'SCENARIO_M2_OPS_LADDER'] as const;
+export const SELECTABLE_SCENARIO_IDS = LOADABLE_SCENARIO_IDS.filter((id) => id !== 'SCENARIO_M2_OPS_LADDER');
 export type AnyScenarioId = (typeof ALL_SCENARIO_IDS)[number];
 export type M1ScenarioId = (typeof M1_SCENARIO_IDS)[number];
 export type ScenarioId = (typeof SCENARIO_IDS)[number];
@@ -441,6 +442,7 @@ export function loadScenario(id: (typeof LOADABLE_SCENARIO_IDS)[number] | (typeo
     dataVersion: (packageStatus as { package_version: string }).package_version,
     dataBasis: 'DESIGN',
   };
+  if (s.growth_ladder_ref) growthEngine()[0](config, s);
   const setup = s.risk_setup as { level: 'R4'; profile_id: string } | undefined;
   return setup ? withRiskLevelV2(config, setup.level, loadRiskProfile(setup.profile_id), loadCreditProfile(setup.profile_id)) : config;
 }

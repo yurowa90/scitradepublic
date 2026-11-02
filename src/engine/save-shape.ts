@@ -1,3 +1,4 @@
+import { growthEngine } from '../content/ops-data';
 import type { OfferDef, MarketBatch, OperationsState, DefaultEvent } from './types';
 // 저장은 외부 입력이다. 판본 7의 필수 필드·배열 원소까지 확인한 뒤 엔진에 넘긴다.
 import { ACCOUNT_KIND } from './ledger';
@@ -18,7 +19,7 @@ export const SAVE_ENUMS = {
   currency: MINOR_PER_MAJOR,
   account: ACCOUNT_KIND,
   phase: { PENDING_OPEN: true, AWAITING_INPUT: true, ENDED: true } satisfies Record<DayPhase, true>,
-  offerStatus: { OPEN: true, ACCEPTED: true, EXPIRED: true } satisfies Record<OfferState['status'], true>,
+  offerStatus: { OPEN: true, ACCEPTED: true, EXPIRED: true, LOCKED: true } satisfies Record<OfferState['status'], true>,
   contractKind: { DIRECT_TRADE: true, FORWARDING: true } satisfies Record<Contract['kind'], true>,
   contractStatus: { ACTIVE: true, IN_PROGRESS: true, COMPLETED: true, CANCELLED: true } satisfies Record<Contract['status'], true>,
   cargoOwner: { COMPANY: true, CUSTOMER: true } satisfies Record<CargoLot['owner'], true>,
@@ -89,7 +90,7 @@ const stateShape = obj({
       warningEvent: nullable(defaultEvent), dangerEvent: nullable(defaultEvent),
       optionalKrwSpendBeforeFirstUnpaid: array(obj({ entryId: str, day: int, amountMinor: int, reasonKo: str })),
       usdCommitmentsSinceIncurred: array(obj({ kind: oneOf('CONTRACT', 'SPACE_CONTRACT'), id: str, day: int, amountMinor: int })) })),
-  } satisfies Record<keyof OperationsState, Shape>)),
+  } satisfies Record<Exclude<keyof OperationsState, 'growth'>, Shape>)),
   meta: obj({ engineVersion: str, rulesVersion: str, dataVersion: str, scenarioId: str }),
   day: scalar((v) => Number.isSafeInteger(v) && (v as number) >= 1),
   phase: enumShape('phase'),
@@ -145,6 +146,12 @@ const stateShape = obj({
 export function checkSaveShape(value: unknown): asserts value is GameState {
   stateShape(value, 'state');
   const s = value as GameState;
+  if (s.meta.scenarioId === 'SCENARIO_M2_OPS_LADDER') {
+    growthEngine()[8](s);
+  } else if ((s.operations && Object.hasOwn(s.operations, 'growth')) || s.offers.some((o) => o.status === 'LOCKED')
+    || s.contracts.some((c) => c.creditEligible && Object.hasOwn(c.creditEligible, 'stageLocked'))) {
+    throw new Error('사다리에서만 허용합니다.');
+  }
   if (s.meta.rulesVersion === 'M2a-rules-4') {
     if (!Array.isArray(s.operations?.unaffordable)) throw new Error('state.operations.unaffordable: 배열이 필요합니다.');
   } else if (s.operations && Object.hasOwn(s.operations, 'unaffordable')) {

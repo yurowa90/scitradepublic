@@ -1,10 +1,12 @@
-import { afterEach, describe, expect, it, vi } from 'vitest';
-import { OPS_DATA_MISSING, opsData, resetOpsDataForTest, setOpsData } from './ops-data';
+import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest';
+import { OPS_DATA_MISSING, opsData, resetOpsDataForTest, setOpsData, growthData, setGrowthData, growthEngine, setGrowthEngine } from './ops-data';
 import { EXPERIMENT_SCENARIO_IDS, LOADABLE_SCENARIO_IDS, M1_SCENARIO_IDS, isOperationsScenario, loadCreditProfile, loadRiskProfile, loadScenario, riskProfiles, scenarioTitle } from './scenario';
 import { loadSaveText } from '../ui/session';
 
-const original = opsData();
-afterEach(() => { setOpsData(original); vi.doUnmock('./ops-data'); vi.resetModules(); });
+const original = opsData(), originalGrowth = growthData();
+let originalEngine: ReturnType<typeof growthEngine>;
+beforeAll(() => { originalEngine = growthEngine(); });
+afterEach(() => { setOpsData(original); setGrowthData(originalGrowth); setGrowthEngine(originalEngine); vi.doUnmock('./ops-data'); vi.resetModules(); });
 
 describe('TASK-0076 운영 자료 계약', () => {
   it.each([...LOADABLE_SCENARIO_IDS, ...EXPERIMENT_SCENARIO_IDS])('가벼운 판별은 %s의 전체 설정과 같다', (id) => {
@@ -31,13 +33,15 @@ describe('TASK-0076 운영 자료 계약', () => {
   it.each(['같은 객체', '같은 내용의 다른 객체', '한 칸이 다른 객체'])('진입 모듈 재평가: %s', async (kind) => {
     // 등록부의 정적 인스턴스를 유지하고 진입 모듈만 다시 평가한다.
     vi.resetModules();
-    vi.doMock('./ops-data', () => ({ OPS_DATA_MISSING, opsData, setOpsData }));
+    vi.doMock('./ops-data', () => ({ OPS_DATA_MISSING, opsData, setOpsData, growthData, setGrowthData, growthEngine, setGrowthEngine }));
     const data = await import('../../data/market_rules.json');
     const value = kind === '같은 객체' ? data.default : structuredClone(data.default);
     if (kind === '한 칸이 다른 객체') value.counterparties[0]!.name_ko += ' 변경';
     if (kind !== '같은 객체') expect(value).not.toBe(data.default);
     if (kind === '같은 내용의 다른 객체') expect(value).toEqual(data.default);
+    resetOpsDataForTest();
     setOpsData(value);
+    setGrowthData(structuredClone(originalGrowth));
     if (kind === '한 칸이 다른 객체') await expect(import('./ops-data-entry')).rejects.toThrow(new Error('운영 자료가 이미 등록되어 있습니다.'));
     else await expect(import('./ops-data-entry')).resolves.toBeDefined();
     expect(opsData()).toBe(value);
