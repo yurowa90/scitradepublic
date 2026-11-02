@@ -1,0 +1,1763 @@
+{
+  "schema_version": "0.1.0",
+  "dataset_version": "0.3.0",
+  "edition": "2022-33",
+  "current_edition_comparison_status": "completed",
+  "source_document": "docs/DESIGN_v0.4.md",
+  "source_sections": [
+    "17",
+    "17.1",
+    "18"
+  ],
+  "source_document_sha256": "2d4fc927109c49386fdd236a3e46ce58833e4a90679baa590897f0f837fe1e76",
+  "scope": {
+    "element_category": "지식·이해 내용 요소",
+    "achievement_standard_codes_included": true,
+    "selection_categories": [
+      "common",
+      "general",
+      "career"
+    ],
+    "convergent_selection_included": false
+  },
+  "notes": [
+    "원문 내용요소는 설계 v0.3 표의 표현을 보존했다. 사회과 표에는 긴 내용요소 중 선택한 부분 명칭이 포함된다.",
+    "이 변환 작업은 설계 문서와 JSON의 일치 여부를 검증했다. 교육부 원문 재검토나 현행 후속 개정 대조를 새로 완료했다는 뜻이 아니다.",
+    "printed_page는 인쇄쪽, pdf_page는 확인한 쪽수 참고용 재게시본 기준으로 인쇄쪽+6이다. 공식 고시 ZIP은 HWP 배포본이다.",
+    "application_notes는 교육과정 원문이 아닌 게임 설계 해석이다. 원문의 우선순위 수식어와 본문을 그대로 보존했다.",
+    "priority는 application_notes에서 추출한 우선순위 표지 배열이며 P0 보고, P0 설명, P1 계산, P1 상세 등의 수식어를 보존한다."
+  ],
+  "counts": {
+    "total": 47,
+    "by_group": {
+      "social": 18,
+      "ethics": 6,
+      "science": 23
+    },
+    "by_selection": {
+      "common": 13,
+      "general": 14,
+      "career": 20
+    }
+  },
+  "sources": [
+    {
+      "id": "C1-SOC",
+      "title": "사회과 교육과정",
+      "appendix_number": 7,
+      "edition": "2022-33",
+      "official_notice_url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0",
+      "official_archive_url": "https://www.moe.go.kr/boardCnts/fileDown.do?m=&s=moe&fileSeq=1512facbda6c234a1641ac7e9c156ca2",
+      "official_document_format": "hwp",
+      "pdf_page_offset": 6,
+      "pagination_reference_id_in_design": "C2",
+      "verification_status": "source_design_records_official_hwp_comparison",
+      "current_edition_comparison_status": "completed",
+      "pagination_pdf_total_pages": 316,
+      "current_edition_source": {
+        "notice": "국가교육위원회고시 제2024-3호",
+        "edunet_list_url": "https://www.edunet.net/clssFlCtgr/list/5",
+        "pdf_sha256": "7383ec75add6dae0d1c2138ecfe36dc2c762ab980a96db4aafccface33979e06",
+        "hwp_sha256": "8dd9846e71822afea14809993de892396d1f9ed1238ce1f8461733909d6b2044",
+        "pdf_total_pages": 317
+      }
+    },
+    {
+      "id": "C1-ETH",
+      "title": "도덕과 교육과정",
+      "appendix_number": 6,
+      "edition": "2022-33",
+      "official_notice_url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0",
+      "official_archive_url": "https://www.moe.go.kr/boardCnts/fileDown.do?m=&s=moe&fileSeq=1512facbda6c234a1641ac7e9c156ca2",
+      "official_document_format": "hwp",
+      "pdf_page_offset": 6,
+      "pagination_reference_id_in_design": "C6",
+      "verification_status": "source_design_records_official_hwp_comparison",
+      "current_edition_comparison_status": "completed",
+      "current_edition_source": {
+        "notice": "교육부 고시 제2022-33호(이후 개정 고시의 대상 별책에 없음)"
+      }
+    },
+    {
+      "id": "C1-SCI",
+      "title": "과학과 교육과정",
+      "appendix_number": 9,
+      "edition": "2022-33",
+      "official_notice_url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0",
+      "official_archive_url": "https://www.moe.go.kr/boardCnts/fileDown.do?m=&s=moe&fileSeq=1512facbda6c234a1641ac7e9c156ca2",
+      "official_document_format": "hwp",
+      "pdf_page_offset": 6,
+      "pagination_reference_id_in_design": "C3",
+      "verification_status": "source_design_records_official_hwp_comparison",
+      "current_edition_comparison_status": "completed",
+      "pagination_pdf_total_pages": 292,
+      "current_edition_source": {
+        "notice": "교육부 고시 제2022-33호(이후 개정 고시의 대상 별책에 없음)"
+      }
+    }
+  ],
+  "links": [
+    {
+      "id": "SOC01",
+      "group": "social",
+      "selection": "common",
+      "subject": "한국사1",
+      "knowledge_elements": [
+        "국제 관계와 대외 교류",
+        "국제 질서의 변동과 개항"
+      ],
+      "source_id": "C1-SOC",
+      "source_url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0",
+      "printed_page": 94,
+      "pdf_page": 100,
+      "edition": "2022-33",
+      "edition_comparison_status": "same_in_current_edition",
+      "application_notes": "P1: 오래된 항구·창고의 거래 기록을 읽는 지사 이야기. 보존·개발·지역 관계를 함께 고려",
+      "priority": [
+        "P1"
+      ],
+      "achievement_standards": [
+        {
+          "code": "[10한사1-02-01]",
+          "sentence_ko": "근대 이전 국제 관계와 대외 교류의 시대적 특징을 비교한다.",
+          "basis": "직접",
+          "keyword_ko": "국제 관계와 대외 교류"
+        },
+        {
+          "code": "[10한사1-03-01]",
+          "sentence_ko": "조선의 개항을 국제 질서의 변동과 연관하여 분석한다.",
+          "basis": "직접",
+          "keyword_ko": "조선의 개항을 국제 질서의 변동과 연관하여"
+        }
+      ],
+      "achievement_standards_source_id": "MOE-2022-33-HWP",
+      "current_edition_text": "2024-3",
+      "current_printed_page": 94
+    },
+    {
+      "id": "SOC02",
+      "group": "social",
+      "selection": "common",
+      "subject": "한국사2",
+      "knowledge_elements": [
+        "산업화의 성과와 사회·환경 문제",
+        "외환 위기의 극복과 사회·문화 변동"
+      ],
+      "source_id": "C1-SOC",
+      "source_url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0",
+      "printed_page": 95,
+      "pdf_page": 101,
+      "edition": "2022-33",
+      "edition_comparison_status": "same_in_current_edition",
+      "application_notes": "P1: 수출기업의 성장과 구조조정 기록. 외화 자금·고용·환경 투자에 얽힌 선택을 역사적 맥락에서 설명",
+      "priority": [
+        "P1"
+      ],
+      "achievement_standards": [
+        {
+          "code": "[10한사2-02-04]",
+          "sentence_ko": "산업화의 성과를 파악하고, 그것이 사회 및 환경에 미친 영향을 인식한다.",
+          "basis": "직접",
+          "keyword_ko": "산업화의 성과를 파악하고, 그것이 사회 및 환경에 미친 영향"
+        },
+        {
+          "code": "[10한사2-03-02]",
+          "sentence_ko": "외환 위기의 극복 과정을 이해하고, 사회와 문화의 변동을 파악한다.",
+          "basis": "직접",
+          "keyword_ko": "외환 위기의 극복 과정을 이해하고, 사회와 문화의 변동"
+        }
+      ],
+      "achievement_standards_source_id": "MOE-2022-33-HWP",
+      "current_edition_text": "2024-3",
+      "current_printed_page": 95
+    },
+    {
+      "id": "SOC03",
+      "group": "social",
+      "selection": "common",
+      "subject": "통합사회1",
+      "knowledge_elements": [
+        "자연환경",
+        "환경문제",
+        "교통·통신과 과학기술의 발달"
+      ],
+      "source_id": "C1-SOC",
+      "source_url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0",
+      "printed_page": 108,
+      "pdf_page": 114,
+      "edition": "2022-33",
+      "edition_comparison_status": "same_in_current_edition",
+      "application_notes": "P0: 기상에 따른 항만 지연과 정보 제공. P1: 물류 기술 도입이 비용·공간·업무를 바꾸는 이야기",
+      "priority": [
+        "P0",
+        "P1"
+      ],
+      "achievement_standards": [
+        {
+          "code": "[10통사1-03-01]",
+          "sentence_ko": "자연환경이 인간의 생활에 미치는 영향에 관한 과거와 현재의 사례를 조사하여 분석하고, 안전하고 쾌적한 환경에서 살아가는 것이 시민의 권리임을 주장한다.",
+          "basis": "직접",
+          "keyword_ko": "자연환경이 인간의 생활에 미치는 영향"
+        },
+        {
+          "code": "[10통사1-03-03]",
+          "sentence_ko": "환경 문제 해결을 위한 정부, 시민사회, 기업 등의 다양한 노력을 조사하고, 생태시민으로서 실천 방안을 모색한다.",
+          "basis": "직접",
+          "keyword_ko": "환경 문제 해결을 위한 정부, 시민사회, 기업 등의 다양한 노력"
+        },
+        {
+          "code": "[10통사1-05-02]",
+          "sentence_ko": "교통⋅통신 및 과학기술의 발달과 함께 나타난 생활공간과 생활양식의 변화 양상을 조사하고, 이에 따른 문제점의 해결 방안을 제안한다.",
+          "basis": "직접",
+          "keyword_ko": "교통⋅통신 및 과학기술의 발달"
+        }
+      ],
+      "achievement_standards_source_id": "MOE-2022-33-HWP",
+      "current_edition_text": "2024-3",
+      "current_printed_page": 108
+    },
+    {
+      "id": "SOC04",
+      "group": "social",
+      "selection": "common",
+      "subject": "통합사회1",
+      "knowledge_elements": [
+        "문화권",
+        "문화 상대주의와 보편윤리",
+        "다문화 사회"
+      ],
+      "source_id": "C1-SOC",
+      "source_url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0",
+      "printed_page": 108,
+      "pdf_page": 114,
+      "edition": "2022-33",
+      "edition_comparison_status": "same_in_current_edition",
+      "application_notes": "P0: 현지 거래처의 요구를 확인하는 대화·직원 협업. 국적에 따라 정직성·능력을 고정하지 않음",
+      "priority": [
+        "P0"
+      ],
+      "activity_ids": [
+        "CA02"
+      ],
+      "achievement_standards": [
+        {
+          "code": "[10통사1-04-01]",
+          "sentence_ko": "자연환경과 인문환경의 영향을 받아 형성된 다양한 문화권의 특징과 삶의 방식을 탐구한다.",
+          "basis": "직접",
+          "keyword_ko": "다양한 문화권의 특징과 삶의 방식"
+        },
+        {
+          "code": "[10통사1-04-03]",
+          "sentence_ko": "문화적 차이에 대한 상대주의적 태도의 필요성을 이해하고, 보편 윤리의 차원에서 자문화와 타문화를 평가한다.",
+          "basis": "직접",
+          "keyword_ko": "상대주의적 태도의 필요성을 이해하고, 보편 윤리의 차원에서"
+        },
+        {
+          "code": "[10통사1-04-04]",
+          "sentence_ko": "다문화 사회의 현황을 조사하고, 문화적 다양성을 존중하는 태도를 바탕으로 갈등 해결 방안을 모색한다.",
+          "basis": "직접",
+          "keyword_ko": "다문화 사회의 현황"
+        }
+      ],
+      "achievement_standards_source_id": "MOE-2022-33-HWP",
+      "current_edition_text": "2024-3",
+      "current_printed_page": 108
+    },
+    {
+      "id": "SOC05",
+      "group": "social",
+      "selection": "common",
+      "subject": "통합사회2",
+      "knowledge_elements": [
+        "국제 분업과 무역",
+        "경제 주체의 역할",
+        "지속가능발전"
+      ],
+      "source_id": "C1-SOC",
+      "source_url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0",
+      "printed_page": 115,
+      "pdf_page": 121,
+      "edition": "2022-33",
+      "edition_comparison_status": "same_in_current_edition",
+      "application_notes": "P0: 조달·운송·소비의 연결, 계약 비용과 환경 자료를 함께 보는 핵심 플레이",
+      "priority": [
+        "P0"
+      ],
+      "achievement_standards": [
+        {
+          "code": "[10통사2-03-04]",
+          "sentence_ko": "자원, 노동, 자본의 지역 분포에 따른 국제 분업과 무역의 필요성을 이해하고, 지속가능발전에 기여하는 국제무역의 방안을 탐색한다.",
+          "basis": "직접",
+          "keyword_ko": "국제 분업과 무역의 필요성"
+        },
+        {
+          "code": "[10통사2-03-02]",
+          "sentence_ko": "합리적 선택의 의미와 그 한계를 파악하고, 지속가능발전을 위해 요청되는 정부, 기업가, 노동자, 소비자의 바람직한 역할과 책임에 관해 탐구한다.",
+          "basis": "해설",
+          "keyword_ko": "정부, 기업가, 노동자, 소비자의 바람직한 역할과 책임",
+          "basis_note_ko": "‘경제 주체’라는 낱말은 해설에 있다. 문장은 정부·기업가·노동자·소비자를 열거한다."
+        },
+        {
+          "code": "[10통사2-05-02]",
+          "sentence_ko": "지구적 차원에서 에너지 자원의 분포와 소비 실태를 파악하고, 기후변화에 대한 대응과 지속가능한 발전을 위한 제도적 방안과 개인적 노력을 탐구한다.",
+          "basis": "직접",
+          "keyword_ko": "지속가능한 발전을 위한 제도적 방안과 개인적 노력"
+        }
+      ],
+      "achievement_standards_source_id": "MOE-2022-33-HWP",
+      "current_edition_text": "2024-3",
+      "current_printed_page": 115
+    },
+    {
+      "id": "SOC06",
+      "group": "social",
+      "selection": "common",
+      "subject": "통합사회2",
+      "knowledge_elements": [
+        "정의의 실질적 기준",
+        "사회불평등",
+        "공간불평등"
+      ],
+      "source_id": "C1-SOC",
+      "source_url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0",
+      "printed_page": 115,
+      "pdf_page": 121,
+      "edition": "2022-33",
+      "edition_comparison_status": "same_in_current_edition",
+      "application_notes": "P0 보고: 물류 접근성과 가격 차이, 업무·보상 배분. 회사의 이익과 타인의 영향을 나란히 표시",
+      "priority": [
+        "P0 보고"
+      ],
+      "achievement_standards": [
+        {
+          "code": "[10통사2-02-01]",
+          "sentence_ko": "정의의 의미와 정의가 요구되는 이유를 파악하고, 다양한 사례를 통해 정의의 실질적 기준을 탐구한다.",
+          "basis": "직접",
+          "keyword_ko": "정의의 실질적 기준"
+        },
+        {
+          "code": "[10통사2-02-03]",
+          "sentence_ko": "사회 및 공간 불평등 현상의 사례를 조사하고, 정의로운 사회를 만들기 위한 다양한 제도와 시민으로서의 실천 방안을 제안한다.",
+          "basis": "직접",
+          "keyword_ko": "사회 및 공간 불평등 현상"
+        }
+      ],
+      "achievement_standards_source_id": "MOE-2022-33-HWP",
+      "current_edition_text": "2024-3",
+      "current_printed_page": 115
+    },
+    {
+      "id": "SOC07",
+      "group": "social",
+      "selection": "general",
+      "subject": "세계시민과 지리",
+      "knowledge_elements": [
+        "식량 자원의 생산과 소비",
+        "글로벌 경제와 공간적 불균등",
+        "다양한 기후와 인간 생활"
+      ],
+      "source_id": "C1-SOC",
+      "source_url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0",
+      "printed_page": 131,
+      "pdf_page": 137,
+      "edition": "2022-33",
+      "edition_comparison_status": "same_in_current_edition",
+      "application_notes": "P0: 커피 공급 차질과 대체 공급자 탐색. 나라 전체를 동일한 생산·기후 조건으로 취급하지 않음",
+      "priority": [
+        "P0"
+      ],
+      "activity_ids": [
+        "CA02"
+      ],
+      "achievement_standards": [
+        {
+          "code": "[12세지03-02]",
+          "sentence_ko": "주요 식량 자원의 생산과 소비 양상을 통해 세계 식량 문제가 발생하는 구조적 원인을 파악하고, 식량의 안정적인 생산과 공급을 위한 각국의 대응 전략을 비교⋅분석한다.",
+          "basis": "직접",
+          "keyword_ko": "식량 자원의 생산과 소비 양상"
+        },
+        {
+          "code": "[12세지03-03]",
+          "sentence_ko": "초국적 기업을 중심으로 한 글로벌 경제 체제의 형성 과정을 탐색하고, 글로벌 경제에서의 공간적 불균등을 해소하기 위한 국제적 협력과 개인적 실천 방안에 대해 조사한다.",
+          "basis": "직접",
+          "keyword_ko": "글로벌 경제에서의 공간적 불균등"
+        },
+        {
+          "code": "[12세지02-01]",
+          "sentence_ko": "세계의 다양한 기후에 대한 이해를 바탕으로 기후를 활용하거나 극복한 사례를 찾아 인간 생활과의 관계를 탐색한다.",
+          "basis": "직접",
+          "keyword_ko": "세계의 다양한 기후에 대한 이해를 바탕으로 기후를 활용하거나 극복한 사례를 찾아 인간 생활과의 관계"
+        }
+      ],
+      "achievement_standards_source_id": "MOE-2022-33-HWP",
+      "current_edition_text": "2024-3",
+      "current_printed_page": 131
+    },
+    {
+      "id": "SOC08",
+      "group": "social",
+      "selection": "general",
+      "subject": "세계사",
+      "knowledge_elements": [
+        "세계적 상품 교역",
+        "산업 혁명과 제국주의"
+      ],
+      "source_id": "C1-SOC",
+      "source_url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0",
+      "printed_page": 143,
+      "pdf_page": 149,
+      "edition": "2022-33",
+      "edition_comparison_status": "same_in_current_edition",
+      "application_notes": "P1: 커피·의류·항구에 얽힌 역사 기록. 과거의 교역을 피해와 권력관계까지 포함해 해석",
+      "priority": [
+        "P1"
+      ],
+      "achievement_standards": [
+        {
+          "code": "[12세사02-03]",
+          "sentence_ko": "세계적 상품 교역이 가져온 사회적⋅경제적 변화를 이해한다.",
+          "basis": "직접",
+          "keyword_ko": "세계적 상품 교역"
+        },
+        {
+          "code": "[12세사03-03]",
+          "sentence_ko": "제1⋅2차 산업 혁명이 가져온 사회, 경제, 생태환경의 변화를 분석한다.",
+          "basis": "직접",
+          "keyword_ko": "제1⋅2차 산업 혁명",
+          "basis_note_ko": "‘산업 혁명’은 문장에 있고 ‘제국주의’는 해설에만 있다."
+        }
+      ],
+      "achievement_standards_source_id": "MOE-2022-33-HWP",
+      "current_edition_text": "2024-3",
+      "current_printed_page": 143
+    },
+    {
+      "id": "SOC09",
+      "group": "social",
+      "selection": "general",
+      "subject": "사회와 문화",
+      "knowledge_elements": [
+        "사회 집단과 사회 조직의 유형 및 변화",
+        "미디어 메시지의 분석과 생산"
+      ],
+      "source_id": "C1-SOC",
+      "source_url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0",
+      "printed_page": 153,
+      "pdf_page": 159,
+      "edition": "2022-33",
+      "edition_comparison_status": "same_in_current_edition",
+      "application_notes": "P0: 업무량 급증에 따른 채용·외주·조직 변화와 거래 정보 확인. P1: 기업 관련 보도 검증",
+      "priority": [
+        "P0",
+        "P1"
+      ],
+      "achievement_standards": [
+        {
+          "code": "[12사문02-02]",
+          "sentence_ko": "사회 집단 및 사회 조직의 유형과 변화 양상에 대한 이해를 바탕으로 사회 집단 및 사회 조직이 개인의 사회생활과 사회적 관계에 미치는 영향을 설명한다.",
+          "basis": "직접",
+          "keyword_ko": "사회 집단 및 사회 조직의 유형과 변화 양상"
+        },
+        {
+          "code": "[12사문03-02]",
+          "sentence_ko": "미디어의 효과에 대한 이해를 바탕으로 미디어가 생산하는 메시지를 비판적으로 분석하고 대안적 메시지 생산에 능동적으로 참여한다.",
+          "basis": "직접",
+          "keyword_ko": "메시지를 비판적으로 분석하고 대안적 메시지 생산"
+        }
+      ],
+      "achievement_standards_source_id": "MOE-2022-33-HWP",
+      "current_edition_text": "2024-3",
+      "current_printed_page": 153
+    },
+    {
+      "id": "SOC10",
+      "group": "social",
+      "selection": "career",
+      "subject": "한국지리 탐구",
+      "knowledge_elements": [
+        "식품과 상품사슬",
+        "산업구조의 전환과 지역 변화"
+      ],
+      "source_id": "C1-SOC",
+      "source_url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0",
+      "printed_page": 169,
+      "pdf_page": 175,
+      "edition": "2022-33",
+      "edition_comparison_status": "same_in_current_edition",
+      "application_notes": "P1: 국내 공급업체·가공장·항구 연결과 창고 입지 선택",
+      "priority": [
+        "P1"
+      ],
+      "achievement_standards": [
+        {
+          "code": "[12한탐02-01]",
+          "sentence_ko": "식품의 생산, 유통, 소비과정을 조사함으로써 음식을 통한 생산자와 소비자, 상품, 장소의 연결성을 이해하고, 상품사슬을 조직하는 윤리적인 방식의 가능성과 한계를 파악한다.",
+          "basis": "직접",
+          "keyword_ko": "상품사슬을 조직하는 윤리적인 방식"
+        },
+        {
+          "code": "[12한탐03-03]",
+          "sentence_ko": "산업구조의 전환이 지역 경제에 미치는 영향을 이해하고, 이를 바탕으로 최근 급속하게 성장한 지역과 위기의 징후가 나타나는 지역의 성격과 특징을 비교한다.",
+          "basis": "직접",
+          "keyword_ko": "산업구조의 전환이 지역 경제에 미치는 영향"
+        }
+      ],
+      "achievement_standards_source_id": "MOE-2022-33-HWP",
+      "current_edition_text": "2024-3",
+      "current_printed_page": 169
+    },
+    {
+      "id": "SOC11",
+      "group": "social",
+      "selection": "career",
+      "subject": "도시의 미래 탐구",
+      "knowledge_elements": [
+        "도시 체계와 도시 공간 구조",
+        "지속가능성과 회복력을 높이는 도시 계획과 도시 혁신"
+      ],
+      "source_id": "C1-SOC",
+      "source_url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0",
+      "printed_page": 183,
+      "pdf_page": 189,
+      "edition": "2022-33",
+      "edition_comparison_status": "same_in_current_edition",
+      "application_notes": "P1: 도심·외곽 창고의 임대비·운송 접근성·침수 노출·주민 영향을 비교",
+      "priority": [
+        "P1"
+      ],
+      "achievement_standards": [
+        {
+          "code": "[12도탐02-01]",
+          "sentence_ko": "도시 간의 상호 작용과 교류에 의해 형성되는 도시 체계를 이해하고, 도시 공간 구조는 고정되지 않고 지속해서 재구성됨을 인식한다.",
+          "basis": "직접",
+          "keyword_ko": "도시 체계를 이해하고, 도시 공간 구조는 고정되지 않고 지속해서 재구성됨"
+        },
+        {
+          "code": "[12도탐04-01]",
+          "sentence_ko": "지속가능성과 회복력이 높은 도시가 되기 위한 요건에 대해 토의하고 이와 관련한 도시 계획 및 도시 혁신 사례를 탐구한다.",
+          "basis": "직접",
+          "keyword_ko": "지속가능성과 회복력이 높은 도시 … 도시 계획 및 도시 혁신"
+        }
+      ],
+      "achievement_standards_source_id": "MOE-2022-33-HWP",
+      "current_edition_text": "2024-3",
+      "current_printed_page": 183
+    },
+    {
+      "id": "SOC12",
+      "group": "social",
+      "selection": "career",
+      "subject": "동아시아 역사 기행",
+      "knowledge_elements": [
+        "동아시아 지역 내외 교류 양상의 다양화",
+        "지역 간 경제와 문화 교류 및 다문화 사회화"
+      ],
+      "source_id": "C1-SOC",
+      "source_url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0",
+      "printed_page": 197,
+      "pdf_page": 203,
+      "edition": "2022-33",
+      "edition_comparison_status": "same_in_current_edition",
+      "application_notes": "P1: 항구별 현지 파트너 이야기와 교류 기록. 현재의 거래 관행을 민족적 고정관념으로 설명하지 않음",
+      "priority": [
+        "P1"
+      ],
+      "achievement_standards": [
+        {
+          "code": "[12동역02-04]",
+          "sentence_ko": "이슬람과 유럽 세력의 참여를 통해 확대된 동아시아 교류의 모습을 탐구한다.",
+          "basis": "직접",
+          "keyword_ko": "이슬람과 유럽 세력의 참여를 통해 확대된 동아시아 교류"
+        },
+        {
+          "code": "[12동역04-02]",
+          "sentence_ko": "경제 및 대중문화 교류가 확대되는 모습을 이해하고, 다문화 사회의 현실을 파악하여 공존을 위한 노력을 모색한다.",
+          "basis": "직접",
+          "keyword_ko": "경제 및 대중문화 교류가 확대되는 모습 … 다문화 사회의 현실"
+        }
+      ],
+      "achievement_standards_source_id": "MOE-2022-33-HWP",
+      "current_edition_text": "2024-3",
+      "current_printed_page": 198
+    },
+    {
+      "id": "SOC13",
+      "group": "social",
+      "selection": "career",
+      "subject": "정치",
+      "knowledge_elements": [
+        "국제 사회의 갈등과 협력, 현실주의, 자유주의",
+        "국제 문제와 국제기구"
+      ],
+      "source_id": "C1-SOC",
+      "source_url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0",
+      "printed_page": 209,
+      "pdf_page": 215,
+      "edition": "2022-33",
+      "edition_comparison_status": "same_in_current_edition",
+      "application_notes": "P1: 통상 협력·갈등 시나리오에 대한 여러 해석과 대응. 플레이어는 회사 수준에서 조달·운송을 조정",
+      "priority": [
+        "P1"
+      ],
+      "achievement_standards": [
+        {
+          "code": "[12정치04-01]",
+          "sentence_ko": "국제 사회의 특징과 변화 과정을 이해하고 국제 정치를 바라보는 관점을 비교하여 분석한다.",
+          "basis": "해설",
+          "keyword_ko": "현실주의와 자유주의를 중심으로 국제 정치를 바라보는 관점"
+        },
+        {
+          "code": "[12정치04-04]",
+          "sentence_ko": "국제 사회에서 발생하는 다양한 갈등의 원인을 분석하고 세계시민으로서 갈등을 해결하는 자세를 갖는다.",
+          "basis": "직접",
+          "keyword_ko": "국제 사회에서 발생하는 다양한 갈등"
+        },
+        {
+          "code": "[12정치04-02]",
+          "sentence_ko": "다양한 국제 문제의 원인을 분석하고, 이를 해결하기 위해 국가를 비롯한 여러 주체가 수행하는 활동을 분석한다.",
+          "basis": "직접",
+          "keyword_ko": "다양한 국제 문제의 원인을 분석하고, 이를 해결하기 위해 국가를 비롯한 여러 주체가 수행하는 활동"
+        }
+      ],
+      "achievement_standards_source_id": "MOE-2022-33-HWP",
+      "current_edition_text": "2024-3",
+      "current_printed_page": 210
+    },
+    {
+      "id": "SOC14",
+      "group": "social",
+      "selection": "career",
+      "subject": "법과 사회",
+      "knowledge_elements": [
+        "계약, 불법행위",
+        "권리와 의무",
+        "근로자의 권리"
+      ],
+      "source_id": "C1-SOC",
+      "source_url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0",
+      "printed_page": 221,
+      "pdf_page": 227,
+      "edition": "2022-33",
+      "edition_comparison_status": "same_in_current_edition",
+      "application_notes": "P0: 납기·품질·책임·고용 조건을 확인하고 이행. 실제 법률 판단과 게임의 단순 계약 규칙을 구분",
+      "priority": [
+        "P0"
+      ],
+      "achievement_standards": [
+        {
+          "code": "[12법사01-02]",
+          "sentence_ko": "채권 관계와 관련된 기본적인 내용인 계약, 불법행위 등과 사적 자치를 이해하고, 이를 일상생활의 사례에 적용한다.",
+          "basis": "직접",
+          "keyword_ko": "계약, 불법행위 등과 사적 자치"
+        },
+        {
+          "code": "[12법사01-03]",
+          "sentence_ko": "물권 관계와 관련된 기본적인 내용인 부동산⋅동산에 관한 권리의 기능과 특징, 권리와 의무로 구성되는 법(률)관계를 이해하고, 이를 일상생활의 사례에 적용하여 법적 문제를 해결한다.",
+          "basis": "직접",
+          "keyword_ko": "권리와 의무로 구성되는 법(률)관계"
+        },
+        {
+          "code": "[12법사03-01]",
+          "sentence_ko": "법으로 보장되는 근로자의 권리를 이해하고, 이를 일상생활의 사례에 적용한다.",
+          "basis": "직접",
+          "keyword_ko": "법으로 보장되는 근로자의 권리"
+        }
+      ],
+      "achievement_standards_source_id": "MOE-2022-33-HWP",
+      "current_edition_text": "2024-3",
+      "current_printed_page": 222
+    },
+    {
+      "id": "SOC15",
+      "group": "social",
+      "selection": "career",
+      "subject": "경제",
+      "knowledge_elements": [
+        "합리적 선택",
+        "시장의 수요와 공급",
+        "자원 배분의 효율성과 형평성"
+      ],
+      "source_id": "C1-SOC",
+      "source_url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0",
+      "printed_page": 232,
+      "pdf_page": 238,
+      "edition": "2022-33",
+      "edition_comparison_status": "same_in_current_edition",
+      "application_notes": "P0: 한정된 자금·공간·업무 시간을 계약에 배분. 공급 차질의 비용 부담을 고객·회사·공급자 사이에서 조정",
+      "priority": [
+        "P0"
+      ],
+      "achievement_standards": [
+        {
+          "code": "[12경제01-03]",
+          "sentence_ko": "인간은 경제적 유인에 반응함을 인식하고, 편익과 비용을 고려하여 합리적으로 선택하는 능력과 한계 분석을 이용한 의사 결정 능력을 계발한다.",
+          "basis": "직접",
+          "keyword_ko": "편익과 비용을 고려하여 합리적으로 선택하는 능력"
+        },
+        {
+          "code": "[12경제02-01]",
+          "sentence_ko": "수요와 공급에 의한 시장 균형의 결정과 변동 원리를 파악하고, 이를 다양한 시장에 적용한다.",
+          "basis": "직접",
+          "keyword_ko": "수요와 공급에 의한 시장 균형의 결정과 변동 원리"
+        },
+        {
+          "code": "[12경제02-03]",
+          "sentence_ko": "시장 기능과 공공 부문의 활동을 비교하고, 자원 배분의 효율성과 형평성에 미치는 영향을 평가한다.",
+          "basis": "직접",
+          "keyword_ko": "자원 배분의 효율성과 형평성"
+        }
+      ],
+      "achievement_standards_source_id": "MOE-2022-33-HWP",
+      "current_edition_text": "2024-3",
+      "current_printed_page": 233
+    },
+    {
+      "id": "SOC16",
+      "group": "social",
+      "selection": "career",
+      "subject": "경제",
+      "knowledge_elements": [
+        "국제 거래와 무역 원리",
+        "무역 정책"
+      ],
+      "source_id": "C1-SOC",
+      "source_url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0",
+      "printed_page": 232,
+      "pdf_page": 238,
+      "edition": "2022-33",
+      "edition_comparison_status": "same_in_current_edition",
+      "application_notes": "P0: 조달처·거래비용·관세 발효일 비교. 기업의 싼 매입가만으로 국가의 비교우위를 판정하지 않음",
+      "priority": [
+        "P0"
+      ],
+      "achievement_standards": [
+        {
+          "code": "[12경제04-01]",
+          "sentence_ko": "개방된 국제 사회에서 국제 거래를 파악하고, 국가 간 상호 의존성이 증대하고 있음을 이해한다.",
+          "basis": "직접",
+          "keyword_ko": "국제 거래를 파악하고"
+        },
+        {
+          "code": "[12경제04-02]",
+          "sentence_ko": "비교 우위에 따른 특화와 교역을 중심으로 무역 원리를 이해하고, 자유 무역과 보호 무역 정책의 경제적 효과를 설명한다.",
+          "basis": "직접",
+          "keyword_ko": "무역 원리를 이해하고, 자유 무역과 보호 무역 정책의 경제적 효과"
+        }
+      ],
+      "achievement_standards_source_id": "MOE-2022-33-HWP",
+      "current_edition_text": "2024-3",
+      "current_printed_page": 233
+    },
+    {
+      "id": "SOC17",
+      "group": "social",
+      "selection": "career",
+      "subject": "경제",
+      "knowledge_elements": [
+        "외환 시장과 환율",
+        "경기 변동과 정책"
+      ],
+      "source_id": "C1-SOC",
+      "source_url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0",
+      "printed_page": 232,
+      "pdf_page": 238,
+      "edition": "2022-33",
+      "edition_comparison_status": "same_in_current_edition",
+      "application_notes": "P0: 계약·인도·결제 시점의 환율 차이. P1: 경기 상황과 수요·신용 조건 변화",
+      "priority": [
+        "P0",
+        "P1"
+      ],
+      "achievement_standards": [
+        {
+          "code": "[12경제04-03]",
+          "sentence_ko": "외환 시장에서 환율의 결정 원리를 이해하고, 환율 변동이 국가 경제와 개인의 경제생활에 미치는 영향을 탐구한다.",
+          "basis": "직접",
+          "keyword_ko": "외환 시장에서 환율의 결정 원리 … 환율 변동이 국가 경제와 개인의 경제생활에 미치는 영향"
+        },
+        {
+          "code": "[12경제03-03]",
+          "sentence_ko": "경기 변동의 의미와 요인을 이해하고, 경기 안정화 방안으로 재정 정책과 통화 정책을 분석한다.",
+          "basis": "직접",
+          "keyword_ko": "경기 변동의 의미와 요인 … 재정 정책과 통화 정책"
+        }
+      ],
+      "achievement_standards_source_id": "MOE-2022-33-HWP",
+      "current_edition_text": "2024-3",
+      "current_printed_page": 233
+    },
+    {
+      "id": "SOC18",
+      "group": "social",
+      "selection": "career",
+      "subject": "국제 관계의 이해",
+      "knowledge_elements": [
+        "공정 무역",
+        "팬데믹과 보건",
+        "지역 통합, 지역 기구"
+      ],
+      "source_id": "C1-SOC",
+      "source_url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0",
+      "printed_page": 242,
+      "pdf_page": 248,
+      "edition": "2022-33",
+      "edition_comparison_status": "same_in_current_edition",
+      "application_notes": "P1: 공급망 증빙을 요구하는 장기 고객·필수재 운송·지역 협정의 변화. 인증 여부와 실제 노동·환경 성과는 구분",
+      "priority": [
+        "P1"
+      ],
+      "achievement_standards": [
+        {
+          "code": "[12국관02-02]",
+          "sentence_ko": "공정 무역과 공적 개발 원조 등 국제 사회의 상생을 위한 노력을 조사하고, 다양한 행위 주체의 협력 방안을 탐색한다.",
+          "basis": "직접",
+          "keyword_ko": "공정 무역과 공적 개발 원조 등 국제 사회의 상생을 위한 노력"
+        },
+        {
+          "code": "[12국관03-01]",
+          "sentence_ko": "인류가 직면한 평화와 안전의 상황을 다각적으로 조사한다.",
+          "basis": "해설",
+          "keyword_ko": "전쟁과 테러, 팬데믹 등 현대 인류의 삶을 위협하는 물리적, 환경적, 문화적 요인들"
+        },
+        {
+          "code": "[12국관03-02]",
+          "sentence_ko": "개인, 국가, 국제 사회의 평화와 안전을 위협하는 요인을 정치, 경제, 사회, 문화의 다양한 영역에 걸쳐 파악하고, 이를 해결하기 위한 실천 방안을 탐색한다.",
+          "basis": "영역",
+          "keyword_ko": "평화와 안전의 보장"
+        },
+        {
+          "code": "[12국관04-03]",
+          "sentence_ko": "국제 사회에서 다양한 지역 통합이 이루어지는 현상과 그 이유를 확인하고, 지역 기구의 구성원으로서 우리나라의 역할을 토론한다.",
+          "basis": "직접",
+          "keyword_ko": "다양한 지역 통합 … 지역 기구의 구성원"
+        }
+      ],
+      "achievement_standards_source_id": "MOE-2022-33-HWP",
+      "current_edition_text": "2024-3",
+      "current_printed_page": 243
+    },
+    {
+      "id": "ETH01",
+      "group": "ethics",
+      "selection": "general",
+      "subject": "현대사회와 윤리",
+      "knowledge_elements": [
+        "직업윤리와 노동에 대한 존중"
+      ],
+      "source_id": "C1-ETH",
+      "source_url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0",
+      "printed_page": 34,
+      "pdf_page": 40,
+      "edition": "2022-33",
+      "edition_comparison_status": "same_in_current_edition",
+      "application_notes": "P0: EV05에서 채용·외주·업무 배분·납기 조정을 비교. 직원의 권리와 처리 용량을 함께 고려",
+      "priority": [
+        "P0"
+      ],
+      "achievement_standards": [
+        {
+          "code": "[12현윤04-01]",
+          "sentence_ko": "직업의 의의와 다양한 직업군에 따른 직업윤리를 제시할 수 있으며 공동체 발전을 위한 청렴한 삶과 노동의 가치에 대한 사회적 존중의 필요성을 설명할 수 있다.",
+          "basis": "직접",
+          "keyword_ko": "직업윤리 / 노동의 가치에 대한 사회적 존중"
+        }
+      ],
+      "achievement_standards_source_id": "MOE-2022-33-HWP",
+      "current_edition_text": "2022-33"
+    },
+    {
+      "id": "ETH02",
+      "group": "ethics",
+      "selection": "general",
+      "subject": "현대사회와 윤리",
+      "knowledge_elements": [
+        "분배 정의의 의미와 윤리적 쟁점들"
+      ],
+      "source_id": "C1-ETH",
+      "source_url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0",
+      "printed_page": 34,
+      "pdf_page": 40,
+      "edition": "2022-33",
+      "edition_comparison_status": "same_in_current_edition",
+      "application_notes": "P1: 자동화 이익을 임금·재교육·유보 자금에 어떻게 배분할지 협의",
+      "priority": [
+        "P1"
+      ],
+      "achievement_standards": [
+        {
+          "code": "[12현윤04-03]",
+          "sentence_ko": "공정한 분배를 이루기 위한 정책을 분배 정의 이론을 통해 비판 또는 정당화할 수 있으며, 사형 제도와 형벌을 교정적 정의의 관점에서 비판 또는 정당화할 수 있다.",
+          "basis": "직접",
+          "keyword_ko": "공정한 분배를 이루기 위한 정책을 분배 정의 이론을 통해 비판 또는 정당화"
+        }
+      ],
+      "achievement_standards_source_id": "MOE-2022-33-HWP",
+      "current_edition_text": "2022-33"
+    },
+    {
+      "id": "ETH03",
+      "group": "ethics",
+      "selection": "general",
+      "subject": "현대사회와 윤리",
+      "knowledge_elements": [
+        "경제생활에서 발생하는 윤리적 갈등"
+      ],
+      "source_id": "C1-ETH",
+      "source_url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0",
+      "printed_page": 34,
+      "pdf_page": 40,
+      "edition": "2022-33",
+      "edition_comparison_status": "same_in_current_edition",
+      "application_notes": "P1: 공급자의 노동 조건에 대한 자료를 확인하고 거래 유지·개선 요구·변경 판단",
+      "priority": [
+        "P1"
+      ],
+      "achievement_standards": [
+        {
+          "code": "[12현윤05-02]",
+          "sentence_ko": "의식주 생활과 관련된 윤리 문제와 경제생활에서 발생하는 도덕적 선과 이윤 추구 사이의 갈등 및 소비문화의 문제점을 윤리적 관점에서 비판할 수 있다.",
+          "basis": "직접",
+          "keyword_ko": "경제생활에서 발생하는 도덕적 선과 이윤 추구 사이의 갈등"
+        }
+      ],
+      "achievement_standards_source_id": "MOE-2022-33-HWP",
+      "current_edition_text": "2022-33"
+    },
+    {
+      "id": "ETH04",
+      "group": "ethics",
+      "selection": "general",
+      "subject": "현대사회와 윤리",
+      "knowledge_elements": [
+        "과학기술의 사회적 책임"
+      ],
+      "source_id": "C1-ETH",
+      "source_url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0",
+      "printed_page": 33,
+      "pdf_page": 39,
+      "edition": "2022-33",
+      "edition_comparison_status": "same_in_current_edition",
+      "application_notes": "P0 보고·P1 사건: 센서·자동화의 성능과 불확실성을 공개하고 도입 범위를 결정",
+      "priority": [
+        "P0 보고",
+        "P1 사건"
+      ],
+      "achievement_standards": [
+        {
+          "code": "[12현윤03-01]",
+          "sentence_ko": "과학기술 연구에 대한 다양한 관점을 조사하여 비교⋅설명할 수 있으며 이를 과학기술의 사회적 책임 문제에 적용하여 비판 또는 정당화할 수 있다.",
+          "basis": "직접",
+          "keyword_ko": "과학기술의 사회적 책임 문제"
+        }
+      ],
+      "achievement_standards_source_id": "MOE-2022-33-HWP",
+      "current_edition_text": "2022-33"
+    },
+    {
+      "id": "ETH05",
+      "group": "ethics",
+      "selection": "general",
+      "subject": "현대사회와 윤리",
+      "knowledge_elements": [
+        "환경 문제에 대한 윤리적 쟁점"
+      ],
+      "source_id": "C1-ETH",
+      "source_url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0",
+      "printed_page": 33,
+      "pdf_page": 39,
+      "edition": "2022-33",
+      "edition_comparison_status": "same_in_current_edition",
+      "application_notes": "P0 보고·P1 사건: 배출자료를 검토하거나 항만·창고 확장과 지역 환경의 영향을 살펴봄",
+      "priority": [
+        "P0 보고",
+        "P1 사건"
+      ],
+      "achievement_standards": [
+        {
+          "code": "[12현윤02-03]",
+          "sentence_ko": "자연을 바라보는 동⋅서양의 관점을 비교⋅설명할 수 있으며 오늘날 환경 문제의 사례와 심각성을 조사하고, 이에 대한 윤리적 해결 방안을 제시할 수 있다.",
+          "basis": "직접",
+          "keyword_ko": "오늘날 환경 문제의 사례와 심각성을 조사하고, 이에 대한 윤리적 해결 방안을 제시"
+        }
+      ],
+      "achievement_standards_source_id": "MOE-2022-33-HWP",
+      "current_edition_text": "2022-33"
+    },
+    {
+      "id": "ETH06",
+      "group": "ethics",
+      "selection": "career",
+      "subject": "인문학과 윤리",
+      "knowledge_elements": [
+        "기후위기와 지속가능한 삶"
+      ],
+      "source_id": "C1-ETH",
+      "source_url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0",
+      "printed_page": 62,
+      "pdf_page": 68,
+      "edition": "2022-33",
+      "edition_comparison_status": "same_in_current_edition",
+      "application_notes": "P1: 직원의 선택적 독서 기록과 고전의 관점으로 장기 전환 계획을 재검토. 환경 사건만으로 과목 전체 연계를 주장하지 않음",
+      "priority": [
+        "P1"
+      ],
+      "achievement_standards": [
+        {
+          "code": "[12인윤05-02]",
+          "sentence_ko": "기후위기 문제를 비판적으로 인식하고, 지속가능한 삶을 위해 인간과 자연에 대한 이분법적 관점을 넘어선 상생의 원칙들을 수립하여 일상에서 실천할 수 있다.",
+          "basis": "직접",
+          "keyword_ko": "기후위기 문제 / 지속가능한 삶"
+        }
+      ],
+      "achievement_standards_source_id": "MOE-2022-33-HWP",
+      "current_edition_text": "2022-33"
+    },
+    {
+      "id": "SCI01",
+      "group": "science",
+      "selection": "common",
+      "subject": "통합과학1",
+      "knowledge_elements": [
+        "기본량과 단위"
+      ],
+      "source_id": "C1-SCI",
+      "source_url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0",
+      "printed_page": 76,
+      "pdf_page": 82,
+      "edition": "2022-33",
+      "edition_comparison_status": "same_in_current_edition",
+      "application_notes": "P0: 질량·길이·시간 및 유도량의 단위 일관성, kg·t·m³와 공간 환산. 회계의 화폐 단위 검증은 별도로 수행",
+      "priority": [
+        "P0"
+      ],
+      "activity_ids": [
+        "CA02"
+      ],
+      "achievement_standards": [
+        {
+          "code": "[10통과1-01-02]",
+          "sentence_ko": "과학 탐구에서 중요한 기본량의 의미를 알고, 자연 현상을 기술하는 데 단위가 가지는 의미와 적용사례를 설명할 수 있다.",
+          "basis": "직접",
+          "keyword_ko": "기본량의 의미를 알고, 자연 현상을 기술하는 데 단위가 가지는 의미"
+        }
+      ],
+      "achievement_standards_source_id": "MOE-2022-33-HWP",
+      "current_edition_text": "2022-33"
+    },
+    {
+      "id": "SCI02",
+      "group": "science",
+      "selection": "common",
+      "subject": "통합과학1",
+      "knowledge_elements": [
+        "정보와 신호"
+      ],
+      "source_id": "C1-SCI",
+      "source_url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0",
+      "printed_page": 76,
+      "pdf_page": 82,
+      "edition": "2022-33",
+      "edition_comparison_status": "same_in_current_edition",
+      "application_notes": "P0: 냉동 화물의 온도 기록과 누락 자료 확인. P1: 센서의 측정·전송·판독을 구분하는 장비 투자",
+      "priority": [
+        "P0",
+        "P1"
+      ],
+      "achievement_standards": [
+        {
+          "code": "[10통과1-01-04]",
+          "sentence_ko": "자연에서 일어나는 다양한 변화를 측정⋅분석하여 정보를 산출함을 알고, 이러한 정보를 디지털로 변환하는 기술을 정보 통신에 활용하여 현대 문명에 미친 영향을 인식한다.",
+          "basis": "직접",
+          "keyword_ko": "측정⋅분석하여 정보를 산출함을 알고, 이러한 정보를 디지털로 변환하는 기술"
+        }
+      ],
+      "achievement_standards_source_id": "MOE-2022-33-HWP",
+      "current_edition_text": "2022-33"
+    },
+    {
+      "id": "SCI03",
+      "group": "science",
+      "selection": "common",
+      "subject": "통합과학2",
+      "knowledge_elements": [
+        "에너지 전환과 효율"
+      ],
+      "source_id": "C1-SCI",
+      "source_url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0",
+      "printed_page": 82,
+      "pdf_page": 88,
+      "edition": "2022-33",
+      "edition_comparison_status": "same_in_current_edition",
+      "application_notes": "P0 보고: 냉장 공간 대체 시 에너지·비용 조건 비교. P1: 장비 효율 개선과 유지비",
+      "priority": [
+        "P0 보고",
+        "P1"
+      ],
+      "achievement_standards": [
+        {
+          "code": "[10통과2-02-06]",
+          "sentence_ko": "에너지 효율의 의미와 중요성을 이해하고, 지속가능한 발전과 지구 환경 문제 해결에 신재생 에너지 기술을 활용하는 방안을 탐색할 수 있다.",
+          "basis": "직접",
+          "keyword_ko": "에너지 효율의 의미와 중요성"
+        }
+      ],
+      "achievement_standards_source_id": "MOE-2022-33-HWP",
+      "current_edition_text": "2022-33"
+    },
+    {
+      "id": "SCI04",
+      "group": "science",
+      "selection": "common",
+      "subject": "통합과학2",
+      "knowledge_elements": [
+        "온실기체와 지구온난화"
+      ],
+      "source_id": "C1-SCI",
+      "source_url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0",
+      "printed_page": 82,
+      "pdf_page": 88,
+      "edition": "2022-33",
+      "edition_comparison_status": "same_in_current_edition",
+      "application_notes": "P0 보고: 운송 배출자료의 범위 확인. P1: 근거를 확보한 배출량 비교. 개별 기상이변을 자동으로 기후변화 탓으로 단정하지 않음",
+      "priority": [
+        "P0 보고",
+        "P1"
+      ],
+      "achievement_standards": [
+        {
+          "code": "[10통과2-02-03]",
+          "sentence_ko": "온실효과 강화로 인한 지구온난화의 메커니즘을 이해하고, 엘니뇨, 사막화 등과 같은 현상이 지구 환경과 인간 생활에 미치는 영향과 대처 방안을 분석할 수 있다.",
+          "basis": "직접",
+          "keyword_ko": "온실효과 강화로 인한 지구온난화의 메커니즘"
+        }
+      ],
+      "achievement_standards_source_id": "MOE-2022-33-HWP",
+      "current_edition_text": "2022-33"
+    },
+    {
+      "id": "SCI23",
+      "group": "science",
+      "selection": "common",
+      "subject": "통합과학2",
+      "knowledge_elements": [
+        "인공지능과 과학 탐구",
+        "로봇",
+        "과학기술과 윤리"
+      ],
+      "source_id": "C1-SCI",
+      "source_url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0",
+      "printed_page": 82,
+      "pdf_page": 88,
+      "edition": "2022-33",
+      "edition_comparison_status": "same_in_current_edition",
+      "application_notes": "P1: 예측 서비스·물류 자동화의 도입. 입력 자료와 오차, 작업 변화·재교육을 함께 검토하며 기술 도입의 수익을 보장하지 않음",
+      "priority": [
+        "P1"
+      ],
+      "achievement_standards": [
+        {
+          "code": "[10통과2-03-03]",
+          "sentence_ko": "인공지능 로봇, 사물인터넷 등과 같이 과학기술의 발전을 인간 삶과 환경 개선에 활용하는 사례를 찾고, 이러한 과학기술의 발전이 미래 사회에 미치는 유용성과 한계를 예측할 수 있다.",
+          "basis": "직접",
+          "keyword_ko": "인공지능 로봇"
+        },
+        {
+          "code": "[10통과2-03-02]",
+          "sentence_ko": "빅데이터를 과학기술사회에서 사용하고 있는 사례를 조사하고, 빅데이터 활용의 장점과 문제점을 추론할 수 있다.",
+          "basis": "영역",
+          "keyword_ko": "과학과 미래 사회"
+        },
+        {
+          "code": "[10통과2-03-04]",
+          "sentence_ko": "과학기술의 발전 과정에서 발생할 수 있는 과학 관련 사회적 쟁점(SSI)과 과학기술 이용에서 과학 윤리의 중요성에 대해 논증할 수 있다.",
+          "basis": "직접",
+          "keyword_ko": "과학기술 이용에서 과학 윤리의 중요성"
+        }
+      ],
+      "achievement_standards_source_id": "MOE-2022-33-HWP",
+      "current_edition_text": "2022-33"
+    },
+    {
+      "id": "SCI05",
+      "group": "science",
+      "selection": "common",
+      "subject": "과학탐구실험1",
+      "knowledge_elements": [
+        "탐구 과정과 절차"
+      ],
+      "source_id": "C1-SCI",
+      "source_url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0",
+      "printed_page": 93,
+      "pdf_page": 99,
+      "edition": "2022-33",
+      "edition_comparison_status": "same_in_current_edition",
+      "application_notes": "P1: 같은 화물·외기 조건에서 포장재만 바꾸는 시험. 조건·측정 결과·불확실성을 기록",
+      "priority": [
+        "P1"
+      ],
+      "achievement_standards": [
+        {
+          "code": "[10과탐1-02-03]",
+          "sentence_ko": "탐구 수행에서 얻은 정성적 혹은 정량적 데이터를 분석하고 그 결과를 다양하게 표상하고 소통할 수 있다.",
+          "basis": "영역",
+          "keyword_ko": "과학 탐구의 과정과 절차"
+        },
+        {
+          "code": "[10과탐1-02-04]",
+          "sentence_ko": "흥미와 호기심을 갖고 과학 탐구에 참여하고, 분야 간 협동 연구 등을 통해 협력적 탐구 활동을 수행하며, 도출한 결과를 증거에 근거하여 해석하고 평가할 수 있다.",
+          "basis": "영역",
+          "keyword_ko": "과학 탐구의 과정과 절차"
+        }
+      ],
+      "achievement_standards_source_id": "MOE-2022-33-HWP",
+      "current_edition_text": "2022-33"
+    },
+    {
+      "id": "SCI06",
+      "group": "science",
+      "selection": "common",
+      "subject": "과학탐구실험2",
+      "knowledge_elements": [
+        "제품 속 과학"
+      ],
+      "source_id": "C1-SCI",
+      "source_url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0",
+      "printed_page": 96,
+      "pdf_page": 102,
+      "edition": "2022-33",
+      "edition_comparison_status": "same_in_current_edition",
+      "application_notes": "P1: 단열재·포장·센서의 실제 기능을 시험한 뒤 구매. 제품 설명과 측정 결과 비교",
+      "priority": [
+        "P1"
+      ],
+      "achievement_standards": [
+        {
+          "code": "[10과탐2-01-01]",
+          "sentence_ko": "영화, 건축, 요리, 스포츠, 미디어 등 생활 속의 과학 원리를 실험 등을 통해 탐구하고, 과학 원리를 활용한 놀이 체험을 통해 과학의 즐거움과 유용성을 느낄 수 있다.",
+          "basis": "해설",
+          "keyword_ko": "과학이 적용된 생활 제품"
+        },
+        {
+          "code": "[10과탐2-01-02]",
+          "sentence_ko": "사회적 이슈나 생활 속에서 과학 탐구 문제를 발견하고, 이를 해결하기 위한 과학 탐구 활동을 계획하고 수행할 수 있다.",
+          "basis": "영역",
+          "keyword_ko": "생활 속의 과학 탐구"
+        }
+      ],
+      "achievement_standards_source_id": "MOE-2022-33-HWP",
+      "current_edition_text": "2022-33"
+    },
+    {
+      "id": "SCI07",
+      "group": "science",
+      "selection": "general",
+      "subject": "물리학",
+      "knowledge_elements": [
+        "평형과 안정성"
+      ],
+      "source_id": "C1-SCI",
+      "source_url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0",
+      "printed_page": 109,
+      "pdf_page": 115,
+      "edition": "2022-33",
+      "edition_comparison_status": "same_in_current_edition",
+      "application_notes": "P1: 하역·적재 계획에서 지지와 무게중심 검토. MVP의 총중량 제한과 구분하며 3D 적재 퍼즐은 후순위",
+      "priority": [
+        "P1"
+      ],
+      "achievement_standards": [
+        {
+          "code": "[12물리01-01]",
+          "sentence_ko": "물체에 작용하는 알짜힘과 돌림힘이 0일 때 평형을 이룸을 알고, 다양한 구조물의 안정성을 분석할 수 있다.",
+          "basis": "직접",
+          "keyword_ko": "평형을 이룸을 알고, 다양한 구조물의 안정성을 분석"
+        }
+      ],
+      "achievement_standards_source_id": "MOE-2022-33-HWP",
+      "current_edition_text": "2022-33"
+    },
+    {
+      "id": "SCI08",
+      "group": "science",
+      "selection": "general",
+      "subject": "물리학",
+      "knowledge_elements": [
+        "열과 에너지 전환"
+      ],
+      "source_id": "C1-SCI",
+      "source_url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0",
+      "printed_page": 109,
+      "pdf_page": 115,
+      "edition": "2022-33",
+      "edition_comparison_status": "same_in_current_edition",
+      "application_notes": "P0 보고·P1 계산: 냉장 설비의 에너지 흐름과 전력 사용. 소비전력과 냉각 성능을 같은 양으로 취급하지 않음",
+      "priority": [
+        "P0 보고",
+        "P1 계산"
+      ],
+      "achievement_standards": [
+        {
+          "code": "[12물리01-05]",
+          "sentence_ko": "역학적 에너지가 열의 형태로 전환될 때 에너지 총량이 변하지 않음을 설명할 수 있다.",
+          "basis": "직접",
+          "keyword_ko": "역학적 에너지가 열의 형태로 전환될 때 에너지 총량이 변하지 않음"
+        },
+        {
+          "code": "[12물리01-06]",
+          "sentence_ko": "열이 역학적 에너지로 전환되는 과정의 효율을 정성적으로 이해하고, 영구기관이 불가능함을 사례를 통해 논증할 수 있다.",
+          "basis": "직접",
+          "keyword_ko": "열이 역학적 에너지로 전환되는 과정의 효율을 정성적으로 이해"
+        }
+      ],
+      "achievement_standards_source_id": "MOE-2022-33-HWP",
+      "current_edition_text": "2022-33"
+    },
+    {
+      "id": "SCI09",
+      "group": "science",
+      "selection": "general",
+      "subject": "화학",
+      "knowledge_elements": [
+        "화학 반응의 양적 관계"
+      ],
+      "source_id": "C1-SCI",
+      "source_url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0",
+      "printed_page": 121,
+      "pdf_page": 127,
+      "edition": "2022-33",
+      "edition_comparison_status": "same_in_current_edition",
+      "application_notes": "P1: 연료의 성분·연소량에 따른 직접 CO₂ 배출 설명. CO₂ 질량과 모든 온실기체를 합친 CO₂e를 혼동하지 않음",
+      "priority": [
+        "P1"
+      ],
+      "achievement_standards": [
+        {
+          "code": "[12화학01-03]",
+          "sentence_ko": "여러 가지 반응을 화학 반응식으로 나타내고, 화학 반응에서 물질의 양적 관계를 설명할 수 있다.",
+          "basis": "직접",
+          "keyword_ko": "화학 반응에서 물질의 양적 관계"
+        }
+      ],
+      "achievement_standards_source_id": "MOE-2022-33-HWP",
+      "current_edition_text": "2022-33"
+    },
+    {
+      "id": "SCI10",
+      "group": "science",
+      "selection": "general",
+      "subject": "생명과학",
+      "knowledge_elements": [
+        "생태계의 구조와 기능"
+      ],
+      "source_id": "C1-SCI",
+      "source_url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0",
+      "printed_page": 133,
+      "pdf_page": 139,
+      "edition": "2022-33",
+      "edition_comparison_status": "same_in_current_edition",
+      "application_notes": "P1: 화물·포장에 동반된 생물과 생태계 영향을 조사하는 검역 이야기. 국가·생물종별 실제 수치는 별도 근거 필요",
+      "priority": [
+        "P1"
+      ],
+      "achievement_standards": [
+        {
+          "code": "[12생과01-06]",
+          "sentence_ko": "생태계의 구조를 이해하고 물질의 순환과 에너지의 흐름을 추론하여 생태계 구성 요소들의 중요성을 설명할 수 있다.",
+          "basis": "직접",
+          "keyword_ko": "생태계의 구조를 이해하고"
+        }
+      ],
+      "achievement_standards_source_id": "MOE-2022-33-HWP",
+      "current_edition_text": "2022-33"
+    },
+    {
+      "id": "SCI11",
+      "group": "science",
+      "selection": "general",
+      "subject": "지구과학",
+      "knowledge_elements": [
+        "악기상"
+      ],
+      "source_id": "C1-SCI",
+      "source_url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0",
+      "printed_page": 145,
+      "pdf_page": 151,
+      "edition": "2022-33",
+      "edition_comparison_status": "same_in_current_edition",
+      "application_notes": "P0: 예보와 실제 항만 상태를 구분해 대기·대체편·납기 협상. 예보를 확정 미래로 취급하지 않음",
+      "priority": [
+        "P0"
+      ],
+      "achievement_standards": [
+        {
+          "code": "[12지구01-04]",
+          "sentence_ko": "태풍의 발생, 이동, 소멸 과정 및 태풍 영향권에서 날씨를 예측하고, 뇌우, 집중호우, 폭설, 강풍, 황사 등 주요 악기상의 생성 메커니즘과 대처 방안을 제시할 수 있다.",
+          "basis": "직접",
+          "keyword_ko": "주요 악기상의 생성 메커니즘과 대처 방안"
+        }
+      ],
+      "achievement_standards_source_id": "MOE-2022-33-HWP",
+      "current_edition_text": "2022-33"
+    },
+    {
+      "id": "SCI12",
+      "group": "science",
+      "selection": "general",
+      "subject": "지구과학",
+      "knowledge_elements": [
+        "표층 순환"
+      ],
+      "source_id": "C1-SCI",
+      "source_url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0",
+      "printed_page": 145,
+      "pdf_page": 151,
+      "edition": "2022-33",
+      "edition_comparison_status": "same_in_current_edition",
+      "application_notes": "P1: 해류가 항로·운항 조건에 미치는 영향 보고. 외부 선사 예약형 MVP에서는 선박 물리 운항을 직접 계산하지 않음",
+      "priority": [
+        "P1"
+      ],
+      "achievement_standards": [
+        {
+          "code": "[12지구01-02]",
+          "sentence_ko": "심층 순환의 발생 원리와 분포를 알고, 표층 순환 및 기후변화의 관련성을 추론할 수 있다.",
+          "basis": "직접",
+          "keyword_ko": "표층 순환 및 기후변화의 관련성"
+        }
+      ],
+      "achievement_standards_source_id": "MOE-2022-33-HWP",
+      "current_edition_text": "2022-33"
+    },
+    {
+      "id": "SCI13",
+      "group": "science",
+      "selection": "career",
+      "subject": "역학과 에너지",
+      "knowledge_elements": [
+        "열의 이동"
+      ],
+      "source_id": "C1-SCI",
+      "source_url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0",
+      "printed_page": 161,
+      "pdf_page": 167,
+      "edition": "2022-33",
+      "edition_comparison_status": "same_in_current_edition",
+      "application_notes": "P0 설명·P1 계산: 외기와 화물 사이 열 이동, 단열·냉각 조건 비교. 단열재가 열 이동을 완전히 막는 것으로 처리하지 않음",
+      "priority": [
+        "P0 설명",
+        "P1 계산"
+      ],
+      "achievement_standards": [
+        {
+          "code": "[12역학02-05]",
+          "sentence_ko": "열의 이동, 기체의 확산과 같은 비가역 현상을 엔트로피를 이용하여 설명할 수 있다.",
+          "basis": "직접",
+          "keyword_ko": "열의 이동"
+        },
+        {
+          "code": "[12역학02-01]",
+          "sentence_ko": "건축을 포함한 다양한 열에너지 관련 기술에 단열, 열팽창 등이 활용된 예를 조사함으로써 과학의 유용성에 대한 가치를 인식할 수 있다.",
+          "basis": "해설",
+          "keyword_ko": "열이 전도, 대류, 복사 등의 방법으로 전달되는 과정"
+        }
+      ],
+      "achievement_standards_source_id": "MOE-2022-33-HWP",
+      "current_edition_text": "2022-33"
+    },
+    {
+      "id": "SCI14",
+      "group": "science",
+      "selection": "career",
+      "subject": "전자기와 양자",
+      "knowledge_elements": [
+        "반도체 소자"
+      ],
+      "source_id": "C1-SCI",
+      "source_url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0",
+      "printed_page": 173,
+      "pdf_page": 179,
+      "edition": "2022-33",
+      "edition_comparison_status": "same_in_current_edition",
+      "application_notes": "P2: 물류 센서 회로의 신호 처리와 고장 원인을 검토하는 기술 사건. 전자제품을 거래했다는 이유만으로 학습했다고 표시하지 않음",
+      "priority": [
+        "P2"
+      ],
+      "achievement_standards": [
+        {
+          "code": "[12전자01-07]",
+          "sentence_ko": "다이오드, 트랜지스터 등 반도체 소자를 활용하는 전자회로를 분석하고, 현대 문명에서 반도체의 중요성을 인식할 수 있다.",
+          "basis": "직접",
+          "keyword_ko": "다이오드, 트랜지스터 등 반도체 소자를 활용하는 전자회로를 분석"
+        }
+      ],
+      "achievement_standards_source_id": "MOE-2022-33-HWP",
+      "current_edition_text": "2022-33"
+    },
+    {
+      "id": "SCI15",
+      "group": "science",
+      "selection": "career",
+      "subject": "물질과 에너지",
+      "knowledge_elements": [
+        "반응 속도에 영향을 미치는 요인"
+      ],
+      "source_id": "C1-SCI",
+      "source_url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0",
+      "printed_page": 185,
+      "pdf_page": 191,
+      "edition": "2022-33",
+      "edition_comparison_status": "same_in_current_edition",
+      "application_notes": "P1: 상품별 화학적 변질과 온도 이력. 자료를 확보한 반응에만 적용하고 식품 안전 판정과 구분",
+      "priority": [
+        "P1"
+      ],
+      "achievement_standards": [
+        {
+          "code": "[12물에04-04]",
+          "sentence_ko": "농도, 온도, 촉매에 따라 반응 속도가 달라짐을 이해하고, 일상생활에서 각각의 예를 찾아 화학의 유용성을 인식할 수 있다.",
+          "basis": "직접",
+          "keyword_ko": "농도, 온도, 촉매에 따라 반응 속도가 달라짐"
+        }
+      ],
+      "achievement_standards_source_id": "MOE-2022-33-HWP",
+      "current_edition_text": "2022-33"
+    },
+    {
+      "id": "SCI16",
+      "group": "science",
+      "selection": "career",
+      "subject": "물질과 에너지",
+      "knowledge_elements": [
+        "이상 기체 방정식"
+      ],
+      "source_id": "C1-SCI",
+      "source_url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0",
+      "printed_page": 185,
+      "pdf_page": 191,
+      "edition": "2022-33",
+      "edition_comparison_status": "same_in_current_edition",
+      "application_notes": "P2: 적합한 조건의 기체 화물·용기 사례. LNG와 고압 실재기체에 무조건 적용하지 않음",
+      "priority": [
+        "P2"
+      ],
+      "achievement_standards": [
+        {
+          "code": "[12물에01-01]",
+          "sentence_ko": "기체의 온도, 압력, 부피, 몰수 사이의 관계를 통합적으로 이해하고, 이상 기체 방정식을 근사적으로 활용하는 사례를 조사하여 화학의 유용함을 인식할 수 있다.",
+          "basis": "직접",
+          "keyword_ko": "이상 기체 방정식을 근사적으로 활용하는 사례"
+        }
+      ],
+      "achievement_standards_source_id": "MOE-2022-33-HWP",
+      "current_edition_text": "2022-33"
+    },
+    {
+      "id": "SCI17",
+      "group": "science",
+      "selection": "career",
+      "subject": "화학 반응의 세계",
+      "knowledge_elements": [
+        "화학 전지"
+      ],
+      "source_id": "C1-SCI",
+      "source_url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0",
+      "printed_page": 197,
+      "pdf_page": 203,
+      "edition": "2022-33",
+      "edition_comparison_status": "same_in_current_edition",
+      "application_notes": "P1: 전동 하역장비의 충전·가동·교체를 산화·환원 및 화학·전기 에너지 전환과 연결해 설명. 배터리별 성능과 안전·운송 조건은 별도 자료 확보",
+      "priority": [
+        "P1"
+      ],
+      "achievement_standards": [
+        {
+          "code": "[12반응02-03]",
+          "sentence_ko": "화학 전지의 원리를 산화⋅환원 반응으로 설명하고, 표준 환원 전위를 이용하여 전위차를 구할 수 있다.",
+          "basis": "직접",
+          "keyword_ko": "화학 전지의 원리를 산화⋅환원 반응으로 설명"
+        },
+        {
+          "code": "[12반응02-02]",
+          "sentence_ko": "화학 전지의 발전 과정을 조사하여 실용 전지의 구조적 공통점을 추론할 수 있다.",
+          "basis": "직접",
+          "keyword_ko": "화학 전지의 발전 과정"
+        }
+      ],
+      "achievement_standards_source_id": "MOE-2022-33-HWP",
+      "current_edition_text": "2022-33"
+    },
+    {
+      "id": "SCI18",
+      "group": "science",
+      "selection": "career",
+      "subject": "화학 반응의 세계",
+      "knowledge_elements": [
+        "고분자 물질"
+      ],
+      "source_id": "C1-SCI",
+      "source_url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0",
+      "printed_page": 197,
+      "pdf_page": 203,
+      "edition": "2022-33",
+      "edition_comparison_status": "same_in_current_edition",
+      "application_notes": "P1: 포장재의 보호 성능·질량·재사용·회수 비용 비교. 재질 이름 하나로 친환경 여부를 결정하지 않음",
+      "priority": [
+        "P1"
+      ],
+      "achievement_standards": [
+        {
+          "code": "[12반응03-03]",
+          "sentence_ko": "단위체의 중합 반응으로 다양한 고분자가 합성되는 것을 이해하여 화학 반응의 유용성을 인식할 수 있다.",
+          "basis": "직접",
+          "keyword_ko": "다양한 고분자가 합성되는 것"
+        }
+      ],
+      "achievement_standards_source_id": "MOE-2022-33-HWP",
+      "current_edition_text": "2022-33"
+    },
+    {
+      "id": "SCI19",
+      "group": "science",
+      "selection": "career",
+      "subject": "세포와 물질대사",
+      "knowledge_elements": [
+        "효소의 작용"
+      ],
+      "source_id": "C1-SCI",
+      "source_url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0",
+      "printed_page": 208,
+      "pdf_page": 214,
+      "edition": "2022-33",
+      "edition_comparison_status": "same_in_current_edition",
+      "application_notes": "P2: 효소 제품이나 식품 가공 고객의 온도 조건. 효소 활성과 미생물 증식은 다른 모형으로 구분",
+      "priority": [
+        "P2"
+      ],
+      "achievement_standards": [
+        {
+          "code": "[12세포02-04]",
+          "sentence_ko": "효소의 작용 기작을 이해하고, 생명체 내에서 일어나는 효소 작용의 중요성에 대해 다양한 매체를 활용하여 협력적으로 소통할 수 있다.",
+          "basis": "직접",
+          "keyword_ko": "효소의 작용 기작"
+        },
+        {
+          "code": "[12세포02-03]",
+          "sentence_ko": "효소의 종류와 특성을 이해하고 효소의 활성에 영향을 미치는 요인에 대한 실험을 설계하여 수행할 수 있다.",
+          "basis": "해설",
+          "keyword_ko": "효소의 작용에 영향을 미치는 요인들"
+        }
+      ],
+      "achievement_standards_source_id": "MOE-2022-33-HWP",
+      "current_edition_text": "2022-33"
+    },
+    {
+      "id": "SCI20",
+      "group": "science",
+      "selection": "career",
+      "subject": "생물의 유전",
+      "knowledge_elements": [
+        "유전자 변형 생물체의 개발과 이용"
+      ],
+      "source_id": "C1-SCI",
+      "source_url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0",
+      "printed_page": 220,
+      "pdf_page": 226,
+      "edition": "2022-33",
+      "edition_comparison_status": "same_in_current_edition",
+      "application_notes": "P2: 품종·이용 목적·증빙을 확인하는 특수 계약. 표시·수입 조건은 검증된 별도 법령이나 명시적 가상 규칙 사용",
+      "priority": [
+        "P2"
+      ],
+      "achievement_standards": [
+        {
+          "code": "[12유전03-04]",
+          "sentence_ko": "유전자 변형 생물체(LMO)의 특징을 이해하고 인간과 생태계에 미치는 영향을 추론할 수 있다.",
+          "basis": "직접",
+          "keyword_ko": "유전자 변형 생물체(LMO)"
+        },
+        {
+          "code": "[12유전03-03]",
+          "sentence_ko": "생명공학기술 관련 학문 분야를 이해하고 우리 생활과 산업에 활용 사례를 조사하여 창의적으로 설명 자료를 제작할 수 있다.",
+          "basis": "영역",
+          "keyword_ko": "생명공학기술"
+        }
+      ],
+      "achievement_standards_source_id": "MOE-2022-33-HWP",
+      "current_edition_text": "2022-33"
+    },
+    {
+      "id": "SCI21",
+      "group": "science",
+      "selection": "career",
+      "subject": "지구시스템과학",
+      "knowledge_elements": [
+        "풍랑과 너울"
+      ],
+      "source_id": "C1-SCI",
+      "source_url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0",
+      "printed_page": 231,
+      "pdf_page": 237,
+      "edition": "2022-33",
+      "edition_comparison_status": "same_in_current_edition",
+      "application_notes": "P0 설명·P1 상세: 항만 작업 제한의 이유를 설명. 구체적인 높이·주기별 운항 한계는 선박·항만 자료로 검증",
+      "priority": [
+        "P0 설명",
+        "P1 상세"
+      ],
+      "achievement_standards": [
+        {
+          "code": "[12지시02-02]",
+          "sentence_ko": "해파의 발생 과정을 이해하고, 천해파와 심해파의 차이점을 비교⋅설명할 수 있다.",
+          "basis": "영역",
+          "keyword_ko": "해수의 운동"
+        }
+      ],
+      "achievement_standards_source_id": "MOE-2022-33-HWP",
+      "current_edition_text": "2022-33"
+    },
+    {
+      "id": "SCI22",
+      "group": "science",
+      "selection": "career",
+      "subject": "행성우주과학",
+      "knowledge_elements": [
+        "태양 활동"
+      ],
+      "source_id": "C1-SCI",
+      "source_url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0",
+      "printed_page": 243,
+      "pdf_page": 249,
+      "edition": "2022-33",
+      "edition_comparison_status": "same_in_current_edition",
+      "application_notes": "P2: 위치·통신 정보 이상과 대체 절차를 다루는 우주기상 사건. 영향의 크기·빈도는 후속 전문 근거 확보",
+      "priority": [
+        "P2"
+      ],
+      "achievement_standards": [
+        {
+          "code": "[12행우01-02]",
+          "sentence_ko": "태양 활동 감시 시스템과 지구 접근 천체를 비롯한 지구를 위협하는 우주 위험 감시 기술의 중요성을 우주 재난 측면에서 인식할 수 있다.",
+          "basis": "직접",
+          "keyword_ko": "태양 활동 감시 시스템"
+        },
+        {
+          "code": "[12행우02-01]",
+          "sentence_ko": "태양의 광구와 대기에서 나타나는 현상을 설명하고, 이러한 현상이 다양한 파장의 관측 자료에서 어떻게 나타나는지 비교⋅분석할 수 있다.",
+          "basis": "해설",
+          "keyword_ko": "태양 활동의 주기"
+        }
+      ],
+      "achievement_standards_source_id": "MOE-2022-33-HWP",
+      "current_edition_text": "2022-33"
+    }
+  ],
+  "$schema": "../schemas/curriculum_links.schema.json",
+  "achievement_standards_rule": "achievement_standards는 교육부 고시 제2022-33호 별책6·7·9 공식 HWP에서 옮긴 성취기준 코드와 문장이다(가운뎃점 ⋅ 포함 원문 그대로). basis는 직접(문장에 내용 요소의 핵심어가 있음), 해설(성취기준 해설에만 있음), 영역(같은 영역의 성취기준이지만 핵심어 없음)이다. 현행판 대조(2026-10-11)에서 47개 연결의 코드와 문장은 현행판과 같다. 별책7은 2024-3 재고시본과 대조했다(current_edition_comparison).",
+  "current_edition": "2026-1",
+  "current_edition_comparison": {
+    "checked_on": "2026-10-11",
+    "report": "docs/ai/design/research/CURRICULUM-CURRENT.md",
+    "summary_ko": "2026-10-11 기준 최근 고시는 국가교육위원회고시 제2026-1호다. 2026-1은 별책1·2·3·4·15만, 2024-3은 별책1·2·3·4·7·12·14·18·19·22·23~39·41을 개정했다(국가법령정보센터 고시문). 별책6·9는 2022-33 이후 다시 고시되지 않았다. 별책7은 2024-3에서 다시 고시됐으나 공식 재고시본(에듀넷 게시 PDF)과 대조한 결과 47개 연결의 내용 요소·성취기준 코드·문장은 모두 같다. 바뀐 곳은 문화유산→국가유산 용어(동아시아 역사 기행 성격·목표·교수학습 등)와 중학교 해설의 코드 1개뿐이다. 동아시아 역사 기행 이후 과목은 인쇄쪽이 1쪽 밀렸다(current_printed_page).",
+    "not_checked_ko": "2026-1 별책4(고등학교 교육과정) 본문은 읽지 못했다. 과목 편제·이수 기준 변경 여부는 이 대조 범위 밖이다."
+  }
+}

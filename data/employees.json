@@ -1,0 +1,149 @@
+{
+  "schema_version": "0.4.0",
+  "data_basis": "DESIGN",
+  "source_refs": [
+    "DESIGN-V03"
+  ],
+  "numeric_values_status": "합성 개발용 값. 현실 가격·운송일·직원 생산성 추정치가 아님.",
+  "items": [
+    {
+      "id": "EMP01",
+      "name_ko": "귀솔",
+      "fictional": true,
+      "role": "sales",
+      "home_city_id": "PYEONGTAEK",
+      "location_city_id": "PYEONGTAEK",
+      "employment_status": "employed",
+      "work_units_per_day": 2,
+      "salary_per_day": {
+        "currency": "KRW",
+        "amount": 80000
+      },
+      "experience_topic_ids": [],
+      "relation_ids": [],
+      "source_refs": [
+        "DESIGN-V03",
+        "DESIGN-V04"
+      ],
+      "character_id": "EMP01",
+      "home_team_id": "TEAM_SALES",
+      "organizational_role": "specialist"
+    },
+    {
+      "id": "EMP02",
+      "name_ko": "물보리",
+      "fictional": true,
+      "role": "operations",
+      "home_city_id": "PYEONGTAEK",
+      "location_city_id": "PYEONGTAEK",
+      "employment_status": "employed",
+      "work_units_per_day": 2,
+      "salary_per_day": {
+        "currency": "KRW",
+        "amount": 80000
+      },
+      "experience_topic_ids": [],
+      "relation_ids": [],
+      "source_refs": [
+        "DESIGN-V03",
+        "DESIGN-V04"
+      ],
+      "character_id": "EMP02",
+      "home_team_id": "TEAM_LOGISTICS",
+      "organizational_role": "specialist"
+    },
+    {
+      "id": "EMP03",
+      "name_ko": "솔솔밤",
+      "fictional": true,
+      "role": "sales",
+      "home_city_id": "PYEONGTAEK",
+      "location_city_id": "PYEONGTAEK",
+      "employment_status": "candidate",
+      "work_units_per_day": 3,
+      "salary_per_day": {
+        "currency": "KRW",
+        "amount": 110000
+      },
+      "experience_topic_ids": [],
+      "relation_ids": [],
+      "source_refs": [
+        "DESIGN-V03",
+        "DESIGN-V04"
+      ],
+      "character_id": "EMP03",
+      "home_team_id": "TEAM_SALES",
+      "organizational_role": "specialist"
+    },
+    {
+      "id": "EMP04",
+      "name_ko": "현돌",
+      "fictional": true,
+      "role": "operations",
+      "home_city_id": "PYEONGTAEK",
+      "location_city_id": "PYEONGTAEK",
+      "employment_status": "candidate",
+      "work_units_per_day": 3,
+      "salary_per_day": {
+        "currency": "KRW",
+        "amount": 110000
+      },
+      "experience_topic_ids": [],
+      "relation_ids": [],
+      "source_refs": [
+        "DESIGN-V03",
+        "DESIGN-V04"
+      ],
+      "character_id": "EMP04",
+      "home_team_id": "TEAM_LOGISTICS",
+      "organizational_role": "specialist"
+    },
+    {
+      "id": "EMP05",
+      "name_ko": "화랑콩",
+      "fictional": true,
+      "role": "sales",
+      "home_city_id": "PYEONGTAEK",
+      "location_city_id": "PYEONGTAEK",
+      "employment_status": "candidate",
+      "work_units_per_day": 2,
+      "salary_per_day": {
+        "currency": "KRW",
+        "amount": 90000
+      },
+      "experience_topic_ids": [],
+      "relation_ids": [],
+      "source_refs": [
+        "DESIGN-V03",
+        "DESIGN-V04"
+      ],
+      "character_id": "EMP05",
+      "home_team_id": "TEAM_SALES",
+      "organizational_role": "specialist"
+    },
+    {
+      "id": "EMP06",
+      "name_ko": "바름",
+      "fictional": true,
+      "role": "operations",
+      "home_city_id": "PYEONGTAEK",
+      "location_city_id": "PYEONGTAEK",
+      "employment_status": "candidate",
+      "work_units_per_day": 2,
+      "salary_per_day": {
+        "currency": "KRW",
+        "amount": 90000
+      },
+      "experience_topic_ids": [],
+      "relation_ids": [],
+      "source_refs": [
+        "DESIGN-V03",
+        "DESIGN-V04"
+      ],
+      "character_id": "EMP06",
+      "home_team_id": "TEAM_LOGISTICS",
+      "organizational_role": "specialist"
+    }
+  ],
+  "$schema": "../schemas/employees.schema.json"
+}

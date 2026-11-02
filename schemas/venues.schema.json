@@ -1,0 +1,142 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "venues v0.4 data shape",
+  "description": "Starter data shape, plus semantic checks in tools/validate_data.py. Not a complete game engine command contract.",
+  "type": "object",
+  "required": [
+    "$schema",
+    "data_basis",
+    "items",
+    "schema_version"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "data_basis": {
+      "type": "string"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "activity_execution_ko",
+          "city_id",
+          "curriculum_refs",
+          "event_ids",
+          "fictional",
+          "future_services",
+          "id",
+          "opening_panel_cost",
+          "opening_panel_duration_days",
+          "revisit_reason_ko",
+          "services",
+          "source_refs",
+          "stage",
+          "title_ko",
+          "visit_mode"
+        ],
+        "properties": {
+          "activity_execution_ko": {
+            "type": "string"
+          },
+          "activity_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "city_id": {
+            "type": "string"
+          },
+          "curriculum_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "event_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "fictional": {
+            "type": "boolean"
+          },
+          "future_services": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "stage"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "stage": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": true
+            }
+          },
+          "id": {
+            "type": "string"
+          },
+          "opening_panel_cost": {
+            "type": "object",
+            "required": [
+              "amount",
+              "currency"
+            ],
+            "properties": {
+              "amount": {
+                "type": "integer"
+              },
+              "currency": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": true
+          },
+          "opening_panel_duration_days": {
+            "type": "integer"
+          },
+          "revisit_reason_ko": {
+            "type": "string"
+          },
+          "services": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "source_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "stage": {
+            "type": "string"
+          },
+          "title_ko": {
+            "type": "string"
+          },
+          "visit_mode": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "schema_version": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}

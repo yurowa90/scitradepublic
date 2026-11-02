@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "organization v0.4 data shape",
+  "description": "Starter data shape, plus semantic checks in tools/validate_data.py. Not a complete game engine command contract.",
+  "type": "object",
+  "required": [
+    "$schema",
+    "data_basis",
+    "departments",
+    "items",
+    "membership_rule",
+    "project_template",
+    "schema_version",
+    "source_refs",
+    "team_lead_rule"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "data_basis": {
+      "type": "string"
+    },
+    "departments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name_ko"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name_ko": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "automatic_global_buff",
+          "department_id",
+          "id",
+          "name_ko",
+          "primary_function",
+          "roles",
+          "stage"
+        ],
+        "properties": {
+          "automatic_global_buff": {
+            "type": "boolean"
+          },
+          "department_id": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "name_ko": {
+            "type": "string"
+          },
+          "primary_function": {
+            "type": "string"
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "stage": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "membership_rule": {
+      "type": "string"
+    },
+    "project_template": {
+      "type": "object",
+      "required": [
+        "confirm_reserves_all_active_members",
+        "draft_reserves_staff",
+        "existing_job_authority_is_not_overridden",
+        "max_members",
+        "responsible_count",
+        "same_character_duplicates_allowed",
+        "support_max"
+      ],
+      "properties": {
+        "confirm_reserves_all_active_members": {
+          "type": "boolean"
+        },
+        "draft_reserves_staff": {
+          "type": "boolean"
+        },
+        "existing_job_authority_is_not_overridden": {
+          "type": "boolean"
+        },
+        "max_members": {
+          "type": "integer"
+        },
+        "responsible_count": {
+          "type": "integer"
+        },
+        "same_character_duplicates_allowed": {
+          "type": "boolean"
+        },
+        "support_max": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": true
+    },
+    "schema_version": {
+      "type": "string"
+    },
+    "source_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "team_lead_rule": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}

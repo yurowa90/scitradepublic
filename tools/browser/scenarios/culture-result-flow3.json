@@ -1,0 +1,21 @@
+{
+  "schema": "scitrade-browser-scenario/1",
+  "id": "culture-result-flow3",
+  "title_ko": "현지 활동을 넣고 닫은 채 이틀 진행 뒤 탭으로 열기: 결과 제목 위치",
+  "source_ko": "TASK-0012 결과 보고 167행: 터치 5개 프로필 43.8~44.4px. 지시서 581행 기준 7 흐름 3",
+  "profiles": "all",
+  "steps": [
+    { "do": "tap", "selector": "#local-tab" },
+    { "do": "tap", "selector": "[data-action=\"culture-act\"]" },
+    { "do": "tap", "selector": "[data-action=\"culture-emp\"]:not([disabled])" },
+    { "do": "tap", "selector": "[data-action=\"culture-queue\"]" },
+    { "do": "tap", "selector": "[data-action=\"culture-close\"][data-where=\"head\"]" },
+    { "do": "end-day", "times": 2 },
+    { "do": "tap", "selector": "#local-tab" },
+    { "do": "wait", "ms": 200 },
+    { "do": "measure", "name": "result_from_bar", "what": "top-from-bar", "selector": "[id^=\"culture-result-h-\"]" }
+  ],
+  "expect": [
+    { "value": "result_from_bar", "min": 41.8, "max": 46.4, "profiles": "touch", "source_ko": "167행 43.8~44.4px ±2px" }
+  ]
+}

@@ -1,0 +1,169 @@
+{
+  "pixel_art": {
+    "rendering": "image-rendering: pixelated; integer scale in device pixels (n = floor(available CSS px * devicePixelRatio / logical px), n >= 1)"
+  },
+  "character_slots": {
+    "card": {
+      "logical_width": 96,
+      "logical_height": 128,
+      "aspect": "3:4"
+    },
+    "portrait": {
+      "logical_width": 48,
+      "logical_height": 48,
+      "aspect": "1:1"
+    },
+    "work": {
+      "sheet": true,
+      "frame_width": 48,
+      "frame_height": 48,
+      "rows": [
+        "idle",
+        "walk",
+        "work",
+        "happy"
+      ],
+      "frames_per_row": 4,
+      "logical_width": 192,
+      "logical_height": 192,
+      "frame_ms": 180,
+      "reduced_motion": "show frame 0 of the row only"
+    }
+  },
+  "assets": [
+    {
+      "id": "MAP_EAST_ASIA",
+      "kind": "map",
+      "path": "assets/maps/east-asia.png",
+      "status": "approved",
+      "width": 1092,
+      "height": 1230,
+      "bounds": {
+        "lon_min": 98.0,
+        "lon_max": 146.0,
+        "lat_min": -10.0,
+        "lat_max": 44.0
+      },
+      "pixel_grid": {
+        "logical_width": 546,
+        "logical_height": 615,
+        "units_per_pixel": 2
+      },
+      "attribution": "위성 지형 색: NASA Blue Marble; 육지·호수: Natural Earth (public domain)"
+    },
+    {
+      "id": "MAP_WORLD",
+      "kind": "map",
+      "path": "assets/maps/world.png",
+      "status": "approved",
+      "width": 3600,
+      "height": 1220,
+      "bounds": {
+        "lon_min": -30.0,
+        "lon_max": 330.0,
+        "lat_min": -50.0,
+        "lat_max": 72.0
+      },
+      "pixel_grid": {
+        "logical_width": 720,
+        "logical_height": 244,
+        "units_per_pixel": 5
+      },
+      "attribution": "위성 지형 색: NASA Blue Marble; 육지·호수: Natural Earth (public domain)"
+    },
+    {
+      "id": "SCENE_PORT_PYEONGTAEK_PX",
+      "kind": "scene",
+      "path": "assets/scenes/pyeongtaek-port.png",
+      "status": "approved",
+      "width": 640,
+      "height": 360,
+      "pixel_grid": {
+        "logical_width": 640,
+        "logical_height": 360,
+        "units_per_pixel": 1
+      },
+      "attribution": "OpenAI 이미지 생성, Scitrade 디자인 세션 D 선별·편집"
+    },
+    {
+      "id": "BG_COMPANY_PX",
+      "kind": "background",
+      "path": "assets/backgrounds/company.png",
+      "status": "approved",
+      "width": 640,
+      "height": 360,
+      "pixel_grid": {
+        "logical_width": 640,
+        "logical_height": 360,
+        "units_per_pixel": 1
+      },
+      "attribution": "OpenAI 이미지 생성, Scitrade 디자인 세션 D 선별·편집"
+    },
+    {
+      "id": "EMP01_WORK",
+      "kind": "character",
+      "path": "assets/characters/EMP01/work.png",
+      "status": "approved",
+      "width": 192,
+      "height": 192,
+      "employee_id": "EMP01",
+      "slot": "work",
+      "attribution": "OpenAI 이미지 생성, Scitrade 디자인 세션 D(Claude) 보정"
+    },
+    {
+      "id": "EMP02_WORK",
+      "kind": "character",
+      "path": "assets/characters/EMP02/work.png",
+      "status": "approved",
+      "width": 192,
+      "height": 192,
+      "employee_id": "EMP02",
+      "slot": "work",
+      "attribution": "OpenAI 이미지 생성, Scitrade 디자인 세션 D(Claude) 보정"
+    },
+    {
+      "id": "EMP03_WORK",
+      "kind": "character",
+      "path": "assets/characters/EMP03/work.png",
+      "status": "approved",
+      "width": 192,
+      "height": 192,
+      "employee_id": "EMP03",
+      "slot": "work",
+      "attribution": "OpenAI 이미지 생성, Scitrade 디자인 세션 D(Claude) 보정"
+    },
+    {
+      "id": "EMP04_WORK",
+      "kind": "character",
+      "path": "assets/characters/EMP04/work.png",
+      "status": "approved",
+      "width": 192,
+      "height": 192,
+      "employee_id": "EMP04",
+      "slot": "work",
+      "attribution": "OpenAI 이미지 생성, Scitrade 디자인 세션 D(Claude) 보정"
+    },
+    {
+      "id": "EMP05_WORK",
+      "kind": "character",
+      "path": "assets/characters/EMP05/work.png",
+      "status": "approved",
+      "width": 192,
+      "height": 192,
+      "employee_id": "EMP05",
+      "slot": "work",
+      "attribution": "OpenAI 이미지 생성, Scitrade 디자인 세션 D(Claude) 보정"
+    },
+    {
+      "id": "EMP06_WORK",
+      "kind": "character",
+      "path": "assets/characters/EMP06/work.png",
+      "status": "approved",
+      "width": 192,
+      "height": 192,
+      "employee_id": "EMP06",
+      "slot": "work",
+      "attribution": "OpenAI 이미지 생성, Scitrade 디자인 세션 D(Claude) 보정"
+    }
+  ]
+}

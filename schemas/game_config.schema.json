@@ -1,0 +1,161 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "game_config v0.4 data shape",
+  "description": "Starter data shape, plus semantic checks in tools/validate_data.py. Not a complete game engine command contract.",
+  "type": "object",
+  "required": [
+    "$schema",
+    "config",
+    "data_basis",
+    "schema_version",
+    "source_refs",
+    "unresolved_before_realism_claim"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "config": {
+      "type": "object",
+      "required": [
+        "active_company_id",
+        "active_venue_ids",
+        "campaign_id",
+        "character_system_enabled",
+        "day_unit",
+        "days",
+        "enabled_stage",
+        "enhancement_enabled",
+        "fx_krw_per_usd",
+        "fx_status",
+        "home_city_id",
+        "ipo_enabled",
+        "max_campaign_events_target",
+        "opening_data",
+        "organization_enabled",
+        "productivity_mode",
+        "reporting_currency",
+        "securities_enabled",
+        "seed",
+        "settlement_rule",
+        "starter_employee_ids",
+        "starting_cash",
+        "trade_currency",
+        "training_enabled"
+      ],
+      "properties": {
+        "active_company_id": {
+          "type": "string"
+        },
+        "active_venue_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "campaign_id": {
+          "type": "string"
+        },
+        "character_system_enabled": {
+          "type": "boolean"
+        },
+        "day_unit": {
+          "type": "string"
+        },
+        "days": {
+          "type": "integer"
+        },
+        "enabled_stage": {
+          "type": "string"
+        },
+        "enhancement_enabled": {
+          "type": "boolean"
+        },
+        "fx_krw_per_usd": {
+          "type": "integer"
+        },
+        "fx_status": {
+          "type": "string"
+        },
+        "home_city_id": {
+          "type": "string"
+        },
+        "ipo_enabled": {
+          "type": "boolean"
+        },
+        "max_campaign_events_target": {
+          "type": "integer"
+        },
+        "opening_data": {
+          "type": "string"
+        },
+        "organization_enabled": {
+          "type": "boolean"
+        },
+        "productivity_mode": {
+          "type": "string"
+        },
+        "reporting_currency": {
+          "type": "string"
+        },
+        "securities_enabled": {
+          "type": "boolean"
+        },
+        "seed": {
+          "type": "integer"
+        },
+        "settlement_rule": {
+          "type": "string"
+        },
+        "starter_employee_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "starting_cash": {
+          "type": "object",
+          "required": [
+            "KRW",
+            "USD"
+          ],
+          "properties": {
+            "KRW": {
+              "type": "integer"
+            },
+            "USD": {
+              "type": "integer"
+            }
+          },
+          "additionalProperties": true
+        },
+        "trade_currency": {
+          "type": "string"
+        },
+        "training_enabled": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": true
+    },
+    "data_basis": {
+      "type": "string"
+    },
+    "schema_version": {
+      "type": "string"
+    },
+    "source_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "unresolved_before_realism_claim": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,91 @@
+{
+  "schema_version": "0.3.0",
+  "data_basis": "DESIGN",
+  "source_refs": [
+    "DESIGN-V03"
+  ],
+  "numeric_values_status": "합성 개발용 값. 현실 가격·운송일·직원 생산성 추정치가 아님.",
+  "items": [
+    {
+      "id": "SEC01",
+      "company_name_ko": "한결해운",
+      "fictional": true,
+      "stage": "P1",
+      "sector": "shipping",
+      "currency": "KRW",
+      "security_class": "ordinary_share",
+      "initial_price": 2000,
+      "shares_outstanding": 1000000,
+      "initial_player_holding": 0,
+      "drivers_ko": "운임·물동량·연료비·운항 차질",
+      "source_refs": [
+        "DESIGN-V03",
+        "F1"
+      ],
+      "public_information_only": true,
+      "price_model_status": "NOT_CALIBRATED",
+      "business_discount_from_shareholding": false
+    },
+    {
+      "id": "SEC02",
+      "company_name_ko": "도담창고",
+      "fictional": true,
+      "stage": "P1",
+      "sector": "warehousing",
+      "currency": "KRW",
+      "security_class": "ordinary_share",
+      "initial_price": 1200,
+      "shares_outstanding": 1000000,
+      "initial_player_holding": 0,
+      "drivers_ko": "임대 계약·가동률·설비비",
+      "source_refs": [
+        "DESIGN-V03",
+        "F1"
+      ],
+      "public_information_only": true,
+      "price_model_status": "NOT_CALIBRATED",
+      "business_discount_from_shareholding": false
+    },
+    {
+      "id": "SEC03",
+      "company_name_ko": "온길센서",
+      "fictional": true,
+      "stage": "P1",
+      "sector": "logistics_sensors",
+      "currency": "KRW",
+      "security_class": "ordinary_share",
+      "initial_price": 800,
+      "shares_outstanding": 1000000,
+      "initial_player_holding": 0,
+      "drivers_ko": "설비 투자 수요·개발비·신뢰성",
+      "source_refs": [
+        "DESIGN-V03",
+        "F1"
+      ],
+      "public_information_only": true,
+      "price_model_status": "NOT_CALIBRATED",
+      "business_discount_from_shareholding": false
+    },
+    {
+      "id": "SEC04",
+      "company_name_ko": "새봄소재",
+      "fictional": true,
+      "stage": "P1",
+      "sector": "packaging_materials",
+      "currency": "KRW",
+      "security_class": "ordinary_share",
+      "initial_price": 1500,
+      "shares_outstanding": 1000000,
+      "initial_player_holding": 0,
+      "drivers_ko": "원료비·포장 수요·회수비",
+      "source_refs": [
+        "DESIGN-V03",
+        "F1"
+      ],
+      "public_information_only": true,
+      "price_model_status": "NOT_CALIBRATED",
+      "business_discount_from_shareholding": false
+    }
+  ],
+  "$schema": "../schemas/securities.schema.json"
+}

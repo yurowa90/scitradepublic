@@ -1,0 +1,33 @@
+.p11 { min-width: 0; overflow-wrap: anywhere; }
+.p11 > p { margin: .25rem 0; }
+.p11 fieldset { min-width: 0; padding: 0; border: 0; }
+.p11-terms { display: flex; flex-wrap: wrap; gap: .3rem; }
+.p11-terms label { display: flex; align-items: center; flex: 1; min-height: 44px; }
+.p11 small { display: block; }
+.p11 summary { min-height: 44px; }
+.p11 table { width: 100%; table-layout: fixed; }
+.p11 td { font-size: .8rem; }
+.p11-statements { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 1rem; align-items: start; }
+.p11-statements td { white-space: nowrap; }
+.p11-bar { display: flex; height: 18px; }
+.p11-bar span { background: var(--gold); border: 1px solid var(--navy); }
+.p11-bar span:nth-child(even) { background: var(--sky); }
+.p11-dialog { position: fixed; inset: 4%; z-index: 100; overflow: auto; }
+@media (max-width: 30rem) {
+  .p11-terms { flex-direction: column; }
+}
+
+/* 경로 11 표·대화상자 재무제표는 지연 CSS에서 읽기 칸 색을 묶는다. */
+.p11 table {
+  --paper: #f3ead6; --navy: #1f2a44; --navy-soft: #4a5672; --line: #c9b994;
+  --mint: #e1ece3; --mint-deep: #2f6f57; --sky: #dbe6f2; --sky-deep: #2f5f94;
+  --warn: #9a3f1e; --warn-bg: #f6e0d4; --ok: var(--mint-deep);
+  --role-sales-fg: var(--sky-deep); --attr-water-fg: var(--sky-deep); --attr-water-line: var(--sky-deep);
+  --attr-light-fg: #7a5a14; --attr-light-line: var(--line);
+  --fwd-bg: #f3e6c8; --fwd-fg: #7a5a14; --fwd-line: var(--line);
+  --severity-warn: var(--warn); --select-row: #fff6d8;
+  --surface-soft: var(--paper); --progress-bg: var(--paper); --btn-line: var(--navy);
+  background: var(--paper); color: var(--navy);
+}
+.p11 table h3 { background: none; padding-left: 0; }
+.p11 table { color-scheme: light; }

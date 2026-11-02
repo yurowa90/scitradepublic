@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "job_templates v0.4 data shape",
+  "description": "Starter data shape, plus semantic checks in tools/validate_data.py. Not a complete game engine command contract.",
+  "type": "object",
+  "required": [
+    "$schema",
+    "data_basis",
+    "items",
+    "schema_version",
+    "source_refs"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "data_basis": {
+      "type": "string"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "affinity_attribute",
+          "base_contribution_source",
+          "complementary_roles",
+          "home_team_id",
+          "id",
+          "location_rule",
+          "minimum_task_duration_days",
+          "name_ko",
+          "remote_support_allowed",
+          "responsible_min",
+          "same_species_or_attribute_not_required",
+          "stage",
+          "stat_weights",
+          "status",
+          "support_max"
+        ],
+        "properties": {
+          "affinity_attribute": {
+            "type": "string"
+          },
+          "base_contribution_source": {
+            "type": "string"
+          },
+          "complementary_roles": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "home_team_id": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "location_rule": {
+            "type": "string"
+          },
+          "minimum_task_duration_days": {
+            "type": "integer"
+          },
+          "name_ko": {
+            "type": "string"
+          },
+          "remote_support_allowed": {
+            "type": "boolean"
+          },
+          "responsible_min": {
+            "type": "integer"
+          },
+          "same_species_or_attribute_not_required": {
+            "type": "boolean"
+          },
+          "stage": {
+            "type": "string"
+          },
+          "stat_weights": {
+            "type": "object",
+            "required": [],
+            "properties": {
+              "analysis": {
+                "type": "number"
+              },
+              "coordination": {
+                "type": "number"
+              },
+              "exploration": {
+                "type": "number"
+              },
+              "negotiation": {
+                "type": "number"
+              },
+              "operations": {
+                "type": "number"
+              },
+              "technology": {
+                "type": "number"
+              }
+            },
+            "additionalProperties": true
+          },
+          "status": {
+            "type": "string"
+          },
+          "support_max": {
+            "type": "integer"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "schema_version": {
+      "type": "string"
+    },
+    "source_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,246 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "routes v0.4 data shape",
+  "description": "Starter data shape, plus semantic checks in tools/validate_data.py. Not a complete game engine command contract.",
+  "type": "object",
+  "required": [
+    "$schema",
+    "data_basis",
+    "items",
+    "numeric_values_status",
+    "schema_version",
+    "source_refs"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "data_basis": {
+      "type": "string"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "allowed_storage_classes",
+          "booking_fee",
+          "capacity_kg",
+          "capacity_m3",
+          "carrier_id",
+          "departure_interval_days",
+          "direction",
+          "first_departure_day",
+          "from_city_id",
+          "id",
+          "source_refs",
+          "to_city_id",
+          "transit_days"
+        ],
+        "properties": {
+          "allowed_storage_classes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "booking_fee": {
+            "type": "object",
+            "required": [
+              "amount",
+              "basis",
+              "currency"
+            ],
+            "properties": {
+              "amount": {
+                "type": "integer"
+              },
+              "basis": {
+                "type": "string"
+              },
+              "currency": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": true
+          },
+          "capacity_kg": {
+            "type": "integer"
+          },
+          "capacity_m3": {
+            "type": "integer"
+          },
+          "carrier_id": {
+            "type": "string"
+          },
+          "departure_interval_days": {
+            "type": "integer"
+          },
+          "direction": {
+            "type": "string"
+          },
+          "first_departure_day": {
+            "type": "integer"
+          },
+          "from_city_id": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "source_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "to_city_id": {
+            "type": "string"
+          },
+          "transit_days": {
+            "type": "integer"
+          },
+          "map_waypoints": {
+            "type": "object",
+            "description": "지도에 그릴 표시용 꺾은선. 실제 항로 자료가 아니다.",
+            "required": [
+              "basis",
+              "use",
+              "points"
+            ],
+            "properties": {
+              "basis": {
+                "type": "string",
+                "enum": [
+                  "DESIGN"
+                ]
+              },
+              "use": {
+                "type": "string",
+                "enum": [
+                  "map_display_only"
+                ]
+              },
+              "note_ko": {
+                "type": "string"
+              },
+              "points": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "lat",
+                    "lon"
+                  ],
+                  "properties": {
+                    "lat": {
+                      "type": "number",
+                      "minimum": -90,
+                      "maximum": 90
+                    },
+                    "lon": {
+                      "type": "number",
+                      "minimum": -180,
+                      "maximum": 180
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            },
+            "additionalProperties": false
+          },
+          "schedule_basis": {
+            "type": "object",
+            "required": [
+              "carrier_service_ko",
+              "departure_weekday",
+              "arrival_weekday",
+              "day_count_rule_ko",
+              "checked_on",
+              "status",
+              "note_ko",
+              "port_calls",
+              "source_refs",
+              "tolerance_days"
+            ],
+            "properties": {
+              "carrier_service_ko": {
+                "type": "string"
+              },
+              "departure_weekday": {
+                "type": "string",
+                "enum": [
+                  "월요일",
+                  "화요일",
+                  "수요일",
+                  "목요일",
+                  "금요일",
+                  "토요일",
+                  "일요일"
+                ]
+              },
+              "arrival_weekday": {
+                "type": "string",
+                "enum": [
+                  "월요일",
+                  "화요일",
+                  "수요일",
+                  "목요일",
+                  "금요일",
+                  "토요일",
+                  "일요일"
+                ]
+              },
+              "day_count_rule_ko": {
+                "type": "string"
+              },
+              "checked_on": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "note_ko": {
+                "type": "string"
+              },
+              "port_calls": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "source_refs": {
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": {
+                  "type": "string"
+                }
+              },
+              "tolerance_days": {
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "numeric_values_status": {
+      "type": "string"
+    },
+    "schema_version": {
+      "type": "string"
+    },
+    "source_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": true
+}

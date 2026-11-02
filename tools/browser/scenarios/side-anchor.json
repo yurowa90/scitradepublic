@@ -1,0 +1,42 @@
+{
+  "schema": "scitrade-browser-scenario/1",
+  "id": "side-anchor",
+  "title_ko": "현지 패널을 연 채 오른쪽 칸(오늘 할 일·자원 예약)과 주 열(거래)을 읽다 하루 진행",
+  "source_ko": "TASK-0024 구현 지시 5·9",
+  "profiles": "all",
+  "steps": [
+    {"do": "end-day", "times": 1},
+    {"do": "tap", "selector": "#local-tab"},
+    {"do": "tap", "selector": "[data-action=\"culture-act\"]"},
+    {"do": "tap", "selector": "[data-action=\"culture-emp\"]:not([disabled])"},
+    {"do": "tap", "selector": "[data-action=\"culture-queue\"]"},
+    {"do": "tap", "selector": "#queue-h"},
+    {"do": "scroll-to", "selector": "#queue-h", "offset_from_bar": 120},
+    {"do": "scroll-to", "selector": "#queue-h", "offset_from_bar": 120},
+    {"do": "remember", "name": "queue", "selector": "#queue-h"},
+    {"do": "end-day", "times": 1},
+    {"do": "wait", "ms": 350},
+    {"do": "measure", "name": "queue_moved", "what": "moved", "ref": "queue"},
+    {"do": "tap", "selector": "#res-h"},
+    {"do": "scroll-to", "selector": "#res-h", "offset_from_bar": 120},
+    {"do": "scroll-to", "selector": "#res-h", "offset_from_bar": 120},
+    {"do": "remember", "name": "res", "selector": "#res-h"},
+    {"do": "end-day", "times": 1},
+    {"do": "wait", "ms": 350},
+    {"do": "measure", "name": "res_moved", "what": "moved", "ref": "res"},
+    {"do": "tap", "selector": "#trade-h"},
+    {"do": "scroll-to", "selector": "#trade-h", "offset_from_bar": 40},
+    {"do": "scroll-to", "selector": "#trade-h", "offset_from_bar": 40},
+    {"do": "remember", "name": "trade", "selector": "#trade-h"},
+    {"do": "end-day", "times": 1},
+    {"do": "wait", "ms": 350},
+    {"do": "measure", "name": "trade_moved", "what": "moved", "ref": "trade"},
+    {"do": "measure", "name": "overflow_x", "what": "overflow-x"}
+  ],
+  "expect": [
+    {"value": "queue_moved", "min": -1, "max": 1, "profiles": "all", "source_ko": "TASK-0024 구현 지시 5(오른쪽 오늘 할 일을 읽던 자리)"},
+    {"value": "res_moved", "min": -1, "max": 1, "profiles": ["l1366", "cb1366t", "ipadAirL", "ipadminiL", "ipadmini6L", "l1920"], "source_ko": "TASK-0024 구현 지시 5(오른쪽 자원 예약을 읽던 자리, 세 열)"},
+    {"value": "trade_moved", "min": -1, "max": 1, "profiles": "all", "source_ko": "TASK-0024 구현 지시 5(주 열 대조는 그대로)"},
+    {"value": "overflow_x", "min": 0, "max": 0, "profiles": "all", "source_ko": "TASK-0024 구현 지시 9(가로 넘침 0)"}
+  ]
+}

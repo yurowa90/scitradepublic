@@ -1,0 +1,247 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "culture_activities v0.4 data shape",
+  "description": "Starter data shape, plus semantic checks in tools/validate_data.py. Not a complete game engine command contract.",
+  "type": "object",
+  "required": [
+    "$schema",
+    "data_basis",
+    "items",
+    "schema_version"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "data_basis": {
+      "type": "string"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "actor_experience_dedupe_key_template",
+          "city_id",
+          "completion_dedupe_key_template",
+          "constraints_ko",
+          "contact_ids",
+          "curriculum_refs",
+          "duration_basis",
+          "duration_days",
+          "effects",
+          "eligibility",
+          "fictional",
+          "id",
+          "knowledge_topic",
+          "money_cost",
+          "observations_ko",
+          "relationship_dedupe_key_template",
+          "repeat_policy_ko",
+          "source_refs",
+          "stage",
+          "title_ko",
+          "venue_id"
+        ],
+        "properties": {
+          "actor_experience_dedupe_key_template": {
+            "type": "string"
+          },
+          "city_id": {
+            "type": "string"
+          },
+          "completion_dedupe_key_template": {
+            "type": "string"
+          },
+          "constraints_ko": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "contact_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "curriculum_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "duration_basis": {
+            "type": "string"
+          },
+          "duration_days": {
+            "type": "integer"
+          },
+          "effects": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "scope",
+                "type"
+              ],
+              "properties": {
+                "contact_ids": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "required_interaction_ko": {
+                  "type": "string"
+                },
+                "scope": {
+                  "type": "string"
+                },
+                "topic_id": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                },
+                "unlocks": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "additionalProperties": true
+            }
+          },
+          "eligibility": {
+            "type": "object",
+            "required": [
+              "actor_must_be_available",
+              "actor_must_be_in_city",
+              "require_sufficient_cash"
+            ],
+            "properties": {
+              "actor_must_be_available": {
+                "type": "boolean"
+              },
+              "actor_must_be_in_city": {
+                "type": "boolean"
+              },
+              "require_sufficient_cash": {
+                "type": "boolean"
+              }
+            },
+            "additionalProperties": true
+          },
+          "fictional": {
+            "type": "boolean"
+          },
+          "id": {
+            "type": "string"
+          },
+          "knowledge_topic": {
+            "type": "object",
+            "required": [
+              "content_revision",
+              "id",
+              "scope",
+              "title_ko"
+            ],
+            "properties": {
+              "content_revision": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "scope": {
+                "type": "string"
+              },
+              "title_ko": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": true
+          },
+          "money_cost": {
+            "type": "object",
+            "required": [
+              "amount",
+              "basis",
+              "currency"
+            ],
+            "properties": {
+              "amount": {
+                "type": "integer"
+              },
+              "basis": {
+                "type": "string"
+              },
+              "currency": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": true
+          },
+          "observations_ko": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "relationship_dedupe_key_template": {
+            "type": "string"
+          },
+          "repeat_policy_ko": {
+            "type": "string"
+          },
+          "source_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "stage": {
+            "type": "string"
+          },
+          "title_ko": {
+            "type": "string"
+          },
+          "venue_id": {
+            "type": "string"
+          },
+          "report_ko": {
+            "type": "object",
+            "required": [
+              "finding_ko",
+              "scope_ko",
+              "not_claimed_ko",
+              "open_question_ko"
+            ],
+            "properties": {
+              "finding_ko": {
+                "type": "string"
+              },
+              "scope_ko": {
+                "type": "string"
+              },
+              "not_claimed_ko": {
+                "type": "string"
+              },
+              "open_question_ko": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "schema_version": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}

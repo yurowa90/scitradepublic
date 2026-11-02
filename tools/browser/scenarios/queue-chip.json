@@ -1,0 +1,29 @@
+{
+  "schema": "scitrade-browser-scenario/1",
+  "id": "queue-chip",
+  "title_ko": "수락·배정·예약 뒤 ‘오늘 할 일 N건’ 단추로 오늘 할 일 보기",
+  "source_ko": "TASK-0024 구현 지시 4·9",
+  "profiles": "all",
+  "steps": [
+    {"do": "tap", "selector": "[data-action=\"accept\"][data-buy]", "index": 1},
+    {"do": "tap", "selector": "[data-action=\"assign\"]:not([disabled])"},
+    {"do": "tap", "selector": "[data-action=\"book\"]:not([disabled])"},
+    {"do": "wait", "ms": 350},
+    {"do": "measure", "name": "queue_from_bar_t1", "what": "top-from-bar", "selector": "#queue-h"},
+    {"do": "measure", "name": "chip_from_bar", "what": "top-from-bar", "selector": "#queue-chip"},
+    {"do": "measure", "name": "chip_h", "what": "height", "selector": "#queue-chip"},
+    {"do": "tap", "selector": "#queue-chip"},
+    {"do": "wait", "ms": 350},
+    {"do": "measure", "name": "queue_from_bar", "what": "top-from-bar", "selector": "#queue-h"},
+    {"do": "measure", "name": "first_item_from_bar", "what": "top-from-bar", "selector": ".queue .pending > li"},
+    {"do": "measure", "name": "first_item_h", "what": "height", "selector": ".queue .pending > li"},
+    {"do": "measure", "name": "overflow_x", "what": "overflow-x"}
+  ],
+  "expect": [
+    {"value": "chip_from_bar", "min": -72, "max": -36, "profiles": "mouse", "source_ko": "TASK-0024 구현 지시 4(단추가 마우스 막대 72.3px 안)"},
+    {"value": "chip_from_bar", "min": -79, "max": -44, "profiles": "touch", "source_ko": "TASK-0024 구현 지시 4(단추가 터치 막대 79px 안)"},
+    {"value": "queue_from_bar", "min": -2, "max": 8, "profiles": "all", "source_ko": "TASK-0024 구현 지시 4(제목으로 이동)"},
+    {"value": "first_item_from_bar", "min": 0, "max": 300, "profiles": "all", "source_ko": "TASK-0024 구현 지시 4(첫 항목이 띠 안)"},
+    {"value": "overflow_x", "min": 0, "max": 0, "profiles": "all", "source_ko": "TASK-0024 구현 지시 9(가로 넘침 0)"}
+  ]
+}

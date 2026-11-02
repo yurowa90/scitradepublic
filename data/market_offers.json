@@ -1,0 +1,161 @@
+{
+  "schema_version": "0.3.0",
+  "data_basis": "DESIGN",
+  "source_refs": [
+    "DESIGN-V03"
+  ],
+  "numeric_values_status": "합성 개발용 값. 현실 가격·운송일·직원 생산성 추정치가 아님.",
+  "items": [
+    {
+      "id": "OFFER_BUY_01",
+      "kind": "supplier",
+      "counterparty_id": "SUPPLIER_DEMO",
+      "city_id": "PYEONGTAEK",
+      "good_id": "APPAREL",
+      "quantity": 100,
+      "quantity_unit": "piece",
+      "unit_price": {
+        "currency": "USD",
+        "amount": 10
+      },
+      "valid_until_day": 3,
+      "origin_country_code": "KR",
+      "source_refs": [
+        "DESIGN-V03"
+      ],
+      "note_ko": "한국 브랜드 의류 소량 수출을 위한 국내 매입(DESIGN 설정)."
+    },
+    {
+      "id": "OFFER_SELL_01",
+      "kind": "customer",
+      "counterparty_id": "CUSTOMER_DEMO",
+      "city_id": "HAIPHONG",
+      "good_id": "APPAREL",
+      "quantity": 100,
+      "quantity_unit": "piece",
+      "unit_price": {
+        "currency": "USD",
+        "amount": 14
+      },
+      "valid_until_day": 3,
+      "delivery_deadline_day": 8,
+      "payment_due_day": 10,
+      "source_refs": [
+        "DESIGN-V03"
+      ],
+      "note_ko": "한국 브랜드 의류 소량 수출(DESIGN 설정). 하이퐁 고객에게 파는 판매 견적이다."
+    },
+    {
+      "id": "OFFER_BUY_02",
+      "kind": "supplier",
+      "counterparty_id": "SUPPLIER_DEMO_COSMETICS",
+      "city_id": "PYEONGTAEK",
+      "good_id": "COSMETICS",
+      "quantity": 50,
+      "quantity_unit": "case",
+      "unit_price": {
+        "currency": "USD",
+        "amount": 40
+      },
+      "valid_until_day": 3,
+      "origin_country_code": "KR",
+      "source_refs": [
+        "DESIGN-V04"
+      ]
+    },
+    {
+      "id": "OFFER_SELL_02",
+      "kind": "customer",
+      "counterparty_id": "CUSTOMER_DEMO_SHANGHAI",
+      "city_id": "SHANGHAI",
+      "good_id": "COSMETICS",
+      "quantity": 50,
+      "quantity_unit": "case",
+      "unit_price": {
+        "currency": "USD",
+        "amount": 50
+      },
+      "valid_until_day": 3,
+      "delivery_deadline_day": 8,
+      "payment_due_day": 12,
+      "source_refs": [
+        "DESIGN-V04"
+      ]
+    },
+    {
+      "id": "OFFER_FWD_01",
+      "kind": "forwarding",
+      "counterparty_id": "SHIPPER_DEMO_FURNITURE",
+      "city_id": "PYEONGTAEK",
+      "destination_city_id": "HAIPHONG",
+      "good_id": "FURNITURE",
+      "quantity": 120,
+      "quantity_unit": "piece",
+      "cargo_owner": "customer",
+      "service_fee": {
+        "currency": "USD",
+        "amount": 380
+      },
+      "declared_cargo_value": {
+        "currency": "USD",
+        "amount": 9600
+      },
+      "valid_until_day": 3,
+      "delivery_deadline_day": 8,
+      "payment_due_day": 10,
+      "origin_country_code": "KR",
+      "source_refs": [
+        "DESIGN-V04"
+      ],
+      "note_ko": "현지 사무실·숙소를 여는 회사의 가구 120점(DESIGN 설정). 고객 소유 화물의 운송 주선. 신고가액은 고객 상품의 가치이며 회사 재고·매출이 아니다."
+    },
+    {
+      "id": "OFFER_FWD_02",
+      "kind": "forwarding",
+      "counterparty_id": "SHIPPER_DEMO_AUTOPARTS",
+      "city_id": "PYEONGTAEK",
+      "destination_city_id": "HAIPHONG",
+      "good_id": "AUTO_PARTS",
+      "quantity": 200,
+      "quantity_unit": "case",
+      "cargo_owner": "customer",
+      "service_fee": {
+        "currency": "USD",
+        "amount": 300
+      },
+      "declared_cargo_value": {
+        "currency": "USD",
+        "amount": 12000
+      },
+      "valid_until_day": 3,
+      "delivery_deadline_day": 15,
+      "payment_due_day": 17,
+      "origin_country_code": "KR",
+      "source_refs": [
+        "DESIGN-V04"
+      ],
+      "note_ko": "자동차 부품 200상자(8m³, 2,400kg), 신고가액 12,000 USD(상자당 60 USD)는 DESIGN 설정이다. 고객 소유 화물이며 회사 재고·자산·매출이 아니다. 납기가 여유 있어 같은 출항편의 남은 부피에 따라 다음 편으로 미룰 수 있다."
+    }
+    ,
+    {
+      "id": "OFFER_SELL_02_NEW",
+      "kind": "customer",
+      "counterparty_id": "CUSTOMER_SHA_COSMETICS_NEW",
+      "city_id": "SHANGHAI",
+      "good_id": "COSMETICS",
+      "quantity": 50,
+      "quantity_unit": "case",
+      "unit_price": {
+        "currency": "USD",
+        "amount": 50
+      },
+      "valid_until_day": 3,
+      "delivery_deadline_day": 8,
+      "payment_due_day": 12,
+      "source_refs": [
+        "DESIGN-V04"
+      ]
+    }
+  ],
+  "$schema": "../schemas/market_offers.schema.json"
+}

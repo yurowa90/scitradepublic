@@ -1,0 +1,28 @@
+{
+  "schema": "scitrade-browser-scenario/1",
+  "id": "card-detail-low",
+  "title_ko": "화면 아래쪽 동료 카드를 누를 때 상세 단추 위치",
+  "source_ko": "TASK-0024 구현 지시 1·9",
+  "profiles": "all",
+  "steps": [
+    {"do": "scroll-to", "selector": ".crew-cards > article.card", "offset_from_bar": 360},
+    {"do": "scroll-to", "selector": ".crew-cards > article.card", "offset_from_bar": 360},
+    {"do": "measure", "name": "card_before_low", "what": "top-from-bar", "selector": ".crew-cards > article.card"},
+    {"do": "tap", "selector": ".crew-cards > article.card"},
+    {"do": "wait", "ms": 350},
+    {"do": "measure", "name": "card_after_low", "what": "top-from-bar", "selector": ".crew-cards > article.card"},
+    {"do": "measure", "name": "detail_btn_low_from_bar", "what": "top-from-bar", "selector": "[data-action=\"detail\"]"},
+    {"do": "measure", "name": "detail_btn_h", "what": "height", "selector": "[data-action=\"detail\"]"},
+    {"do": "measure", "name": "overflow_x", "what": "overflow-x"}
+  ],
+  "expect": [
+    {"value": "detail_btn_low_from_bar", "min": 0, "max": 548.4, "profiles": ["l1366"], "source_ko": "TASK-0024 구현 지시 1(아래쪽 카드도 상세 단추가 띠 안)"},
+    {"value": "detail_btn_low_from_bar", "min": 0, "max": 535, "profiles": ["cb1366t"], "source_ko": "TASK-0024 구현 지시 1(아래쪽 카드도 상세 단추가 띠 안)"},
+    {"value": "detail_btn_low_from_bar", "min": 0, "max": 697.5, "profiles": ["ipadAirL"], "source_ko": "TASK-0024 구현 지시 1(아래쪽 카드도 상세 단추가 띠 안)"},
+    {"value": "detail_btn_low_from_bar", "min": 0, "max": 645.5, "profiles": ["ipadminiL"], "source_ko": "TASK-0024 구현 지시 1(아래쪽 카드도 상세 단추가 띠 안)"},
+    {"value": "detail_btn_low_from_bar", "min": 0, "max": 621.5, "profiles": ["ipadmini6L"], "source_ko": "TASK-0024 구현 지시 1(아래쪽 카드도 상세 단추가 띠 안)"},
+    {"value": "detail_btn_low_from_bar", "min": 0, "max": 860.4, "profiles": ["l1920"], "source_ko": "TASK-0024 구현 지시 1(아래쪽 카드도 상세 단추가 띠 안)"},
+    {"value": "detail_btn_low_from_bar", "min": 0, "max": 577.5, "profiles": ["t1000"], "source_ko": "TASK-0024 구현 지시 1(아래쪽 카드도 상세 단추가 띠 안)"},
+    {"value": "overflow_x", "min": 0, "max": 0, "profiles": "all", "source_ko": "TASK-0024 구현 지시 9(가로 넘침 0)"}
+  ]
+}

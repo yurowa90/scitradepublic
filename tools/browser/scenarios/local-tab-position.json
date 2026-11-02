@@ -1,0 +1,16 @@
+{
+  "schema": "scitrade-browser-scenario/1",
+  "id": "local-tab-position",
+  "title_ko": "첫 화면의 현지 탭 위치",
+  "source_ko": "TASK-0012 지시서 552행 기준 2: scrollY 0에서 탭이 막대 아래·화면 안(176~245px)",
+  "profiles": "all",
+  "steps": [
+    { "do": "scroll-top" },
+    { "do": "measure", "name": "tab_top", "what": "top", "selector": "#local-tab" },
+    { "do": "measure", "name": "tab_height", "what": "height", "selector": "#local-tab" },
+    { "do": "measure", "name": "bar_bottom", "what": "bar-bottom" }
+  ],
+  "expect": [
+    { "value": "tab_top", "min": 174, "max": 247, "profiles": "all", "source_ko": "552행 176~245px ±2px" }
+  ]
+}

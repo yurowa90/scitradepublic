@@ -1,0 +1,1224 @@
+{
+  "schema_version": "0.3.0",
+  "data_basis": "DESIGN",
+  "source_refs": [
+    "DESIGN-V03"
+  ],
+  "numeric_values_status": "합성 개발용 값. 현실 가격·운송일·직원 생산성 추정치가 아님.",
+  "items": [
+    {
+      "id": "PYEONGTAEK",
+      "name_ko": "평택",
+      "country_code": "KR",
+      "location_type": "city_port_hub",
+      "geo_position": {
+        "lat": 37.0,
+        "lon": 126.8,
+        "precision_deg": 0.1,
+        "basis": "APPROXIMATE_PUBLIC_COORDINATES",
+        "use": "map_display_only",
+        "note_ko": "거점의 대략 위치(0.1° 반올림). 지도 표시용이며 거리·운송시간 계산에 쓰지 않는다. 공식 항만 좌표와 대조하지 않았다."
+      },
+      "source_refs": [
+        "DESIGN-V04",
+        "GPPC-STATS-2026-06",
+        "MOF-PORT-2025",
+        "ZYEN-GFCI39"
+      ],
+      "venue_ids": [
+        "VEN_TRADE",
+        "VEN_PORT",
+        "VEN_LOUNGE",
+        "VEN_CULTURE",
+        "VEN_FINANCE"
+      ],
+      "unique_content_status": "PYEONGTAEK pilot only; regional content research pending",
+      "travel_rules": "screen_selection_is_not_physical_travel",
+      "hub_roles": [
+        "HOME_BASE"
+      ],
+      "selection_basis": [],
+      "availability": {
+        "stage": "M1",
+        "chapter": 1,
+        "status": "PLAYABLE"
+      },
+      "hub_note_ko": "본사. 세계 중심 거점 선정 기준(물동량·금융·해운 서비스 상위)에는 들지 않으며, 교육·지역 기준으로 골랐다. 2025년 컨테이너 처리량은 전국 4위(약 95.6만 TEU), 총물동량은 전국 5위(운임톤)다. 컨테이너 상대국 비중은 중국이 82.3%다. 서울(GFCI 39 8위)은 내륙이라 지도 거점이 아니며, 환전과 지급 일정은 본사의 금융센터(가상)에서 본다.",
+      "map_position": {
+        "x": 0.6,
+        "y": 0.34,
+        "coordinate_system": "normalized_concept_map_DESIGN_not_geographic"
+      }
+    },
+    {
+      "id": "BUSAN",
+      "name_ko": "부산",
+      "country_code": "KR",
+      "location_type": "city_port_hub",
+      "map_position": {
+        "x": 0.65,
+        "y": 0.37,
+        "coordinate_system": "normalized_concept_map_DESIGN_not_geographic"
+      },
+      "geo_position": {
+        "lat": 35.1,
+        "lon": 129.0,
+        "precision_deg": 0.1,
+        "basis": "APPROXIMATE_PUBLIC_COORDINATES",
+        "use": "map_display_only",
+        "note_ko": "항구 도시의 대략 위치(0.1° 반올림). 지도 표시용이며 거리·운송시간 계산에 쓰지 않는다. 공식 항만 좌표와 대조하지 않았다."
+      },
+      "source_refs": [
+        "DESIGN-V03",
+        "MOF-PORT-2025"
+      ],
+      "venue_ids": [],
+      "unique_content_status": "PYEONGTAEK pilot only; regional content research pending",
+      "travel_rules": "screen_selection_is_not_physical_travel",
+      "hub_roles": [
+        "CONTAINER_GATEWAY",
+        "TRANSSHIPMENT_HUB"
+      ],
+      "selection_basis": [
+        {
+          "source_id": "LL-100P-2026",
+          "indicator_ko": "세계 컨테이너항 순위",
+          "value_ko": "7위",
+          "period": "2025"
+        }
+      ],
+      "availability": {
+        "stage": "M3",
+        "chapter": 1,
+        "status": "PLANNED",
+        "note_ko": "평택 본사의 환적 거점. M1·M2 규칙에는 없고 M3 환적 노선에서 연다"
+      },
+      "hub_note_ko": "1장 환적 거점. 2025년 부산항 컨테이너 처리량의 약 57%가 환적 화물이다.",
+      "venue_template_ids": [
+        "VEN_TRADE",
+        "VEN_PORT",
+        "VEN_LOUNGE",
+        "VEN_CULTURE",
+        "VEN_FINANCE"
+      ]
+    },
+    {
+      "id": "SHANGHAI",
+      "name_ko": "상하이",
+      "country_code": "CN",
+      "location_type": "city_port_hub",
+      "map_position": {
+        "x": 0.49,
+        "y": 0.46,
+        "coordinate_system": "normalized_concept_map_DESIGN_not_geographic"
+      },
+      "geo_position": {
+        "lat": 31.2,
+        "lon": 121.5,
+        "precision_deg": 0.1,
+        "basis": "APPROXIMATE_PUBLIC_COORDINATES",
+        "use": "map_display_only",
+        "note_ko": "항구 도시의 대략 위치(0.1° 반올림). 지도 표시용이며 거리·운송시간 계산에 쓰지 않는다. 공식 항만 좌표와 대조하지 않았다."
+      },
+      "source_refs": [
+        "DESIGN-V03"
+      ],
+      "unique_content_status": "PYEONGTAEK pilot only; regional content research pending",
+      "travel_rules": "screen_selection_is_not_physical_travel",
+      "venue_template_ids": [
+        "VEN_TRADE",
+        "VEN_PORT",
+        "VEN_LOUNGE",
+        "VEN_CULTURE",
+        "VEN_FINANCE"
+      ],
+      "venue_ids": [],
+      "hub_roles": [
+        "CONTAINER_GATEWAY",
+        "FINANCE_CENTER",
+        "MARITIME_SERVICES"
+      ],
+      "selection_basis": [
+        {
+          "source_id": "LL-100P-2026",
+          "indicator_ko": "세계 컨테이너항 순위",
+          "value_ko": "1위",
+          "period": "2025"
+        },
+        {
+          "source_id": "SH-GOV-2025",
+          "indicator_ko": "컨테이너 처리량 (항만 전체)",
+          "value_ko": "약 5,506만 TEU",
+          "period": "2025"
+        },
+        {
+          "source_id": "ZYEN-GFCI39",
+          "indicator_ko": "국제 금융센터 지수",
+          "value_ko": "6위",
+          "period": "2026-03"
+        },
+        {
+          "source_id": "MENON-DNV-LMC2024",
+          "indicator_ko": "해양 도시 종합",
+          "value_ko": "4위",
+          "period": "2024"
+        }
+      ],
+      "availability": {
+        "stage": "M2",
+        "chapter": 1,
+        "status": "PLAYABLE"
+      },
+      "hub_note_ko": "양쯔강 하구 권역. 3위 닝보·저우산항이 가까워 상하이 권역으로 묶어 표시한다."
+    },
+    {
+      "id": "YOKOHAMA",
+      "name_ko": "요코하마",
+      "country_code": "JP",
+      "location_type": "city_port_hub",
+      "map_position": {
+        "x": 0.84,
+        "y": 0.35,
+        "coordinate_system": "normalized_concept_map_DESIGN_not_geographic"
+      },
+      "geo_position": {
+        "lat": 35.4,
+        "lon": 139.6,
+        "precision_deg": 0.1,
+        "basis": "APPROXIMATE_PUBLIC_COORDINATES",
+        "use": "map_display_only",
+        "note_ko": "항구 도시의 대략 위치(0.1° 반올림). 지도 표시용이며 거리·운송시간 계산에 쓰지 않는다. 공식 항만 좌표와 대조하지 않았다."
+      },
+      "source_refs": [
+        "DESIGN-V03"
+      ],
+      "unique_content_status": "PYEONGTAEK pilot only; regional content research pending",
+      "travel_rules": "screen_selection_is_not_physical_travel",
+      "venue_template_ids": [
+        "VEN_TRADE",
+        "VEN_PORT",
+        "VEN_LOUNGE",
+        "VEN_CULTURE",
+        "VEN_FINANCE"
+      ],
+      "venue_ids": [],
+      "hub_roles": [
+        "CONTAINER_GATEWAY",
+        "FINANCE_CENTER"
+      ],
+      "selection_basis": [
+        {
+          "source_id": "ZYEN-GFCI39",
+          "indicator_ko": "국제 금융센터 지수 (도쿄)",
+          "value_ko": "10위",
+          "period": "2026-03"
+        }
+      ],
+      "availability": {
+        "stage": "M3",
+        "chapter": 1,
+        "status": "PLANNED",
+        "note_ko": "평택발 정기선이 없어 부산 환적으로 연다(M3)"
+      },
+      "hub_note_ko": "도쿄만 관문항. 금융 업무는 도쿄권으로 본다. 항만 물동량 순위는 이번에 확인하지 않았다."
+    },
+    {
+      "id": "HAIPHONG",
+      "name_ko": "하이퐁",
+      "country_code": "VN",
+      "location_type": "city_port_hub",
+      "map_position": {
+        "x": 0.34,
+        "y": 0.65,
+        "coordinate_system": "normalized_concept_map_DESIGN_not_geographic"
+      },
+      "geo_position": {
+        "lat": 20.9,
+        "lon": 106.7,
+        "precision_deg": 0.1,
+        "basis": "APPROXIMATE_PUBLIC_COORDINATES",
+        "use": "map_display_only",
+        "note_ko": "항구 도시의 대략 위치(0.1° 반올림). 지도 표시용이며 거리·운송시간 계산에 쓰지 않는다. 공식 항만 좌표와 대조하지 않았다."
+      },
+      "source_refs": [
+        "DESIGN-V03"
+      ],
+      "unique_content_status": "PYEONGTAEK pilot only; regional content research pending",
+      "travel_rules": "screen_selection_is_not_physical_travel",
+      "venue_template_ids": [
+        "VEN_TRADE",
+        "VEN_PORT",
+        "VEN_LOUNGE",
+        "VEN_CULTURE",
+        "VEN_FINANCE"
+      ],
+      "venue_ids": [],
+      "hub_roles": [
+        "PRODUCTION_ORIGIN",
+        "REGIONAL_GATEWAY"
+      ],
+      "selection_basis": [],
+      "availability": {
+        "stage": "M1",
+        "chapter": 1,
+        "status": "PLAYABLE"
+      },
+      "hub_note_ko": "세계 중심 거점 선정 기준(물동량·금융·해운 서비스 상위)에는 들지 않는다. 베트남 북부 생산 거점으로 1장 콘텐츠의 연속성을 위해 유지한다."
+    },
+    {
+      "id": "SINGAPORE",
+      "name_ko": "싱가포르",
+      "country_code": "SG",
+      "location_type": "city_port_hub",
+      "map_position": {
+        "x": 0.25,
+        "y": 0.86,
+        "coordinate_system": "normalized_concept_map_DESIGN_not_geographic"
+      },
+      "geo_position": {
+        "lat": 1.3,
+        "lon": 103.8,
+        "precision_deg": 0.1,
+        "basis": "APPROXIMATE_PUBLIC_COORDINATES",
+        "use": "map_display_only",
+        "note_ko": "항구 도시의 대략 위치(0.1° 반올림). 지도 표시용이며 거리·운송시간 계산에 쓰지 않는다. 공식 항만 좌표와 대조하지 않았다."
+      },
+      "source_refs": [
+        "DESIGN-V03"
+      ],
+      "unique_content_status": "PYEONGTAEK pilot only; regional content research pending",
+      "travel_rules": "screen_selection_is_not_physical_travel",
+      "venue_template_ids": [
+        "VEN_TRADE",
+        "VEN_PORT",
+        "VEN_LOUNGE",
+        "VEN_CULTURE",
+        "VEN_FINANCE"
+      ],
+      "venue_ids": [],
+      "hub_roles": [
+        "CONTAINER_GATEWAY",
+        "TRANSSHIPMENT_HUB",
+        "FINANCE_CENTER",
+        "MARITIME_SERVICES"
+      ],
+      "selection_basis": [
+        {
+          "source_id": "LL-100P-2026",
+          "indicator_ko": "세계 컨테이너항 순위",
+          "value_ko": "2위, 약 4,460만 TEU",
+          "period": "2025"
+        },
+        {
+          "source_id": "ZYEN-GFCI39",
+          "indicator_ko": "국제 금융센터 지수",
+          "value_ko": "4위",
+          "period": "2026-03"
+        },
+        {
+          "source_id": "MENON-DNV-LMC2024",
+          "indicator_ko": "해양 도시 종합",
+          "value_ko": "1위",
+          "period": "2024"
+        }
+      ],
+      "availability": {
+        "stage": "M3",
+        "chapter": 1,
+        "status": "PLANNED"
+      },
+      "hub_note_ko": "말라카 해협 출구의 환적 중심. 10위 포트클랑(말레이시아)도 이 권역에 있다."
+    },
+    {
+      "id": "JAKARTA",
+      "name_ko": "자카르타",
+      "country_code": "ID",
+      "location_type": "city_port_hub",
+      "map_position": {
+        "x": 0.39,
+        "y": 0.95,
+        "coordinate_system": "normalized_concept_map_DESIGN_not_geographic"
+      },
+      "geo_position": {
+        "lat": -6.1,
+        "lon": 106.9,
+        "precision_deg": 0.1,
+        "basis": "APPROXIMATE_PUBLIC_COORDINATES",
+        "use": "map_display_only",
+        "note_ko": "항구 도시의 대략 위치(0.1° 반올림). 지도 표시용이며 거리·운송시간 계산에 쓰지 않는다. 공식 항만 좌표와 대조하지 않았다."
+      },
+      "source_refs": [
+        "DESIGN-V03"
+      ],
+      "unique_content_status": "PYEONGTAEK pilot only; regional content research pending",
+      "travel_rules": "screen_selection_is_not_physical_travel",
+      "venue_template_ids": [
+        "VEN_TRADE",
+        "VEN_PORT",
+        "VEN_LOUNGE",
+        "VEN_CULTURE",
+        "VEN_FINANCE"
+      ],
+      "venue_ids": [],
+      "hub_roles": [
+        "PRODUCTION_ORIGIN",
+        "REGIONAL_GATEWAY"
+      ],
+      "selection_basis": [],
+      "availability": {
+        "stage": "M3",
+        "chapter": 1,
+        "status": "PLANNED"
+      },
+      "hub_note_ko": "인도네시아 주요 관문(탄중프리옥). 세계 중심 거점 선정 기준에는 들지 않으며 1장 콘텐츠의 연속성을 위해 유지한다. 물동량 순위는 확인하지 않았다."
+    },
+    {
+      "id": "HONG_KONG",
+      "name_ko": "홍콩",
+      "country_code": "HK",
+      "location_type": "city_port_hub",
+      "geo_position": {
+        "lat": 22.3,
+        "lon": 114.2,
+        "precision_deg": 0.1,
+        "basis": "APPROXIMATE_PUBLIC_COORDINATES",
+        "use": "map_display_only",
+        "note_ko": "거점의 대략 위치(0.1° 반올림). 지도 표시용이며 거리·운송시간 계산에 쓰지 않는다. 공식 항만 좌표와 대조하지 않았다."
+      },
+      "source_refs": [
+        "DESIGN-V04"
+      ],
+      "unique_content_status": "not_researched; world map preview only",
+      "travel_rules": "screen_selection_is_not_physical_travel",
+      "venue_template_ids": [
+        "VEN_TRADE",
+        "VEN_PORT",
+        "VEN_LOUNGE",
+        "VEN_CULTURE",
+        "VEN_FINANCE"
+      ],
+      "venue_ids": [],
+      "hub_roles": [
+        "FINANCE_CENTER",
+        "MARITIME_SERVICES",
+        "CONTAINER_GATEWAY"
+      ],
+      "selection_basis": [
+        {
+          "source_id": "ZYEN-GFCI39",
+          "indicator_ko": "국제 금융센터 지수",
+          "value_ko": "3위",
+          "period": "2026-03"
+        },
+        {
+          "source_id": "LL-100P-2026",
+          "indicator_ko": "세계 컨테이너항 순위 (인접 선전)",
+          "value_ko": "선전 4위",
+          "period": "2025"
+        }
+      ],
+      "availability": {
+        "stage": "P1",
+        "chapter": 2,
+        "status": "MAP_PREVIEW",
+        "note_ko": "세계 확장(2장)에서 열리는 거점. 지금은 지도에만 보이며 거래·시설·인물·동료는 아직 없다."
+      },
+      "hub_note_ko": "주강 삼각주 권역. 4위 선전·6위 광저우가 가까워 홍콩 하나로 묶는다. 해사 중재·보험의 아시아 중심 가운데 하나."
+    },
+    {
+      "id": "DUBAI",
+      "name_ko": "두바이(제벨알리)",
+      "country_code": "AE",
+      "location_type": "city_port_hub",
+      "geo_position": {
+        "lat": 25.0,
+        "lon": 55.1,
+        "precision_deg": 0.1,
+        "basis": "APPROXIMATE_PUBLIC_COORDINATES",
+        "use": "map_display_only",
+        "note_ko": "거점의 대략 위치(0.1° 반올림). 지도 표시용이며 거리·운송시간 계산에 쓰지 않는다. 공식 항만 좌표와 대조하지 않았다."
+      },
+      "source_refs": [
+        "DESIGN-V04"
+      ],
+      "unique_content_status": "not_researched; world map preview only",
+      "travel_rules": "screen_selection_is_not_physical_travel",
+      "venue_template_ids": [
+        "VEN_TRADE",
+        "VEN_PORT",
+        "VEN_LOUNGE",
+        "VEN_CULTURE",
+        "VEN_FINANCE"
+      ],
+      "venue_ids": [],
+      "hub_roles": [
+        "CONTAINER_GATEWAY",
+        "TRANSSHIPMENT_HUB",
+        "FINANCE_CENTER"
+      ],
+      "selection_basis": [
+        {
+          "source_id": "LL-100P-2026",
+          "indicator_ko": "세계 컨테이너항 순위",
+          "value_ko": "9위",
+          "period": "2025"
+        },
+        {
+          "source_id": "ZYEN-GFCI39",
+          "indicator_ko": "국제 금융센터 지수",
+          "value_ko": "7위",
+          "period": "2026-03"
+        }
+      ],
+      "availability": {
+        "stage": "P1",
+        "chapter": 2,
+        "status": "MAP_PREVIEW",
+        "note_ko": "세계 확장(2장)에서 열리는 거점. 지금은 지도에만 보이며 거래·시설·인물·동료는 아직 없다."
+      },
+      "hub_note_ko": "중동·인도양 환적 중심. 가까이 호르무즈 해협이 있다."
+    },
+    {
+      "id": "MUMBAI",
+      "name_ko": "뭄바이(나바셰바)",
+      "country_code": "IN",
+      "location_type": "city_port_hub",
+      "geo_position": {
+        "lat": 18.9,
+        "lon": 72.9,
+        "precision_deg": 0.1,
+        "basis": "APPROXIMATE_PUBLIC_COORDINATES",
+        "use": "map_display_only",
+        "note_ko": "거점의 대략 위치(0.1° 반올림). 지도 표시용이며 거리·운송시간 계산에 쓰지 않는다. 공식 항만 좌표와 대조하지 않았다."
+      },
+      "source_refs": [
+        "DESIGN-V04"
+      ],
+      "unique_content_status": "not_researched; world map preview only",
+      "travel_rules": "screen_selection_is_not_physical_travel",
+      "venue_template_ids": [
+        "VEN_TRADE",
+        "VEN_PORT",
+        "VEN_LOUNGE",
+        "VEN_CULTURE",
+        "VEN_FINANCE"
+      ],
+      "venue_ids": [],
+      "hub_roles": [
+        "CONTAINER_GATEWAY",
+        "FINANCE_CENTER"
+      ],
+      "selection_basis": [
+        {
+          "source_id": "JNPA-2025",
+          "indicator_ko": "인도 최대 컨테이너항 (자와할랄 네루항)",
+          "value_ko": "약 790만 TEU",
+          "period": "2025"
+        }
+      ],
+      "availability": {
+        "stage": "P1",
+        "chapter": 2,
+        "status": "MAP_PREVIEW",
+        "note_ko": "세계 확장(2장)에서 열리는 거점. 지금은 지도에만 보이며 거래·시설·인물·동료는 아직 없다."
+      },
+      "hub_note_ko": "인도 서해안 관문이자 인도 금융 중심 도시. 총화물량 1위는 구자라트의 문드라항이라 컨테이너와 총화물 기준이 다르다."
+    },
+    {
+      "id": "ROTTERDAM",
+      "name_ko": "로테르담",
+      "country_code": "NL",
+      "location_type": "city_port_hub",
+      "geo_position": {
+        "lat": 51.9,
+        "lon": 4.3,
+        "precision_deg": 0.1,
+        "basis": "APPROXIMATE_PUBLIC_COORDINATES",
+        "use": "map_display_only",
+        "note_ko": "거점의 대략 위치(0.1° 반올림). 지도 표시용이며 거리·운송시간 계산에 쓰지 않는다. 공식 항만 좌표와 대조하지 않았다."
+      },
+      "source_refs": [
+        "DESIGN-V04"
+      ],
+      "unique_content_status": "not_researched; world map preview only",
+      "travel_rules": "screen_selection_is_not_physical_travel",
+      "venue_template_ids": [
+        "VEN_TRADE",
+        "VEN_PORT",
+        "VEN_LOUNGE",
+        "VEN_CULTURE",
+        "VEN_FINANCE"
+      ],
+      "venue_ids": [],
+      "hub_roles": [
+        "CONTAINER_GATEWAY",
+        "MARITIME_SERVICES"
+      ],
+      "selection_basis": [
+        {
+          "source_id": "PORT-ROTTERDAM-2025",
+          "indicator_ko": "유럽 컨테이너항 순위",
+          "value_ko": "1위, 약 1,425만 TEU",
+          "period": "2025"
+        },
+        {
+          "source_id": "LL-100P-2026",
+          "indicator_ko": "세계 컨테이너항 순위",
+          "value_ko": "12위",
+          "period": "2025"
+        },
+        {
+          "source_id": "MENON-DNV-LMC2024",
+          "indicator_ko": "해양 도시 종합",
+          "value_ko": "2위",
+          "period": "2024"
+        }
+      ],
+      "availability": {
+        "stage": "P1",
+        "chapter": 2,
+        "status": "MAP_PREVIEW",
+        "note_ko": "세계 확장(2장)에서 열리는 거점. 지금은 지도에만 보이며 거래·시설·인물·동료는 아직 없다."
+      },
+      "hub_note_ko": "유럽의 관문. 2위 앤트워프·브뤼허와 3위 함부르크는 로테르담 권역으로 묶어 표시한다."
+    },
+    {
+      "id": "LONDON",
+      "name_ko": "런던",
+      "country_code": "GB",
+      "location_type": "finance_maritime_services_city",
+      "geo_position": {
+        "lat": 51.5,
+        "lon": -0.1,
+        "precision_deg": 0.1,
+        "basis": "APPROXIMATE_PUBLIC_COORDINATES",
+        "use": "map_display_only",
+        "note_ko": "거점의 대략 위치(0.1° 반올림). 지도 표시용이며 거리·운송시간 계산에 쓰지 않는다. 공식 항만 좌표와 대조하지 않았다."
+      },
+      "source_refs": [
+        "DESIGN-V04"
+      ],
+      "unique_content_status": "not_researched; world map preview only",
+      "travel_rules": "screen_selection_is_not_physical_travel",
+      "venue_template_ids": [
+        "VEN_TRADE",
+        "VEN_LOUNGE",
+        "VEN_CULTURE",
+        "VEN_FINANCE"
+      ],
+      "venue_ids": [],
+      "hub_roles": [
+        "FINANCE_CENTER",
+        "MARITIME_SERVICES"
+      ],
+      "selection_basis": [
+        {
+          "source_id": "ZYEN-GFCI39",
+          "indicator_ko": "국제 금융센터 지수",
+          "value_ko": "2위",
+          "period": "2026-03"
+        },
+        {
+          "source_id": "MENON-DNV-LMC2024",
+          "indicator_ko": "해양 도시 종합",
+          "value_ko": "3위",
+          "period": "2024"
+        },
+        {
+          "source_id": "HFW-ARB2026",
+          "indicator_ko": "국제 해사 중재 건수 (중재지)",
+          "value_ko": "세계 최다, 약 2,100건 (HFW 추정)",
+          "period": "2025"
+        }
+      ],
+      "availability": {
+        "stage": "P1",
+        "chapter": 2,
+        "status": "MAP_PREVIEW",
+        "note_ko": "세계 확장(2장)에서 열리는 거점. 지금은 지도에만 보이며 거래·시설·인물·동료는 아직 없다."
+      },
+      "hub_note_ko": "해상보험·해사 중재·운임 시장 같은 무역 금융·해운 서비스의 중심. 컨테이너 화물은 인근 항만(런던 게이트웨이·펠릭스토)을 쓰므로 게임에서는 화물 항구가 아니라 금융·서비스 거점으로 둔다."
+    },
+    {
+      "id": "PIRAEUS",
+      "name_ko": "피레우스(아테네)",
+      "country_code": "GR",
+      "location_type": "city_port_hub",
+      "geo_position": {
+        "lat": 37.9,
+        "lon": 23.6,
+        "precision_deg": 0.1,
+        "basis": "APPROXIMATE_PUBLIC_COORDINATES",
+        "use": "map_display_only",
+        "note_ko": "거점의 대략 위치(0.1° 반올림). 지도 표시용이며 거리·운송시간 계산에 쓰지 않는다. 공식 항만 좌표와 대조하지 않았다."
+      },
+      "source_refs": [
+        "DESIGN-V04"
+      ],
+      "unique_content_status": "not_researched; world map preview only",
+      "travel_rules": "screen_selection_is_not_physical_travel",
+      "venue_template_ids": [
+        "VEN_TRADE",
+        "VEN_PORT",
+        "VEN_LOUNGE",
+        "VEN_CULTURE",
+        "VEN_FINANCE"
+      ],
+      "venue_ids": [],
+      "hub_roles": [
+        "SHIPOWNING_CLUSTER",
+        "CONTAINER_GATEWAY",
+        "TRANSSHIPMENT_HUB"
+      ],
+      "selection_basis": [
+        {
+          "source_id": "UNCTAD-RMT2024",
+          "indicator_ko": "선박 보유 국가 (그리스)",
+          "value_ko": "세계 1위(실소유 기준), 약 3.95억 dwt",
+          "period": "2024-01"
+        },
+        {
+          "source_id": "PORTECON-EU-2025",
+          "indicator_ko": "EU 컨테이너항 순위",
+          "value_ko": "7위",
+          "period": "2025"
+        },
+        {
+          "source_id": "PPA-FY2025",
+          "indicator_ko": "컨테이너 처리량 (항만 전체)",
+          "value_ko": "약 464만 TEU (전년 대비 −3.2%)",
+          "period": "2025"
+        }
+      ],
+      "availability": {
+        "stage": "P1",
+        "chapter": 2,
+        "status": "MAP_PREVIEW",
+        "note_ko": "세계 확장(2장)에서 열리는 거점. 지금은 지도에만 보이며 거래·시설·인물·동료는 아직 없다."
+      },
+      "hub_note_ko": "세계 최대 선주 국가 그리스의 해운 중심이자 수에즈를 지나 처음 닿는 지중해 관문."
+    },
+    {
+      "id": "TANGER_MED",
+      "name_ko": "탕헤르 메드",
+      "country_code": "MA",
+      "location_type": "port_hub",
+      "geo_position": {
+        "lat": 35.9,
+        "lon": -5.5,
+        "precision_deg": 0.1,
+        "basis": "APPROXIMATE_PUBLIC_COORDINATES",
+        "use": "map_display_only",
+        "note_ko": "거점의 대략 위치(0.1° 반올림). 지도 표시용이며 거리·운송시간 계산에 쓰지 않는다. 공식 항만 좌표와 대조하지 않았다."
+      },
+      "source_refs": [
+        "DESIGN-V04"
+      ],
+      "unique_content_status": "not_researched; world map preview only",
+      "travel_rules": "screen_selection_is_not_physical_travel",
+      "venue_template_ids": [
+        "VEN_TRADE",
+        "VEN_PORT",
+        "VEN_LOUNGE",
+        "VEN_CULTURE",
+        "VEN_FINANCE"
+      ],
+      "venue_ids": [],
+      "hub_roles": [
+        "TRANSSHIPMENT_HUB",
+        "CONTAINER_GATEWAY"
+      ],
+      "selection_basis": [
+        {
+          "source_id": "TANGERMED-2025",
+          "indicator_ko": "아프리카·지중해 최대 항만",
+          "value_ko": "약 1,111만 TEU",
+          "period": "2025"
+        }
+      ],
+      "availability": {
+        "stage": "P1",
+        "chapter": 2,
+        "status": "MAP_PREVIEW",
+        "note_ko": "세계 확장(2장)에서 열리는 거점. 지금은 지도에만 보이며 거래·시설·인물·동료는 아직 없다."
+      },
+      "hub_note_ko": "지브롤터 해협 남쪽의 환적 중심. 지중해와 대서양, 유럽과 아프리카를 잇는다."
+    },
+    {
+      "id": "DURBAN",
+      "name_ko": "더반",
+      "country_code": "ZA",
+      "location_type": "city_port_hub",
+      "geo_position": {
+        "lat": -29.9,
+        "lon": 31.0,
+        "precision_deg": 0.1,
+        "basis": "APPROXIMATE_PUBLIC_COORDINATES",
+        "use": "map_display_only",
+        "note_ko": "거점의 대략 위치(0.1° 반올림). 지도 표시용이며 거리·운송시간 계산에 쓰지 않는다. 공식 항만 좌표와 대조하지 않았다."
+      },
+      "source_refs": [
+        "DESIGN-V04"
+      ],
+      "unique_content_status": "not_researched; world map preview only",
+      "travel_rules": "screen_selection_is_not_physical_travel",
+      "venue_template_ids": [
+        "VEN_TRADE",
+        "VEN_PORT",
+        "VEN_LOUNGE",
+        "VEN_CULTURE",
+        "VEN_FINANCE"
+      ],
+      "venue_ids": [],
+      "hub_roles": [
+        "REGIONAL_GATEWAY",
+        "CONTAINER_GATEWAY"
+      ],
+      "selection_basis": [
+        {
+          "source_id": "AFRICAPORTS-TNPA-2024",
+          "indicator_ko": "사하라 이남 아프리카 최대 컨테이너항",
+          "value_ko": "항만 전체 약 265만 TEU",
+          "period": "2024"
+        }
+      ],
+      "availability": {
+        "stage": "P1",
+        "chapter": 2,
+        "status": "MAP_PREVIEW",
+        "note_ko": "세계 확장(2장)에서 열리는 거점. 지금은 지도에만 보이며 거래·시설·인물·동료는 아직 없다."
+      },
+      "hub_note_ko": "남아프리카 관문. 희망봉 우회 항로에서 가장 가까운 대형 항만."
+    },
+    {
+      "id": "MOMBASA",
+      "name_ko": "몸바사",
+      "country_code": "KE",
+      "location_type": "city_port_hub",
+      "geo_position": {
+        "lat": -4.1,
+        "lon": 39.7,
+        "precision_deg": 0.1,
+        "basis": "APPROXIMATE_PUBLIC_COORDINATES",
+        "use": "map_display_only",
+        "note_ko": "거점의 대략 위치(0.1° 반올림). 지도 표시용이며 거리·운송시간 계산에 쓰지 않는다. 공식 항만 좌표와 대조하지 않았다."
+      },
+      "source_refs": [
+        "DESIGN-V04"
+      ],
+      "unique_content_status": "not_researched; world map preview only",
+      "travel_rules": "screen_selection_is_not_physical_travel",
+      "venue_template_ids": [
+        "VEN_TRADE",
+        "VEN_PORT",
+        "VEN_LOUNGE",
+        "VEN_CULTURE",
+        "VEN_FINANCE"
+      ],
+      "venue_ids": [],
+      "hub_roles": [
+        "REGIONAL_GATEWAY"
+      ],
+      "selection_basis": [
+        {
+          "source_id": "MOMBASA-2025",
+          "indicator_ko": "동아프리카 최대 항만",
+          "value_ko": "약 211만 TEU",
+          "period": "2025"
+        }
+      ],
+      "availability": {
+        "stage": "P1",
+        "chapter": 2,
+        "status": "MAP_PREVIEW",
+        "note_ko": "세계 확장(2장)에서 열리는 거점. 지금은 지도에만 보이며 거래·시설·인물·동료는 아직 없다."
+      },
+      "hub_note_ko": "동아프리카 내륙(케냐·우간다 등)으로 들어가는 관문."
+    },
+    {
+      "id": "LOS_ANGELES",
+      "name_ko": "로스앤젤레스·롱비치",
+      "country_code": "US",
+      "location_type": "city_port_hub",
+      "geo_position": {
+        "lat": 33.7,
+        "lon": -118.3,
+        "precision_deg": 0.1,
+        "basis": "APPROXIMATE_PUBLIC_COORDINATES",
+        "use": "map_display_only",
+        "note_ko": "거점의 대략 위치(0.1° 반올림). 지도 표시용이며 거리·운송시간 계산에 쓰지 않는다. 공식 항만 좌표와 대조하지 않았다."
+      },
+      "source_refs": [
+        "DESIGN-V04"
+      ],
+      "unique_content_status": "not_researched; world map preview only",
+      "travel_rules": "screen_selection_is_not_physical_travel",
+      "venue_template_ids": [
+        "VEN_TRADE",
+        "VEN_PORT",
+        "VEN_LOUNGE",
+        "VEN_CULTURE",
+        "VEN_FINANCE"
+      ],
+      "venue_ids": [],
+      "hub_roles": [
+        "CONTAINER_GATEWAY"
+      ],
+      "selection_basis": [
+        {
+          "source_id": "US-PORTS-2025",
+          "indicator_ko": "북미 최대 컨테이너 관문 (두 항만 합계)",
+          "value_ko": "약 2,010만 TEU",
+          "period": "2025"
+        }
+      ],
+      "availability": {
+        "stage": "P1",
+        "chapter": 2,
+        "status": "MAP_PREVIEW",
+        "note_ko": "세계 확장(2장)에서 열리는 거점. 지금은 지도에만 보이며 거래·시설·인물·동료는 아직 없다."
+      },
+      "hub_note_ko": "태평양 횡단 항로의 미국 쪽 관문. 두 항만은 같은 만(샌페드로만)에 붙어 있어 한 거점으로 묶는다."
+    },
+    {
+      "id": "NEW_YORK",
+      "name_ko": "뉴욕·뉴저지",
+      "country_code": "US",
+      "location_type": "city_port_hub",
+      "geo_position": {
+        "lat": 40.7,
+        "lon": -74.0,
+        "precision_deg": 0.1,
+        "basis": "APPROXIMATE_PUBLIC_COORDINATES",
+        "use": "map_display_only",
+        "note_ko": "거점의 대략 위치(0.1° 반올림). 지도 표시용이며 거리·운송시간 계산에 쓰지 않는다. 공식 항만 좌표와 대조하지 않았다."
+      },
+      "source_refs": [
+        "DESIGN-V04"
+      ],
+      "unique_content_status": "not_researched; world map preview only",
+      "travel_rules": "screen_selection_is_not_physical_travel",
+      "venue_template_ids": [
+        "VEN_TRADE",
+        "VEN_PORT",
+        "VEN_LOUNGE",
+        "VEN_CULTURE",
+        "VEN_FINANCE"
+      ],
+      "venue_ids": [],
+      "hub_roles": [
+        "FINANCE_CENTER",
+        "CONTAINER_GATEWAY"
+      ],
+      "selection_basis": [
+        {
+          "source_id": "ZYEN-GFCI39",
+          "indicator_ko": "국제 금융센터 지수",
+          "value_ko": "1위",
+          "period": "2026-03"
+        },
+        {
+          "source_id": "US-PORTS-2025",
+          "indicator_ko": "미국 동부 최대 컨테이너항",
+          "value_ko": "1위",
+          "period": "2025"
+        }
+      ],
+      "availability": {
+        "stage": "P1",
+        "chapter": 2,
+        "status": "MAP_PREVIEW",
+        "note_ko": "세계 확장(2장)에서 열리는 거점. 지금은 지도에만 보이며 거래·시설·인물·동료는 아직 없다."
+      },
+      "hub_note_ko": "세계 1위 금융센터이자 미국 동부 최대 항만. 파나마 운하나 수에즈를 거쳐 닿는다."
+    },
+    {
+      "id": "PANAMA",
+      "name_ko": "파나마(발보아·콜론)",
+      "country_code": "PA",
+      "location_type": "city_port_hub",
+      "geo_position": {
+        "lat": 8.9,
+        "lon": -79.5,
+        "precision_deg": 0.1,
+        "basis": "APPROXIMATE_PUBLIC_COORDINATES",
+        "use": "map_display_only",
+        "note_ko": "거점의 대략 위치(0.1° 반올림). 지도 표시용이며 거리·운송시간 계산에 쓰지 않는다. 공식 항만 좌표와 대조하지 않았다."
+      },
+      "source_refs": [
+        "DESIGN-V04"
+      ],
+      "unique_content_status": "not_researched; world map preview only",
+      "travel_rules": "screen_selection_is_not_physical_travel",
+      "venue_template_ids": [
+        "VEN_TRADE",
+        "VEN_PORT",
+        "VEN_LOUNGE",
+        "VEN_CULTURE",
+        "VEN_FINANCE"
+      ],
+      "venue_ids": [],
+      "hub_roles": [
+        "TRANSSHIPMENT_HUB",
+        "REGIONAL_GATEWAY"
+      ],
+      "selection_basis": [
+        {
+          "source_id": "DATAMAR-SANTOS",
+          "indicator_ko": "라틴아메리카 컨테이너항 (콜론)",
+          "value_ko": "산투스에 1위를 내주기 전까지 1위",
+          "period": "2024"
+        },
+        {
+          "source_id": "GCAPTAIN-PANAMA-2023",
+          "indicator_ko": "운하 통항 제한",
+          "value_ko": "2023 가뭄으로 하루 통항 감축",
+          "period": "2023"
+        }
+      ],
+      "availability": {
+        "stage": "P1",
+        "chapter": 2,
+        "status": "MAP_PREVIEW",
+        "note_ko": "세계 확장(2장)에서 열리는 거점. 지금은 지도에만 보이며 거래·시설·인물·동료는 아직 없다."
+      },
+      "hub_note_ko": "운하 양쪽 끝(태평양 발보아·대서양 콜론)의 환적 거점. 운하 자체는 따로 관문으로 둔다."
+    },
+    {
+      "id": "SANTOS",
+      "name_ko": "산투스",
+      "country_code": "BR",
+      "location_type": "city_port_hub",
+      "geo_position": {
+        "lat": -24.0,
+        "lon": -46.3,
+        "precision_deg": 0.1,
+        "basis": "APPROXIMATE_PUBLIC_COORDINATES",
+        "use": "map_display_only",
+        "note_ko": "거점의 대략 위치(0.1° 반올림). 지도 표시용이며 거리·운송시간 계산에 쓰지 않는다. 공식 항만 좌표와 대조하지 않았다."
+      },
+      "source_refs": [
+        "DESIGN-V04"
+      ],
+      "unique_content_status": "not_researched; world map preview only",
+      "travel_rules": "screen_selection_is_not_physical_travel",
+      "venue_template_ids": [
+        "VEN_TRADE",
+        "VEN_PORT",
+        "VEN_LOUNGE",
+        "VEN_CULTURE",
+        "VEN_FINANCE"
+      ],
+      "venue_ids": [],
+      "hub_roles": [
+        "CONTAINER_GATEWAY",
+        "REGIONAL_GATEWAY"
+      ],
+      "selection_basis": [
+        {
+          "source_id": "DATAMAR-SANTOS",
+          "indicator_ko": "라틴아메리카 최대 컨테이너항",
+          "value_ko": "약 548만 TEU, 세계 37위",
+          "period": "2024"
+        }
+      ],
+      "availability": {
+        "stage": "P1",
+        "chapter": 2,
+        "status": "MAP_PREVIEW",
+        "note_ko": "세계 확장(2장)에서 열리는 거점. 지금은 지도에만 보이며 거래·시설·인물·동료는 아직 없다."
+      },
+      "hub_note_ko": "브라질 상파울루권 관문. 커피·대두 같은 1차 산품 수출과 연결된다."
+    },
+    {
+      "id": "MELBOURNE",
+      "name_ko": "멜버른",
+      "country_code": "AU",
+      "location_type": "city_port_hub",
+      "geo_position": {
+        "lat": -37.8,
+        "lon": 144.9,
+        "precision_deg": 0.1,
+        "basis": "APPROXIMATE_PUBLIC_COORDINATES",
+        "use": "map_display_only",
+        "note_ko": "거점의 대략 위치(0.1° 반올림). 지도 표시용이며 거리·운송시간 계산에 쓰지 않는다. 공식 항만 좌표와 대조하지 않았다."
+      },
+      "source_refs": [
+        "DESIGN-V04"
+      ],
+      "unique_content_status": "not_researched; world map preview only",
+      "travel_rules": "screen_selection_is_not_physical_travel",
+      "venue_template_ids": [
+        "VEN_TRADE",
+        "VEN_PORT",
+        "VEN_LOUNGE",
+        "VEN_CULTURE",
+        "VEN_FINANCE"
+      ],
+      "venue_ids": [],
+      "hub_roles": [
+        "CONTAINER_GATEWAY",
+        "REGIONAL_GATEWAY"
+      ],
+      "selection_basis": [
+        {
+          "source_id": "POM-2025",
+          "indicator_ko": "호주 최대 컨테이너항",
+          "value_ko": "약 350만 TEU",
+          "period": "2025"
+        }
+      ],
+      "availability": {
+        "stage": "P1",
+        "chapter": 2,
+        "status": "MAP_PREVIEW",
+        "note_ko": "세계 확장(2장)에서 열리는 거점. 지금은 지도에만 보이며 거래·시설·인물·동료는 아직 없다."
+      },
+      "hub_note_ko": "남반구 관문. 계절이 반대라 의류·식품 수요 시기가 아시아와 다르다."
+    }
+  ],
+  "$schema": "../schemas/world.schema.json",
+  "sea_gates": [
+    {
+      "id": "MALACCA_STRAIT",
+      "name_ko": "말라카 해협",
+      "gate_type": "strait",
+      "geo_position": {
+        "lat": 2.5,
+        "lon": 101.4,
+        "precision_deg": 0.1,
+        "basis": "APPROXIMATE_PUBLIC_COORDINATES",
+        "use": "map_display_only"
+      },
+      "connects_ko": "인도양 ↔ 남중국해",
+      "event_hook_ko": "동아시아와 인도양·유럽을 잇는 최단 수로. 1장 동남아 노선의 배경으로 먼저 보인다.",
+      "source_refs": [
+        "DESIGN-V04"
+      ],
+      "check_level": "author_knowledge",
+      "availability": {
+        "stage": "P1",
+        "chapter": 2,
+        "status": "MAP_PREVIEW"
+      }
+    },
+    {
+      "id": "HORMUZ_STRAIT",
+      "name_ko": "호르무즈 해협",
+      "gate_type": "strait",
+      "geo_position": {
+        "lat": 26.6,
+        "lon": 56.3,
+        "precision_deg": 0.1,
+        "basis": "APPROXIMATE_PUBLIC_COORDINATES",
+        "use": "map_display_only"
+      },
+      "connects_ko": "페르시아만 ↔ 오만만",
+      "event_hook_ko": "걸프 지역 에너지 수송의 관문. 통항 위험이 오르면 보험료·운임이 함께 오르는 사건으로 쓴다(수치 근거 미확보).",
+      "source_refs": [
+        "DESIGN-V04"
+      ],
+      "check_level": "author_knowledge",
+      "availability": {
+        "stage": "P1",
+        "chapter": 2,
+        "status": "MAP_PREVIEW"
+      }
+    },
+    {
+      "id": "BAB_EL_MANDEB",
+      "name_ko": "바브엘만데브 해협",
+      "gate_type": "strait",
+      "geo_position": {
+        "lat": 12.6,
+        "lon": 43.4,
+        "precision_deg": 0.1,
+        "basis": "APPROXIMATE_PUBLIC_COORDINATES",
+        "use": "map_display_only"
+      },
+      "connects_ko": "홍해 ↔ 아덴만",
+      "event_hook_ko": "홍해 사태 때 많은 선사가 이 해협을 피해 희망봉으로 돌았다. 아시아–유럽(상하이–로테르담) 한 방향 7~10일 증가(16노트 기준).",
+      "source_refs": [
+        "PEMP-REDSEA"
+      ],
+      "check_level": "web_search_summary",
+      "availability": {
+        "stage": "P1",
+        "chapter": 2,
+        "status": "MAP_PREVIEW"
+      }
+    },
+    {
+      "id": "SUEZ_CANAL",
+      "name_ko": "수에즈 운하",
+      "gate_type": "canal",
+      "geo_position": {
+        "lat": 30.5,
+        "lon": 32.3,
+        "precision_deg": 0.1,
+        "basis": "APPROXIMATE_PUBLIC_COORDINATES",
+        "use": "map_display_only"
+      },
+      "connects_ko": "홍해 ↔ 지중해",
+      "event_hook_ko": "상하이→로테르담 수에즈 경유 약 27일, 희망봉 경유 약 35일(16노트·무기항 가정의 비교값. 기항을 포함한 실제 정기선 일정은 더 길다). 2021년 3월 대형 컨테이너선 좌초로 엿새 가까이 막힌 일이 있다(작성자 지식).",
+      "source_refs": [
+        "PEMP-ROUTING"
+      ],
+      "check_level": "web_search_summary",
+      "availability": {
+        "stage": "P1",
+        "chapter": 2,
+        "status": "MAP_PREVIEW"
+      }
+    },
+    {
+      "id": "PANAMA_CANAL",
+      "name_ko": "파나마 운하",
+      "gate_type": "canal",
+      "geo_position": {
+        "lat": 9.2,
+        "lon": -79.9,
+        "precision_deg": 0.1,
+        "basis": "APPROXIMATE_PUBLIC_COORDINATES",
+        "use": "map_display_only"
+      },
+      "connects_ko": "태평양 ↔ 카리브해·대서양",
+      "event_hook_ko": "2023년 엘니뇨 가뭄으로 가툰 호수 수위가 내려가 하루 통항과 흘수가 제한됐다. 기후가 물류를 바꾸는 사건으로 쓴다.",
+      "source_refs": [
+        "GCAPTAIN-PANAMA-2023",
+        "PANCANAL-2023"
+      ],
+      "check_level": "web_search_summary",
+      "availability": {
+        "stage": "P1",
+        "chapter": 2,
+        "status": "MAP_PREVIEW"
+      }
+    },
+    {
+      "id": "CAPE_OF_GOOD_HOPE",
+      "name_ko": "희망봉",
+      "gate_type": "cape_route",
+      "geo_position": {
+        "lat": -34.4,
+        "lon": 18.5,
+        "precision_deg": 0.1,
+        "basis": "APPROXIMATE_PUBLIC_COORDINATES",
+        "use": "map_display_only"
+      },
+      "connects_ko": "인도양 ↔ 대서양",
+      "event_hook_ko": "수에즈·홍해를 피할 때 쓰는 우회 항로. 멀어서 연료·시간이 더 들지만 운하 통항료가 없고 홍해·수에즈 구간의 위험을 피한다.",
+      "source_refs": [
+        "PEMP-ROUTING",
+        "PEMP-REDSEA"
+      ],
+      "check_level": "web_search_summary",
+      "availability": {
+        "stage": "P1",
+        "chapter": 2,
+        "status": "MAP_PREVIEW"
+      }
+    }
+  ],
+  "hub_selection_rule_ko": "세계 거점은 실제 물류·무역 금융의 중심 가운데 권역마다 1~3곳을 고른다(사용자 결정 2026-10-05). 근거 지표: 컨테이너 물동량(Lloyd's List 100대 항만), 국제 금융센터 지수(GFCI), 해양 도시 순위(Menon·DNV), 선박 보유량(UNCTAD), 지역 최대 관문 여부. 가까운 항만이 몰린 권역(상하이·닝보, 홍콩·선전, 로테르담·앤트워프·함부르크, 싱가포르·포트클랑)은 한 거점으로 묶는다. 1장 거점 가운데 하이퐁·자카르타는 선정 기준 밖이지만 생산 거점이자 기존 콘텐츠의 연속성을 위해 유지한다. 본사 평택은 세계 중심 거점 지표의 예외로, 교육·지역 기준으로 고른다."
+}

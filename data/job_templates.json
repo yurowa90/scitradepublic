@@ -1,0 +1,148 @@
+{
+  "schema_version": "0.4.0",
+  "data_basis": "DESIGN",
+  "source_refs": [
+    "DESIGN-V04"
+  ],
+  "items": [
+    {
+      "id": "JOB_SALES",
+      "name_ko": "고객 요구·견적 준비",
+      "stage": "P0",
+      "home_team_id": "TEAM_SALES",
+      "affinity_attribute": "light",
+      "stat_weights": {
+        "negotiation": 0.6,
+        "coordination": 0.4
+      },
+      "complementary_roles": [
+        "sales",
+        "operations"
+      ],
+      "responsible_min": 1,
+      "support_max": 2,
+      "remote_support_allowed": false,
+      "status": "DECLARATIVE_ONLY",
+      "location_rule": "active members in task city",
+      "base_contribution_source": "employees.work_units_per_day reinterpreted only in CHARACTER_WEIGHTED mode",
+      "minimum_task_duration_days": 1,
+      "same_species_or_attribute_not_required": true
+    },
+    {
+      "id": "JOB_LOGISTICS",
+      "name_ko": "화물·운송 서류 준비",
+      "stage": "P0",
+      "home_team_id": "TEAM_LOGISTICS",
+      "affinity_attribute": "water",
+      "stat_weights": {
+        "operations": 0.7,
+        "analysis": 0.3
+      },
+      "complementary_roles": [
+        "sales",
+        "operations"
+      ],
+      "responsible_min": 1,
+      "support_max": 2,
+      "remote_support_allowed": false,
+      "status": "DECLARATIVE_ONLY",
+      "location_rule": "active members in task city",
+      "base_contribution_source": "employees.work_units_per_day reinterpreted only in CHARACTER_WEIGHTED mode",
+      "minimum_task_duration_days": 1,
+      "same_species_or_attribute_not_required": true
+    },
+    {
+      "id": "JOB_TECHNICAL",
+      "name_ko": "설비·품질 자료 점검",
+      "stage": "P1",
+      "home_team_id": "TEAM_QUALITY",
+      "affinity_attribute": "fire",
+      "stat_weights": {
+        "technology": 0.7,
+        "analysis": 0.3
+      },
+      "complementary_roles": [
+        "operations",
+        "technical"
+      ],
+      "responsible_min": 1,
+      "support_max": 2,
+      "remote_support_allowed": false,
+      "status": "DECLARATIVE_ONLY",
+      "location_rule": "active members in task city",
+      "base_contribution_source": "employees.work_units_per_day reinterpreted only in CHARACTER_WEIGHTED mode",
+      "minimum_task_duration_days": 1,
+      "same_species_or_attribute_not_required": true
+    },
+    {
+      "id": "JOB_ROUTE",
+      "name_ko": "일정·대체 운송편 조사",
+      "stage": "P1",
+      "home_team_id": "TEAM_LOGISTICS",
+      "affinity_attribute": "wind",
+      "stat_weights": {
+        "exploration": 0.5,
+        "operations": 0.5
+      },
+      "complementary_roles": [
+        "sales",
+        "operations"
+      ],
+      "responsible_min": 1,
+      "support_max": 2,
+      "remote_support_allowed": false,
+      "status": "DECLARATIVE_ONLY",
+      "location_rule": "active members in task city",
+      "base_contribution_source": "employees.work_units_per_day reinterpreted only in CHARACTER_WEIGHTED mode",
+      "minimum_task_duration_days": 1,
+      "same_species_or_attribute_not_required": true
+    },
+    {
+      "id": "JOB_INVENTORY",
+      "name_ko": "재고·공급자 자료 대조",
+      "stage": "P1",
+      "home_team_id": "TEAM_PROCUREMENT",
+      "affinity_attribute": "earth",
+      "stat_weights": {
+        "operations": 0.6,
+        "analysis": 0.4
+      },
+      "complementary_roles": [
+        "procurement",
+        "operations"
+      ],
+      "responsible_min": 1,
+      "support_max": 2,
+      "remote_support_allowed": false,
+      "status": "DECLARATIVE_ONLY",
+      "location_rule": "active members in task city",
+      "base_contribution_source": "employees.work_units_per_day reinterpreted only in CHARACTER_WEIGHTED mode",
+      "minimum_task_duration_days": 1,
+      "same_species_or_attribute_not_required": true
+    },
+    {
+      "id": "JOB_LEGAL",
+      "name_ko": "계약·원산지 자료 검토",
+      "stage": "P1",
+      "home_team_id": "TEAM_LEGAL",
+      "affinity_attribute": "shadow",
+      "stat_weights": {
+        "analysis": 0.7,
+        "coordination": 0.3
+      },
+      "complementary_roles": [
+        "legal",
+        "sales"
+      ],
+      "responsible_min": 1,
+      "support_max": 2,
+      "remote_support_allowed": false,
+      "status": "DECLARATIVE_ONLY",
+      "location_rule": "active members in task city",
+      "base_contribution_source": "employees.work_units_per_day reinterpreted only in CHARACTER_WEIGHTED mode",
+      "minimum_task_duration_days": 1,
+      "same_species_or_attribute_not_required": true
+    }
+  ],
+  "$schema": "../schemas/job_templates.schema.json"
+}

@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "securities v0.4 data shape",
+  "description": "Starter data shape, plus semantic checks in tools/validate_data.py. Not a complete game engine command contract.",
+  "type": "object",
+  "required": [
+    "$schema",
+    "data_basis",
+    "items",
+    "numeric_values_status",
+    "schema_version",
+    "source_refs"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "data_basis": {
+      "type": "string"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "business_discount_from_shareholding",
+          "company_name_ko",
+          "currency",
+          "drivers_ko",
+          "fictional",
+          "id",
+          "initial_player_holding",
+          "initial_price",
+          "price_model_status",
+          "public_information_only",
+          "sector",
+          "security_class",
+          "shares_outstanding",
+          "source_refs",
+          "stage"
+        ],
+        "properties": {
+          "business_discount_from_shareholding": {
+            "type": "boolean"
+          },
+          "company_name_ko": {
+            "type": "string"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "drivers_ko": {
+            "type": "string"
+          },
+          "fictional": {
+            "type": "boolean"
+          },
+          "id": {
+            "type": "string"
+          },
+          "initial_player_holding": {
+            "type": "integer"
+          },
+          "initial_price": {
+            "type": "integer"
+          },
+          "price_model_status": {
+            "type": "string"
+          },
+          "public_information_only": {
+            "type": "boolean"
+          },
+          "sector": {
+            "type": "string"
+          },
+          "security_class": {
+            "type": "string"
+          },
+          "shares_outstanding": {
+            "type": "integer"
+          },
+          "source_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "stage": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "numeric_values_status": {
+      "type": "string"
+    },
+    "schema_version": {
+      "type": "string"
+    },
+    "source_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": true
+}

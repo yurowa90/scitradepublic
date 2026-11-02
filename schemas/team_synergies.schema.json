@@ -1,0 +1,133 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "team_synergies v0.4 data shape",
+  "description": "Starter data shape, plus semantic checks in tools/validate_data.py. Not a complete game engine command contract.",
+  "type": "object",
+  "required": [
+    "$schema",
+    "aggregate_cap",
+    "data_basis",
+    "examples",
+    "items",
+    "schema_version",
+    "source_refs",
+    "team_snapshot_at_task_start",
+    "unique_rule_ids_only"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "aggregate_cap": {
+      "type": "number"
+    },
+    "data_basis": {
+      "type": "string"
+    },
+    "examples": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "expected_bonus",
+          "expected_rule_ids",
+          "id",
+          "job_id",
+          "member_character_ids",
+          "note_ko",
+          "preconditions"
+        ],
+        "properties": {
+          "expected_bonus": {
+            "type": "number"
+          },
+          "expected_rule_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "id": {
+            "type": "string"
+          },
+          "job_id": {
+            "type": "string"
+          },
+          "member_character_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "note_ko": {
+            "type": "string"
+          },
+          "preconditions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "bonus",
+          "condition",
+          "id",
+          "name_ko",
+          "scope",
+          "stage"
+        ],
+        "properties": {
+          "bonus": {
+            "type": "number"
+          },
+          "condition": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "name_ko": {
+            "type": "string"
+          },
+          "nationality_alone_qualifies": {
+            "type": "boolean"
+          },
+          "scope": {
+            "type": "string"
+          },
+          "stage": {
+            "type": "string"
+          },
+          "third_matching_member_adds_bonus": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "schema_version": {
+      "type": "string"
+    },
+    "source_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "team_snapshot_at_task_start": {
+      "type": "boolean"
+    },
+    "unique_rule_ids_only": {
+      "type": "boolean"
+    }
+  },
+  "additionalProperties": true
+}

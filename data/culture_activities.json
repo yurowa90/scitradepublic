@@ -1,0 +1,453 @@
+{
+  "schema_version": "0.3.0",
+  "data_basis": "DESIGN",
+  "items": [
+    {
+      "id": "CA01",
+      "title_ko": "시장과 포장 요구 탐방",
+      "stage": "P0",
+      "source_refs": [
+        "DESIGN-V03"
+      ],
+      "curriculum_refs": [
+        "SOC04",
+        "SOC07"
+      ],
+      "city_id": "PYEONGTAEK",
+      "venue_id": "VEN_CULTURE",
+      "fictional": true,
+      "contact_ids": [
+        "NPC_MARKET"
+      ],
+      "duration_days": 1,
+      "duration_basis": "DESIGN",
+      "money_cost": {
+        "currency": "KRW",
+        "amount": 20000,
+        "basis": "DESIGN"
+      },
+      "knowledge_topic": {
+        "id": "KT_PYEONGTAEK_PACKAGING",
+        "title_ko": "한 상인의 포장·보관 요구",
+        "scope": "city_and_named_contact",
+        "content_revision": "1"
+      },
+      "completion_dedupe_key_template": "{company_id}:{activity_id}:{city_id}:{content_revision}:company_report",
+      "eligibility": {
+        "actor_must_be_in_city": true,
+        "actor_must_be_available": true,
+        "require_sufficient_cash": true
+      },
+      "observations_ko": [
+        "가상 상인에게 현재 판매 규격과 보관 공간의 제약을 묻습니다.",
+        "한 사람의 답변임을 표시하고 추가 인터뷰가 필요한 항목을 기록합니다."
+      ],
+      "effects": [
+        {
+          "type": "UNLOCK_KNOWLEDGE",
+          "topic_id": "KT_PYEONGTAEK_PACKAGING",
+          "unlocks": [
+            "DIALOGUE_CLARIFY_CUSTOMER_PACKAGING",
+            "TASK_RESEARCH_EXISTING_SMALL_PACK_SUPPLIERS"
+          ],
+          "scope": "company_report_and_participating_actor"
+        },
+        {
+          "type": "UNLOCK_CONTACT_FOLLOWUP",
+          "contact_ids": [
+            "NPC_MARKET"
+          ],
+          "required_interaction_ko": "직접 질문하고 요약한 내용을 해당 상인에게 확인받음",
+          "scope": "participating_actor_and_named_contact_only"
+        }
+      ],
+      "constraints_ko": [
+        "메뉴 열기는 무료이며 실제 활동 실행에만 시간과 경비를 사용합니다.",
+        "회사 보고서·직원 경험·직원과 인물 간 관계는 각자의 중복 키로 개별 판정합니다. 같은 직원의 재실행에는 해당 효과를 중복 지급하지 않습니다.",
+        "가상 인물의 발언을 지역·국가 전체의 성향으로 확대하지 않습니다.",
+        "국가 전체 가격 할인·수익률 보너스·거래 신뢰 자동 상승은 없습니다."
+      ],
+      "actor_experience_dedupe_key_template": "{company_id}:{actor_id}:{activity_id}:{city_id}:{content_revision}:personal_experience",
+      "relationship_dedupe_key_template": "{company_id}:{actor_id}:{contact_id}:{activity_id}:{city_id}:{content_revision}:relationship",
+      "repeat_policy_ko": "회사 보고서는 회사별 1회, 직접 경험은 직원별 1회, 관계는 참여 직원과 해당 인물 쌍별 1회. 다른 직원의 첫 참여는 가능하며 경비와 시간을 다시 사용한다.",
+      "report_ko": {
+        "finding_ko": "윤서: “지금 들여오는 상자는 우리 가게 선반에 다 들어가지 않아요. 더 작은 묶음이면 좋겠어요.”",
+        "scope_ko": "판매점 1곳, 1명(윤서), 활동한 날 하루의 대화. 다른 가게나 손님에게는 확인하지 않았습니다.",
+        "not_claimed_ko": "평택의 다른 상인이나 손님도 작은 포장을 원한다는 뜻이 아닙니다.",
+        "open_question_ko": "윤서가 원하는 묶음 크기와 수량, 그런 규격을 이미 공급하는 거래처가 있는지."
+      },
+      "extension_curriculum_refs": [
+        "SOC10"
+      ]
+    },
+    {
+      "id": "CA02",
+      "title_ko": "항만 전시관과 기록 산책",
+      "stage": "P0",
+      "source_refs": [
+        "DESIGN-V03",
+        "GPPC-STATS-2026-06",
+        "MOF-PORT-2025"
+      ],
+      "curriculum_refs": [
+        "SOC04",
+        "SOC07",
+        "SCI01"
+      ],
+      "city_id": "PYEONGTAEK",
+      "venue_id": "VEN_CULTURE",
+      "fictional": true,
+      "contact_ids": [
+        "NPC_GUIDE"
+      ],
+      "duration_days": 1,
+      "duration_basis": "DESIGN",
+      "money_cost": {
+        "currency": "KRW",
+        "amount": 10000,
+        "basis": "DESIGN"
+      },
+      "knowledge_topic": {
+        "id": "KT_PYEONGTAEK_PORT_RECORDS",
+        "title_ko": "항만 순위를 읽을 때 확인할 질문",
+        "scope": "city_and_named_contact",
+        "content_revision": "1"
+      },
+      "completion_dedupe_key_template": "{company_id}:{activity_id}:{city_id}:{content_revision}:company_report",
+      "eligibility": {
+        "actor_must_be_in_city": true,
+        "actor_must_be_available": true,
+        "require_sufficient_cash": true
+      },
+      "observations_ko": [
+        "가상 전시의 서로 다른 순위 설명을 비교하고 단위·연도·출처를 확인합니다.",
+        "순위는 확인한 2025년 통계만 쓰고, 실제 지역사는 서술하지 않습니다."
+      ],
+      "effects": [
+        {
+          "type": "UNLOCK_KNOWLEDGE",
+          "topic_id": "KT_PYEONGTAEK_PORT_RECORDS",
+          "unlocks": [
+            "DIALOGUE_COMPARE_PORT_RECORDS",
+            "TASK_RESEARCH_RECORD_PROVENANCE"
+          ],
+          "scope": "company_report_and_participating_actor"
+        },
+        {
+          "type": "UNLOCK_CONTACT_FOLLOWUP",
+          "contact_ids": [
+            "NPC_GUIDE"
+          ],
+          "required_interaction_ko": "동행한 가이드와 서로 다른 기록에 대한 질문을 주고받음",
+          "scope": "participating_actor_and_named_contact_only"
+        }
+      ],
+      "constraints_ko": [
+        "메뉴 열기는 무료이며 실제 활동 실행에만 시간과 경비를 사용합니다.",
+        "회사 보고서·직원 경험·직원과 인물 간 관계는 각자의 중복 키로 개별 판정합니다. 같은 직원의 재실행에는 해당 효과를 중복 지급하지 않습니다.",
+        "가상 인물의 발언을 지역·국가 전체의 성향으로 확대하지 않습니다.",
+        "국가 전체 가격 할인·수익률 보너스·거래 신뢰 자동 상승은 없습니다."
+      ],
+      "actor_experience_dedupe_key_template": "{company_id}:{actor_id}:{activity_id}:{city_id}:{content_revision}:personal_experience",
+      "relationship_dedupe_key_template": "{company_id}:{actor_id}:{contact_id}:{activity_id}:{city_id}:{content_revision}:relationship",
+      "repeat_policy_ko": "회사 보고서는 회사별 1회, 직접 경험은 직원별 1회, 관계는 참여 직원과 해당 인물 쌍별 1회. 다른 직원의 첫 참여는 가능하며 경비와 시간을 다시 사용한다.",
+      "report_ko": {
+        "finding_ko": "하람: “이 안내판은 ‘전국 4위’, 저 안내판은 ‘전국 5위’예요. 하나는 컨테이너를 20피트 상자 기준(TEU)으로, 하나는 모든 화물을 톤으로 셌대요. 무엇을 무슨 단위로 셌는지 보기 전에는 한쪽이 틀렸다고 할 수 없어요.”",
+        "scope_ko": "가상 전시 1곳의 안내판 2개를 안내자 1명(하람)과 읽었습니다. 둘 다 2025년 한 해의 순위입니다. 원래 통계표는 아직 직접 보지 않았습니다.",
+        "not_claimed_ko": "어느 순위가 더 중요한지, 다른 해에도 순위가 같은지, 그리고 평택항의 실제 역사(전시는 가상이고, 순위만 2025년 통계를 따릅니다).",
+        "open_question_ko": "전시의 ‘톤’이 무게만 센 것인지, 그리고 1위 항만과는 얼마나 차이 나는지."
+      }
+    },
+    {
+      "id": "CA03",
+      "title_ko": "언어 교류와 주문 확인",
+      "stage": "P0",
+      "source_refs": [
+        "DESIGN-V03"
+      ],
+      "curriculum_refs": [
+        "SOC04"
+      ],
+      "city_id": "PYEONGTAEK",
+      "venue_id": "VEN_CULTURE",
+      "fictional": true,
+      "contact_ids": [
+        "NPC_MARKET",
+        "NPC_GUIDE"
+      ],
+      "duration_days": 1,
+      "duration_basis": "DESIGN",
+      "money_cost": {
+        "currency": "KRW",
+        "amount": 30000,
+        "basis": "DESIGN"
+      },
+      "knowledge_topic": {
+        "id": "KT_PYEONGTAEK_ORDER_CLARIFICATION",
+        "title_ko": "특정 상대의 주문 표현을 확인하는 방법",
+        "scope": "city_and_named_contact",
+        "content_revision": "1"
+      },
+      "completion_dedupe_key_template": "{company_id}:{activity_id}:{city_id}:{content_revision}:company_report",
+      "eligibility": {
+        "actor_must_be_in_city": true,
+        "actor_must_be_available": true,
+        "require_sufficient_cash": true
+      },
+      "observations_ko": [
+        "가상 주문의 모호한 납기·수량 표현을 찾아 질문합니다.",
+        "상대가 확인한 의미와 아직 불분명한 부분을 나누어 기록합니다."
+      ],
+      "effects": [
+        {
+          "type": "UNLOCK_KNOWLEDGE",
+          "topic_id": "KT_PYEONGTAEK_ORDER_CLARIFICATION",
+          "unlocks": [
+            "DIALOGUE_CONFIRM_ORDER_TERMS",
+            "DIALOGUE_REQUEST_FOLLOWUP_MEETING"
+          ],
+          "scope": "company_report_and_participating_actor"
+        },
+        {
+          "type": "UNLOCK_CONTACT_FOLLOWUP",
+          "contact_ids": [
+            "NPC_MARKET",
+            "NPC_GUIDE"
+          ],
+          "required_interaction_ko": "실제 대화에 참여한 상대에게만 확인 대화와 다음 면담 선택지가 열림",
+          "scope": "participating_actor_and_named_contact_only"
+        }
+      ],
+      "constraints_ko": [
+        "메뉴 열기는 무료이며 실제 활동 실행에만 시간과 경비를 사용합니다.",
+        "회사 보고서·직원 경험·직원과 인물 간 관계는 각자의 중복 키로 개별 판정합니다. 같은 직원의 재실행에는 해당 효과를 중복 지급하지 않습니다.",
+        "가상 인물의 발언을 지역·국가 전체의 성향으로 확대하지 않습니다.",
+        "국가 전체 가격 할인·수익률 보너스·거래 신뢰 자동 상승은 없습니다."
+      ],
+      "actor_experience_dedupe_key_template": "{company_id}:{actor_id}:{activity_id}:{city_id}:{content_revision}:personal_experience",
+      "relationship_dedupe_key_template": "{company_id}:{actor_id}:{contact_id}:{activity_id}:{city_id}:{content_revision}:relationship",
+      "repeat_policy_ko": "회사 보고서는 회사별 1회, 직접 경험은 직원별 1회, 관계는 참여 직원과 해당 인물 쌍별 1회. 다른 직원의 첫 참여는 가능하며 경비와 시간을 다시 사용한다.",
+      "report_ko": {
+        "finding_ko": "윤서: “‘다음 주 초에 조금 더’라고 하면 저는 월요일에 열 상자 정도를 뜻해요.” / 하람: “같은 말도 사람마다 뜻이 다를 수 있으니, 날짜와 숫자로 다시 말해 달라고 하세요.”",
+        "scope_ko": "2명(윤서·하람)과 하루의 대화. ‘월요일·열 상자 정도’는 윤서 본인에게 확인한 뜻입니다. 다른 거래처의 표현은 확인하지 않았습니다.",
+        "not_claimed_ko": "평택의 다른 상인도 같은 말을 같은 뜻으로 쓴다는 뜻이 아닙니다.",
+        "open_question_ko": "‘정도’가 몇 상자까지인지, 매주 같은 양인지."
+      }
+    },
+    {
+      "id": "CA04",
+      "title_ko": "지역 행사 준비 이야기",
+      "stage": "P1",
+      "source_refs": [
+        "DESIGN-V03"
+      ],
+      "curriculum_refs": [
+        "SOC04",
+        "SOC07"
+      ],
+      "city_id": "PYEONGTAEK",
+      "venue_id": "VEN_CULTURE",
+      "fictional": true,
+      "contact_ids": [
+        "NPC_GUIDE"
+      ],
+      "duration_days": 1,
+      "duration_basis": "DESIGN",
+      "money_cost": {
+        "currency": "KRW",
+        "amount": 40000,
+        "basis": "DESIGN"
+      },
+      "knowledge_topic": {
+        "id": "KT_PYEONGTAEK_EVENT_NEEDS",
+        "title_ko": "한 가상 행사의 준비 일정과 물류 질문",
+        "scope": "city_and_named_contact",
+        "content_revision": "1"
+      },
+      "completion_dedupe_key_template": "{company_id}:{activity_id}:{city_id}:{content_revision}:company_report",
+      "eligibility": {
+        "actor_must_be_in_city": true,
+        "actor_must_be_available": true,
+        "require_sufficient_cash": true
+      },
+      "observations_ko": [
+        "가상 행사 준비 기록에서 물품·시간·보관 조건을 확인합니다.",
+        "관람과 행사 납품 계약의 자격을 구분합니다."
+      ],
+      "effects": [
+        {
+          "type": "UNLOCK_KNOWLEDGE",
+          "topic_id": "KT_PYEONGTAEK_EVENT_NEEDS",
+          "unlocks": [
+            "DIALOGUE_ASK_EVENT_REQUIREMENTS",
+            "TASK_RESEARCH_EVENT_DELIVERY_FEASIBILITY"
+          ],
+          "scope": "company_report_and_participating_actor"
+        },
+        {
+          "type": "UNLOCK_CONTACT_FOLLOWUP",
+          "contact_ids": [
+            "NPC_GUIDE"
+          ],
+          "required_interaction_ko": "가이드와 후속 확인 약속을 잡음. 관람만으로 발주자 친밀도나 계약을 얻지 않음",
+          "scope": "participating_actor_and_named_contact_only"
+        }
+      ],
+      "constraints_ko": [
+        "메뉴 열기는 무료이며 실제 활동 실행에만 시간과 경비를 사용합니다.",
+        "회사 보고서·직원 경험·직원과 인물 간 관계는 각자의 중복 키로 개별 판정합니다. 같은 직원의 재실행에는 해당 효과를 중복 지급하지 않습니다.",
+        "가상 인물의 발언을 지역·국가 전체의 성향으로 확대하지 않습니다.",
+        "국가 전체 가격 할인·수익률 보너스·거래 신뢰 자동 상승은 없습니다."
+      ],
+      "actor_experience_dedupe_key_template": "{company_id}:{actor_id}:{activity_id}:{city_id}:{content_revision}:personal_experience",
+      "relationship_dedupe_key_template": "{company_id}:{actor_id}:{contact_id}:{activity_id}:{city_id}:{content_revision}:relationship",
+      "repeat_policy_ko": "회사 보고서는 회사별 1회, 직접 경험은 직원별 1회, 관계는 참여 직원과 해당 인물 쌍별 1회. 다른 직원의 첫 참여는 가능하며 경비와 시간을 다시 사용한다."
+    },
+    {
+      "id": "CA05",
+      "title_ko": "생산 현장과 환경 관찰",
+      "stage": "P1",
+      "source_refs": [
+        "DESIGN-V03"
+      ],
+      "curriculum_refs": [
+        "SOC03",
+        "SOC07",
+        "SOC10",
+        "SCI05",
+        "SCI06",
+        "SCI10"
+      ],
+      "city_id": "PYEONGTAEK",
+      "venue_id": "VEN_CULTURE",
+      "fictional": true,
+      "contact_ids": [
+        "NPC_GUIDE"
+      ],
+      "duration_days": 1,
+      "duration_basis": "DESIGN",
+      "money_cost": {
+        "currency": "KRW",
+        "amount": 50000,
+        "basis": "DESIGN"
+      },
+      "knowledge_topic": {
+        "id": "KT_PYEONGTAEK_FIELD_OBSERVATIONS",
+        "title_ko": "가상 생산 현장의 보관·환경 자료 확인",
+        "scope": "city_and_named_contact",
+        "content_revision": "1"
+      },
+      "completion_dedupe_key_template": "{company_id}:{activity_id}:{city_id}:{content_revision}:company_report",
+      "eligibility": {
+        "actor_must_be_in_city": true,
+        "actor_must_be_available": true,
+        "require_sufficient_cash": true
+      },
+      "observations_ko": [
+        "본사 도시 안의 가상 시범 현장을 관찰하며 공정 설명과 측정 자료를 구분합니다.",
+        "외부 산지로의 출장은 이동·경비 기능이 구현된 뒤 별도 활동으로 추가합니다."
+      ],
+      "effects": [
+        {
+          "type": "UNLOCK_KNOWLEDGE",
+          "topic_id": "KT_PYEONGTAEK_FIELD_OBSERVATIONS",
+          "unlocks": [
+            "DIALOGUE_VERIFY_SUPPLIER_CLAIMS",
+            "TASK_REQUEST_FIELD_EVIDENCE"
+          ],
+          "scope": "company_report_and_participating_actor"
+        },
+        {
+          "type": "UNLOCK_CONTACT_FOLLOWUP",
+          "contact_ids": [
+            "NPC_GUIDE"
+          ],
+          "required_interaction_ko": "함께 관찰한 가이드와 미확인 항목의 후속 조사 방법을 협의함",
+          "scope": "participating_actor_and_named_contact_only"
+        }
+      ],
+      "constraints_ko": [
+        "메뉴 열기는 무료이며 실제 활동 실행에만 시간과 경비를 사용합니다.",
+        "회사 보고서·직원 경험·직원과 인물 간 관계는 각자의 중복 키로 개별 판정합니다. 같은 직원의 재실행에는 해당 효과를 중복 지급하지 않습니다.",
+        "가상 인물의 발언을 지역·국가 전체의 성향으로 확대하지 않습니다.",
+        "국가 전체 가격 할인·수익률 보너스·거래 신뢰 자동 상승은 없습니다."
+      ],
+      "actor_experience_dedupe_key_template": "{company_id}:{actor_id}:{activity_id}:{city_id}:{content_revision}:personal_experience",
+      "relationship_dedupe_key_template": "{company_id}:{actor_id}:{contact_id}:{activity_id}:{city_id}:{content_revision}:relationship",
+      "repeat_policy_ko": "회사 보고서는 회사별 1회, 직접 경험은 직원별 1회, 관계는 참여 직원과 해당 인물 쌍별 1회. 다른 직원의 첫 참여는 가능하며 경비와 시간을 다시 사용한다."
+    },
+    {
+      "id": "CA06",
+      "title_ko": "지역 프로젝트의 역할 협의",
+      "stage": "P1",
+      "source_refs": [
+        "DESIGN-V03"
+      ],
+      "curriculum_refs": [
+        "SOC04",
+        "SOC06",
+        "ETH02"
+      ],
+      "city_id": "PYEONGTAEK",
+      "venue_id": "VEN_CULTURE",
+      "fictional": true,
+      "contact_ids": [
+        "NPC_MARKET",
+        "NPC_GUIDE"
+      ],
+      "duration_days": 1,
+      "duration_basis": "DESIGN",
+      "money_cost": {
+        "currency": "KRW",
+        "amount": 100000,
+        "basis": "DESIGN"
+      },
+      "knowledge_topic": {
+        "id": "KT_PYEONGTAEK_PROJECT_REQUIREMENTS",
+        "title_ko": "작은 가상 지역 프로젝트의 참여 조건",
+        "scope": "city_and_named_contact",
+        "content_revision": "1"
+      },
+      "completion_dedupe_key_template": "{company_id}:{activity_id}:{city_id}:{content_revision}:company_report",
+      "eligibility": {
+        "actor_must_be_in_city": true,
+        "actor_must_be_available": true,
+        "require_sufficient_cash": true
+      },
+      "observations_ko": [
+        "두 참여자가 제안한 필요·역할·완료 조건을 비교합니다.",
+        "하루 활동은 협의 단계이며 프로젝트 전체 완료나 후원 성과로 처리하지 않습니다."
+      ],
+      "effects": [
+        {
+          "type": "UNLOCK_KNOWLEDGE",
+          "topic_id": "KT_PYEONGTAEK_PROJECT_REQUIREMENTS",
+          "unlocks": [
+            "DIALOGUE_NEGOTIATE_PROJECT_ROLES",
+            "TASK_PLAN_COMMUNITY_PROJECT"
+          ],
+          "scope": "company_report_and_participating_actor"
+        },
+        {
+          "type": "UNLOCK_CONTACT_FOLLOWUP",
+          "contact_ids": [
+            "NPC_MARKET",
+            "NPC_GUIDE"
+          ],
+          "required_interaction_ko": "돈을 낸 사실이 아니라 직접 참여한 협의 내용에 따라 특정 인물과의 다음 대화가 열림",
+          "scope": "participating_actor_and_named_contact_only"
+        }
+      ],
+      "constraints_ko": [
+        "메뉴 열기는 무료이며 실제 활동 실행에만 시간과 경비를 사용합니다.",
+        "회사 보고서·직원 경험·직원과 인물 간 관계는 각자의 중복 키로 개별 판정합니다. 같은 직원의 재실행에는 해당 효과를 중복 지급하지 않습니다.",
+        "가상 인물의 발언을 지역·국가 전체의 성향으로 확대하지 않습니다.",
+        "국가 전체 가격 할인·수익률 보너스·거래 신뢰 자동 상승은 없습니다."
+      ],
+      "actor_experience_dedupe_key_template": "{company_id}:{actor_id}:{activity_id}:{city_id}:{content_revision}:personal_experience",
+      "relationship_dedupe_key_template": "{company_id}:{actor_id}:{contact_id}:{activity_id}:{city_id}:{content_revision}:relationship",
+      "repeat_policy_ko": "회사 보고서는 회사별 1회, 직접 경험은 직원별 1회, 관계는 참여 직원과 해당 인물 쌍별 1회. 다른 직원의 첫 참여는 가능하며 경비와 시간을 다시 사용한다."
+    }
+  ],
+  "$schema": "../schemas/culture_activities.schema.json"
+}

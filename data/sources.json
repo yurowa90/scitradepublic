@@ -1,0 +1,1047 @@
+{
+  "schema_version": "0.3.0",
+  "items": [
+    {
+      "id": "DESIGN-V03",
+      "title": "프로젝트 설계 v0.3",
+      "url": null,
+      "kind": "project_design",
+      "verification_status": "LOCAL_DESIGN",
+      "scope_ko": "수치·콘텐츠·가상 인물·시나리오",
+      "checked_on": "2026-10-04",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null,
+      "local_path_note_ko": "v0.3 설계 문서 파일은 이 저장소와 git 기록에 없다. 후속 판은 docs/DESIGN_v0.4.md다."
+    },
+    {
+      "id": "C1-SOC",
+      "title": "2022-33 별책7 사회과",
+      "url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0&m=040401&opType=N",
+      "kind": "official_curriculum",
+      "verification_status": "CONTENT_READ",
+      "scope_ko": "공통·일반·진로 관련 내용체계",
+      "checked_on": "2026-10-04",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null
+    },
+    {
+      "id": "C1-SCI",
+      "title": "2022-33 별책9 과학과",
+      "url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0&m=040401&opType=N",
+      "kind": "official_curriculum",
+      "verification_status": "CONTENT_READ",
+      "scope_ko": "과학 23개 연계항목",
+      "checked_on": "2026-10-04",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null
+    },
+    {
+      "id": "C1-ETH",
+      "title": "2022-33 별책6 도덕과",
+      "url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0&m=040401&opType=N",
+      "kind": "official_curriculum",
+      "verification_status": "CONTENT_READ",
+      "scope_ko": "윤리 6개 연계항목",
+      "checked_on": "2026-10-04",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null
+    },
+    {
+      "id": "F1",
+      "title": "Investor.gov Stocks",
+      "url": "https://www.investor.gov/introduction-investing/investing-basics/investment-products/stocks",
+      "kind": "primary_education",
+      "verification_status": "CONTENT_READ",
+      "scope_ko": "주식·소유·배당·가격변동",
+      "checked_on": "2026-10-04",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null
+    },
+    {
+      "id": "F2",
+      "title": "Investor.gov Primary Market",
+      "url": "https://www.investor.gov/introduction-investing/investing-basics/glossary/primary-market",
+      "kind": "primary_education",
+      "verification_status": "CONTENT_READ",
+      "scope_ko": "발행자 조달 자금",
+      "checked_on": "2026-10-04",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null
+    },
+    {
+      "id": "F3",
+      "title": "Investor.gov Secondary Market",
+      "url": "https://www.investor.gov/introduction-investing/investing-basics/glossary/secondary-market",
+      "kind": "primary_education",
+      "verification_status": "CONTENT_READ",
+      "scope_ko": "기존 증권 거래",
+      "checked_on": "2026-10-04",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null
+    },
+    {
+      "id": "F4",
+      "title": "SEC Ready to Go Public",
+      "url": "https://www.sec.gov/resources-small-businesses/capital-raising-building-blocks/ready-go-public",
+      "kind": "primary_education",
+      "verification_status": "CONTENT_READ",
+      "scope_ko": "상장 준비·비용·보고·지배구조",
+      "checked_on": "2026-10-04",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null
+    },
+    {
+      "id": "S1",
+      "title": "UN Comtrade",
+      "url": "https://uncomtrade.org/docs/subscriptions/",
+      "kind": "official_statistics",
+      "verification_status": "METADATA_READ_DATA_NOT_DOWNLOADED",
+      "scope_ko": "국가·품목 교역 규모",
+      "checked_on": "2026-10-03",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null
+    },
+    {
+      "id": "S2",
+      "title": "WITS / TRAINS",
+      "url": "https://wits.worldbank.org/witsapiintro.aspx?lang=en",
+      "kind": "official_statistics",
+      "verification_status": "METADATA_READ_DATA_NOT_DOWNLOADED",
+      "scope_ko": "HS6 관세·원산지별 조건",
+      "checked_on": "2026-10-03",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null
+    },
+    {
+      "id": "S3",
+      "title": "World Bank Pink Sheet",
+      "url": "https://www.worldbank.org/en/research/commodity-markets",
+      "kind": "official_statistics",
+      "verification_status": "METADATA_READ_DATA_NOT_DOWNLOADED",
+      "scope_ko": "원료 기준가격",
+      "checked_on": "2026-10-03",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null
+    },
+    {
+      "id": "S4",
+      "title": "ECB reference exchange rates",
+      "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html",
+      "kind": "official_statistics",
+      "verification_status": "CSV_SAMPLE_DOWNLOADED_AND_CHECKED",
+      "scope_ko": "2024-01-02~2024-01-15 영업일 10개; USD/EUR·KRW/EUR 관측값, KRW/USD 교차환율 산출",
+      "checked_on": "2026-10-04",
+      "redistribution": "10_row_sample_with_ecb_attribution_and_derived_field_notice",
+      "local_path": "data/observed_fx_sample.json",
+      "data_url": "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist.zip",
+      "terms_url": "https://www.ecb.europa.eu/services/using-our-site/disclaimer/html/index.en.html"
+    },
+    {
+      "id": "S5",
+      "title": "LPI methodology",
+      "url": "https://lpi.worldbank.org/en/about/methodology",
+      "kind": "official_statistics",
+      "verification_status": "METADATA_READ_DATA_NOT_DOWNLOADED",
+      "scope_ko": "운송 단계별 측정 범위",
+      "checked_on": "2026-10-03",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null
+    },
+    {
+      "id": "S6",
+      "title": "CPPI 2024",
+      "url": "https://www.worldbank.org/en/topic/transport/publication/cppi-2024",
+      "kind": "official_statistics",
+      "verification_status": "METADATA_READ_DATA_NOT_DOWNLOADED",
+      "scope_ko": "항만 성과 지표",
+      "checked_on": "2026-10-03",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null
+    },
+    {
+      "id": "C4",
+      "title": "IPCC AR6 WGI Chapter11",
+      "url": "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-11/",
+      "kind": "scientific_assessment",
+      "verification_status": "SELECTED_SECTIONS_READ",
+      "scope_ko": "기상이변과 귀속 해석",
+      "checked_on": "2026-10-03",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null
+    },
+    {
+      "id": "C5",
+      "title": "IMO LCA framework",
+      "url": "https://www.imo.org/en/ourwork/environment/pages/lifecycle-ghg---carbon-intensity-guidelines.aspx",
+      "kind": "official_methodology",
+      "verification_status": "CONTENT_READ",
+      "scope_ko": "운송 배출의 범위",
+      "checked_on": "2026-10-03",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null
+    },
+    {
+      "id": "R1",
+      "title": "Amiti et al. Who’s Paying for the US Tariffs",
+      "url": "https://deweinst.github.io/weinstein_website/Whos_Paying_Paper.pdf",
+      "kind": "research_working_paper",
+      "verification_status": "SELECTED_SECTIONS_READ",
+      "scope_ko": "2019 공개토론본, 출판본 추가대조",
+      "checked_on": "2026-10-03",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null
+    },
+    {
+      "id": "R2",
+      "title": "Hummels and Schaur Time as a Trade Barrier",
+      "url": "https://www.aeaweb.org/articles?id=10.1257/aer.103.7.2935",
+      "kind": "research_paper",
+      "verification_status": "ABSTRACT_AND_SELECTED_TEXT_READ",
+      "scope_ko": "시간가치, 현금벌금과 구분",
+      "checked_on": "2026-10-03",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null
+    },
+    {
+      "id": "R3",
+      "title": "OECD supply chain resilience",
+      "url": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2023/02/policies-to-strengthen-the-resilience-of-global-value-chains_e6dcc19a/fd82abd4-en.pdf",
+      "kind": "research_report",
+      "verification_status": "SELECTED_SECTIONS_READ",
+      "scope_ko": "거시 공급망 상관·충격",
+      "checked_on": "2026-10-03",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null
+    },
+    {
+      "id": "R4",
+      "title": "Bloom et al management intervention research summary",
+      "url": "https://www.povertyactionlab.org/evaluation/increasing-firm-productivity-through-management-consulting-services-india",
+      "kind": "research_institution_summary",
+      "verification_status": "SUMMARY_READ",
+      "scope_ko": "제조업 복합 개입, 직원능력계수 아님",
+      "checked_on": "2026-10-03",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null
+    },
+    {
+      "id": "DK4-S00",
+      "title": "공식 Web 매뉴얼 목차",
+      "url": "https://www.gamecity.ne.jp/manual/dk4HeN38/jp/",
+      "kind": "official_game_manual",
+      "verification_status": "CONTENT_READ",
+      "checked_on": "2026-10-04",
+      "scope_ko": "원작 기능 관찰; 게임계수의 현실 근거 아님",
+      "redistribution": "link_and_notes_only",
+      "unreferenced_reason_ko": "공개판에서는 레퍼런스 게임 분석 문서를 싣지 않는다(비공개 개발 저장소에 보관)."
+    },
+    {
+      "id": "DK4-S01",
+      "title": "ゲームの流れ",
+      "url": "https://www.gamecity.ne.jp/manual/dk4HeN38/jp/1600.html",
+      "kind": "official_game_manual",
+      "verification_status": "CONTENT_READ",
+      "checked_on": "2026-10-04",
+      "scope_ko": "원작 기능 관찰; 게임계수의 현실 근거 아님",
+      "redistribution": "link_and_notes_only",
+      "unreferenced_reason_ko": "공개판에서는 레퍼런스 게임 분석 문서를 싣지 않는다(비공개 개발 저장소에 보관)."
+    },
+    {
+      "id": "DK4-S02",
+      "title": "基本操作：Steam®",
+      "url": "https://www.gamecity.ne.jp/manual/dk4HeN38/jp/1300.html",
+      "kind": "official_game_manual",
+      "verification_status": "CONTENT_READ",
+      "checked_on": "2026-10-04",
+      "scope_ko": "원작 기능 관찰; 게임계수의 현실 근거 아님",
+      "redistribution": "link_and_notes_only",
+      "unreferenced_reason_ko": "공개판에서는 레퍼런스 게임 분석 문서를 싣지 않는다(비공개 개발 저장소에 보관)."
+    },
+    {
+      "id": "DK4-S03",
+      "title": "共通コマンド",
+      "url": "https://www.gamecity.ne.jp/manual/dk4HeN38/jp/2100.html",
+      "kind": "official_game_manual",
+      "verification_status": "CONTENT_READ",
+      "checked_on": "2026-10-04",
+      "scope_ko": "원작 기능 관찰; 게임계수의 현실 근거 아님",
+      "redistribution": "link_and_notes_only",
+      "unreferenced_reason_ko": "공개판에서는 레퍼런스 게임 분석 문서를 싣지 않는다(비공개 개발 저장소에 보관)."
+    },
+    {
+      "id": "DK4-S04",
+      "title": "街画面",
+      "url": "https://www.gamecity.ne.jp/manual/dk4HeN38/jp/2200.html",
+      "kind": "official_game_manual",
+      "verification_status": "CONTENT_READ",
+      "checked_on": "2026-10-04",
+      "scope_ko": "원작 기능 관찰; 게임계수의 현실 근거 아님",
+      "redistribution": "link_and_notes_only",
+      "unreferenced_reason_ko": "공개판에서는 레퍼런스 게임 분석 문서를 싣지 않는다(비공개 개발 저장소에 보관)."
+    },
+    {
+      "id": "DK4-S05",
+      "title": "交易画面",
+      "url": "https://www.gamecity.ne.jp/manual/dk4HeN38/jp/2300.html",
+      "kind": "official_game_manual",
+      "verification_status": "CONTENT_READ",
+      "checked_on": "2026-10-04",
+      "scope_ko": "원작 기능 관찰; 게임계수의 현실 근거 아님",
+      "redistribution": "link_and_notes_only",
+      "unreferenced_reason_ko": "공개판에서는 레퍼런스 게임 분석 문서를 싣지 않는다(비공개 개발 저장소에 보관)."
+    },
+    {
+      "id": "DK4-S06",
+      "title": "相場情報画面",
+      "url": "https://www.gamecity.ne.jp/manual/dk4HeN38/jp/2400.html",
+      "kind": "official_game_manual",
+      "verification_status": "CONTENT_READ",
+      "checked_on": "2026-10-04",
+      "scope_ko": "원작 기능 관찰; 게임계수의 현실 근거 아님",
+      "redistribution": "link_and_notes_only",
+      "unreferenced_reason_ko": "공개판에서는 레퍼런스 게임 분석 문서를 싣지 않는다(비공개 개발 저장소에 보관)."
+    },
+    {
+      "id": "DK4-S07",
+      "title": "航路図画面",
+      "url": "https://www.gamecity.ne.jp/manual/dk4HeN38/jp/2600.html",
+      "kind": "official_game_manual",
+      "verification_status": "CONTENT_READ",
+      "checked_on": "2026-10-04",
+      "scope_ko": "원작 기능 관찰; 게임계수의 현실 근거 아님",
+      "redistribution": "link_and_notes_only",
+      "unreferenced_reason_ko": "공개판에서는 레퍼런스 게임 분석 문서를 싣지 않는다(비공개 개발 저장소에 보관)."
+    },
+    {
+      "id": "DK4-S08",
+      "title": "航海士情報画面",
+      "url": "https://www.gamecity.ne.jp/manual/dk4HeN38/jp/2800.html",
+      "kind": "official_game_manual",
+      "verification_status": "CONTENT_READ",
+      "checked_on": "2026-10-04",
+      "scope_ko": "원작 기능 관찰; 게임계수의 현실 근거 아님",
+      "redistribution": "link_and_notes_only",
+      "unreferenced_reason_ko": "공개판에서는 레퍼런스 게임 분석 문서를 싣지 않는다(비공개 개발 저장소에 보관)."
+    },
+    {
+      "id": "DK4-S09",
+      "title": "船情報画面",
+      "url": "https://www.gamecity.ne.jp/manual/dk4HeN38/jp/2900.html",
+      "kind": "official_game_manual",
+      "verification_status": "CONTENT_READ",
+      "checked_on": "2026-10-04",
+      "scope_ko": "원작 기능 관찰; 게임계수의 현실 근거 아님",
+      "redistribution": "link_and_notes_only",
+      "unreferenced_reason_ko": "공개판에서는 레퍼런스 게임 분석 문서를 싣지 않는다(비공개 개발 저장소에 보관)."
+    },
+    {
+      "id": "DK4-S10",
+      "title": "出港準備／甲板で担当決定",
+      "url": "https://www.gamecity.ne.jp/manual/dk4HeN38/jp/3100.html",
+      "kind": "official_game_manual",
+      "verification_status": "CONTENT_READ",
+      "checked_on": "2026-10-04",
+      "scope_ko": "원작 기능 관찰; 게임계수의 현실 근거 아님",
+      "redistribution": "link_and_notes_only",
+      "unreferenced_reason_ko": "공개판에서는 레퍼런스 게임 분석 문서를 싣지 않는다(비공개 개발 저장소에 보관)."
+    },
+    {
+      "id": "DK4-S11",
+      "title": "交易で稼ぐ",
+      "url": "https://www.gamecity.ne.jp/manual/dk4HeN38/jp/3300.html",
+      "kind": "official_game_manual",
+      "verification_status": "CONTENT_READ",
+      "checked_on": "2026-10-04",
+      "scope_ko": "원작 기능 관찰; 게임계수의 현실 근거 아님",
+      "redistribution": "link_and_notes_only",
+      "unreferenced_reason_ko": "공개판에서는 레퍼런스 게임 분석 문서를 싣지 않는다(비공개 개발 저장소에 보관)."
+    },
+    {
+      "id": "DK4-S12",
+      "title": "地方艦隊作成",
+      "url": "https://www.gamecity.ne.jp/manual/dk4HeN38/jp/3700.html",
+      "kind": "official_game_manual",
+      "verification_status": "CONTENT_READ",
+      "checked_on": "2026-10-04",
+      "scope_ko": "원작 기능 관찰; 게임계수의 현실 근거 아님",
+      "redistribution": "link_and_notes_only",
+      "unreferenced_reason_ko": "공개판에서는 레퍼런스 게임 분석 문서를 싣지 않는다(비공개 개발 저장소에 보관)."
+    },
+    {
+      "id": "DK4-S13",
+      "title": "街コマンド一覧",
+      "url": "https://www.gamecity.ne.jp/manual/dk4HeN38/jp/4300.html",
+      "kind": "official_game_manual",
+      "verification_status": "CONTENT_READ",
+      "checked_on": "2026-10-04",
+      "scope_ko": "원작 기능 관찰; 게임계수의 현실 근거 아님",
+      "redistribution": "link_and_notes_only",
+      "unreferenced_reason_ko": "공개판에서는 레퍼런스 게임 분석 문서를 싣지 않는다(비공개 개발 저장소에 보관)."
+    },
+    {
+      "id": "G3-S01",
+      "title": "Guild 3 official observation source",
+      "url": "https://guild3.thqnordic.com/game-sites/guild3/content/screenshots/screenshot-02.jpg",
+      "kind": "official_game_screenshot",
+      "verification_status": "SCREENSHOT_VIEWED",
+      "checked_on": "2026-10-04",
+      "scope_ko": "판본별 UI·조작 관찰. 세부 확인은 guild3_reference.json",
+      "redistribution": "link_and_notes_only",
+      "unreferenced_reason_ko": "공개판에서는 레퍼런스 게임 분석 문서를 싣지 않는다(비공개 개발 저장소에 보관)."
+    },
+    {
+      "id": "G3-S02",
+      "title": "Guild 3 official observation source",
+      "url": "https://guild3.thqnordic.com/game-sites/guild3/content/screenshots/screenshot-10.jpg",
+      "kind": "official_game_screenshot",
+      "verification_status": "SCREENSHOT_VIEWED",
+      "checked_on": "2026-10-04",
+      "scope_ko": "판본별 UI·조작 관찰. 세부 확인은 guild3_reference.json",
+      "redistribution": "link_and_notes_only",
+      "unreferenced_reason_ko": "공개판에서는 레퍼런스 게임 분석 문서를 싣지 않는다(비공개 개발 저장소에 보관)."
+    },
+    {
+      "id": "G3-S03",
+      "title": "Guild 3 official observation source",
+      "url": "https://guild3.thqnordic.com/game-sites/guild3/content/screenshots/screenshot-13.jpg",
+      "kind": "official_game_screenshot",
+      "verification_status": "SCREENSHOT_VIEWED",
+      "checked_on": "2026-10-04",
+      "scope_ko": "판본별 UI·조작 관찰. 세부 확인은 guild3_reference.json",
+      "redistribution": "link_and_notes_only",
+      "unreferenced_reason_ko": "공개판에서는 레퍼런스 게임 분석 문서를 싣지 않는다(비공개 개발 저장소에 보관)."
+    },
+    {
+      "id": "G3-S04",
+      "title": "Guild 3 official observation source",
+      "url": "https://guild3.thqnordic.com/game-sites/guild3/content/screenshots/screenshot-14.jpg",
+      "kind": "official_game_screenshot",
+      "verification_status": "SCREENSHOT_VIEWED",
+      "checked_on": "2026-10-04",
+      "scope_ko": "판본별 UI·조작 관찰. 세부 확인은 guild3_reference.json",
+      "redistribution": "link_and_notes_only",
+      "unreferenced_reason_ko": "공개판에서는 레퍼런스 게임 분석 문서를 싣지 않는다(비공개 개발 저장소에 보관)."
+    },
+    {
+      "id": "G3-S05",
+      "title": "Guild 3 official observation source",
+      "url": "https://guild3.thqnordic.com/game-sites/guild3/content/screenshots/screenshot-16.jpg",
+      "kind": "official_game_screenshot",
+      "verification_status": "SCREENSHOT_VIEWED",
+      "checked_on": "2026-10-04",
+      "scope_ko": "판본별 UI·조작 관찰. 세부 확인은 guild3_reference.json",
+      "redistribution": "link_and_notes_only",
+      "unreferenced_reason_ko": "공개판에서는 레퍼런스 게임 분석 문서를 싣지 않는다(비공개 개발 저장소에 보관)."
+    },
+    {
+      "id": "G3-S06",
+      "title": "Guild 3 official observation source",
+      "url": "https://guild3.thqnordic.com/game-sites/guild3/content/screenshots/screenshot-17.jpg",
+      "kind": "official_game_screenshot",
+      "verification_status": "SCREENSHOT_VIEWED",
+      "checked_on": "2026-10-04",
+      "scope_ko": "판본별 UI·조작 관찰. 세부 확인은 guild3_reference.json",
+      "redistribution": "link_and_notes_only",
+      "unreferenced_reason_ko": "공개판에서는 레퍼런스 게임 분석 문서를 싣지 않는다(비공개 개발 저장소에 보관)."
+    },
+    {
+      "id": "G3-S07",
+      "title": "Guild 3 official observation source",
+      "url": "https://steamcommunity.com/app/311260/discussions/0/3109144584152358218/",
+      "kind": "official_developer_document",
+      "verification_status": "CONTENT_READ",
+      "checked_on": "2026-10-04",
+      "scope_ko": "판본별 UI·조작 관찰. 세부 확인은 guild3_reference.json",
+      "redistribution": "link_and_notes_only",
+      "unreferenced_reason_ko": "공개판에서는 레퍼런스 게임 분석 문서를 싣지 않는다(비공개 개발 저장소에 보관)."
+    },
+    {
+      "id": "G3-S08",
+      "title": "Guild 3 official observation source",
+      "url": "https://store.steampowered.com/news/posts/?appgroupname=The+Guild+3&appids=311260&enddate=1539769775",
+      "kind": "official_developer_document",
+      "verification_status": "CONTENT_READ",
+      "checked_on": "2026-10-04",
+      "scope_ko": "판본별 UI·조작 관찰. 세부 확인은 guild3_reference.json",
+      "redistribution": "link_and_notes_only",
+      "unreferenced_reason_ko": "공개판에서는 레퍼런스 게임 분석 문서를 싣지 않는다(비공개 개발 저장소에 보관)."
+    },
+    {
+      "id": "DESIGN-V04",
+      "title": "동물·신수 직원과 조직·성장 설계 v0.4",
+      "url": null,
+      "kind": "project_design",
+      "verification_status": "LOCAL_DESIGN_NOT_EMPIRICAL",
+      "scope_ko": "동료·레벨·강화·속성·직무·부서·팀·시너지",
+      "checked_on": "2026-10-04",
+      "redistribution": "project_authored",
+      "local_path": "docs/CHARACTERS_AND_ORGANIZATION.md"
+    },
+    {
+      "id": "LL-100P-2026",
+      "title": "Lloyd's List One Hundred Container Ports 2026 (2025년 물동량)",
+      "url": "https://www.lloydslist.com/one-hundred-container-ports-2026",
+      "kind": "industry_ranking",
+      "verification_status": "WEB_SEARCH_SUMMARY_ONLY",
+      "scope_ko": "세계 컨테이너항 순위 1~10위: 상하이·싱가포르·닝보저우산·선전·칭다오·광저우·부산·톈진·두바이·포트클랑. 상하이 처리량은 SH-GOV-2025(약 5,506만 TEU), 싱가포르는 MPA 발표 약 4,466만 TEU. 로테르담 12위. (검색 결과 요약으로 확인. 작업 환경의 접속 차단으로 원문을 직접 읽지 못했으므로 도감·보고 문구에 쓰기 전 원문 대조 필요)",
+      "checked_on": "2026-10-05",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null,
+      "cross_check_2026_10_05": {
+        "method_ko": "lloydslist.com은 이 환경에서 접속이 막혀(403) 순위표 본문을 읽지 못했다. 웹 아카이브 사본으로 1~3위 순서를, 각 항만 당국 발표로 처리량을 대조했다. 근거: docs/ai/tasks/results/TASK-0003.md",
+        "urls": [
+          "https://en.portshanghai.com.cn/LatestNews/4941.jhtml",
+          "https://www.mpa.gov.sg/media-centre/details/singapore-posts-record-port-performance-in-2025-and-develops-future-readiness-through-industry-collaborations-for-2026",
+          "https://www.portofrotterdam.com/en/news-and-press-releases/throughput-port-rotterdam-shows-slight-decline"
+        ],
+        "result_ko": "순위(부산 7위·상하이 1위·싱가포르 2위·선전 4위·두바이 9위·로테르담 12위)는 반박되지 않았다. 상하이 처리량 5,550만은 오기여서 정부·SIPG 원문 5,506만으로 고쳤다. 순위표 원문은 여전히 직접 읽지 못했다."
+      }
+    },
+    {
+      "id": "ZYEN-GFCI39",
+      "title": "Z/Yen, The Global Financial Centres Index 39 (2026-03-26)",
+      "url": "https://www.zyen.com/publications/public-reports/the-global-financial-centres-index-39/",
+      "kind": "index_report",
+      "verification_status": "CONTENT_READ",
+      "scope_ko": "국제 금융센터 지수 1~10위: 뉴욕·런던·홍콩·싱가포르·샌프란시스코·상하이·두바이·서울·선전·도쿄. 무역금융만이 아니라 금융센터 전반의 경쟁력 지수다.",
+      "checked_on": "2026-10-05",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null,
+      "cross_check_2026_10_05": {
+        "method_ko": "Codex Sol 원문 대조(TASK-0003) 뒤 Claude 독립 검증(불일치·확인 불가 행은 3명, 일치 행은 1명). 근거: docs/ai/tasks/results/TASK-0003.md",
+        "urls": [
+          "https://www.longfinance.net/media/documents/GFCI_39_Report_2026.03.26_v1.1.pdf"
+        ],
+        "result_ko": "보고서 표 1에서 7개 거점 순위가 모두 일치."
+      }
+    },
+    {
+      "id": "MENON-DNV-LMC2024",
+      "title": "Menon Economics·DNV, The Leading Maritime Cities of the World 2024",
+      "url": "https://www.dnv.com/news/leading-maritime-cities-report-2024-amid-a-sea-of-change-singapore-retains-top-spot/",
+      "kind": "index_report",
+      "verification_status": "CONTENT_READ",
+      "scope_ko": "해양 도시 종합 1~5위: 싱가포르·로테르담·런던·상하이·오슬로. 해운 중심, 해운 금융·법률, 해양 기술, 항만·물류, 매력도 5개 축.",
+      "checked_on": "2026-10-05",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null,
+      "cross_check_2026_10_05": {
+        "method_ko": "Codex Sol 원문 대조(TASK-0003) 뒤 Claude 독립 검증(불일치·확인 불가 행은 3명, 일치 행은 1명). 근거: docs/ai/tasks/results/TASK-0003.md",
+        "urls": [
+          "https://menon.no/wp-content/uploads/Leading-Maritime-Cities-2024_Menon-DNV.pdf"
+        ],
+        "result_ko": "싱가포르 1위·로테르담 2위·런던 3위·상하이 4위 일치."
+      }
+    },
+    {
+      "id": "UNCTAD-RMT2024",
+      "title": "UNCTAD, Review of Maritime Transport 2024 / UNCTADstat 해운 지표",
+      "url": "https://unctadstat.unctad.org/insights/theme/20",
+      "kind": "official_statistics",
+      "verification_status": "CONTENT_READ",
+      "scope_ko": "2024년 초 선박 보유 국가: 그리스 약 3.95억 dwt, 중국 약 3.77억 dwt, 일본 약 2.43억 dwt. 그리스 보유 선복의 대부분은 외국 국적(편의치적).",
+      "checked_on": "2026-10-05",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null,
+      "cross_check_2026_10_05": {
+        "method_ko": "Codex Sol 원문 대조(TASK-0003) 뒤 Claude 독립 검증(불일치·확인 불가 행은 3명, 일치 행은 1명). 근거: docs/ai/tasks/results/TASK-0003.md",
+        "urls": [
+          "https://unctad.org/system/files/official-document/rmt2024ch2_en.pdf",
+          "https://unctadstat.unctad.org/CountryProfile/MaritimeProfile/en-GB/300/index.html"
+        ],
+        "result_ko": "그리스 약 3.95억 dwt 세계 1위는 실소유(ownership) 기준. 문구에 기준을 명시했다."
+      }
+    },
+    {
+      "id": "HFW-ARB2026",
+      "title": "HFW, Arbitration in Numbers 2026",
+      "url": "https://www.hfw.com/app/uploads/2026/07/008356-REPORT-Arbitration-in-Numbers-2026.pdf",
+      "kind": "industry_report",
+      "verification_status": "CONTENT_READ",
+      "scope_ko": "HFW 2025년 집계: 런던 해사 중재 약 2,100건(추정, LMAA 신규 2,015건 포함), 싱가포르 168건(런던의 약 8%). 세계 전체 대비 비율은 보고서에 없다.",
+      "checked_on": "2026-10-05",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null,
+      "cross_check_2026_10_05": {
+        "method_ko": "Codex Sol 원문 대조(TASK-0003) 뒤 Claude 독립 검증(불일치·확인 불가 행은 3명, 일치 행은 1명). 근거: docs/ai/tasks/results/TASK-0003.md",
+        "urls": [
+          "https://www.hfw.com/app/uploads/2026/07/008356-REPORT-Arbitration-in-Numbers-2026.pdf"
+        ],
+        "result_ko": "‘국제 해사 중재의 약 80%’는 보고서에 없다. 런던 2025년 약 2,100건(HFW 추정), 싱가포르는 런던의 약 8%로 고쳤다."
+      }
+    },
+    {
+      "id": "PORT-HAMBURG-2025",
+      "title": "Port of Hamburg, 2025 throughput figures at a glance",
+      "url": "https://www.hafen-hamburg.de/en/press1/news/hamburger-hafen-umschlagszahlen-2025-auf-einen-blick/",
+      "kind": "port_authority_release",
+      "verification_status": "WEB_SEARCH_SUMMARY_ONLY",
+      "scope_ko": "2025년 유럽 컨테이너항: 로테르담 약 1,425만, 앤트워프브뤼허 약 1,363만, 함부르크 약 830만 TEU. (검색 결과 요약으로 확인. 작업 환경의 접속 차단으로 원문을 직접 읽지 못했으므로 도감·보고 문구에 쓰기 전 원문 대조 필요) (2026-10-05 대조: 이 자료에는 로테르담 수치가 없어 로테르담 근거는 PORT-ROTTERDAM-2025로 옮겼다.)",
+      "checked_on": "2026-10-05",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null,
+      "superseded_by": [
+        "PORT-ROTTERDAM-2025"
+      ],
+      "unreferenced_reason_ko": "로테르담 근거를 원문을 읽은 PORT-ROTTERDAM-2025로 옮긴 뒤 자료에서 쓰지 않는다(이 기록의 scope_ko ‘2026-10-05 대조’). 옛 대조 기록(TASK-0003)을 위해 남긴다."
+    },
+    {
+      "id": "TANGERMED-2025",
+      "title": "Container News, Tanger Med handles over 11 million containers in 2025",
+      "url": "https://container-news.com/tanger-med-handles-over-11-million-containers-in-2025",
+      "kind": "trade_press",
+      "verification_status": "PRIMARY_SOURCE_CROSS_CHECKED",
+      "scope_ko": "탕헤르 메드 2025년 약 1,111만 TEU(전년 대비 8.4%↑). 아프리카·지중해 최대 항만.",
+      "checked_on": "2026-10-05",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null,
+      "cross_check_2026_10_05": {
+        "method_ko": "Codex Sol 원문 대조(TASK-0003) 뒤 Claude 독립 검증(불일치·확인 불가 행은 3명, 일치 행은 1명). 근거: docs/ai/tasks/results/TASK-0003.md",
+        "urls": [
+          "https://www.tangermed.ma/wp-content/uploads/press-releases/2026/CP-TMPA-PORT-ACTIVITY-REPORT-IN-2025.pdf"
+        ],
+        "result_ko": "탕헤르 메드 당국 보고서로 약 1,111만 TEU 일치."
+      }
+    },
+    {
+      "id": "DATAMAR-SANTOS",
+      "title": "DatamarNews, Port of Santos becomes Latin America's top container port",
+      "url": "https://datamarnews.com/noticias/port-of-santos-jumps-six-spots-in-global-ranking-becomes-latin-americas-top-container-port/",
+      "kind": "trade_press",
+      "verification_status": "SECONDARY_SOURCES_CROSS_CHECKED",
+      "scope_ko": "산투스 2024년 약 548만 TEU로 라틴아메리카 1위(파나마 콜론을 앞섬), Lloyd's List 37위.",
+      "checked_on": "2026-10-05",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null,
+      "cross_check_2026_10_05": {
+        "method_ko": "Codex Sol 원문 대조(TASK-0003) 뒤 Claude 독립 검증(불일치·확인 불가 행은 3명, 일치 행은 1명). 근거: docs/ai/tasks/results/TASK-0003.md",
+        "urls": [
+          "https://www.mundomaritimo.net/noticias/latin-america-and-the-caribbean-show-strong-performance-in-global-container-port-ranking"
+        ],
+        "result_ko": "산투스 약 548만 TEU·세계 37위(2024)는 독립 검증 3명 모두 지지(Sol의 불일치 판정 기각). 1차 원표는 접속 실패."
+      }
+    },
+    {
+      "id": "JNPA-2025",
+      "title": "Indian Infrastructure, JNPA record handling of 7.9 million TEUs in 2025",
+      "url": "https://indianinfrastructure.com/?p=264511",
+      "kind": "trade_press",
+      "verification_status": "PRIMARY_SOURCE_CROSS_CHECKED",
+      "scope_ko": "자와할랄 네루항(나바셰바, 뭄바이권) 2025년 약 790만 TEU. 인도 컨테이너 물동량의 절반 이상을 처리하는 최대 컨테이너항. 총화물량 1위는 문드라항.",
+      "checked_on": "2026-10-05",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null,
+      "cross_check_2026_10_05": {
+        "method_ko": "Codex Sol 원문 대조(TASK-0003) 뒤 Claude 독립 검증(불일치·확인 불가 행은 3명, 일치 행은 1명). 근거: docs/ai/tasks/results/TASK-0003.md",
+        "urls": [
+          "https://www.jnport.gov.in/uploads/media_center/1/1308/JNPA_PR_-_CY_Performance_1-5-2025.pdf"
+        ],
+        "result_ko": "JNPA 발표로 약 790만 TEU(정확히는 약 794만) 일치."
+      }
+    },
+    {
+      "id": "POM-2025",
+      "title": "Port Technology, Port of Melbourne hits 3.5 million TEUs in 2025",
+      "url": "https://www.porttechnology.org/news/ports-and-terminals/port-of-melbourne-hits-3-5-million-teus-in-2025/",
+      "kind": "trade_press",
+      "verification_status": "PRIMARY_SOURCE_CROSS_CHECKED",
+      "scope_ko": "멜버른항 2025년 약 350만 TEU, 호주 최대 컨테이너항.",
+      "checked_on": "2026-10-05",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null,
+      "cross_check_2026_10_05": {
+        "method_ko": "Codex Sol 원문 대조(TASK-0003) 뒤 Claude 독립 검증(불일치·확인 불가 행은 3명, 일치 행은 1명). 근거: docs/ai/tasks/results/TASK-0003.md",
+        "urls": [
+          "https://www.portofmelbourne.com/wp-content/uploads/PoM-CY25-Trade-in-Review-Report-FINAL.pdf"
+        ],
+        "result_ko": "멜버른항 보고서로 약 350만 TEU 일치."
+      }
+    },
+    {
+      "id": "MOMBASA-2025",
+      "title": "India Seatrade News, Port of Mombasa handles 2.1 million TEUs in 2025",
+      "url": "https://indiaseatradenews.com/port-of-mombasa-handles-2-1-million-teus-in-2025/",
+      "kind": "trade_press",
+      "verification_status": "WEB_SEARCH_SUMMARY_ONLY",
+      "scope_ko": "몸바사항 2025년 약 211만 TEU, 동아프리카 최대 항만. 홍해 우회 항로의 영향을 받음. (검색 결과 요약으로 확인. 작업 환경의 접속 차단으로 원문을 직접 읽지 못했으므로 도감·보고 문구에 쓰기 전 원문 대조 필요)",
+      "checked_on": "2026-10-05",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null
+    },
+    {
+      "id": "DURBAN-PORT",
+      "title": "Port of Durban (Wikipedia 및 Freight News 요약)",
+      "url": "https://en.wikipedia.org/wiki/Port_of_Durban",
+      "kind": "secondary_reference",
+      "verification_status": "WEB_SEARCH_SUMMARY_ONLY",
+      "scope_ko": "더반항은 사하라 이남 아프리카 최대 컨테이너항. 2024년 더반 컨테이너터미널 약 265만 TEU(설계 용량 360만 TEU). (검색 결과 요약으로 확인. 작업 환경의 접속 차단으로 원문을 직접 읽지 못했으므로 도감·보고 문구에 쓰기 전 원문 대조 필요) (2026-10-05 대조: 위키백과에 2024년 수치가 없어 더반 근거는 AFRICAPORTS-TNPA-2024로 옮겼다. 수치는 터미널이 아니라 항만 전체다.)",
+      "checked_on": "2026-10-05",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null,
+      "superseded_by": [
+        "AFRICAPORTS-TNPA-2024"
+      ],
+      "unreferenced_reason_ko": "더반 근거를 AFRICAPORTS-TNPA-2024로 옮긴 뒤 자료에서 쓰지 않는다(이 기록의 scope_ko ‘2026-10-05 대조’). 옛 대조 기록(TASK-0003)을 위해 남긴다."
+    },
+    {
+      "id": "US-PORTS-2025",
+      "title": "Port Technology, Top 5 US ports by TEU in 2025",
+      "url": "https://www.porttechnology.org/top-5-us-ports-by-teu-in-2025/",
+      "kind": "trade_press",
+      "verification_status": "PRIMARY_SOURCE_CROSS_CHECKED",
+      "scope_ko": "로스앤젤레스·롱비치(샌페드로만) 합계 약 2,010만 TEU로 북미 최대 관문. 뉴욕·뉴저지항은 미국 동부 최대 컨테이너항.",
+      "checked_on": "2026-10-05",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null,
+      "cross_check_2026_10_05": {
+        "method_ko": "Codex Sol 원문 대조(TASK-0003) 뒤 Claude 독립 검증(불일치·확인 불가 행은 3명, 일치 행은 1명). 근거: docs/ai/tasks/results/TASK-0003.md",
+        "urls": [
+          "https://portoflosangeles.org/business/statistics/container-statistics/historical-teu-statistics-2025",
+          "https://www.panynj.gov/port/en/our-port/facts-and-figures.html"
+        ],
+        "result_ko": "로스앤젤레스·롱비치 합계 약 2,010만 TEU, 뉴욕·뉴저지 미국 동부 1위 일치. 등록 기사 URL은 접속 실패."
+      }
+    },
+    {
+      "id": "PIRAEUS-2025",
+      "title": "To Vima, Piraeus Port fifth in Europe",
+      "url": "https://www.tovima.com/finance/piraeus-port-fifth-in-europe-posts-rise-in-container-traffic/amp/",
+      "kind": "trade_press",
+      "verification_status": "CONTENT_READ",
+      "scope_ko": "피레우스항은 유럽 상위 5위권 컨테이너항이자 지중해 주요 환적항. 매체마다 2025년 물동량 수치가 달라 순위만 사용. (2026-10-05 대조: 2025년 상반기만 다룬 기사이고 물동량 순위가 아니다. ‘5위’는 2024년 순위다. 피레우스 근거는 PORTECON-EU-2025·PPA-FY2025로 옮겼다.)",
+      "checked_on": "2026-10-05",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null,
+      "superseded_by": [
+        "PORTECON-EU-2025",
+        "PPA-FY2025"
+      ],
+      "unreferenced_reason_ko": "피레우스 근거를 PORTECON-EU-2025·PPA-FY2025로 옮긴 뒤 자료에서 쓰지 않는다(이 기록의 scope_ko ‘2026-10-05 대조’). 옛 대조 기록(TASK-0003)을 위해 남긴다."
+    },
+    {
+      "id": "PEMP-ROUTING",
+      "title": "Port Economics, Management and Policy, Routing Options between Shanghai, Rotterdam and New York",
+      "url": "https://porteconomicsmanagement.org/routing-options-shanghai-rotterdam/",
+      "kind": "academic_reference",
+      "verification_status": "CONTENT_READ",
+      "scope_ko": "상하이→로테르담: 수에즈 경유 약 10,600해리·약 27일, 희망봉 경유 약 13,800해리·약 35일(16노트, 기항 없음 가정).",
+      "checked_on": "2026-10-05",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null,
+      "cross_check_2026_10_05": {
+        "method_ko": "Codex Sol 원문 대조(TASK-0003) 뒤 Claude 독립 검증(불일치·확인 불가 행은 3명, 일치 행은 1명). 근거: docs/ai/tasks/results/TASK-0003.md",
+        "urls": [
+          "https://porteconomicsmanagement.org/pemp/contents/part1/interoceanic-passages/routing-options-shanghai-rotterdam/"
+        ],
+        "result_ko": "수에즈 약 27일·희망봉 약 35일 일치. 16노트·무기항 가정의 비교값임을 문구에 밝혔다."
+      }
+    },
+    {
+      "id": "PEMP-REDSEA",
+      "title": "Port Economics, Management and Policy, The Red Sea Crisis and Shipping Routes",
+      "url": "https://porteconomicsmanagement.org/the-red-sea-crisis-and-shipping-routes/",
+      "kind": "academic_reference",
+      "verification_status": "CONTENT_READ",
+      "scope_ko": "홍해 사태로 아시아–유럽 항로가 희망봉으로 우회하면 상하이–로테르담 한 방향 7~10일(16노트 기준) 늘어난다.",
+      "checked_on": "2026-10-05",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null,
+      "cross_check_2026_10_05": {
+        "method_ko": "Codex Sol 원문 대조(TASK-0003) 뒤 Claude 독립 검증(불일치·확인 불가 행은 3명, 일치 행은 1명). 근거: docs/ai/tasks/results/TASK-0003.md",
+        "urls": [
+          "https://porteconomicsmanagement.org/the-red-sea-crisis-and-shipping-routes/"
+        ],
+        "result_ko": "원문은 ‘7~10일’(16노트, 상하이–로테르담). 7~12일에서 고쳤다."
+      }
+    },
+    {
+      "id": "GCAPTAIN-PANAMA-2023",
+      "title": "gCaptain, Panama Canal to keep limits in place as drought hits lake levels",
+      "url": "https://gcaptain.com/panama-canal-to-keep-limits-in-place-as-drought-hits-lake-levels/",
+      "kind": "trade_press",
+      "verification_status": "PRIMARY_SOURCE_CROSS_CHECKED",
+      "scope_ko": "2023년 엘니뇨 가뭄으로 가툰 호수 수위 하락, 하루 통항이 평소 36~37척에서 줄고 흘수 제한이 걸림.",
+      "checked_on": "2026-10-05",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null,
+      "cross_check_2026_10_05": {
+        "method_ko": "Codex Sol 원문 대조(TASK-0003) 뒤 Claude 독립 검증(불일치·확인 불가 행은 3명, 일치 행은 1명). 근거: docs/ai/tasks/results/TASK-0003.md",
+        "urls": [
+          "https://pancanal.com/en/panama-canal-to-increase-daily-transits-to-24-starting-in-january/"
+        ],
+        "result_ko": "운하청 발표로 통항 감축 사실을 대조했다."
+      }
+    },
+    {
+      "id": "PANCANAL-2023",
+      "title": "Panama Canal Authority, daily transits to 24 starting in January",
+      "url": "https://pancanal.com/en/panama-canal-to-increase-daily-transits-to-24-starting-in-january/",
+      "kind": "official_release",
+      "verification_status": "CONTENT_READ",
+      "scope_ko": "운하청 발표: 가뭄 통항 제한 뒤 2024년 1월부터 하루 24척으로 늘림.",
+      "checked_on": "2026-10-05",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null,
+      "cross_check_2026_10_05": {
+        "method_ko": "Codex Sol 원문 대조(TASK-0003) 뒤 Claude 독립 검증(불일치·확인 불가 행은 3명, 일치 행은 1명). 근거: docs/ai/tasks/results/TASK-0003.md",
+        "urls": [
+          "https://pancanal.com/en/panama-canal-to-increase-daily-transits-to-24-starting-in-january/"
+        ],
+        "result_ko": "2023년 엘니뇨 가뭄·가툰호 수위·하루 통항 제한 일치."
+      }
+    },
+    {
+      "id": "SH-GOV-2025",
+      "title": "上海市人民政府, 上海国际航运中心建设\"十五五\"规划 주요 지표표 (2026-07-22) / 上港集团(SIPG) 2025년 처리량 발표",
+      "url": "https://www.shanghai.gov.cn/nw12344/20260722/bce54bf5f1284d4cbd483fb2f1a319a7.html",
+      "kind": "government_statistics",
+      "verification_status": "CONTENT_READ",
+      "scope_ko": "2025년 상하이항 컨테이너 처리량 5,506.3만 TEU(항만 전체, 역년), 전년 대비 +6.9%. SIPG 영문 발표(https://en.portshanghai.com.cn/LatestNews/4941.jhtml)도 55.06 million TEU로 같다.",
+      "checked_on": "2026-10-05",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null
+    },
+    {
+      "id": "PORT-ROTTERDAM-2025",
+      "title": "Port of Rotterdam Authority, Throughput Port of Rotterdam 2025 (January–December)",
+      "url": "https://www.portofrotterdam.com/sites/default/files/2026-02/throughput-port-of-rotterdam-2025.pdf",
+      "kind": "port_authority_statistics",
+      "verification_status": "CONTENT_READ",
+      "scope_ko": "2025년 로테르담항 컨테이너 1,424.5만 TEU(항만 전체, 역년), 전년 1,382.0만 TEU 대비 +3.1%. 같은 해 앤트워프-브뤼허 약 1,363만, 함부르크 약 830만 TEU로 유럽 1위.",
+      "checked_on": "2026-10-05",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null
+    },
+    {
+      "id": "AFRICAPORTS-TNPA-2024",
+      "title": "Africa Ports & Ships, Maritime News 2–3 February 2025 (TNPA 2024년 항만별 컨테이너 통계 인용)",
+      "url": "https://africaports.co.za/2025/02/08/africa-ports-ships-maritime-news-2-3-february-2025/",
+      "kind": "trade_media_citing_port_authority",
+      "verification_status": "CONTENT_READ",
+      "scope_ko": "TNPA 집계를 인용한 2024년 더반항 전체 컨테이너 2,650,419 TEU. 2차 매체이며 TNPA 원표는 접속 실패로 직접 보지 못했다.",
+      "checked_on": "2026-10-05",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null
+    },
+    {
+      "id": "PORTECON-EU-2025",
+      "title": "PortEconomics (Theo Notteboom), Top 15 container ports in the EU in H1 2026 — “Rank 2025” 열 (2026-09-21)",
+      "url": "https://www.porteconomics.eu/top-15-eu-container-ports-in-h1-2026/",
+      "kind": "research_ranking",
+      "verification_status": "CONTENT_READ",
+      "scope_ko": "2025년 EU 컨테이너항 순위: 로테르담 1,424.5만·앤트워프-브뤼허 1,363만·함부르크 830만·발렌시아 566.3만·브레머하펜 490.2만·알헤시라스 473.8만·피레우스 464.9만(추정)·조이아타우로 449.1만 TEU. 피레우스는 2024년 5위에서 2025년 7위로 내려갔다.",
+      "checked_on": "2026-10-05",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null
+    },
+    {
+      "id": "PPA-FY2025",
+      "title": "Piraeus Port Authority (OLP), FY2025 Corporate Presentation — Volume Evolution",
+      "url": "https://www.olp.gr/images/pdffiles/Corporate_Presentation_PPA_FY25_2025.pdf",
+      "kind": "port_authority_statistics",
+      "verification_status": "CONTENT_READ",
+      "scope_ko": "2025년 피레우스항 컨테이너 4,641,295 TEU(전년 4,792,199 대비 −3.15%). 1부두(항만공사) 664,581, 2·3부두(PCT·COSCO 운영) 3,976,714 TEU. 같은 자료의 ‘유럽 5대 항만’ 문구는 2025년 수치와 맞지 않아 근거로 쓰지 않는다.",
+      "checked_on": "2026-10-05",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null
+    },
+    {
+      "id": "SINOKOR-ROT-2026",
+      "title": "장금상선 회전표(PSS·BTS·IHP·HPS2)",
+      "url": "https://www.sinokor.co.kr/MapRoute/GetRotation?nacd=KR&svc=PSS",
+      "kind": "carrier_schedule",
+      "verification_status": "CONTENT_READ",
+      "scope_ko": "기준일 표기 없음, 열람일 기준. IHP 일요일 평택 출항→금요일 하이퐁 접안(5일, 중간 기항 없음), PSS 수요일 평택 출항→일요일 상하이 접안(4일, 인천 기항), BTS 4일. Claude 조사(2026-10-09)에서 svc=IHP·PSS·BTS·HPS2 회전표 응답을 직접 열어 요일을 셌다. 서비스별 URL은 svc 값만 바꾼다. 구현 세션은 접속 실패로 다시 열지 못했다.",
+      "checked_on": "2026-10-09",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null
+    },
+    {
+      "id": "GPPC-STATS-2026-06",
+      "title": "경기평택항만공사 월간통계 2026년 6월판",
+      "url": "https://www.gppc.or.kr/web/file/port_info/statistical_data/262/20260806153245_5F7Nr9.pdf",
+      "kind": "port_authority_statistics",
+      "verification_status": "CONTENT_READ",
+      "scope_ko": "평택·당진항 2025년 총물동량 114,986,269 R/T(1쪽: 전국 31개 항만 중 5위), 컨테이너 956,117 TEU(수정값, 1쪽: 4위), 자동차 1,616,086대. 컨테이너 상대국 중국 82.3%는 같은 판 국가별 표의 2025년 열(787,005/956,117)로 셈한 값이다. 표의 처리비중 81.9%는 2026년 6월 누계라 쓰지 않는다. 2025년 12월판(https://www.gppc.or.kr/web/file/port_info/statistical_data/179/20260203154258_4Yj5t5.pdf)은 수정 전 786,921/956,031로 같은 82.3%를 적는다. Claude가 2026-10-09 두 PDF를 내려받아 읽었다.",
+      "checked_on": "2026-10-09",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null
+    },
+    {
+      "id": "GPPC-ROUTE-2026-01",
+      "title": "경기평택항만공사 컨테이너 항로 17개 표(2026년 1월 기준)",
+      "url": "https://www.gppc.or.kr/ko/port-info/route",
+      "kind": "port_authority_routes",
+      "verification_status": "CONTENT_READ",
+      "scope_ko": "17개 항로 표. IHP 평택–하이퐁–셔코우–인천, PSS 평택–인천–상해. 표의 PSS 접안요일 화요일은 선사 출항요일 수요일과 구별한다.",
+      "checked_on": "2026-10-09",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null,
+      "unreferenced_reason_ko": "평택 노선 근거표(docs/ai/design/PYEONGTAEK-route-basis.md의 S5)와 DECISIONS ‘평택 본사 전환’의 항로 수 근거다. 자료의 노선 요일표(routes.json schedule_basis)는 SINOKOR-ROT-2026만 인용한다. 자료에 연결할지는 Claude가 정한다."
+    },
+    {
+      "id": "MOF-PORT-2025",
+      "title": "해양수산부 2025년 전국 항만 물동량(2026-01-29)",
+      "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156741955",
+      "kind": "government_statistics",
+      "verification_status": "CONTENT_READ",
+      "scope_ko": "2025년 전국 항만 물동량 15억 7,101만 톤. 부산항 2,488만 TEU, 그중 환적 1,410만 TEU(약 57%, 나눠 셈). 평택·당진항 비컨테이너 1억 36만 톤. 이 보도자료에는 평택·당진항의 컨테이너 물동량과 전국 순위가 없다. 순위 근거는 GPPC-STATS-2026-06 1쪽이다. Claude가 첨부 hwpx·pdf를 내려받아 읽었다.",
+      "checked_on": "2026-10-09",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null
+    },
+    {
+      "id": "ME-NIBR-2017-SPOONBILL",
+      "title": "환경부 보도자료 「국내 번식 멸종위기종 저어새, 유전적 건강성 양호」(2017-05-18, 인천광역시 자료실 게시본)",
+      "url": "https://www.incheon.go.kr/env/ENV050201/1961450",
+      "kind": "conservation_reference",
+      "verification_status": "CONTENT_READ",
+      "scope_ko": "국립생물자원관이 2015년부터 2년 동안 인천 연안에서 번식하는 저어새의 유전자 다양성을 연구했다는 보도자료. 저어새가 멸종위기 야생생물 I급(2017년 기준)이라는 근거. 환경부 원 게시물이 아니라 인천광역시 누리집 게시본을 읽었다(2026-10-09).",
+      "checked_on": "2026-10-09",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null
+    },
+    {
+      "id": "YESAN-STORK-HISTORY",
+      "title": "황새생태연구원 황새복원사",
+      "url": "https://www.stork.or.kr/index.php?pg_idx=58",
+      "kind": "conservation_reference",
+      "verification_status": "CONTENT_READ",
+      "scope_ko": "황새가 멸종위기야생동물 1급·천연기념물·IUCN 위기(EN)라는 설명과 복원 연표(2015년 예산황새공원 개원·첫 방사, 2016년 방사개체 첫 자연번식, 2017~2018년 예산군 야생 자연번식). ‘한새’ 옛말 유래는 이 자료에 없다. Claude가 2026-10-09 읽었다.",
+      "checked_on": "2026-10-09",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null
+    },
+    {
+      "id": "SEOUL-2022-03-15-CRANE",
+      "title": "서울신문 「연천 ‘임진강 두루미 도래지’ 천연기념물로 지정 예고」(2022-03-15)",
+      "url": "https://go.seoul.co.kr/news/newsView.php?id=20220315500122",
+      "kind": "conservation_reference",
+      "verification_status": "CONTENT_READ",
+      "scope_ko": "문화재청이 연천 임진강 두루미류 도래지를 천연기념물로 지정 예고했다는 기사. 국내 월동 두루미 약 1,400마리, 연천 임진강변에 약 1,500마리(두루미류)가 겨울을 난다는 수치. 경기 북부 월동지 이야기의 근거다. 철원·홋카이도·중국 무리와 IUCN 세부 등급은 이 기사에 없다. Claude가 2026-10-09 읽었다.",
+      "checked_on": "2026-10-09",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null
+    },
+    {
+      "id": "MOE-2022-33-HWP",
+      "title": "교육부 고시 제2022-33호 각론 첨부 ZIP의 별책6(도덕)·별책7(사회)·별책9(과학) HWP",
+      "url": "https://www.moe.go.kr/boardCnts/fileDown.do?m=&s=moe&fileSeq=1512facbda6c234a1641ac7e9c156ca2",
+      "kind": "official_curriculum",
+      "verification_status": "CONTENT_READ",
+      "scope_ko": "2026-10-09에 교육부 게시물의 첨부 ZIP(SHA-256 b37a372a90d6d00bb3985888bbb41caae7a35f28877dc243a6f4b28861c53146)을 받아 별책6·7·9 HWP 본문을 글자로 뽑아 읽었다. 47개 교과 연결의 내용 요소가 모두 해당 과목 내용 체계에 있고(2개는 가운뎃점 글자만 다름), 성취기준 코드·문장을 원문 그대로 옮겼다. ZIP 안 별책7 파일의 수정 날짜는 2023-11-13, 별책6·9는 2022-12-18·2022-12-19다. 인쇄쪽은 목차의 과목 시작 쪽과만 대조했다.",
+      "checked_on": "2026-10-09",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null
+    },
+    {
+      "id": "MOF-ARCTIC-TRIAL-2026-08-20",
+      "title": "해양수산부 보도자료 「우리 컨테이너선, 북극항로를 향한 첫 항해에 나선다」(2026-08-20)",
+      "url": "https://www.mof.go.kr/doc/ko/selectDoc.do?docSeq=68103&menuSeq=971&bbsSeq=10",
+      "kind": "official_release",
+      "verification_status": "CONTENT_READ",
+      "scope_ko": "출항 전 계획: 2,758TEU 컨테이너선, 공모 선정 경위, 계획 일정(45일, 10/5경 귀항), 부산–로테르담 약 13,000km·북극해 약 6,400km, 화물 837TEU ‘선적되어 운항할 계획’, ‘우리나라 최초의 북동항로 컨테이너선 시범운항’ 표현. 수에즈 대비 거리·단축률은 이 자료에 없다.",
+      "checked_on": "2026-10-13",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null,
+      "unreferenced_reason_ko": "게임 자료에는 쓰지 않는다. 설계 기록(DECISIONS ‘북극항로 시범운항(2026)과 2장 후보’, docs/ai/design/research/ARCTIC-TRIAL-2026.md)의 근거다. 사용자 결정(2026-10-09): 설계 기록만, 실명은 게임 밖 기록에만."
+    },
+    {
+      "id": "MOF-ARCTIC-TRIAL-2026-10-13",
+      "title": "해양수산부 보도자료 「대한민국, 북극항로 시대를 열다! 첫 컨테이너선 시범운항을 마치고 부산으로」(2026-10-13)",
+      "url": "https://www.mof.go.kr/doc/ko/selectDoc.do?docSeq=68989&menuSeq=971&bbsSeq=10",
+      "kind": "official_release",
+      "verification_status": "CONTENT_READ",
+      "scope_ko": "귀항 확인: 8/22 21시경 신항 출항, 펠릭스토우·로테르담·그단스크 기항, ‘다시 북동항로를 통해’ 10/11 부산 귀항, 10/13 15시 환영 행사(첨부 기준 장소는 한국해양과학기술원). ‘우리 선사의 컨테이너선이 북극항로를 이용해 우리나라와 유럽을 왕복한 것은 이번이 처음’ 한정 문구의 원문. 비용·운임·연료 수치는 없다.",
+      "checked_on": "2026-10-13",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null,
+      "unreferenced_reason_ko": "게임 자료에는 쓰지 않는다. 설계 기록(DECISIONS ‘북극항로 시범운항(2026)과 2장 후보’, docs/ai/design/research/ARCTIC-TRIAL-2026.md)의 근거다. 사용자 결정(2026-10-09): 설계 기록만, 실명은 게임 밖 기록에만."
+    },
+    {
+      "id": "KOREA-KR-ARCTIC-2026-10-13",
+      "title": "대한민국 정책브리핑 「북극항로 시대를 열다…'팬스타 아크로호' 첫 왕복 시범운항 완료」(2026-10-13)",
+      "url": "https://www.korea.kr/news/policyNewsView.do?newsId=148973342",
+      "kind": "official_release",
+      "verification_status": "CONTENT_READ",
+      "scope_ko": "환영 행사 보도. 같은 기사 안에 장소가 한국해양과학기술원과 북항 제5부두로 함께 나온다. 장소 차이의 근거로만 쓴다.",
+      "checked_on": "2026-10-13",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null,
+      "unreferenced_reason_ko": "게임 자료에는 쓰지 않는다. 설계 기록(DECISIONS ‘북극항로 시범운항(2026)과 2장 후보’, docs/ai/design/research/ARCTIC-TRIAL-2026.md)의 근거다. 사용자 결정(2026-10-09): 설계 기록만, 실명은 게임 밖 기록에만."
+    },
+    {
+      "id": "CHNL-PANSTAR-ACRO-2026",
+      "title": "Centre for High North Logistics, South Korean container vessel Panstar Acro on International Transit voyage via the NSR (2026-09-10)",
+      "url": "https://chnl.no/?p=2359",
+      "kind": "research_institution_summary",
+      "verification_status": "CONTENT_READ",
+      "scope_ko": "왕항 북극항로 구간 AIS 분석: 약 2,320해리, 약 6일 10시간, 평균 15.1노트, 쇄빙선 직접 호위 흔적 없음. 2011년 건조·옛 이름 HMM MOMBASA. 귀항길 수치는 갱신하지 않았다.",
+      "checked_on": "2026-10-13",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null,
+      "unreferenced_reason_ko": "게임 자료에는 쓰지 않는다. 설계 기록(DECISIONS ‘북극항로 시범운항(2026)과 2장 후보’, docs/ai/design/research/ARCTIC-TRIAL-2026.md)의 근거다. 사용자 결정(2026-10-09): 설계 기록만, 실명은 게임 밖 기록에만."
+    },
+    {
+      "id": "BUSANILBO-ARCTIC-RETURN-2026-10-11",
+      "title": "부산일보 「‘북극항로 시범운항’ 팬스타 아크로호, 50일 만에 부산 돌아왔다」(2026-10-11)",
+      "url": "https://www.busan.com/view/busan/view.php?code=2026101110061370498",
+      "kind": "news_report",
+      "verification_status": "CONTENT_READ",
+      "scope_ko": "귀항 시각·부두(해수부 발표 인용)와 ‘상업적 최종 성패는 입항 후 비용·연료 등 경제성과 정시성, 안전성 등을 종합적으로 분석한 뒤 판단’ 문장. 복항 화물 수치는 다른 보도와 엇갈린다.",
+      "checked_on": "2026-10-13",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null,
+      "unreferenced_reason_ko": "게임 자료에는 쓰지 않는다. 설계 기록(DECISIONS ‘북극항로 시범운항(2026)과 2장 후보’, docs/ai/design/research/ARCTIC-TRIAL-2026.md)의 근거다. 사용자 결정(2026-10-09): 설계 기록만, 실명은 게임 밖 기록에만."
+    },
+    {
+      "id": "ETODAY-ARCTIC-AUDIT-2026-10-12",
+      "title": "이투데이 「북극항로 시범운항 내년 선종·항차 확대 검토⋯12월 종합지원센터 설치 [국감]」(2026-10-12)",
+      "url": "https://www.etoday.co.kr/news/view/2634627",
+      "kind": "news_report",
+      "verification_status": "CONTENT_READ",
+      "scope_ko": "10/12 국정감사 업무보고: 2027년 시범운항 계획 검토(선종·항차 확대), 12월 북극항로종합지원센터 설치. 수익·비용 분석은 공개되지 않았다는 근거.",
+      "checked_on": "2026-10-13",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null,
+      "unreferenced_reason_ko": "게임 자료에는 쓰지 않는다. 설계 기록(DECISIONS ‘북극항로 시범운항(2026)과 2장 후보’, docs/ai/design/research/ARCTIC-TRIAL-2026.md)의 근거다. 사용자 결정(2026-10-09): 설계 기록만, 실명은 게임 밖 기록에만."
+    },
+    {
+      "id": "ETODAY-ARCTIC-FOLLOWUP-2026-10-13",
+      "title": "이투데이 「북극항로 후속 시범운항·상업화 추진…해운·조선·항만 성장동력 육성」(2026-10-13)",
+      "url": "https://www.etoday.co.kr/news/view/2635083",
+      "kind": "news_report",
+      "verification_status": "CONTENT_READ",
+      "scope_ko": "‘정기적인 상업운항의 경제성이 입증된 것은 아니다’라는 유보 평가의 근거.",
+      "checked_on": "2026-10-13",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null,
+      "unreferenced_reason_ko": "게임 자료에는 쓰지 않는다. 설계 기록(DECISIONS ‘북극항로 시범운항(2026)과 2장 후보’, docs/ai/design/research/ARCTIC-TRIAL-2026.md)의 근거다. 사용자 결정(2026-10-09): 설계 기록만, 실명은 게임 밖 기록에만."
+    },
+    {
+      "id": "MAERSK-VENTA-2018",
+      "title": "Maersk's announcement about Venta Maersk (Container News 게재, 2018-09-28)",
+      "url": "https://container-news.com/maersk-announcement-venta-maersk/",
+      "kind": "trade_press",
+      "verification_status": "CONTENT_READ",
+      "scope_ko": "2018년 Venta Maersk의 북극항로 통과(부산 기항 화물 포함). ‘북극항로를 지난 첫 컨테이너선’이라는 무한정 표현의 반례.",
+      "checked_on": "2026-10-13",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null,
+      "unreferenced_reason_ko": "게임 자료에는 쓰지 않는다. 설계 기록(DECISIONS ‘북극항로 시범운항(2026)과 2장 후보’, docs/ai/design/research/ARCTIC-TRIAL-2026.md)의 근거다. 사용자 결정(2026-10-09): 설계 기록만, 실명은 게임 밖 기록에만."
+    },
+    {
+      "id": "GCAPTAIN-CHINA-ARCTIC-2025",
+      "title": "gCaptain, China Expands Arctic Container Shipping With Record 14 Voyages in 2025 (2025-12-18)",
+      "url": "https://gcaptain.com/china-expands-arctic-container-shipping-with-record-14-voyages-in-2025/",
+      "kind": "trade_press",
+      "verification_status": "CONTENT_READ",
+      "scope_ko": "중국 선사 북극항로 컨테이너 항차(2023년 7회, 2024년 11회, 2025년 14회). ‘북극항로 컨테이너 운송의 시작’이라는 표현의 반례.",
+      "checked_on": "2026-10-13",
+      "redistribution": "links_and_project_notes_only",
+      "local_path": null,
+      "unreferenced_reason_ko": "게임 자료에는 쓰지 않는다. 설계 기록(DECISIONS ‘북극항로 시범운항(2026)과 2장 후보’, docs/ai/design/research/ARCTIC-TRIAL-2026.md)의 근거다. 사용자 결정(2026-10-09): 설계 기록만, 실명은 게임 밖 기록에만."
+    }
+  ],
+  "$schema": "../schemas/sources.schema.json"
+}

@@ -1,0 +1,62 @@
+{
+  "schema": "scitrade-browser-scenario/1",
+  "id": "schedule-toggle",
+  "title_ko": "일정 열고 닫기 위치",
+  "source_ko": "TASK-0023 구현 지시 4-4·6",
+  "profiles": "all",
+  "steps": [
+    {
+      "do": "tap",
+      "selector": "[data-action=\"accept\"][data-buy]"
+    },
+    {
+      "do": "end-day",
+      "times": 1
+    },
+    {
+      "do": "scroll-to",
+      "selector": "#schedule-toggle",
+      "offset_from_bar": 150
+    },
+    {
+      "do": "remember",
+      "name": "toggle",
+      "selector": "#schedule-toggle"
+    },
+    {
+      "do": "tap",
+      "selector": "#schedule-toggle"
+    },
+    {
+      "do": "wait",
+      "ms": 350
+    },
+    {
+      "do": "measure",
+      "name": "toggle_moved",
+      "what": "moved",
+      "ref": "toggle"
+    },
+    {
+      "do": "measure",
+      "name": "overflow_x",
+      "what": "overflow-x"
+    }
+  ],
+  "expect": [
+    {
+      "value": "toggle_moved",
+      "min": -1,
+      "max": 1,
+      "profiles": "all",
+      "source_ko": "TASK-0023 구현 지시 4-4·6"
+    },
+    {
+      "value": "overflow_x",
+      "min": 0,
+      "max": 0,
+      "profiles": "all",
+      "source_ko": "TASK-0023 구현 지시 4-4·6"
+    }
+  ]
+}

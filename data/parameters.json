@@ -1,0 +1,65 @@
+{
+  "schema_version": "0.3.0",
+  "data_basis": "DESIGN",
+  "source_refs": [
+    "DESIGN-V03"
+  ],
+  "numeric_values_status": "합성 개발용 값. 현실 가격·운송일·직원 생산성 추정치가 아님.",
+  "items": [
+    {
+      "id": "PAR_FX",
+      "json_pointer": "game_config.json#/config/fx_krw_per_usd",
+      "unit": "KRW/USD",
+      "value": 1300,
+      "basis": "DESIGN",
+      "notes_ko": "환율 연결 검증용 고정값. 관측 환율 아님."
+    },
+    {
+      "id": "PAR_TAX",
+      "json_pointer": "scenarios.json#/items/0/tax_rule/rate",
+      "unit": "ratio",
+      "value": 0.05,
+      "basis": "DESIGN",
+      "notes_ko": "계산 검증용 가상 과세규칙. 실제 세율 아님."
+    },
+    {
+      "id": "PAR_RELATION_GAIN",
+      "value": null,
+      "unit": "design_point",
+      "basis": "DESIGN",
+      "notes_ko": "관계 성장은 활동·약속 기록 우선. 점수 증분 미확정, 임의 구현 금지."
+    },
+    {
+      "id": "PAR_STOCK_VOLATILITY",
+      "value": null,
+      "unit": "daily_return_std",
+      "basis": "ESTIMATED_PENDING",
+      "notes_ko": "변동성 추정 전. 실제 시장 재현 주장 금지."
+    },
+    {
+      "id": "PAR_M1_LATE_REDUCTION",
+      "json_pointer": "scenarios.json#/items/0/contract_terms/late_delivery/price_reduction/amount",
+      "unit": "USD per late contract",
+      "value": 50,
+      "basis": "DESIGN",
+      "notes_ko": "납기 경과 인도 시 1회 감액. 지연 일수 비례가 아님. 현실 지체상금률 아님."
+    },
+    {
+      "id": "PAR_M1_PREP_WORK_UNITS",
+      "json_pointer": "scenarios.json#/items/0/contract_terms/prep_work_units",
+      "unit": "work_points",
+      "value": 2,
+      "basis": "DESIGN",
+      "notes_ko": "M1 수출 준비 업무량. 직원 생산성 추정치가 아님."
+    },
+    {
+      "id": "PAR_PAYMENT_GRACE_DAYS",
+      "unit": "simulation_day",
+      "value": 14,
+      "basis": "DESIGN",
+      "notes_ko": "D04 가(2026-10-10). 규칙 2 시나리오(operations.payment_default)에만 적용한다. 가장 오래된 미지급 의무의 발생일 + 14일 마감에 남아 있으면 경영 실패. 규칙 1 시나리오는 실패 판정을 하지 않는다.",
+      "json_pointer": "scenarios.json#/items/7/operations/payment_default/failure_age_days"
+    }
+  ],
+  "$schema": "../schemas/parameters.schema.json"
+}

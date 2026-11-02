@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "employees v0.4 data shape",
+  "description": "Starter data shape, plus semantic checks in tools/validate_data.py. Not a complete game engine command contract.",
+  "type": "object",
+  "required": [
+    "$schema",
+    "data_basis",
+    "items",
+    "numeric_values_status",
+    "schema_version",
+    "source_refs"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "data_basis": {
+      "type": "string"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "character_id",
+          "employment_status",
+          "experience_topic_ids",
+          "fictional",
+          "home_city_id",
+          "home_team_id",
+          "id",
+          "location_city_id",
+          "name_ko",
+          "organizational_role",
+          "relation_ids",
+          "role",
+          "salary_per_day",
+          "source_refs",
+          "work_units_per_day"
+        ],
+        "properties": {
+          "character_id": {
+            "type": "string"
+          },
+          "employment_status": {
+            "type": "string"
+          },
+          "experience_topic_ids": {
+            "type": "array"
+          },
+          "fictional": {
+            "type": "boolean"
+          },
+          "home_city_id": {
+            "type": "string"
+          },
+          "home_team_id": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "location_city_id": {
+            "type": "string"
+          },
+          "name_ko": {
+            "type": "string"
+          },
+          "organizational_role": {
+            "type": "string"
+          },
+          "relation_ids": {
+            "type": "array"
+          },
+          "role": {
+            "type": "string"
+          },
+          "salary_per_day": {
+            "type": "object",
+            "required": [
+              "amount",
+              "currency"
+            ],
+            "properties": {
+              "amount": {
+                "type": "integer"
+              },
+              "currency": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": true
+          },
+          "source_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "work_units_per_day": {
+            "type": "integer"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "numeric_values_status": {
+      "type": "string"
+    },
+    "schema_version": {
+      "type": "string"
+    },
+    "source_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": true
+}

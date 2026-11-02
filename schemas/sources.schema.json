@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "sources v0.4 data shape",
+  "description": "Starter data shape, plus semantic checks in tools/validate_data.py. Not a complete game engine command contract.",
+  "type": "object",
+  "required": [
+    "$schema",
+    "items",
+    "schema_version"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "checked_on",
+          "id",
+          "kind",
+          "redistribution",
+          "scope_ko",
+          "title",
+          "url",
+          "verification_status"
+        ],
+        "properties": {
+          "checked_on": {
+            "type": "string"
+          },
+          "data_url": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "local_path": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "redistribution": {
+            "type": "string"
+          },
+          "scope_ko": {
+            "type": "string"
+          },
+          "terms_url": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "url": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "verification_status": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "schema_version": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}

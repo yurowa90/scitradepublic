@@ -1,0 +1,507 @@
+{
+  "schema_version": "0.3.0",
+  "data_basis": "DESIGN",
+  "items": [
+    {
+      "id": "EV01",
+      "title_ko": "관세 변경 예고",
+      "stage": "P0",
+      "source_refs": [
+        "DESIGN-V03"
+      ],
+      "curriculum_refs": [
+        "SOC05",
+        "SOC14",
+        "SOC16"
+      ],
+      "venue_id": "VEN_TRADE",
+      "trigger": {
+        "kind": "policy_announcement",
+        "conditions": [
+          "공개된 정책 발표와 연결되는 미완료 계약이 있음",
+          "해당 사건 인스턴스를 아직 처리하지 않음"
+        ],
+        "facts_needed": [
+          "policy_id",
+          "announcement_day",
+          "effective_day",
+          "origin_country_id",
+          "destination_country_id",
+          "good_id",
+          "affected_contract_ids",
+          "applicable_rule_source"
+        ]
+      },
+      "choices": [
+        {
+          "id": "EV01_A",
+          "label_ko": "현재 계약을 유지하고 비용 부담 확인",
+          "command_template": {
+            "type": "REVIEW_CONTRACT_COST",
+            "args": {
+              "contract_id": "{contract_id}",
+              "policy_id": "{policy_id}"
+            },
+            "execution_status": "DECLARATIVE_ONLY"
+          },
+          "tradeoff_ko": "계약을 유지하지만 발효 시점과 실제 통관 조건에 따라 마진과 지급액이 달라질 수 있습니다."
+        },
+        {
+          "id": "EV01_B",
+          "label_ko": "고객과 가격 재협상",
+          "command_template": {
+            "type": "REQUEST_CONTRACT_AMENDMENT",
+            "args": {
+              "contract_id": "{contract_id}",
+              "field": "price",
+              "proposed_value": "{player_proposal}"
+            },
+            "execution_status": "DECLARATIVE_ONLY"
+          },
+          "tradeoff_ko": "직원 업무와 협상 시간이 필요하며 상대방은 거절할 수 있습니다."
+        },
+        {
+          "id": "EV01_C",
+          "label_ko": "대체 공급자 조사",
+          "command_template": {
+            "type": "CREATE_RESEARCH_TASK",
+            "args": {
+              "topic": "alternative_supplier",
+              "good_id": "{good_id}",
+              "actor_id": "{actor_id}"
+            },
+            "execution_status": "DECLARATIVE_ONLY"
+          },
+          "tradeoff_ko": "견적과 원산지 자료를 확인하는 비용·업무가 발생하며 다른 항구에서 사도 원산지가 바뀌지는 않습니다."
+        }
+      ],
+      "resolution_rules_ko": [
+        "정책 발표와 발효를 구분하고 확정된 과거 납부액을 소급 변경하지 않습니다.",
+        "관세를 실제로 부담하는 주체와 계약상 비용 책임을 따로 확인합니다."
+      ],
+      "feedback_fields": [
+        "landed_cost_change",
+        "margin_change",
+        "cash_schedule_change",
+        "task_created_ids"
+      ]
+    },
+    {
+      "id": "EV02",
+      "title_ko": "기상에 따른 항만 지연",
+      "stage": "P0",
+      "source_refs": [
+        "DESIGN-V03"
+      ],
+      "curriculum_refs": [
+        "SOC03",
+        "SOC07",
+        "SCI11",
+        "SCI21"
+      ],
+      "venue_id": "VEN_PORT",
+      "trigger": {
+        "kind": "port_restriction",
+        "conditions": [
+          "유효한 항만 작업 제한이 있음",
+          "그 항만을 이용하는 미완료 예약 화물이 있음"
+        ],
+        "facts_needed": [
+          "port_notice_id",
+          "forecast_scope",
+          "forecast_confidence_description",
+          "restriction_start_day",
+          "restriction_end_condition",
+          "shipment_ids",
+          "delivery_deadlines",
+          "available_alternative_bookings"
+        ]
+      },
+      "choices": [
+        {
+          "id": "EV02_A",
+          "label_ko": "현재 예약으로 대기",
+          "command_template": {
+            "type": "KEEP_SHIPMENT_BOOKING",
+            "args": {
+              "shipment_id": "{shipment_id}"
+            },
+            "execution_status": "DECLARATIVE_ONLY"
+          },
+          "tradeoff_ko": "예약을 유지하지만 항만 작업 제한이 지속되는 동안 일정이 밀릴 수 있습니다."
+        },
+        {
+          "id": "EV02_B",
+          "label_ko": "이용 가능한 대체편 예약",
+          "command_template": {
+            "type": "REQUEST_REBOOKING",
+            "args": {
+              "shipment_id": "{shipment_id}",
+              "offer_id": "{selected_offer_id}"
+            },
+            "execution_status": "DECLARATIVE_ONLY"
+          },
+          "tradeoff_ko": "남은 용량과 호환성을 확인해야 하며 운임·취소 조건이 달라집니다."
+        },
+        {
+          "id": "EV02_C",
+          "label_ko": "고객과 납기 협상",
+          "command_template": {
+            "type": "REQUEST_CONTRACT_AMENDMENT",
+            "args": {
+              "contract_id": "{contract_id}",
+              "field": "delivery_deadline",
+              "proposed_value": "{player_proposal}"
+            },
+            "execution_status": "DECLARATIVE_ONLY"
+          },
+          "tradeoff_ko": "고객의 동의가 필요하며 협상만으로 물리적 운송시간이 줄지는 않습니다."
+        }
+      ],
+      "resolution_rules_ko": [
+        "예보와 실제 항만 제한 상태를 분리합니다.",
+        "총 예상 지연일을 선반영한 뒤 매일 같은 대기를 중복 합산하지 않습니다.",
+        "이 사건만으로 기후변화가 원인이라고 단정하지 않습니다."
+      ],
+      "feedback_fields": [
+        "shipment_stage",
+        "booking_cost_change",
+        "deadline_change",
+        "observed_wait_days"
+      ]
+    },
+    {
+      "id": "EV03",
+      "title_ko": "커피 공급 차질",
+      "stage": "P0",
+      "source_refs": [
+        "DESIGN-V03"
+      ],
+      "curriculum_refs": [
+        "SOC05",
+        "SOC07",
+        "SOC15"
+      ],
+      "venue_id": "VEN_TRADE",
+      "trigger": {
+        "kind": "supplier_quantity_reduction",
+        "conditions": [
+          "커피 공급자 또는 커피 매입 계약과 연결되어 있음",
+          "공급 가능한 물량이 실제로 축소되었음"
+        ],
+        "facts_needed": [
+          "supplier_id",
+          "good_id",
+          "committed_quantity",
+          "revised_available_quantity",
+          "supplier_notice_id",
+          "cause_evidence_status",
+          "customer_contract_ids"
+        ]
+      },
+      "choices": [
+        {
+          "id": "EV03_A",
+          "label_ko": "기존 공급자와 물량 조정",
+          "command_template": {
+            "type": "REQUEST_PURCHASE_AMENDMENT",
+            "args": {
+              "purchase_contract_id": "{purchase_contract_id}",
+              "quantity": "{player_proposal}"
+            },
+            "execution_status": "DECLARATIVE_ONLY"
+          },
+          "tradeoff_ko": "관계를 이어 갈 수 있으나 고객에게 약속한 물량과 재고 계획을 다시 확인해야 합니다."
+        },
+        {
+          "id": "EV03_B",
+          "label_ko": "대체 공급자 조사",
+          "command_template": {
+            "type": "CREATE_RESEARCH_TASK",
+            "args": {
+              "topic": "alternative_supplier",
+              "good_id": "{good_id}",
+              "actor_id": "{actor_id}"
+            },
+            "execution_status": "DECLARATIVE_ONLY"
+          },
+          "tradeoff_ko": "조사 업무가 늘고 새 공급자의 가격·납기·규격을 별도로 검증해야 합니다."
+        },
+        {
+          "id": "EV03_C",
+          "label_ko": "고객과 수량 또는 납기 협의",
+          "command_template": {
+            "type": "REQUEST_CONTRACT_AMENDMENT",
+            "args": {
+              "contract_id": "{contract_id}",
+              "field": "quantity_or_deadline",
+              "proposed_value": "{player_proposal}"
+            },
+            "execution_status": "DECLARATIVE_ONLY"
+          },
+          "tradeoff_ko": "부족분을 숨기지 않고 협의하지만 매출과 고객의 계획이 달라질 수 있습니다."
+        }
+      ],
+      "resolution_rules_ko": [
+        "P0에서는 이미 발생한 공급 제약을 사건 입력으로 사용합니다.",
+        "원인에 대한 설명의 신뢰 수준을 표시하며 국가 전체의 공급 감소로 자동 확대하지 않습니다.",
+        "분할 출하는 별도의 후속 기능입니다."
+      ],
+      "feedback_fields": [
+        "purchase_quantity",
+        "available_inventory",
+        "research_tasks",
+        "contract_amendment_status"
+      ]
+    },
+    {
+      "id": "EV04",
+      "title_ko": "냉동 화물 설비 이상",
+      "stage": "P0",
+      "source_refs": [
+        "DESIGN-V03"
+      ],
+      "curriculum_refs": [
+        "SCI02",
+        "SCI03",
+        "SCI08",
+        "SCI13",
+        "SOC14"
+      ],
+      "venue_id": "VEN_PORT",
+      "trigger": {
+        "kind": "cold_storage_incident",
+        "conditions": [
+          "냉동 보관이 필요한 화물이 해당 설비에 있음",
+          "설비 이상에 관한 사건이 입력됨"
+        ],
+        "facts_needed": [
+          "cargo_lot_id",
+          "storage_id",
+          "equipment_status",
+          "temperature_record_refs",
+          "missing_record_periods",
+          "inspection_contract_terms",
+          "available_compatible_storage_offers"
+        ]
+      },
+      "choices": [
+        {
+          "id": "EV04_A",
+          "label_ko": "대체 냉장 공간 예약",
+          "command_template": {
+            "type": "REQUEST_STORAGE_TRANSFER",
+            "args": {
+              "cargo_lot_id": "{cargo_lot_id}",
+              "storage_offer_id": "{selected_offer_id}"
+            },
+            "execution_status": "DECLARATIVE_ONLY"
+          },
+          "tradeoff_ko": "추가 임대·운반 비용이 들며 이미 발생한 화물 상태 변화를 되돌리지는 못합니다."
+        },
+        {
+          "id": "EV04_B",
+          "label_ko": "외부 검사 의뢰",
+          "command_template": {
+            "type": "REQUEST_CARGO_INSPECTION",
+            "args": {
+              "cargo_lot_id": "{cargo_lot_id}",
+              "inspection_offer_id": "{selected_offer_id}"
+            },
+            "execution_status": "DECLARATIVE_ONLY"
+          },
+          "tradeoff_ko": "검사비와 시간이 필요하며 검사 결과가 나오기 전에는 확인되지 않은 사항이 남습니다."
+        },
+        {
+          "id": "EV04_C",
+          "label_ko": "인도 조건과 처리 방식 협의",
+          "command_template": {
+            "type": "REQUEST_DELIVERY_RESOLUTION",
+            "args": {
+              "contract_id": "{contract_id}",
+              "cargo_lot_id": "{cargo_lot_id}",
+              "proposal": "{player_proposal}"
+            },
+            "execution_status": "DECLARATIVE_ONLY"
+          },
+          "tradeoff_ko": "상대방의 동의와 계약 조건에 따라 인도 보류·검수·처리 책임을 정합니다."
+        }
+      ],
+      "resolution_rules_ko": [
+        "센서는 정보를 제공하고 단열과 냉각은 물리적 보관 조건에 영향을 줍니다.",
+        "온도 기록 누락은 곧바로 품질 불량을 뜻하지 않습니다.",
+        "임의의 품질 점수 하나로 식품 안전성을 판정하지 않습니다."
+      ],
+      "feedback_fields": [
+        "storage_booking",
+        "inspection_status",
+        "delivery_hold_status",
+        "direct_cost_change"
+      ]
+    },
+    {
+      "id": "EV05",
+      "title_ko": "업무량 급증",
+      "stage": "P0",
+      "source_refs": [
+        "DESIGN-V03"
+      ],
+      "curriculum_refs": [
+        "SOC09",
+        "SOC14",
+        "SOC15",
+        "ETH01"
+      ],
+      "venue_id": "VEN_LOUNGE",
+      "trigger": {
+        "kind": "work_backlog",
+        "conditions": [
+          "현재 업무 대기열로 예정 기한을 충족하기 어려운 상태임",
+          "유효한 채용·외주 또는 일정 조정 경로가 있음"
+        ],
+        "facts_needed": [
+          "task_queue",
+          "task_deadlines",
+          "employee_work_capacity",
+          "candidate_offers",
+          "outsourcing_offers",
+          "payroll_schedule"
+        ]
+      },
+      "choices": [
+        {
+          "id": "EV05_A",
+          "label_ko": "직원 채용 절차 시작",
+          "command_template": {
+            "type": "REQUEST_HIRING",
+            "args": {
+              "candidate_id": "{candidate_id}"
+            },
+            "execution_status": "DECLARATIVE_ONLY"
+          },
+          "tradeoff_ko": "급여와 초기 배치 업무가 늘고 실제 근무 시작일 이후에 처리 용량이 바뀝니다."
+        },
+        {
+          "id": "EV05_B",
+          "label_ko": "가능한 업무 외주 의뢰",
+          "command_template": {
+            "type": "REQUEST_TASK_OUTSOURCING",
+            "args": {
+              "task_id": "{task_id}",
+              "offer_id": "{selected_offer_id}"
+            },
+            "execution_status": "DECLARATIVE_ONLY"
+          },
+          "tradeoff_ko": "외주비와 인수인계가 필요하며 모든 업무를 외주로 넘길 수 있는 것은 아닙니다."
+        },
+        {
+          "id": "EV05_C",
+          "label_ko": "수주 범위와 일정을 조정",
+          "command_template": {
+            "type": "REVISE_WORK_COMMITMENTS",
+            "args": {
+              "contract_ids": "{selected_contract_ids}",
+              "proposal": "{player_proposal}"
+            },
+            "execution_status": "DECLARATIVE_ONLY"
+          },
+          "tradeoff_ko": "업무 부담을 낮출 수 있지만 매출 기회가 줄거나 고객과의 협의가 필요합니다."
+        }
+      ],
+      "resolution_rules_ko": [
+        "추가 클릭이나 무제한 과로로 직원 처리 용량을 우회하지 않습니다.",
+        "채용·외주 선택은 각각 기존 고용·업무 대기열 기능으로 처리합니다."
+      ],
+      "feedback_fields": [
+        "backlog",
+        "estimated_task_completion_days",
+        "payroll_change",
+        "outsourcing_cost",
+        "contract_changes"
+      ]
+    },
+    {
+      "id": "EV06",
+      "title_ko": "고객의 운송 배출자료 요청",
+      "stage": "P0",
+      "source_refs": [
+        "DESIGN-V03"
+      ],
+      "curriculum_refs": [
+        "SCI04",
+        "SOC05"
+      ],
+      "venue_id": "VEN_TRADE",
+      "trigger": {
+        "kind": "customer_evidence_request",
+        "conditions": [
+          "운송 자료 제출 조건이 공개된 고객 문의 또는 계약이 있음",
+          "제출 마감이 아직 지나지 않았음"
+        ],
+        "facts_needed": [
+          "customer_id",
+          "contract_id",
+          "requested_transport_segments",
+          "requested_unit",
+          "evidence_requirements",
+          "submission_deadline",
+          "available_carrier_data_refs"
+        ]
+      },
+      "choices": [
+        {
+          "id": "EV06_A",
+          "label_ko": "선사의 해당 운송 자료 확보",
+          "command_template": {
+            "type": "CREATE_RESEARCH_TASK",
+            "args": {
+              "topic": "carrier_emissions_evidence",
+              "shipment_id": "{shipment_id}",
+              "actor_id": "{actor_id}"
+            },
+            "execution_status": "DECLARATIVE_ONLY"
+          },
+          "tradeoff_ko": "담당자의 조사 시간이 들며 선사가 요청한 범위의 자료를 제공하지 못할 수 있습니다."
+        },
+        {
+          "id": "EV06_B",
+          "label_ko": "동일 범위의 대체편 자료 비교",
+          "command_template": {
+            "type": "REQUEST_COMPARABLE_TRANSPORT_QUOTES",
+            "args": {
+              "contract_id": "{contract_id}",
+              "scope_id": "{requested_scope_id}"
+            },
+            "execution_status": "DECLARATIVE_ONLY"
+          },
+          "tradeoff_ko": "단위·구간·산정 범위가 같은지 확인해야 하며 배출자료만으로 운임과 납기를 대신 판단할 수 없습니다."
+        },
+        {
+          "id": "EV06_C",
+          "label_ko": "자료 조건 재협상 또는 계약 거절",
+          "command_template": {
+            "type": "REQUEST_EVIDENCE_TERM_RESOLUTION",
+            "args": {
+              "contract_id": "{contract_id}",
+              "proposal": "{player_proposal}"
+            },
+            "execution_status": "DECLARATIVE_ONLY"
+          },
+          "tradeoff_ko": "상대가 조건 변경을 받아들이지 않으면 거래 기회를 포기할 수 있습니다."
+        }
+      ],
+      "resolution_rules_ko": [
+        "P0는 자료의 범위·단위·누락 확인을 구현하며 전 과정 배출 산정 엔진을 추가하지 않습니다.",
+        "CO2와 CO2e, 직접 운송 구간과 전체 공급망 범위를 구분합니다.",
+        "자료가 없다는 이유로 배출량을 0으로 기록하지 않습니다."
+      ],
+      "feedback_fields": [
+        "evidence_completeness",
+        "scope_comparability",
+        "research_task_cost",
+        "contract_eligibility"
+      ]
+    }
+  ],
+  "$schema": "../schemas/events.schema.json"
+}

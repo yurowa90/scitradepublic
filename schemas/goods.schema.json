@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "goods v0.4 data shape",
+  "description": "Starter data shape, plus semantic checks in tools/validate_data.py. Not a complete game engine command contract.",
+  "type": "object",
+  "required": [
+    "$schema",
+    "data_basis",
+    "items",
+    "numeric_values_status",
+    "schema_version",
+    "source_refs"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "data_basis": {
+      "type": "string"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "hs_code",
+          "hs_edition",
+          "hs_mapping_status",
+          "id",
+          "mass_kg_per_unit",
+          "name_ko",
+          "quality_model_status",
+          "quantity_unit",
+          "source_refs",
+          "storage_class",
+          "volume_m3_per_unit"
+        ],
+        "properties": {
+          "hs_code": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "hs_edition": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "hs_mapping_status": {
+            "type": "string",
+            "enum": ["NOT_VERIFIED", "VERIFIED"]
+          },
+          "id": {
+            "type": "string"
+          },
+          "mass_kg_per_unit": {
+            "type": "number"
+          },
+          "name_ko": {
+            "type": "string"
+          },
+          "quality_model_status": {
+            "type": "string"
+          },
+          "quantity_unit": {
+            "type": "string"
+          },
+          "source_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "storage_class": {
+            "type": "string"
+          },
+          "volume_m3_per_unit": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "numeric_values_status": {
+      "type": "string"
+    },
+    "schema_version": {
+      "type": "string"
+    },
+    "source_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": true
+}

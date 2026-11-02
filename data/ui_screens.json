@@ -1,0 +1,281 @@
+{
+  "schema_version": "0.3.0",
+  "data_basis": "DESIGN",
+  "items": [
+    {
+      "id": "UI_WORLD",
+      "name_ko": "세계지도",
+      "stage": "P0",
+      "visible_information_ko": "6거점·예약 노선·출항/도착·항만 사건",
+      "actions_ko": "거점 선택, 노선 비교, 관련 화물 열기",
+      "source_refs": [
+        "DESIGN-V03"
+      ],
+      "layout_regions": [
+        "top_status",
+        "navigation",
+        "main_scene",
+        "context_panel",
+        "activity_queue"
+      ],
+      "opening_advances_time": false
+    },
+    {
+      "id": "UI_COMPANY",
+      "name_ko": "본사·창고",
+      "stage": "P0",
+      "visible_information_ko": "직원의 실제 Task와 대기열·보관 공간·비용",
+      "actions_ko": "배치, 우선순위, 채용, 업무 승인",
+      "source_refs": [
+        "DESIGN-V03"
+      ],
+      "layout_regions": [
+        "top_status",
+        "navigation",
+        "main_scene",
+        "context_panel",
+        "activity_queue"
+      ],
+      "opening_advances_time": false
+    },
+    {
+      "id": "UI_CITY",
+      "name_ko": "도시 장소",
+      "stage": "P0",
+      "visible_information_ko": "5진입점·현지 인물·새 소식·활동 가능 인력",
+      "actions_ko": "면담·조사·문화 활동 선택",
+      "source_refs": [
+        "DESIGN-V03"
+      ],
+      "layout_regions": [
+        "top_status",
+        "navigation",
+        "main_scene",
+        "context_panel",
+        "activity_queue"
+      ],
+      "opening_advances_time": false
+    },
+    {
+      "id": "UI_TRADE",
+      "name_ko": "견적·계약",
+      "stage": "P0",
+      "visible_information_ko": "상품·수량·단위·가격·직접비·현금 일정·책임·납기",
+      "actions_ko": "견적 비교, 수락, 재협상, 취소 조건 확인",
+      "source_refs": [
+        "DESIGN-V03"
+      ],
+      "layout_regions": [
+        "top_status",
+        "navigation",
+        "main_scene",
+        "context_panel",
+        "activity_queue"
+      ],
+      "opening_advances_time": false
+    },
+    {
+      "id": "UI_CULTURE",
+      "name_ko": "문화생활·현지 탐방",
+      "stage": "P0",
+      "visible_information_ko": "경험할 주제·담당자 위치·시간·비용·연결 인물",
+      "actions_ko": "질문·관찰·대화 선택, 직원 위임",
+      "source_refs": [
+        "DESIGN-V03"
+      ],
+      "layout_regions": [
+        "top_status",
+        "navigation",
+        "main_scene",
+        "context_panel",
+        "activity_queue"
+      ],
+      "opening_advances_time": false
+    },
+    {
+      "id": "UI_KNOWLEDGE",
+      "name_ko": "지역 기록",
+      "stage": "P0",
+      "visible_information_ko": "도시·주제·출처·확인 시점·대상 범위",
+      "actions_ko": "기록 열기, 추가 조사, 관련 고객 확인",
+      "source_refs": [
+        "DESIGN-V03"
+      ],
+      "layout_regions": [
+        "top_status",
+        "navigation",
+        "main_scene",
+        "context_panel",
+        "activity_queue"
+      ],
+      "opening_advances_time": false
+    },
+    {
+      "id": "UI_CONTACT",
+      "name_ko": "인물·조직",
+      "stage": "P0",
+      "visible_information_ko": "함께한 활동·미완료 약속·거래 이력",
+      "actions_ko": "연락, 면담, 소개 요청, 인수인계",
+      "source_refs": [
+        "DESIGN-V03"
+      ],
+      "layout_regions": [
+        "top_status",
+        "navigation",
+        "main_scene",
+        "context_panel",
+        "activity_queue"
+      ],
+      "opening_advances_time": false
+    },
+    {
+      "id": "UI_REPORT",
+      "name_ko": "경영 보고",
+      "stage": "P0",
+      "visible_information_ko": "현금·영업손익·채권·재고·납기·업무 부하",
+      "actions_ko": "원인 펼치기, 해당 계약 이동",
+      "source_refs": [
+        "DESIGN-V03"
+      ],
+      "layout_regions": [
+        "top_status",
+        "navigation",
+        "main_scene",
+        "context_panel",
+        "activity_queue"
+      ],
+      "opening_advances_time": false
+    },
+    {
+      "id": "UI_EVIDENCE",
+      "name_ko": "사건·근거",
+      "stage": "P0",
+      "visible_information_ko": "확정 자료/예측/가정, 적용일·대상·선택 결과",
+      "actions_ko": "대응·조사·근거 열기",
+      "source_refs": [
+        "DESIGN-V03"
+      ],
+      "layout_regions": [
+        "top_status",
+        "navigation",
+        "main_scene",
+        "context_panel",
+        "activity_queue"
+      ],
+      "opening_advances_time": false
+    },
+    {
+      "id": "UI_STOCK",
+      "name_ko": "주식 코너·P1",
+      "stage": "P1",
+      "visible_information_ko": "시세 시각·공개 실적·주문·보유·남는 현금",
+      "actions_ko": "매수·매도·취소, 지급 일정 비교",
+      "source_refs": [
+        "DESIGN-V03"
+      ],
+      "layout_regions": [
+        "top_status",
+        "navigation",
+        "main_scene",
+        "context_panel",
+        "activity_queue"
+      ],
+      "opening_advances_time": false
+    },
+    {
+      "id": "UI_CAPITAL",
+      "name_ko": "자금 조달·상장·P2",
+      "stage": "P2",
+      "visible_information_ko": "준비·비용·수요·주식 수·지분·자금 사용",
+      "actions_ko": "조건 조정, 진행·연기, 보고",
+      "source_refs": [
+        "DESIGN-V03"
+      ],
+      "layout_regions": [
+        "top_status",
+        "navigation",
+        "main_scene",
+        "context_panel",
+        "activity_queue"
+      ],
+      "opening_advances_time": false
+    },
+    {
+      "id": "UI_ROSTER",
+      "name_ko": "동료 도감",
+      "stage": "P0",
+      "milestone": "M2",
+      "visible_information_ko": "발견·합류·교육·근무 상태, 속성·직무·지역 경험",
+      "actions_ko": "필터·면담·영입·직원 선택",
+      "source_refs": [
+        "DESIGN-V04"
+      ],
+      "layout_regions": [
+        "top_status",
+        "navigation",
+        "main_scene",
+        "context_panel",
+        "activity_queue"
+      ],
+      "opening_advances_time": false
+    },
+    {
+      "id": "UI_CHARACTER",
+      "name_ko": "동료 상세·육성",
+      "stage": "P0",
+      "milestone": "M2",
+      "visible_information_ko": "6능력·경험치·레벨·강화·이야기·소속·현재 예약",
+      "actions_ko": "교육·강화 계획·외형·성장 근거 확인",
+      "source_refs": [
+        "DESIGN-V04"
+      ],
+      "layout_regions": [
+        "top_status",
+        "navigation",
+        "main_scene",
+        "context_panel",
+        "activity_queue"
+      ],
+      "opening_advances_time": false
+    },
+    {
+      "id": "UI_ORGANIZATION",
+      "name_ko": "조직도",
+      "stage": "P0",
+      "milestone": "M2",
+      "visible_information_ko": "부서·상설팀·역할·인력·위임 한도",
+      "actions_ko": "소속 변경·팀장 임명·빈 역할 확인",
+      "source_refs": [
+        "DESIGN-V04"
+      ],
+      "layout_regions": [
+        "top_status",
+        "navigation",
+        "main_scene",
+        "context_panel",
+        "activity_queue"
+      ],
+      "opening_advances_time": false
+    },
+    {
+      "id": "UI_TEAM",
+      "name_ko": "프로젝트 팀 편성",
+      "stage": "P0",
+      "milestone": "M2",
+      "visible_information_ko": "책임자1·지원최대2·가용성·속성/직무/지역 시너지",
+      "actions_ko": "편성 저장·예상 처리량 비교·업무 확정",
+      "source_refs": [
+        "DESIGN-V04"
+      ],
+      "layout_regions": [
+        "top_status",
+        "navigation",
+        "main_scene",
+        "context_panel",
+        "activity_queue"
+      ],
+      "opening_advances_time": false
+    }
+  ],
+  "$schema": "../schemas/ui_screens.schema.json"
+}

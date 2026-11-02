@@ -1,0 +1,36 @@
+# 자동 검사. 로컬 tools/ci/checks.sh 확인 모드와 같은 검사를 돌린다.
+# 브라우저 측정은 넣지 않는다. 검사는 MANIFEST.json을 다시 쓰지 않고 확인만 한다.
+name: 검사
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+      - name: 파이썬 의존성 (그림 도구·지도 시험)
+        run: python -m pip install --disable-pip-version-check 'numpy==2.4.*' 'pillow==12.3.*'
+      - name: npm 의존성
+        run: npm ci
+      - name: 검사 묶음 (확인 모드)
+        run: bash tools/ci/checks.sh --check HEAD

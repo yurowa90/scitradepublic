@@ -1,0 +1,64 @@
+{
+  "schema": "scitrade-browser-scenario/1",
+  "id": "crew-facet",
+  "title_ko": "동료 직무 필터 위치",
+  "source_ko": "TASK-0023 구현 지시 5·6",
+  "profiles": "all",
+  "steps": [
+    {
+      "do": "scroll-top"
+    },
+    {
+      "do": "measure",
+      "name": "res_h_top_day1",
+      "what": "top",
+      "selector": "#res-h"
+    },
+    {
+      "do": "scroll-to",
+      "selector": "#crew-role",
+      "offset_from_bar": 120
+    },
+    {
+      "do": "remember",
+      "name": "facet",
+      "selector": "#crew-role"
+    },
+    {
+      "do": "select",
+      "selector": "#crew-role",
+      "value": "operations"
+    },
+    {
+      "do": "wait",
+      "ms": 350
+    },
+    {
+      "do": "measure",
+      "name": "facet_moved",
+      "what": "moved",
+      "ref": "facet"
+    },
+    {
+      "do": "measure",
+      "name": "overflow_x",
+      "what": "overflow-x"
+    }
+  ],
+  "expect": [
+    {
+      "value": "facet_moved",
+      "min": -1,
+      "max": 1,
+      "profiles": "all",
+      "source_ko": "TASK-0023 구현 지시 5·6"
+    },
+    {
+      "value": "overflow_x",
+      "min": 0,
+      "max": 0,
+      "profiles": "all",
+      "source_ko": "TASK-0023 구현 지시 5·6"
+    }
+  ]
+}

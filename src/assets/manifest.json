@@ -1,0 +1,564 @@
+{
+  "schema": "scitrade-art-assets/1",
+  "note_ko": "화면에 쓰는 그림 자산의 출처 기록. status가 approved인 항목만 화면에 쓴다. 그림이 없는 동료는 자리표시자를 유지한다. 2026-10-05부터 그림·지도는 픽셀아트다: 규격은 docs/art/PIXEL_SPEC.md, 제작 절차와 프롬프트는 docs/art/PROMPTS.md.",
+  "pixel_art": {
+    "decided_on": "2026-10-05",
+    "spec": "docs/art/PIXEL_SPEC.md",
+    "palette": "src/assets/palette.json",
+    "format": "PNG lossless; alpha 0 or 255 only; every opaque pixel must be a palette color",
+    "rendering": "image-rendering: pixelated; integer scale in device pixels (n = floor(available CSS px * devicePixelRatio / logical px), n >= 1)",
+    "sprite_max_opaque_colors": 15,
+    "frame_ms_default": 180
+  },
+  "character_slots": {
+    "card": {
+      "path": "assets/characters/{employee_id}/card.png",
+      "logical_width": 96,
+      "logical_height": 128,
+      "aspect": "3:4",
+      "background": "full-bleed decorative pixel scene (habitat/legend motifs); no frame, text, badge; top 19 and bottom 19 rows are covered by UI",
+      "colors": "shared palette",
+      "style": "graceful fantasy creature proportions within 96x128; office sprites stay chibi"
+    },
+    "portrait": {
+      "path": "assets/characters/{employee_id}/portrait.png",
+      "logical_width": 48,
+      "logical_height": 48,
+      "aspect": "1:1",
+      "background": "transparent",
+      "max_opaque_colors": 15
+    },
+    "work": {
+      "path": "assets/characters/{employee_id}/work.png",
+      "sheet": true,
+      "frame_width": 48,
+      "frame_height": 48,
+      "rows": [
+        "idle",
+        "walk",
+        "work",
+        "happy"
+      ],
+      "frames_per_row": 4,
+      "logical_width": 192,
+      "logical_height": 192,
+      "frame_ms": 180,
+      "background": "transparent",
+      "max_opaque_colors": 15,
+      "reduced_motion": "show frame 0 of the row only"
+    },
+    "reference": {
+      "path": "(not shipped) docs/art reference sheet kept outside the game bundle",
+      "note_ko": "픽셀 그림의 기준이 되는 고해상도 설정화. 게임에 싣지 않고 출처 기록에만 남긴다(PROMPTS.md 2절)."
+    }
+  },
+  "assets": [
+    {
+      "id": "MAP_EAST_ASIA",
+      "kind": "map",
+      "path": "assets/maps/east-asia.png",
+      "width": 1092,
+      "height": 1230,
+      "status": "approved",
+      "projection": "equirectangular",
+      "bounds": {
+        "lon_min": 98.0,
+        "lon_max": 146.0,
+        "lat_min": -10.0,
+        "lat_max": 44.0
+      },
+      "created_on": "2026-10-05",
+      "provenance": {
+        "method": "processed_public_domain_imagery",
+        "ai_generated": false,
+        "processing": "python3 scripts/build_map.py --source-dir <원본 폴더> --region east-asia --style pixel (Natural Earth 7×7 부분 칸 중심 짝-홀 표본·육지 면적 50%·다각형별 구멍·지역별 연결 검사·끊긴 곳만 육지 칸 수→원본 육지 비율 합→길이 순 4-연결 통로(최대 6칸, 새 바다 관문 거리 1픽셀 이하)·통로 뒤 Natural Earth 호수별 7×7 표본 면적 1.5칸 미만 정리(바다 연결 물 및 명시된 타이호 보존)·위성 색 BOX 및 높이 BILINEAR 정렬·눈 우선 지형 분류·분류 및 음영 최빈값·해안 거리별 바다·팔레트·teal-4 육지 쪽 해안선·무손실 PNG)",
+        "sources": [
+          {
+            "name": "NASA Blue Marble 합성 영상 (vasturiano/three-globe 예제 사본)",
+            "url": "https://raw.githubusercontent.com/vasturiano/three-globe/master/example/img/earth-blue-marble.jpg",
+            "sha256": "228deba2e4b600146bdcb6cfa359b8ead6aacc2b1c13550a29cd82824cfa1c01",
+            "version": "three-globe master 예제 사본 (수집 2026-10-04, 커밋 e7cee02에 처음 기록. 원 저장소 커밋 판본 미기록)",
+            "content_pin_ko": "master URL은 바뀔 수 있으며 sha256이 사용한 파일 내용을 고정한다."
+          },
+          {
+            "name": "지형 높이 회색조 지도 (같은 저장소 예제 사본)",
+            "url": "https://raw.githubusercontent.com/vasturiano/three-globe/master/example/img/earth-topology.png",
+            "sha256": "839b12da2e4dd346b256cebae72e10c479a102c8980a22084c41275e4b9a0e12",
+            "version": "three-globe master 예제 사본 (수집 2026-10-04, 커밋 e7cee02에 처음 기록. 원 저장소 커밋 판본 미기록)",
+            "content_pin_ko": "master URL은 바뀔 수 있으며 sha256이 사용한 파일 내용을 고정한다."
+          },
+          {
+            "name": "Natural Earth 1:10m land",
+            "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/ca96624a56bd078437bca8184e78163e5039ad19/geojson/ne_10m_land.geojson",
+            "sha256": "1ac90796408bc6ad6911d69448485d3c4dbf2190370080368a09976e1c9f7416",
+            "license": "Public domain",
+            "version": "5.2.0-pre (ca96624a56bd078437bca8184e78163e5039ad19)"
+          },
+          {
+            "name": "Natural Earth 1:10m lakes",
+            "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/ca96624a56bd078437bca8184e78163e5039ad19/geojson/ne_10m_lakes.geojson",
+            "sha256": "2d036f53dedec578001c5c30c2959ee7d4eebc1306900fa4367c49929ec8f2d9",
+            "license": "Public domain",
+            "version": "5.2.0-pre (ca96624a56bd078437bca8184e78163e5039ad19)"
+          }
+        ],
+        "license_ko": "NASA 영상은 일반적으로 미국 저작권 보호 대상이 아니며 출처 표시를 권장한다. 이 파일은 제3자 저장소 사본이므로 공개 배포 전 NASA 원본과 대조해야 한다. Natural Earth 육지·호수 데이터는 공공 도메인으로 자유롭게 사용할 수 있다.",
+        "attribution": "위성 지형 색: NASA Blue Marble; 육지·호수: Natural Earth (public domain)",
+        "verification_status": "NASA 원본 서버 대조 미실시 (작업 환경에서 접속 차단)",
+        "palette": "scitrade-32 (DRAFT_2026-10-05)",
+        "known_issues_ko": "거점·선박·항로·나침반은 임시 벡터 표시다. 육지 변경 통로: 없음. 전체·지역 바다 연결, 도시 해안 거리 경고: 없음.",
+        "versions": {
+          "Pillow": "12.3.0",
+          "numpy": "2.4.6"
+        },
+        "output_sha256": "f0da307e11b296cd5b1cddcaf5ceef462ea659fe3fede744978c5f3dea7ba337"
+      },
+      "pixel_grid": {
+        "logical_width": 546,
+        "logical_height": 615,
+        "units_per_pixel": 2
+      },
+      "regenerated_on": "2026-10-06"
+    },
+    {
+      "id": "MAP_WORLD",
+      "kind": "map",
+      "path": "assets/maps/world.png",
+      "width": 3600,
+      "height": 1220,
+      "status": "approved",
+      "projection": "equirectangular",
+      "bounds": {
+        "lon_min": -30.0,
+        "lon_max": 330.0,
+        "lat_min": -50.0,
+        "lat_max": 72.0
+      },
+      "created_on": "2026-10-05",
+      "provenance": {
+        "method": "processed_public_domain_imagery",
+        "ai_generated": false,
+        "processing": "python3 scripts/build_map.py --source-dir <원본 폴더> --region world --style pixel (Natural Earth 7×7 부분 칸 중심 짝-홀 표본·육지 면적 50%·다각형별 구멍·지역별 연결 검사·끊긴 곳만 육지 칸 수→원본 육지 비율 합→길이 순 4-연결 통로(최대 6칸, 새 바다 관문 거리 1픽셀 이하)·통로 뒤 Natural Earth 호수별 7×7 표본 면적 1.5칸 미만 정리(바다 연결 물 및 명시된 타이호 보존)·위성 색 BOX 및 높이 BILINEAR 정렬·눈 우선 지형 분류·분류 및 음영 최빈값·해안 거리별 바다·팔레트·teal-4 육지 쪽 해안선·무손실 PNG)",
+        "sources": [
+          {
+            "name": "NASA Blue Marble 합성 영상 (vasturiano/three-globe 예제 사본)",
+            "url": "https://raw.githubusercontent.com/vasturiano/three-globe/master/example/img/earth-blue-marble.jpg",
+            "sha256": "228deba2e4b600146bdcb6cfa359b8ead6aacc2b1c13550a29cd82824cfa1c01",
+            "version": "three-globe master 예제 사본 (수집 2026-10-04, 커밋 e7cee02에 처음 기록. 원 저장소 커밋 판본 미기록)",
+            "content_pin_ko": "master URL은 바뀔 수 있으며 sha256이 사용한 파일 내용을 고정한다."
+          },
+          {
+            "name": "지형 높이 회색조 지도 (같은 저장소 예제 사본)",
+            "url": "https://raw.githubusercontent.com/vasturiano/three-globe/master/example/img/earth-topology.png",
+            "sha256": "839b12da2e4dd346b256cebae72e10c479a102c8980a22084c41275e4b9a0e12",
+            "version": "three-globe master 예제 사본 (수집 2026-10-04, 커밋 e7cee02에 처음 기록. 원 저장소 커밋 판본 미기록)",
+            "content_pin_ko": "master URL은 바뀔 수 있으며 sha256이 사용한 파일 내용을 고정한다."
+          },
+          {
+            "name": "Natural Earth 1:50m land",
+            "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/ca96624a56bd078437bca8184e78163e5039ad19/geojson/ne_50m_land.geojson",
+            "sha256": "e874b27a51d146452be360cafb3cc50c86001074a67d534113e6534682f9826b",
+            "license": "Public domain",
+            "version": "5.2.0-pre (ca96624a56bd078437bca8184e78163e5039ad19)"
+          },
+          {
+            "name": "Natural Earth 1:50m lakes",
+            "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/ca96624a56bd078437bca8184e78163e5039ad19/geojson/ne_50m_lakes.geojson",
+            "sha256": "d350b75978b26fe839b797c2c529b2fb8f47fb3983c03f4964e36d5df9378a52",
+            "license": "Public domain",
+            "version": "5.2.0-pre (ca96624a56bd078437bca8184e78163e5039ad19)"
+          }
+        ],
+        "license_ko": "NASA 영상은 일반적으로 미국 저작권 보호 대상이 아니며 출처 표시를 권장한다. 이 파일은 제3자 저장소 사본이므로 공개 배포 전 NASA 원본과 대조해야 한다. Natural Earth 육지·호수 데이터는 공공 도메인으로 자유롭게 사용할 수 있다.",
+        "attribution": "위성 지형 색: NASA Blue Marble; 육지·호수: Natural Earth (public domain)",
+        "verification_status": "NASA 원본 서버 대조 미실시 (작업 환경에서 접속 차단)",
+        "known_issues_ko": "거점·선박·항로·나침반은 임시 벡터 표시다. 육지 변경 통로: BAB_EL_MANDEB 1칸, SUEZ_CANAL 6칸, PANAMA_CANAL 1칸, GIBRALTAR 1칸, BOSPORUS 1칸, DARDANELLES 3칸. 전체·지역 바다 연결, 도시 해안 거리 경고: 없음. 상하이 시가지 기준점은 50% 규칙을 유지하기 위해 세계지도에서만 121.4°E 31.2°N을 쓴다. 오키나와 본섬은 0.5° 칸의 절반 미만이라 세계 기준점에서 제외한다. 세계 타이호는 표본 면적 0.878칸으로 정리 기준 미만이지만 지시서 보존 목록을 우선해 남긴다.",
+        "palette": "scitrade-32 (DRAFT_2026-10-05)",
+        "versions": {
+          "Pillow": "12.3.0",
+          "numpy": "2.4.6"
+        },
+        "output_sha256": "ff253cb7675f01fd43982aac40f6fe99fe8edf2fdee92dd1f23d5471c54c8d90"
+      },
+      "pixel_grid": {
+        "logical_width": 720,
+        "logical_height": 244,
+        "units_per_pixel": 5
+      },
+      "regenerated_on": "2026-10-06"
+    },
+    {
+      "id": "SCENE_PORT_PYEONGTAEK_PX",
+      "kind": "scene",
+      "layer": "pixel",
+      "use_ko": "평택(가상) 항구·도시 화면 장면. B 틀 바깥, 지연 화면에서만 쓴다",
+      "path": "assets/scenes/pyeongtaek-port.png",
+      "width": 640,
+      "height": 360,
+      "pixel_grid": {
+        "logical_width": 640,
+        "logical_height": 360,
+        "units_per_pixel": 1
+      },
+      "format": "PNG 8비트 팔레트, 무손실",
+      "bytes": 32011,
+      "sha256": "4f9299248675efebbccd22026e0628de4309b75476fa5ab27d6666ce774142c7",
+      "palette": "scitrade-32(29색 사용)",
+      "status": "approved",
+      "created_on": "2026-11-01",
+      "bottom_band_mean_relative_luminance": 0.0246,
+      "provenance": {
+        "method": "generative_ai_with_human_selection",
+        "ai_generated": true,
+        "tool": "OpenAI image generation via Codex CLI",
+        "tool_version": "Codex CLI 0.160.0 (built-in image_generation)",
+        "generated_on": "2026-11-01",
+        "order": "docs/art/orders/ART-0002-R1-port-pixel.md",
+        "prompt": "주문서 prompt 블록 원문(커밋 1bc27f0 판)",
+        "original_sha256": "3c699d00c65bcdb496b663f8f74a25231635d761c65e35d48907126e7fe601bd",
+        "original_size": "640x360 PNG, 86,622색(저장소의 docs/art/review/R1/ART-0002-R1_v2.png)",
+        "processing": "python3 tools/art/pixelize.py --size 640x360 --max-colors 32 --despeckle → 29색",
+        "human_edits": "없음(결정 11항: Claude 보정). 세부는 ai_postprocess",
+        "edit_minutes": 15,
+        "license_ko": "OpenAI 이용약관 확인 필요. AI 단독 산출물은 저작권 보호가 약하다",
+        "attribution": "OpenAI 이미지 생성, Scitrade 디자인 세션 D 선별·편집",
+        "human_edit": false,
+        "ai_postprocess": [
+          {
+            "by": "Claude(세션 D)",
+            "step": "v2 선택, pixelize --despeckle 29색, 아래 띠 y290-359 ink-2 평면화·y289 ink-3 경계, 8비트 PNG",
+            "minutes": 15
+          },
+          {
+            "by": "Claude(세션 D)",
+            "step": "tools/art/touchup_scene.py --lone: 외톨이 픽셀 2,838개 정리(수면 가로 반짝임은 보존 확인)",
+            "minutes": 2,
+            "decision": "DECISIONS 2026-11-01 11항"
+          }
+        ]
+      },
+      "approval": "DECISIONS 2026-11-01 12항 (8f576c2)"
+    },
+    {
+      "id": "BG_COMPANY_PX",
+      "kind": "background",
+      "layer": "pixel",
+      "use_ko": "본사 사무실·창고 장면(원래 설계, 밝은 아이소메트릭). 48×48 업무 스프라이트가 같은 배율로 움직인다. 지연 화면에서만 쓴다",
+      "path": "assets/backgrounds/company.png",
+      "width": 640,
+      "height": 360,
+      "pixel_grid": {
+        "logical_width": 640,
+        "logical_height": 360,
+        "units_per_pixel": 1
+      },
+      "format": "PNG 8비트 팔레트, 무손실",
+      "bytes": 30274,
+      "sha256": "2c286d8b564f879a4ac55158896a10930f8eb3c23e04eb8edfc75d4911e20c29",
+      "palette": "scitrade-32(31색 사용)",
+      "status": "approved",
+      "created_on": "2026-11-01",
+      "provenance": {
+        "method": "generative_ai_with_human_selection",
+        "ai_generated": true,
+        "tool": "OpenAI image generation via Codex CLI",
+        "tool_version": "Codex CLI 0.160.0 (built-in image_generation)",
+        "generated_on": "2026-11-01",
+        "order": "docs/art/orders/ART-0004-R2-office-iso-pixel.md",
+        "prompt": "주문서 prompt 블록 원문(커밋 b03fa06 판)",
+        "original_sha256": "1fd3155533a97b333a0573564c923c68271c550b2504cbd04e7b2ebdce2533b7",
+        "original_note": "생성기가 v1·v2를 같은 파일로 저장해 실제로는 1안뿐이다",
+        "processing": "python3 tools/art/pixelize.py --size 640x360 --max-colors 32 --despeckle → 31색 → 8비트 팔레트 PNG",
+        "human_edits": "없음(결정 11항). 남은 결함: 벽 위 모서리·바닥 안내선 점선 끊김",
+        "edit_minutes": 0,
+        "license_ko": "OpenAI 이용약관 확인 필요. AI 단독 산출물은 저작권 보호가 약하다",
+        "attribution": "OpenAI 이미지 생성, Scitrade 디자인 세션 D 선별·편집",
+        "human_edit": false,
+        "ai_postprocess": [
+          {
+            "by": "Claude(세션 D)",
+            "step": "pixelize 640x360 32색 --despeckle 31색, 8비트 PNG",
+            "minutes": 3
+          },
+          {
+            "by": "Claude(세션 D)",
+            "step": "touchup_scene.py --lone 외톨이 222개; 창밖 하늘(63,28-203,84)의 light-3 회색 4,022 px를 sea-4/light-4 체크 디더링으로(원본 옅은 하늘색 185,230,254 근사)",
+            "minutes": 4,
+            "decision": "DECISIONS 2026-11-01 11항"
+          }
+        ]
+      },
+      "approval": "DECISIONS 2026-11-01 12항 (8f576c2)"
+    },
+    {
+      "id": "EMP01_WORK",
+      "kind": "character",
+      "employee_id": "EMP01",
+      "slot": "work",
+      "layer": "pixel",
+      "use_ko": "귀솔 업무 동작 시트(대기·걷기·업무·기쁨 × 4칸, 칸당 180 ms)",
+      "path": "assets/characters/EMP01/work.png",
+      "width": 192,
+      "height": 192,
+      "frame_width": 48,
+      "frame_height": 48,
+      "bytes": 12647,
+      "sha256": "8a3aecc55aed3b9196245817920e87ff507cb55c537220da03f7926e21ddf4dc",
+      "palette": "scitrade-32, 불투명 15색 이하",
+      "status": "approved",
+      "created_on": "2026-11-01",
+      "provenance": {
+        "method": "generative_ai_with_ai_postprocess",
+        "ai_generated": true,
+        "human_edit": false,
+        "tool": "OpenAI image generation via Codex CLI",
+        "tool_version": "Codex CLI 0.160.0 (built-in image_generation)",
+        "generated_on": "2026-11-01",
+        "order": "docs/art/orders/ART-0006-*.md",
+        "prompt": "주문서 prompt 블록 원문(커밋 a82618a 판)",
+        "original_note": "원본 1254² PNG(v1)는 허브 scratchpad, sha는 docs/art/review/A6/README.md",
+        "ai_postprocess": [
+          {
+            "by": "허브 Claude",
+            "step": "tools/art/slice_sheet.py --grid 4x4 --cell 48 --baseline 45 --max-colors 15",
+            "minutes": null
+          },
+          {
+            "by": "Claude(세션 D)",
+            "step": "tools/art/touchup_sheet.py --hole-color #fbf6ec (+ copy_frame_patch.py 눈 옮기기는 EMP01·02·03만). 세부: docs/art/review/A6/claude-touchup/README.md",
+            "minutes": 1.2
+          }
+        ],
+        "human_edits": "없음(결정 11항)",
+        "license_ko": "OpenAI 이용약관 확인 필요. 사람 편집이 없어 저작권 보호 근거가 약하다(결정 11항)",
+        "attribution": "OpenAI 이미지 생성, Scitrade 디자인 세션 D(Claude) 보정"
+      },
+      "approval": "DECISIONS 2026-11-01 12항 (8f576c2)"
+    },
+    {
+      "id": "EMP02_WORK",
+      "kind": "character",
+      "employee_id": "EMP02",
+      "slot": "work",
+      "layer": "pixel",
+      "use_ko": "물보리 업무 동작 시트(대기·걷기·업무·기쁨 × 4칸, 칸당 180 ms)",
+      "path": "assets/characters/EMP02/work.png",
+      "width": 192,
+      "height": 192,
+      "frame_width": 48,
+      "frame_height": 48,
+      "bytes": 11085,
+      "sha256": "bb5507ba39310f51cae7eeb75ed3a9d8a3b39222a27be82be4a61fcd90889d0a",
+      "palette": "scitrade-32, 불투명 15색 이하",
+      "status": "approved",
+      "created_on": "2026-11-01",
+      "provenance": {
+        "method": "generative_ai_with_ai_postprocess",
+        "ai_generated": true,
+        "human_edit": false,
+        "tool": "OpenAI image generation via Codex CLI",
+        "tool_version": "Codex CLI 0.160.0 (built-in image_generation)",
+        "generated_on": "2026-11-01",
+        "order": "docs/art/orders/ART-0007-*.md",
+        "prompt": "주문서 prompt 블록 원문(커밋 a82618a 판)",
+        "original_note": "원본 1254² PNG(v1)는 허브 scratchpad, sha는 docs/art/review/A6/README.md",
+        "ai_postprocess": [
+          {
+            "by": "허브 Claude",
+            "step": "tools/art/slice_sheet.py --grid 4x4 --cell 48 --baseline 45 --max-colors 15",
+            "minutes": null
+          },
+          {
+            "by": "Claude(세션 D)",
+            "step": "tools/art/touchup_sheet.py --hole-color #fbf6ec (+ copy_frame_patch.py 눈 옮기기는 EMP01·02·03만). 세부: docs/art/review/A6/claude-touchup/README.md",
+            "minutes": 1.2
+          }
+        ],
+        "human_edits": "없음(결정 11항)",
+        "license_ko": "OpenAI 이용약관 확인 필요. 사람 편집이 없어 저작권 보호 근거가 약하다(결정 11항)",
+        "attribution": "OpenAI 이미지 생성, Scitrade 디자인 세션 D(Claude) 보정"
+      },
+      "approval": "DECISIONS 2026-11-01 12항 (8f576c2)"
+    },
+    {
+      "id": "EMP03_WORK",
+      "kind": "character",
+      "employee_id": "EMP03",
+      "slot": "work",
+      "layer": "pixel",
+      "use_ko": "솔솔밤 업무 동작 시트(대기·걷기·업무·기쁨 × 4칸, 칸당 180 ms)",
+      "path": "assets/characters/EMP03/work.png",
+      "width": 192,
+      "height": 192,
+      "frame_width": 48,
+      "frame_height": 48,
+      "bytes": 11806,
+      "sha256": "5503690c73a3c574c18c5b73b8127f0c103c5e621248625b28911d1074d70440",
+      "palette": "scitrade-32, 불투명 15색 이하",
+      "status": "approved",
+      "created_on": "2026-11-01",
+      "provenance": {
+        "method": "generative_ai_with_ai_postprocess",
+        "ai_generated": true,
+        "human_edit": false,
+        "tool": "OpenAI image generation via Codex CLI",
+        "tool_version": "Codex CLI 0.160.0 (built-in image_generation)",
+        "generated_on": "2026-11-01",
+        "order": "docs/art/orders/ART-0008-*.md",
+        "prompt": "주문서 prompt 블록 원문(커밋 a82618a 판)",
+        "original_note": "원본 1254² PNG(v1)는 허브 scratchpad, sha는 docs/art/review/A6/README.md",
+        "ai_postprocess": [
+          {
+            "by": "허브 Claude",
+            "step": "tools/art/slice_sheet.py --grid 4x4 --cell 48 --baseline 45 --max-colors 15",
+            "minutes": null
+          },
+          {
+            "by": "Claude(세션 D)",
+            "step": "tools/art/touchup_sheet.py --hole-color #fbf6ec (+ copy_frame_patch.py 눈 옮기기는 EMP01·02·03만). 세부: docs/art/review/A6/claude-touchup/README.md",
+            "minutes": 1.2
+          }
+        ],
+        "human_edits": "없음(결정 11항)",
+        "license_ko": "OpenAI 이용약관 확인 필요. 사람 편집이 없어 저작권 보호 근거가 약하다(결정 11항)",
+        "attribution": "OpenAI 이미지 생성, Scitrade 디자인 세션 D(Claude) 보정"
+      },
+      "approval": "DECISIONS 2026-11-01 12항 (8f576c2)"
+    },
+    {
+      "id": "EMP04_WORK",
+      "kind": "character",
+      "employee_id": "EMP04",
+      "slot": "work",
+      "layer": "pixel",
+      "use_ko": "현돌 업무 동작 시트(대기·걷기·업무·기쁨 × 4칸, 칸당 180 ms)",
+      "path": "assets/characters/EMP04/work.png",
+      "width": 192,
+      "height": 192,
+      "frame_width": 48,
+      "frame_height": 48,
+      "bytes": 11606,
+      "sha256": "84dd053ea1dbe6f10fb603c848ff727de7e12989ad5f98ab443deecb2d7b4978",
+      "palette": "scitrade-32, 불투명 15색 이하",
+      "status": "approved",
+      "created_on": "2026-11-01",
+      "provenance": {
+        "method": "generative_ai_with_ai_postprocess",
+        "ai_generated": true,
+        "human_edit": false,
+        "tool": "OpenAI image generation via Codex CLI",
+        "tool_version": "Codex CLI 0.160.0 (built-in image_generation)",
+        "generated_on": "2026-11-01",
+        "order": "docs/art/orders/ART-0009-*.md",
+        "prompt": "주문서 prompt 블록 원문(커밋 a82618a 판)",
+        "original_note": "원본 1254² PNG(v1)는 허브 scratchpad, sha는 docs/art/review/A6/README.md",
+        "ai_postprocess": [
+          {
+            "by": "허브 Claude",
+            "step": "tools/art/slice_sheet.py --grid 4x4 --cell 48 --baseline 45 --max-colors 15",
+            "minutes": null
+          },
+          {
+            "by": "Claude(세션 D)",
+            "step": "tools/art/touchup_sheet.py --hole-color #fbf6ec (+ copy_frame_patch.py 눈 옮기기는 EMP01·02·03만). 세부: docs/art/review/A6/claude-touchup/README.md",
+            "minutes": 1.2
+          }
+        ],
+        "human_edits": "없음(결정 11항)",
+        "license_ko": "OpenAI 이용약관 확인 필요. 사람 편집이 없어 저작권 보호 근거가 약하다(결정 11항)",
+        "attribution": "OpenAI 이미지 생성, Scitrade 디자인 세션 D(Claude) 보정"
+      },
+      "approval": "DECISIONS 2026-11-01 12항 (8f576c2)"
+    },
+    {
+      "id": "EMP05_WORK",
+      "kind": "character",
+      "employee_id": "EMP05",
+      "slot": "work",
+      "layer": "pixel",
+      "use_ko": "화랑콩 업무 동작 시트(대기·걷기·업무·기쁨 × 4칸, 칸당 180 ms)",
+      "path": "assets/characters/EMP05/work.png",
+      "width": 192,
+      "height": 192,
+      "frame_width": 48,
+      "frame_height": 48,
+      "bytes": 11756,
+      "sha256": "9fef7460022bd2be01791e32656aeb9be91cd30aaf8aead5887e0c085c9db1c0",
+      "palette": "scitrade-32, 불투명 15색 이하",
+      "status": "approved",
+      "created_on": "2026-11-01",
+      "provenance": {
+        "method": "generative_ai_with_ai_postprocess",
+        "ai_generated": true,
+        "human_edit": false,
+        "tool": "OpenAI image generation via Codex CLI",
+        "tool_version": "Codex CLI 0.160.0 (built-in image_generation)",
+        "generated_on": "2026-11-01",
+        "order": "docs/art/orders/ART-0010-*.md",
+        "prompt": "주문서 prompt 블록 원문(커밋 a82618a 판)",
+        "original_note": "원본 1254² PNG(v1)는 허브 scratchpad, sha는 docs/art/review/A6/README.md",
+        "ai_postprocess": [
+          {
+            "by": "허브 Claude",
+            "step": "tools/art/slice_sheet.py --grid 4x4 --cell 48 --baseline 45 --max-colors 15",
+            "minutes": null
+          },
+          {
+            "by": "Claude(세션 D)",
+            "step": "tools/art/touchup_sheet.py --hole-color #fbf6ec (+ copy_frame_patch.py 눈 옮기기는 EMP01·02·03만). 세부: docs/art/review/A6/claude-touchup/README.md",
+            "minutes": 1.2
+          }
+        ],
+        "human_edits": "없음(결정 11항)",
+        "license_ko": "OpenAI 이용약관 확인 필요. 사람 편집이 없어 저작권 보호 근거가 약하다(결정 11항)",
+        "attribution": "OpenAI 이미지 생성, Scitrade 디자인 세션 D(Claude) 보정"
+      },
+      "approval": "DECISIONS 2026-11-01 12항 (8f576c2)"
+    },
+    {
+      "id": "EMP06_WORK",
+      "kind": "character",
+      "employee_id": "EMP06",
+      "slot": "work",
+      "layer": "pixel",
+      "use_ko": "바름 업무 동작 시트(대기·걷기·업무·기쁨 × 4칸, 칸당 180 ms)",
+      "path": "assets/characters/EMP06/work.png",
+      "width": 192,
+      "height": 192,
+      "frame_width": 48,
+      "frame_height": 48,
+      "bytes": 13546,
+      "sha256": "f3061e1ca88735a7586977ff3ce029d20f545ac7df54638aa17dd6825bd2c42f",
+      "palette": "scitrade-32, 불투명 15색 이하",
+      "status": "approved",
+      "created_on": "2026-11-01",
+      "provenance": {
+        "method": "generative_ai_with_ai_postprocess",
+        "ai_generated": true,
+        "human_edit": false,
+        "tool": "OpenAI image generation via Codex CLI",
+        "tool_version": "Codex CLI 0.160.0 (built-in image_generation)",
+        "generated_on": "2026-11-01",
+        "order": "docs/art/orders/ART-0011-*.md",
+        "prompt": "주문서 prompt 블록 원문(커밋 a82618a 판)",
+        "original_note": "원본 1254² PNG(v1)는 허브 scratchpad, sha는 docs/art/review/A6/README.md",
+        "ai_postprocess": [
+          {
+            "by": "허브 Claude",
+            "step": "tools/art/slice_sheet.py --grid 4x4 --cell 48 --baseline 45 --max-colors 15",
+            "minutes": null
+          },
+          {
+            "by": "Claude(세션 D)",
+            "step": "tools/art/touchup_sheet.py --hole-color #fbf6ec (+ copy_frame_patch.py 눈 옮기기는 EMP01·02·03만). 세부: docs/art/review/A6/claude-touchup/README.md",
+            "minutes": 1.2
+          }
+        ],
+        "human_edits": "없음(결정 11항)",
+        "license_ko": "OpenAI 이용약관 확인 필요. 사람 편집이 없어 저작권 보호 근거가 약하다(결정 11항)",
+        "attribution": "OpenAI 이미지 생성, Scitrade 디자인 세션 D(Claude) 보정"
+      },
+      "approval": "DECISIONS 2026-11-01 12항 (8f576c2)"
+    }
+  ]
+}

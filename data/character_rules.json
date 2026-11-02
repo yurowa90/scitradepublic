@@ -1,0 +1,199 @@
+{
+  "schema_version": "0.4.0",
+  "data_basis": "DESIGN",
+  "source_refs": [
+    "DESIGN-V04"
+  ],
+  "items": [],
+  "status": "PARTIALLY_IMPLEMENTED_M2A_GROWTH_DISPLAY_ONLY",
+  "attributes": [
+    {
+      "id": "water",
+      "name_ko": "물",
+      "affinity_job_id": "JOB_LOGISTICS",
+      "suggested_stat": "operations",
+      "does_not_lock_profession": true
+    },
+    {
+      "id": "fire",
+      "name_ko": "불",
+      "affinity_job_id": "JOB_TECHNICAL",
+      "suggested_stat": "technology",
+      "does_not_lock_profession": true
+    },
+    {
+      "id": "wind",
+      "name_ko": "바람",
+      "affinity_job_id": "JOB_ROUTE",
+      "suggested_stat": "exploration",
+      "does_not_lock_profession": true
+    },
+    {
+      "id": "earth",
+      "name_ko": "대지",
+      "affinity_job_id": "JOB_INVENTORY",
+      "suggested_stat": "operations",
+      "does_not_lock_profession": true
+    },
+    {
+      "id": "light",
+      "name_ko": "빛",
+      "affinity_job_id": "JOB_SALES",
+      "suggested_stat": "negotiation",
+      "does_not_lock_profession": true
+    },
+    {
+      "id": "shadow",
+      "name_ko": "그림자",
+      "affinity_job_id": "JOB_LEGAL",
+      "suggested_stat": "analysis",
+      "does_not_lock_profession": true
+    }
+  ],
+  "stats": [
+    "negotiation",
+    "operations",
+    "analysis",
+    "technology",
+    "exploration",
+    "coordination"
+  ],
+  "level_min": 1,
+  "level_max": 10,
+  "xp_threshold_formula": "50*(level-1)*level",
+  "xp_thresholds": [
+    {
+      "level": 1,
+      "cumulative_xp": 0
+    },
+    {
+      "level": 2,
+      "cumulative_xp": 100
+    },
+    {
+      "level": 3,
+      "cumulative_xp": 300
+    },
+    {
+      "level": 4,
+      "cumulative_xp": 600
+    },
+    {
+      "level": 5,
+      "cumulative_xp": 1000
+    },
+    {
+      "level": 6,
+      "cumulative_xp": 1500
+    },
+    {
+      "level": 7,
+      "cumulative_xp": 2100
+    },
+    {
+      "level": 8,
+      "cumulative_xp": 2800
+    },
+    {
+      "level": 9,
+      "cumulative_xp": 3600
+    },
+    {
+      "level": 10,
+      "cumulative_xp": 4500
+    }
+  ],
+  "level_gain": {
+    "primary_stat": 2,
+    "secondary_stat": 1
+  },
+  "final_stat_cap": 100,
+  "base_stat_budget": 300,
+  "reward_idempotency_key": [
+    "employee_id",
+    "completion_event_id",
+    "reward_kind"
+  ],
+  "task_completion_xp": 10,
+  "ordinary_training": {
+    "duration_days": 1,
+    "fee": {
+      "currency": "KRW",
+      "amount": 50000
+    },
+    "xp_on_completion": 60,
+    "occupies_employee_reservation": true,
+    "salary_included_in_fee": false
+  },
+  "enhancement_steps": [
+    {
+      "next_rank": 1,
+      "required_level": 3,
+      "fee_krw": 100000,
+      "duration_days": 2,
+      "primary_stat_gain": 5,
+      "xp_awarded": 0
+    },
+    {
+      "next_rank": 2,
+      "required_level": 5,
+      "fee_krw": 200000,
+      "duration_days": 3,
+      "primary_stat_gain": 5,
+      "xp_awarded": 0
+    },
+    {
+      "next_rank": 3,
+      "required_level": 8,
+      "fee_krw": 400000,
+      "duration_days": 5,
+      "primary_stat_gain": 5,
+      "xp_awarded": 0
+    }
+  ],
+  "enhancement_policy": {
+    "sequential_only": true,
+    "failure_probability": 0,
+    "consumes_other_character": false,
+    "one_pending_upgrade_per_employee": true,
+    "effect_applied_once_at_completion": true
+  },
+  "team_max_members": 3,
+  "project_roles": [
+    "responsible",
+    "support"
+  ],
+  "performance": {
+    "ability_factor_base": 0.9,
+    "ability_factor_per_point": 0.002,
+    "synergy_cap": 0.1,
+    "max_individual_multiplier_before_capacity": 1.21,
+    "formula": "min(facility_remaining_units, sum(base_contribution_i * (0.9 + 0.002*weighted_final_stat_i)) * (1+min(0.10, synergy_sum)))",
+    "mode_switch": "M1 and M2a: LEGACY_FIXED (M2a levels and abilities are display-only, 2026-10-05); CHARACTER_WEIGHTED from M2b under a new rules version; never both",
+    "rounding": "fixed-point carry of remaining progress; no repeated rounding gains",
+    "scope": "company_controlled_preparation_tasks_only",
+    "excluded": [
+      "ocean_transit_days",
+      "tariff_rate",
+      "market_price",
+      "vessel_capacity",
+      "warehouse_physical_capacity",
+      "cargo_quality_limits"
+    ]
+  },
+  "country_policy": {
+    "country_locked_by_species": false,
+    "nationality_bonus": 0,
+    "experience_is_learned": true,
+    "network_scope": "named_contact_or_city",
+    "evidence_fields": [
+      "employee_id",
+      "country_code",
+      "city_id",
+      "topic_id",
+      "completed_task_id",
+      "verified_day"
+    ]
+  },
+  "$schema": "../schemas/character_rules.schema.json"
+}

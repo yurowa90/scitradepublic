@@ -1,0 +1,21 @@
+{
+  "name": "scitrade",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Scitrade — 무역·물류 경영 게임 M1 시제품 (엔진 + 최소 화면)",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "sim": "node src/engine/sim/run.mjs",
+    "validate:data": "python3 tools/validate_data.py"
+  },
+  "devDependencies": {
+    "typescript": "^7.0.2",
+    "vite": "^8.3.2",
+    "vitest": "^5.0.3"
+  }
+}

@@ -1,0 +1,37 @@
+GIMP Palette
+Name: scitrade-32
+Columns: 4
+#
+ 20  27  46	ink-1
+ 31  42  68	ink-2
+ 58  71 102	ink-3
+ 93 107 140	ink-4
+ 22  54  92	sea-1
+ 34  87 138	sea-2
+ 58 127 181	sea-3
+111 176 216	sea-4
+ 30  92  88	teal-1
+ 47 138 122	teal-2
+ 92 191 163	teal-3
+168 230 207	teal-4
+ 43  74  42	green-1
+ 63 110  53	green-2
+106 154  67	green-3
+169 199 106	green-4
+ 90  59  42	earth-1
+138  92  58	earth-2
+201 162  74	earth-3
+234 210 160	earth-4
+110  42  42	warm-1
+181  83  42	warm-2
+224 135  74	warm-3
+246 192 138	warm-4
+ 75  51 102	violet-1
+124  90 158	violet-2
+197 143 199	violet-3
+244 198 220	violet-4
+142 138 153	light-1
+184 179 194	light-2
+221 215 220	light-3
+251 246 236	light-4
+207  59  46	accent-vermilion

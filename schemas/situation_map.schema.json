@@ -1,0 +1,194 @@
+{
+  "type": "object",
+  "required": [
+    "layers",
+    "ports",
+    "countries"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "layers": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "title_ko",
+          "provider",
+          "license",
+          "license_tier",
+          "verification_status",
+          "retrieved_on",
+          "credit_ko",
+          "source_url"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "enum": [
+              "cargo",
+              "routes",
+              "ports",
+              "nightlights",
+              "countries"
+            ]
+          },
+          "title_ko": {
+            "type": "string"
+          },
+          "provider": {
+            "type": "string"
+          },
+          "license": {
+            "type": "string"
+          },
+          "license_tier": {
+            "type": "string",
+            "enum": [
+              "bundle_raw",
+              "derived_only",
+              "banned"
+            ]
+          },
+          "verification_status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "verified"
+            ]
+          },
+          "retrieved_on": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "credit_ko": {
+            "type": "string"
+          },
+          "source_url": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "ports": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name_en",
+          "name_ko",
+          "lon",
+          "lat",
+          "scalerank"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name_en": {
+            "type": "string"
+          },
+          "name_ko": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "lon": {
+            "type": "number"
+          },
+          "lat": {
+            "type": "number"
+          },
+          "scalerank": {
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "countries": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name_ko",
+          "indicators"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "enum": [
+              "KOR",
+              "CHN",
+              "VNM"
+            ]
+          },
+          "name_ko": {
+            "type": "string"
+          },
+          "indicators": {
+            "type": "array",
+            "minItems": 4,
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "label_ko",
+                "value",
+                "unit_ko",
+                "year",
+                "source_layer"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "label_ko": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "unit_ko": {
+                  "type": "string"
+                },
+                "year": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                },
+                "source_layer": {
+                  "type": "string",
+                  "enum": [
+                    "countries"
+                  ]
+                },
+                "source_updated": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

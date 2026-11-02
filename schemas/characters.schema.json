@@ -1,0 +1,725 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "characters v0.4 data shape",
+  "description": "Starter data shape, plus semantic checks in tools/validate_data.py. Not a complete game engine command contract.",
+  "type": "object",
+  "required": [
+    "$schema",
+    "data_basis",
+    "items",
+    "numeric_values_status",
+    "purpose",
+    "rules",
+    "schema_version",
+    "source_refs",
+    "status"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "data_basis": {
+      "type": "string"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "art_direction",
+          "assignment_policy",
+          "attribute",
+          "compatibility",
+          "creature_kind",
+          "data_basis",
+          "enhancement_rank",
+          "fictional",
+          "growth_focus",
+          "id",
+          "level",
+          "myth_interpretation_note",
+          "name_ko",
+          "primary_role",
+          "rarity",
+          "rarity_meaning",
+          "rarity_power_multiplier",
+          "recruitment",
+          "regional_background",
+          "release_phase",
+          "signature_trait",
+          "source_refs",
+          "stat_total",
+          "stats",
+          "visual_motif",
+          "xp_total",
+          "species_ko"
+        ],
+        "properties": {
+          "art_direction": {
+            "type": "object",
+            "required": [
+              "animation_budget",
+              "asset_status",
+              "identity_rule",
+              "proportions"
+            ],
+            "properties": {
+              "animation_budget": {
+                "type": "string"
+              },
+              "asset_status": {
+                "type": "string"
+              },
+              "identity_rule": {
+                "type": "string"
+              },
+              "proportions": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": true
+          },
+          "assignment_policy": {
+            "type": "object",
+            "required": [
+              "deck_slot_reserves_employee",
+              "freeze_team_at_task_start",
+              "maximum_overlapping_tasks",
+              "task_confirmation_reserves_employee"
+            ],
+            "properties": {
+              "deck_slot_reserves_employee": {
+                "type": "boolean"
+              },
+              "freeze_team_at_task_start": {
+                "type": "boolean"
+              },
+              "maximum_overlapping_tasks": {
+                "type": "integer"
+              },
+              "task_confirmation_reserves_employee": {
+                "type": "boolean"
+              }
+            },
+            "additionalProperties": true
+          },
+          "attribute": {
+            "type": "string"
+          },
+          "compatibility": {
+            "type": "object",
+            "required": [
+              "employment_status",
+              "existing_employee_id",
+              "legacy_human_name_replaced",
+              "legacy_role",
+              "note",
+              "preserve_initial_employee_state",
+              "salary_per_day",
+              "work_units_per_day"
+            ],
+            "properties": {
+              "employment_status": {
+                "type": "string"
+              },
+              "existing_employee_id": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              },
+              "legacy_human_name_replaced": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              },
+              "legacy_role": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              },
+              "note": {
+                "type": "string"
+              },
+              "preserve_initial_employee_state": {
+                "type": "boolean"
+              },
+              "salary_per_day": {
+                "type": [
+                  "null",
+                  "object"
+                ],
+                "required": [
+                  "amount",
+                  "currency"
+                ],
+                "properties": {
+                  "amount": {
+                    "type": "integer"
+                  },
+                  "currency": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": true
+              },
+              "work_units_per_day": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              }
+            },
+            "additionalProperties": true
+          },
+          "creature_kind": {
+            "type": "string",
+            "enum": [
+              "animal",
+              "myth_inspired"
+            ],
+            "description": "창작 결합 생물(original_creature)은 쓰지 않는다 (2026-10-04 사용자 결정)."
+          },
+          "data_basis": {
+            "type": "string"
+          },
+          "enhancement_rank": {
+            "type": "integer"
+          },
+          "fictional": {
+            "type": "boolean"
+          },
+          "growth_focus": {
+            "type": "object",
+            "required": [
+              "primary_stat",
+              "secondary_stat"
+            ],
+            "properties": {
+              "primary_stat": {
+                "type": "string"
+              },
+              "secondary_stat": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": true
+          },
+          "id": {
+            "type": "string"
+          },
+          "level": {
+            "type": "integer"
+          },
+          "myth_interpretation_note": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "name_ko": {
+            "type": "string"
+          },
+          "primary_role": {
+            "type": "string"
+          },
+          "rarity": {
+            "type": "string"
+          },
+          "rarity_meaning": {
+            "type": "string"
+          },
+          "rarity_power_multiplier": {
+            "type": "number"
+          },
+          "recruitment": {
+            "type": "object",
+            "required": [
+              "availability_rule",
+              "mode",
+              "random_draw_required",
+              "repeat_copy_required",
+              "start_employed",
+              "story_clue"
+            ],
+            "properties": {
+              "availability_rule": {
+                "type": "string"
+              },
+              "mode": {
+                "type": "string"
+              },
+              "random_draw_required": {
+                "type": "boolean"
+              },
+              "repeat_copy_required": {
+                "type": "boolean"
+              },
+              "start_employed": {
+                "type": "boolean"
+              },
+              "story_clue": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": true
+          },
+          "regional_background": {
+            "type": "object",
+            "required": [
+              "country_locked",
+              "experience_records",
+              "knowledge_is_learned",
+              "knowledge_topic_ids",
+              "nationality",
+              "note"
+            ],
+            "properties": {
+              "country_locked": {
+                "type": "boolean"
+              },
+              "experience_records": {
+                "type": "array"
+              },
+              "knowledge_is_learned": {
+                "type": "boolean"
+              },
+              "knowledge_topic_ids": {
+                "type": "array"
+              },
+              "nationality": {
+                "type": "null"
+              },
+              "note": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": true
+          },
+          "release_phase": {
+            "type": "string"
+          },
+          "signature_trait": {
+            "type": "object",
+            "required": [
+              "candidate_effect",
+              "description_ko",
+              "name_ko"
+            ],
+            "properties": {
+              "candidate_effect": {
+                "type": "object",
+                "required": [
+                  "activation_phase",
+                  "active_in_P0",
+                  "data_basis",
+                  "effect_kind",
+                  "execution_status",
+                  "implemented",
+                  "operation",
+                  "prerequisite",
+                  "stacking",
+                  "target_score",
+                  "trigger_tag",
+                  "unit",
+                  "value"
+                ],
+                "properties": {
+                  "activation_phase": {
+                    "type": "string"
+                  },
+                  "active_in_P0": {
+                    "type": "boolean"
+                  },
+                  "data_basis": {
+                    "type": "string"
+                  },
+                  "effect_kind": {
+                    "type": "string"
+                  },
+                  "execution_status": {
+                    "type": "string"
+                  },
+                  "implemented": {
+                    "type": "boolean"
+                  },
+                  "operation": {
+                    "type": "string"
+                  },
+                  "prerequisite": {
+                    "type": "string"
+                  },
+                  "stacking": {
+                    "type": "string"
+                  },
+                  "target_score": {
+                    "type": "string"
+                  },
+                  "trigger_tag": {
+                    "type": "string"
+                  },
+                  "unit": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "integer"
+                  }
+                },
+                "additionalProperties": true
+              },
+              "description_ko": {
+                "type": "string"
+              },
+              "name_ko": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": true
+          },
+          "source_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "stat_total": {
+            "type": "integer"
+          },
+          "stats": {
+            "type": "object",
+            "required": [
+              "analysis",
+              "coordination",
+              "exploration",
+              "negotiation",
+              "operations",
+              "technology"
+            ],
+            "properties": {
+              "analysis": {
+                "type": "integer"
+              },
+              "coordination": {
+                "type": "integer"
+              },
+              "exploration": {
+                "type": "integer"
+              },
+              "negotiation": {
+                "type": "integer"
+              },
+              "operations": {
+                "type": "integer"
+              },
+              "technology": {
+                "type": "integer"
+              }
+            },
+            "additionalProperties": true
+          },
+          "visual_motif": {
+            "type": "string"
+          },
+          "xp_total": {
+            "type": "integer"
+          },
+          "myth_reference": {
+            "type": "object",
+            "description": "특정 전승을 모티프로 한 경우의 출전 조사 기록. 게임 설정은 창작 해석이며 전승의 확정 설명이 아니다.",
+            "required": [
+              "creature",
+              "tradition",
+              "summary_ko",
+              "sources",
+              "checked_on",
+              "check_level"
+            ],
+            "properties": {
+              "creature": {
+                "type": "string"
+              },
+              "tradition": {
+                "type": "string"
+              },
+              "summary_ko": {
+                "type": "string"
+              },
+              "sources": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "checked_on": {
+                "type": "string"
+              },
+              "check_level": {
+                "type": "string"
+              },
+              "design_cautions_ko": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "additionalProperties": false
+          },
+          "encounter": {
+            "type": "object",
+            "description": "처음 만나는 국가·도시와 수집 분류. 국적·능력·근무 지역 제한이 아니다.",
+            "required": [
+              "country_code",
+              "city_id",
+              "category",
+              "category_ko",
+              "unlock_stage",
+              "note_ko"
+            ],
+            "properties": {
+              "country_code": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "city_id": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "category": {
+                "type": "string",
+                "enum": [
+                  "starter",
+                  "representative_animal",
+                  "rare_animal",
+                  "myth_legend",
+                  "global_myth",
+                  "familiar_animal"
+                ]
+              },
+              "category_ko": {
+                "type": "string"
+              },
+              "unlock_stage": {
+                "type": "string",
+                "enum": [
+                  "P0",
+                  "M2a",
+                  "M3",
+                  "P1",
+                  "P2"
+                ]
+              },
+              "note_ko": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          },
+          "conservation": {
+            "type": "object",
+            "description": "실재 동물의 보전 상태 기록. 출처와 확인 수준을 함께 남긴다.",
+            "required": [
+              "iucn_status",
+              "note_ko",
+              "cites_appendix",
+              "national_protection_ko",
+              "sources",
+              "checked_on",
+              "check_level",
+              "design_cautions_ko",
+              "scientific_name",
+              "scientific_name_rank",
+              "cites_status",
+              "cites_checked_on",
+              "cites_basis"
+            ],
+            "properties": {
+              "iucn_status": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "enum": [
+                  "CR",
+                  "EN",
+                  "VU",
+                  "NT",
+                  "LC",
+                  null,
+                  "NOT_APPLICABLE_DOMESTIC"
+                ]
+              },
+              "note_ko": {
+                "type": "string"
+              },
+              "cites_appendix": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "enum": [
+                  "I",
+                  "II",
+                  "III",
+                  null
+                ]
+              },
+              "national_protection_ko": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "sources": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "checked_on": {
+                "type": "string"
+              },
+              "check_level": {
+                "type": "string"
+              },
+              "design_cautions_ko": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "scientific_name": {
+                "type": "string",
+                "description": "동료의 대표 학명"
+              },
+              "scientific_name_rank": {
+                "type": "string",
+                "enum": [
+                  "species",
+                  "subspecies",
+                  "genus",
+                  "family"
+                ],
+                "description": "대표 학명의 분류 단계: 종·아종·속·과"
+              },
+              "cites_status": {
+                "type": "string",
+                "enum": [
+                  "listed",
+                  "not_listed",
+                  "unresolved",
+                  "unchecked",
+                  "not_applicable"
+                ],
+                "description": "listed=부속서 등재, not_listed=확인했고 미등재, unresolved=원문끼리 엇갈려 판정 보류, unchecked=확인 안 함(검사 실패), not_applicable=가축·반려 품종으로 해당 없음"
+              },
+              "cites_checked_on": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "CITES 확인일(YYYY-MM-DD), 확인하지 않았으면 null"
+              },
+              "cites_basis": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "CITES 등재·미등재·판정 보류의 근거 문장, 확인하지 않았으면 null"
+              },
+              "iucn_source": {
+                "type": "string",
+                "enum": [
+                  "primary",
+                  "secondary"
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "species_ko": {
+            "type": "string",
+            "description": "도감에 표시할 실제 종 또는 전승 존재의 이름"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "numeric_values_status": {
+      "type": "string"
+    },
+    "purpose": {
+      "type": "string"
+    },
+    "rules": {
+      "type": "object",
+      "required": [
+        "assignment_rule",
+        "attribute_rule",
+        "base_stat_budget",
+        "country_rule",
+        "implementation_rule",
+        "rarity_rule",
+        "science_boundary",
+        "starter_level",
+        "stat_range",
+        "stat_scale_meaning"
+      ],
+      "properties": {
+        "assignment_rule": {
+          "type": "string"
+        },
+        "attribute_rule": {
+          "type": "string"
+        },
+        "base_stat_budget": {
+          "type": "integer"
+        },
+        "country_rule": {
+          "type": "string"
+        },
+        "implementation_rule": {
+          "type": "string"
+        },
+        "rarity_rule": {
+          "type": "string"
+        },
+        "science_boundary": {
+          "type": "string"
+        },
+        "starter_level": {
+          "type": "integer"
+        },
+        "stat_range": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "stat_scale_meaning": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "schema_version": {
+      "type": "string"
+    },
+    "source_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,176 @@
+{
+  "schema_version": "0.3.0",
+  "data_basis": "DESIGN",
+  "items": [
+    {
+      "id": "VEN_TRADE",
+      "title_ko": "무역회관",
+      "stage": "P0",
+      "source_refs": [
+        "DESIGN-V03"
+      ],
+      "curriculum_refs": [
+        "SOC05",
+        "SOC14",
+        "SOC15"
+      ],
+      "city_id": "PYEONGTAEK",
+      "fictional": true,
+      "visit_mode": "PANEL",
+      "opening_panel_duration_days": 0,
+      "opening_panel_cost": {
+        "currency": "KRW",
+        "amount": 0
+      },
+      "services": [
+        "CONTRACT_BOARD",
+        "SUPPLIER_INTRODUCTION",
+        "DOCUMENT_CONSULTATION"
+      ],
+      "event_ids": [
+        "EV01",
+        "EV03",
+        "EV06"
+      ],
+      "revisit_reason_ko": "새 계약·확인한 거래처·자료 보완 요청에 따라 대화가 달라집니다.",
+      "activity_execution_ko": "열람과 실제 활동을 구분하며 활동에는 해당 지역의 가용 담당자를 배정합니다.",
+      "future_services": []
+    },
+    {
+      "id": "VEN_PORT",
+      "title_ko": "항만 물류단지",
+      "stage": "P0",
+      "source_refs": [
+        "DESIGN-V03"
+      ],
+      "curriculum_refs": [
+        "SOC03",
+        "SCI11"
+      ],
+      "city_id": "PYEONGTAEK",
+      "fictional": true,
+      "visit_mode": "PANEL",
+      "opening_panel_duration_days": 0,
+      "opening_panel_cost": {
+        "currency": "KRW",
+        "amount": 0
+      },
+      "services": [
+        "CARRIER_BOOKING",
+        "STORAGE_QUOTES",
+        "INSPECTION_OUTSOURCING"
+      ],
+      "event_ids": [
+        "EV02",
+        "EV04"
+      ],
+      "revisit_reason_ko": "예약 잔여 공간·화물 상태·항만 공지가 갱신될 때 다시 확인합니다.",
+      "activity_execution_ko": "열람과 실제 활동을 구분하며 활동에는 해당 지역의 가용 담당자를 배정합니다.",
+      "future_services": []
+    },
+    {
+      "id": "VEN_LOUNGE",
+      "title_ko": "비즈니스 라운지",
+      "stage": "P0",
+      "source_refs": [
+        "DESIGN-V03"
+      ],
+      "curriculum_refs": [
+        "SOC04",
+        "SOC09"
+      ],
+      "city_id": "PYEONGTAEK",
+      "fictional": true,
+      "visit_mode": "PANEL",
+      "opening_panel_duration_days": 0,
+      "opening_panel_cost": {
+        "currency": "KRW",
+        "amount": 0
+      },
+      "services": [
+        "CONTACT_CONVERSATION",
+        "HIRING_INTRODUCTION",
+        "FOLLOWUP_APPOINTMENTS"
+      ],
+      "event_ids": [
+        "EV05"
+      ],
+      "revisit_reason_ko": "이전 대화·지킨 약속·직원 후보의 상태에 따라 다음 면담이 열립니다.",
+      "activity_execution_ko": "열람과 실제 활동을 구분하며 활동에는 해당 지역의 가용 담당자를 배정합니다.",
+      "future_services": []
+    },
+    {
+      "id": "VEN_CULTURE",
+      "title_ko": "문화생활·현지 탐방",
+      "stage": "P0",
+      "source_refs": [
+        "DESIGN-V03"
+      ],
+      "curriculum_refs": [
+        "SOC04",
+        "SOC07"
+      ],
+      "city_id": "PYEONGTAEK",
+      "fictional": true,
+      "visit_mode": "PANEL",
+      "opening_panel_duration_days": 0,
+      "opening_panel_cost": {
+        "currency": "KRW",
+        "amount": 0
+      },
+      "services": [
+        "CULTURE_ACTIVITY_BOARD",
+        "LOCAL_NOTEBOOK"
+      ],
+      "event_ids": [],
+      "revisit_reason_ko": "새 활동 단계·새 질문·의미 있는 후속 약속이 있을 때 기록이 늘어납니다.",
+      "activity_execution_ko": "열람과 실제 활동을 구분하며 활동에는 해당 지역의 가용 담당자를 배정합니다.",
+      "future_services": [],
+      "activity_ids": [
+        "CA01",
+        "CA02",
+        "CA03",
+        "CA04",
+        "CA05",
+        "CA06"
+      ]
+    },
+    {
+      "id": "VEN_FINANCE",
+      "title_ko": "금융센터",
+      "stage": "P0",
+      "source_refs": [
+        "DESIGN-V03"
+      ],
+      "curriculum_refs": [
+        "SOC17"
+      ],
+      "city_id": "PYEONGTAEK",
+      "fictional": true,
+      "visit_mode": "PANEL",
+      "opening_panel_duration_days": 0,
+      "opening_panel_cost": {
+        "currency": "KRW",
+        "amount": 0
+      },
+      "services": [
+        "CURRENCY_EXCHANGE",
+        "PAYMENT_CALENDAR"
+      ],
+      "event_ids": [],
+      "revisit_reason_ko": "지급 일정과 통화별 자금을 확인합니다. 주식은 P1, 상장 자문은 P2입니다.",
+      "activity_execution_ko": "열람과 실제 활동을 구분하며 활동에는 해당 지역의 가용 담당자를 배정합니다.",
+      "future_services": [
+        {
+          "id": "EQUITY_TRADING",
+          "stage": "P1"
+        },
+        {
+          "id": "IPO_ADVISORY",
+          "stage": "P2"
+        }
+      ]
+    }
+  ],
+  "$schema": "../schemas/venues.schema.json"
+}

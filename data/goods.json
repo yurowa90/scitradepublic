@@ -1,0 +1,147 @@
+{
+  "schema_version": "0.3.0",
+  "data_basis": "DESIGN",
+  "source_refs": [
+    "DESIGN-V03"
+  ],
+  "numeric_values_status": "합성 개발용 값. 현실 가격·운송일·직원 생산성 추정치가 아님.",
+  "items": [
+    {
+      "id": "COFFEE",
+      "name_ko": "커피",
+      "quantity_unit": "kg",
+      "mass_kg_per_unit": 1,
+      "volume_m3_per_unit": 0.003,
+      "storage_class": "dry",
+      "hs_code": null,
+      "hs_edition": null,
+      "hs_mapping_status": "NOT_VERIFIED",
+      "quality_model_status": "inspection_state_only_no_food_safety_threshold",
+      "source_refs": [
+        "DESIGN-V03"
+      ]
+    },
+    {
+      "id": "APPAREL",
+      "name_ko": "의류",
+      "quantity_unit": "piece",
+      "mass_kg_per_unit": 0.5,
+      "volume_m3_per_unit": 0.003,
+      "storage_class": "dry",
+      "hs_code": null,
+      "hs_edition": null,
+      "hs_mapping_status": "NOT_VERIFIED",
+      "quality_model_status": "inspection_state_only_no_food_safety_threshold",
+      "source_refs": [
+        "DESIGN-V03"
+      ]
+    },
+    {
+      "id": "COSMETICS",
+      "name_ko": "화장품",
+      "quantity_unit": "case",
+      "mass_kg_per_unit": 6,
+      "volume_m3_per_unit": 0.02,
+      "storage_class": "dry",
+      "hs_code": null,
+      "hs_edition": null,
+      "hs_mapping_status": "NOT_VERIFIED",
+      "quality_model_status": "inspection_state_only_no_food_safety_threshold",
+      "source_refs": [
+        "DESIGN-V03"
+      ]
+    },
+    {
+      "id": "FROZEN_SEAFOOD",
+      "name_ko": "냉동 수산물",
+      "quantity_unit": "kg",
+      "mass_kg_per_unit": 1,
+      "volume_m3_per_unit": 0.002,
+      "storage_class": "refrigerated",
+      "hs_code": null,
+      "hs_edition": null,
+      "hs_mapping_status": "NOT_VERIFIED",
+      "quality_model_status": "inspection_state_only_no_food_safety_threshold",
+      "source_refs": [
+        "DESIGN-V03"
+      ]
+    },
+    {
+      "id": "FURNITURE",
+      "name_ko": "가구",
+      "quantity_unit": "piece",
+      "mass_kg_per_unit": 20,
+      "volume_m3_per_unit": 0.2,
+      "storage_class": "dry",
+      "hs_code": null,
+      "hs_edition": null,
+      "hs_mapping_status": "NOT_VERIFIED",
+      "quality_model_status": "inspection_state_only_no_food_safety_threshold",
+      "source_refs": [
+        "DESIGN-V03"
+      ]
+    },
+    {
+      "id": "ELECTRONICS",
+      "name_ko": "전자제품",
+      "quantity_unit": "case",
+      "mass_kg_per_unit": 8,
+      "volume_m3_per_unit": 0.03,
+      "storage_class": "dry",
+      "hs_code": null,
+      "hs_edition": null,
+      "hs_mapping_status": "NOT_VERIFIED",
+      "quality_model_status": "inspection_state_only_no_food_safety_threshold",
+      "source_refs": [
+        "DESIGN-V03"
+      ]
+    },
+    {
+      "id": "AUTO_PARTS",
+      "name_ko": "자동차 부품",
+      "quantity_unit": "case",
+      "mass_kg_per_unit": 12,
+      "volume_m3_per_unit": 0.04,
+      "storage_class": "dry",
+      "hs_code": null,
+      "hs_edition": null,
+      "hs_mapping_status": "NOT_VERIFIED",
+      "quality_model_status": "inspection_state_only_no_food_safety_threshold",
+      "source_refs": [
+        "DESIGN-V03"
+      ]
+    },
+    {
+      "id": "SOLAR_MODULES",
+      "name_ko": "태양광 모듈",
+      "quantity_unit": "piece",
+      "mass_kg_per_unit": 20,
+      "volume_m3_per_unit": 0.08,
+      "storage_class": "dry",
+      "hs_code": null,
+      "hs_edition": null,
+      "hs_mapping_status": "NOT_VERIFIED",
+      "quality_model_status": "inspection_state_only_no_food_safety_threshold",
+      "source_refs": [
+        "DESIGN-V03"
+      ]
+    }
+    ,
+    {
+      "id": "SEASONED_LAVER",
+      "name_ko": "조미김",
+      "quantity_unit": "case",
+      "mass_kg_per_unit": 3,
+      "volume_m3_per_unit": 0.01,
+      "storage_class": "dry",
+      "hs_code": null,
+      "hs_edition": null,
+      "hs_mapping_status": "NOT_VERIFIED",
+      "quality_model_status": "inspection_state_only_no_food_safety_threshold",
+      "source_refs": [
+        "DESIGN-V03"
+      ]
+    }
+  ],
+  "$schema": "../schemas/goods.schema.json"
+}

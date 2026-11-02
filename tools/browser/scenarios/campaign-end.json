@@ -1,0 +1,88 @@
+{
+  "schema": "scitrade-browser-scenario/1",
+  "id": "campaign-end",
+  "title_ko": "캠페인 종료와 결산 이동",
+  "source_ko": "TASK-0023 구현 지시 3-4·6",
+  "profiles": [
+    "l1366",
+    "cb1366t",
+    "t1000"
+  ],
+  "steps": [
+    {
+      "do": "end-day",
+      "times": 10
+    },
+    {
+      "do": "end-day",
+      "times": 10
+    },
+    {
+      "do": "end-day",
+      "times": 10
+    },
+    {
+      "do": "end-day",
+      "times": 10
+    },
+    {
+      "do": "end-day",
+      "times": 10
+    },
+    {
+      "do": "end-day",
+      "times": 10
+    },
+    {
+      "do": "end-day",
+      "times": 10
+    },
+    {
+      "do": "end-day",
+      "times": 10
+    },
+    {
+      "do": "end-day",
+      "times": 10
+    },
+    {
+      "do": "wait",
+      "ms": 400
+    },
+    {
+      "do": "measure",
+      "name": "settlement_from_bar",
+      "what": "top-from-bar",
+      "selector": "#settlement-h"
+    },
+    {
+      "do": "measure",
+      "name": "overflow_x_end",
+      "what": "overflow-x"
+    }
+  ],
+  "expect": [
+    {
+      "value": "settlement_from_bar",
+      "min": -2,
+      "max": 8,
+      "profiles": [
+        "l1366",
+        "cb1366t",
+        "t1000"
+      ],
+      "source_ko": "TASK-0023 구현 지시 3-4·6"
+    },
+    {
+      "value": "overflow_x_end",
+      "min": 0,
+      "max": 0,
+      "profiles": [
+        "l1366",
+        "cb1366t",
+        "t1000"
+      ],
+      "source_ko": "TASK-0023 구현 지시 3-4·6"
+    }
+  ]
+}

@@ -1,0 +1,131 @@
+{
+  "schema_version": "0.3.0",
+  "data_basis": "OBSERVED_AND_DERIVED",
+  "source_refs": [
+    "S4"
+  ],
+  "retrieved_on": "2026-10-04",
+  "source_url": "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist.zip",
+  "source_description_url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html",
+  "raw_sha256": "9465dd5c6b7a5c1c70b1915589d91722c4f90a8ed40222100fdbaebcc5a745f3",
+  "raw_hash_scope": "downloaded ZIP bytes",
+  "source_member": "eurofxref-hist.csv",
+  "source_member_sha256": "b90db8ec357f58e508a87eda4562d92134cf6bd9cdfe69d0bbbce848ebe73090",
+  "purpose": "import_test_only",
+  "auto_load_as_operating_data": false,
+  "scope": {
+    "publisher": "European Central Bank",
+    "series": "Euro foreign exchange reference rates",
+    "base_currency": "EUR",
+    "date_start": "2024-01-02",
+    "date_end": "2024-01-15",
+    "observations": 10,
+    "frequency": "published business days",
+    "observed_fields": [
+      "usd_per_eur",
+      "krw_per_eur"
+    ],
+    "derived_fields": [
+      "krw_per_usd_derived"
+    ]
+  },
+  "unit": {
+    "usd_per_eur": "USD per EUR",
+    "krw_per_eur": "KRW per EUR",
+    "krw_per_usd_derived": "KRW per USD"
+  },
+  "numeric_encoding": "decimal strings; observed strings preserved from source CSV",
+  "derivation": {
+    "formula": "krw_per_usd_derived = krw_per_eur / usd_per_eur",
+    "decimal_places": 12,
+    "rounding": "ROUND_HALF_EVEN"
+  },
+  "notes": [
+    "ECB reference rates are published for information purposes; they are not executable or tradable exchange-rate quotes.",
+    "USD/EUR and KRW/EUR values are observed reference-rate strings preserved from the downloaded ECB CSV. KRW/USD is a derived cross-rate, not an independently observed quotation.",
+    "These ten rows are an import and arithmetic test sample only. Do not automatically load them as game operating data or replace the separate DESIGN exchange-rate assumption of 1300 KRW/USD.",
+    "No weekend observations, spreads, fees or synthetic interpolation have been added. Twelve decimal places preserve arithmetic precision and do not imply that the source observations have twelve-place measurement accuracy.",
+    "The official historical archive is mutable; raw_sha256 identifies the exact downloaded ZIP used for this extraction."
+  ],
+  "items": [
+    {
+      "id": "FX-ECB-2024-01-02",
+      "date": "2024-01-02",
+      "usd_per_eur": "1.0956",
+      "krw_per_eur": "1438.78",
+      "krw_per_usd_derived": "1313.234757210661"
+    },
+    {
+      "id": "FX-ECB-2024-01-03",
+      "date": "2024-01-03",
+      "usd_per_eur": "1.0919",
+      "krw_per_eur": "1432.28",
+      "krw_per_usd_derived": "1311.731843575419"
+    },
+    {
+      "id": "FX-ECB-2024-01-04",
+      "date": "2024-01-04",
+      "usd_per_eur": "1.0953",
+      "krw_per_eur": "1434.25",
+      "krw_per_usd_derived": "1309.458595818497"
+    },
+    {
+      "id": "FX-ECB-2024-01-05",
+      "date": "2024-01-05",
+      "usd_per_eur": "1.0921",
+      "krw_per_eur": "1439.64",
+      "krw_per_usd_derived": "1318.230931233404"
+    },
+    {
+      "id": "FX-ECB-2024-01-08",
+      "date": "2024-01-08",
+      "usd_per_eur": "1.0946",
+      "krw_per_eur": "1444.94",
+      "krw_per_usd_derived": "1320.062123150009"
+    },
+    {
+      "id": "FX-ECB-2024-01-09",
+      "date": "2024-01-09",
+      "usd_per_eur": "1.094",
+      "krw_per_eur": "1442.62",
+      "krw_per_usd_derived": "1318.665447897623"
+    },
+    {
+      "id": "FX-ECB-2024-01-10",
+      "date": "2024-01-10",
+      "usd_per_eur": "1.0946",
+      "krw_per_eur": "1443.77",
+      "krw_per_usd_derived": "1318.993239539558"
+    },
+    {
+      "id": "FX-ECB-2024-01-11",
+      "date": "2024-01-11",
+      "usd_per_eur": "1.0987",
+      "krw_per_eur": "1444.39",
+      "krw_per_usd_derived": "1314.635478292528"
+    },
+    {
+      "id": "FX-ECB-2024-01-12",
+      "date": "2024-01-12",
+      "usd_per_eur": "1.0942",
+      "krw_per_eur": "1438.73",
+      "krw_per_usd_derived": "1314.869310912082"
+    },
+    {
+      "id": "FX-ECB-2024-01-15",
+      "date": "2024-01-15",
+      "usd_per_eur": "1.0945",
+      "krw_per_eur": "1446.95",
+      "krw_per_usd_derived": "1322.019186843307"
+    }
+  ],
+  "reuse": {
+    "source": "European Central Bank",
+    "terms_url": "https://www.ecb.europa.eu/services/using-our-site/disclaimer/html/index.en.html",
+    "checked_on": "2026-10-04",
+    "access_notice_ko": "관측 자료는 ECB 웹사이트에서 무료로 구할 수 있습니다.",
+    "modification_notice_ko": "원 CSV 중 10일·2개 통화 열을 추출하고 열 이름을 바꾸었습니다. 원 관측값 문자열은 보존했으며 KRW/USD 열은 프로젝트에서 나누기로 산출했습니다.",
+    "commercial_redistribution_note_ko": "자료가 포함된 문서를 유료 배포할 때는 구매 전과 자료 접근 시 무료 원자료 안내 등 ECB 조건을 함께 적용합니다."
+  },
+  "$schema": "../schemas/observed_fx_sample.schema.json"
+}

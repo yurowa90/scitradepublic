@@ -1,0 +1,159 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "market_offers v0.4 data shape",
+  "description": "Starter data shape, plus semantic checks in tools/validate_data.py. Not a complete game engine command contract.",
+  "type": "object",
+  "required": [
+    "$schema",
+    "data_basis",
+    "items",
+    "numeric_values_status",
+    "schema_version",
+    "source_refs"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "data_basis": {
+      "type": "string"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "city_id",
+          "counterparty_id",
+          "good_id",
+          "id",
+          "kind",
+          "quantity",
+          "quantity_unit",
+          "source_refs",
+          "valid_until_day"
+        ],
+        "properties": {
+          "city_id": {
+            "type": "string"
+          },
+          "counterparty_id": {
+            "type": "string"
+          },
+          "delivery_deadline_day": {
+            "type": "integer"
+          },
+          "good_id": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "supplier",
+              "customer",
+              "forwarding"
+            ]
+          },
+          "origin_country_code": {
+            "type": "string"
+          },
+          "payment_due_day": {
+            "type": "integer"
+          },
+          "quantity": {
+            "type": "integer"
+          },
+          "quantity_unit": {
+            "type": "string"
+          },
+          "source_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "unit_price": {
+            "type": "object",
+            "required": [
+              "amount",
+              "currency"
+            ],
+            "properties": {
+              "amount": {
+                "type": "integer"
+              },
+              "currency": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": true
+          },
+          "valid_until_day": {
+            "type": "integer"
+          },
+          "destination_city_id": {
+            "type": "string"
+          },
+          "cargo_owner": {
+            "type": "string",
+            "enum": [
+              "customer"
+            ]
+          },
+          "service_fee": {
+            "type": "object",
+            "required": [
+              "amount",
+              "currency"
+            ],
+            "properties": {
+              "amount": {
+                "type": "integer"
+              },
+              "currency": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": true
+          },
+          "declared_cargo_value": {
+            "type": "object",
+            "required": [
+              "amount",
+              "currency"
+            ],
+            "properties": {
+              "amount": {
+                "type": "integer"
+              },
+              "currency": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": true
+          },
+          "note_ko": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "numeric_values_status": {
+      "type": "string"
+    },
+    "schema_version": {
+      "type": "string"
+    },
+    "source_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": true
+}

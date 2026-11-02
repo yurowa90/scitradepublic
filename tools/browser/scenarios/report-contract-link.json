@@ -1,0 +1,57 @@
+{
+  "schema": "scitrade-browser-scenario/1",
+  "id": "report-contract-link",
+  "title_ko": "보고 원인에서 계약으로 이동",
+  "source_ko": "TASK-0023 구현 지시 0·1·6",
+  "profiles": "all",
+  "steps": [
+    {
+      "do": "tap",
+      "selector": "[data-action=\"accept\"][data-buy]"
+    },
+    {
+      "do": "end-day",
+      "times": 1
+    },
+    {
+      "do": "scroll-to",
+      "selector": ".report [data-action=\"goto-contract\"]",
+      "offset_from_bar": 200
+    },
+    {
+      "do": "tap",
+      "selector": ".report [data-action=\"goto-contract\"]"
+    },
+    {
+      "do": "wait",
+      "ms": 350
+    },
+    {
+      "do": "measure",
+      "name": "contract_from_bar",
+      "what": "top-from-bar",
+      "selector": "[id^=\"contract-h-\"]"
+    },
+    {
+      "do": "measure",
+      "name": "overflow_x",
+      "what": "overflow-x"
+    }
+  ],
+  "expect": [
+    {
+      "value": "contract_from_bar",
+      "min": -2,
+      "max": 8,
+      "profiles": "all",
+      "source_ko": "TASK-0023 구현 지시 0·1·6"
+    },
+    {
+      "value": "overflow_x",
+      "min": 0,
+      "max": 0,
+      "profiles": "all",
+      "source_ko": "TASK-0023 구현 지시 0·1·6"
+    }
+  ]
+}

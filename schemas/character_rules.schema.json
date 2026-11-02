@@ -1,0 +1,343 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "character_rules v0.4 data shape",
+  "description": "Starter data shape, plus semantic checks in tools/validate_data.py. Not a complete game engine command contract.",
+  "type": "object",
+  "required": [
+    "$schema",
+    "attributes",
+    "base_stat_budget",
+    "country_policy",
+    "data_basis",
+    "enhancement_policy",
+    "enhancement_steps",
+    "final_stat_cap",
+    "items",
+    "level_gain",
+    "level_max",
+    "level_min",
+    "ordinary_training",
+    "performance",
+    "project_roles",
+    "reward_idempotency_key",
+    "schema_version",
+    "source_refs",
+    "stats",
+    "status",
+    "task_completion_xp",
+    "team_max_members",
+    "xp_threshold_formula",
+    "xp_thresholds"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "attributes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "affinity_job_id",
+          "does_not_lock_profession",
+          "id",
+          "name_ko",
+          "suggested_stat"
+        ],
+        "properties": {
+          "affinity_job_id": {
+            "type": "string"
+          },
+          "does_not_lock_profession": {
+            "type": "boolean"
+          },
+          "id": {
+            "type": "string"
+          },
+          "name_ko": {
+            "type": "string"
+          },
+          "suggested_stat": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "base_stat_budget": {
+      "type": "integer"
+    },
+    "country_policy": {
+      "type": "object",
+      "required": [
+        "country_locked_by_species",
+        "evidence_fields",
+        "experience_is_learned",
+        "nationality_bonus",
+        "network_scope"
+      ],
+      "properties": {
+        "country_locked_by_species": {
+          "type": "boolean"
+        },
+        "evidence_fields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "experience_is_learned": {
+          "type": "boolean"
+        },
+        "nationality_bonus": {
+          "type": "integer"
+        },
+        "network_scope": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "data_basis": {
+      "type": "string"
+    },
+    "enhancement_policy": {
+      "type": "object",
+      "required": [
+        "consumes_other_character",
+        "effect_applied_once_at_completion",
+        "failure_probability",
+        "one_pending_upgrade_per_employee",
+        "sequential_only"
+      ],
+      "properties": {
+        "consumes_other_character": {
+          "type": "boolean"
+        },
+        "effect_applied_once_at_completion": {
+          "type": "boolean"
+        },
+        "failure_probability": {
+          "type": "integer"
+        },
+        "one_pending_upgrade_per_employee": {
+          "type": "boolean"
+        },
+        "sequential_only": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": true
+    },
+    "enhancement_steps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "duration_days",
+          "fee_krw",
+          "next_rank",
+          "primary_stat_gain",
+          "required_level",
+          "xp_awarded"
+        ],
+        "properties": {
+          "duration_days": {
+            "type": "integer"
+          },
+          "fee_krw": {
+            "type": "integer"
+          },
+          "next_rank": {
+            "type": "integer"
+          },
+          "primary_stat_gain": {
+            "type": "integer"
+          },
+          "required_level": {
+            "type": "integer"
+          },
+          "xp_awarded": {
+            "type": "integer"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "final_stat_cap": {
+      "type": "integer"
+    },
+    "items": {
+      "type": "array"
+    },
+    "level_gain": {
+      "type": "object",
+      "required": [
+        "primary_stat",
+        "secondary_stat"
+      ],
+      "properties": {
+        "primary_stat": {
+          "type": "integer"
+        },
+        "secondary_stat": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": true
+    },
+    "level_max": {
+      "type": "integer"
+    },
+    "level_min": {
+      "type": "integer"
+    },
+    "ordinary_training": {
+      "type": "object",
+      "required": [
+        "duration_days",
+        "fee",
+        "occupies_employee_reservation",
+        "salary_included_in_fee",
+        "xp_on_completion"
+      ],
+      "properties": {
+        "duration_days": {
+          "type": "integer"
+        },
+        "fee": {
+          "type": "object",
+          "required": [
+            "amount",
+            "currency"
+          ],
+          "properties": {
+            "amount": {
+              "type": "integer"
+            },
+            "currency": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": true
+        },
+        "occupies_employee_reservation": {
+          "type": "boolean"
+        },
+        "salary_included_in_fee": {
+          "type": "boolean"
+        },
+        "xp_on_completion": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": true
+    },
+    "performance": {
+      "type": "object",
+      "required": [
+        "ability_factor_base",
+        "ability_factor_per_point",
+        "excluded",
+        "formula",
+        "max_individual_multiplier_before_capacity",
+        "mode_switch",
+        "rounding",
+        "scope",
+        "synergy_cap"
+      ],
+      "properties": {
+        "ability_factor_base": {
+          "type": "number"
+        },
+        "ability_factor_per_point": {
+          "type": "number"
+        },
+        "excluded": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "formula": {
+          "type": "string"
+        },
+        "max_individual_multiplier_before_capacity": {
+          "type": "number"
+        },
+        "mode_switch": {
+          "type": "string"
+        },
+        "rounding": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "string"
+        },
+        "synergy_cap": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": true
+    },
+    "project_roles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "reward_idempotency_key": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "schema_version": {
+      "type": "string"
+    },
+    "source_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "stats": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "type": "string"
+    },
+    "task_completion_xp": {
+      "type": "integer"
+    },
+    "team_max_members": {
+      "type": "integer"
+    },
+    "xp_threshold_formula": {
+      "type": "string"
+    },
+    "xp_thresholds": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "cumulative_xp",
+          "level"
+        ],
+        "properties": {
+          "cumulative_xp": {
+            "type": "integer"
+          },
+          "level": {
+            "type": "integer"
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}

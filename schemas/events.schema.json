@@ -1,0 +1,212 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "events v0.4 data shape",
+  "description": "Starter data shape, plus semantic checks in tools/validate_data.py. Not a complete game engine command contract.",
+  "type": "object",
+  "required": [
+    "$schema",
+    "data_basis",
+    "items",
+    "schema_version"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "data_basis": {
+      "type": "string"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "choices",
+          "curriculum_refs",
+          "feedback_fields",
+          "id",
+          "resolution_rules_ko",
+          "source_refs",
+          "stage",
+          "title_ko",
+          "trigger",
+          "venue_id"
+        ],
+        "properties": {
+          "choices": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "command_template",
+                "id",
+                "label_ko",
+                "tradeoff_ko"
+              ],
+              "properties": {
+                "command_template": {
+                  "type": "object",
+                  "required": [
+                    "args",
+                    "execution_status",
+                    "type"
+                  ],
+                  "properties": {
+                    "args": {
+                      "type": "object",
+                      "required": [],
+                      "properties": {
+                        "actor_id": {
+                          "type": "string"
+                        },
+                        "candidate_id": {
+                          "type": "string"
+                        },
+                        "cargo_lot_id": {
+                          "type": "string"
+                        },
+                        "contract_id": {
+                          "type": "string"
+                        },
+                        "contract_ids": {
+                          "type": "string"
+                        },
+                        "field": {
+                          "type": "string"
+                        },
+                        "good_id": {
+                          "type": "string"
+                        },
+                        "inspection_offer_id": {
+                          "type": "string"
+                        },
+                        "offer_id": {
+                          "type": "string"
+                        },
+                        "policy_id": {
+                          "type": "string"
+                        },
+                        "proposal": {
+                          "type": "string"
+                        },
+                        "proposed_value": {
+                          "type": "string"
+                        },
+                        "purchase_contract_id": {
+                          "type": "string"
+                        },
+                        "quantity": {
+                          "type": "string"
+                        },
+                        "scope_id": {
+                          "type": "string"
+                        },
+                        "shipment_id": {
+                          "type": "string"
+                        },
+                        "storage_offer_id": {
+                          "type": "string"
+                        },
+                        "task_id": {
+                          "type": "string"
+                        },
+                        "topic": {
+                          "type": "string"
+                        }
+                      },
+                      "additionalProperties": true
+                    },
+                    "execution_status": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": true
+                },
+                "id": {
+                  "type": "string"
+                },
+                "label_ko": {
+                  "type": "string"
+                },
+                "tradeoff_ko": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": true
+            }
+          },
+          "curriculum_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "feedback_fields": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "id": {
+            "type": "string"
+          },
+          "resolution_rules_ko": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "source_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "stage": {
+            "type": "string"
+          },
+          "title_ko": {
+            "type": "string"
+          },
+          "trigger": {
+            "type": "object",
+            "required": [
+              "conditions",
+              "facts_needed",
+              "kind"
+            ],
+            "properties": {
+              "conditions": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "facts_needed": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "kind": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": true
+          },
+          "venue_id": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "schema_version": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}

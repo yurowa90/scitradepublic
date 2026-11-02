@@ -1,0 +1,10 @@
+/* 먹·금선은 장면 바깥에만 둔다. 최소 정수 배율이 화면보다 크면 안쪽에서 스크롤한다. */
+.office-scene { position: fixed; inset: 0; z-index: 30; display: grid; place-items: center; padding: 16px; background: #14161ce6; }
+.office-dialog { width: min(100%, 1320px); max-height: 100%; min-width: 0; overflow: auto; padding: 16px; background: var(--paper); color: var(--navy); border: 1px solid var(--gold); border-radius: 4px; }
+.office-dialog h2 { margin: 0 0 12px; }
+.office-dialog > button { margin-bottom: 12px; }
+.office-viewport { max-width: 100%; overflow: auto; }
+.office-stage { position: relative; width: calc(640 * var(--office-unit)); height: calc(360 * var(--office-unit)); outline: 1px solid var(--gold); }
+.office-stage > img { display: block; width: 100%; height: 100%; max-width: none; }
+.office-seat { position: absolute; line-height: 0; }
+.office-crew { overflow-wrap: anywhere; }

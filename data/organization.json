@@ -1,0 +1,126 @@
+{
+  "schema_version": "0.4.0",
+  "data_basis": "DESIGN",
+  "source_refs": [
+    "DESIGN-V04"
+  ],
+  "items": [
+    {
+      "id": "TEAM_SALES",
+      "name_ko": "영업팀",
+      "department_id": "DEPT_COMMERCE",
+      "stage": "P0",
+      "primary_function": "sales",
+      "roles": [
+        "team_lead",
+        "specialist",
+        "support"
+      ],
+      "automatic_global_buff": false
+    },
+    {
+      "id": "TEAM_PROCUREMENT",
+      "name_ko": "구매조달팀",
+      "department_id": "DEPT_COMMERCE",
+      "stage": "P1",
+      "primary_function": "procurement",
+      "roles": [
+        "team_lead",
+        "specialist",
+        "support"
+      ],
+      "automatic_global_buff": false
+    },
+    {
+      "id": "TEAM_LOGISTICS",
+      "name_ko": "물류운영팀",
+      "department_id": "DEPT_OPERATIONS",
+      "stage": "P0",
+      "primary_function": "operations",
+      "roles": [
+        "team_lead",
+        "specialist",
+        "support"
+      ],
+      "automatic_global_buff": false
+    },
+    {
+      "id": "TEAM_QUALITY",
+      "name_ko": "기술품질팀",
+      "department_id": "DEPT_OPERATIONS",
+      "stage": "P1",
+      "primary_function": "technical",
+      "roles": [
+        "team_lead",
+        "specialist",
+        "support"
+      ],
+      "automatic_global_buff": false
+    },
+    {
+      "id": "TEAM_LEGAL",
+      "name_ko": "법무통상팀",
+      "department_id": "DEPT_SUPPORT",
+      "stage": "P1",
+      "primary_function": "legal",
+      "roles": [
+        "team_lead",
+        "specialist",
+        "support"
+      ],
+      "automatic_global_buff": false
+    },
+    {
+      "id": "TEAM_FINANCE",
+      "name_ko": "재무투자팀",
+      "department_id": "DEPT_SUPPORT",
+      "stage": "P1",
+      "primary_function": "finance",
+      "roles": [
+        "team_lead",
+        "specialist",
+        "support"
+      ],
+      "automatic_global_buff": false
+    },
+    {
+      "id": "TEAM_PEOPLE",
+      "name_ko": "인사교육팀",
+      "department_id": "DEPT_SUPPORT",
+      "stage": "P1",
+      "primary_function": "people",
+      "roles": [
+        "team_lead",
+        "specialist",
+        "support"
+      ],
+      "automatic_global_buff": false
+    }
+  ],
+  "departments": [
+    {
+      "id": "DEPT_COMMERCE",
+      "name_ko": "영업사업부"
+    },
+    {
+      "id": "DEPT_OPERATIONS",
+      "name_ko": "운영사업부"
+    },
+    {
+      "id": "DEPT_SUPPORT",
+      "name_ko": "경영지원부"
+    }
+  ],
+  "membership_rule": "한 직원의 주 소속팀1개와 교차 프로젝트 참여를 분리한다. 후보의 home_team_id는 예정 소속이며 고용·배치를 자동 확정하지 않는다.",
+  "team_lead_rule": "팀장 역할만으로 수행 인력 수에 자동 가산하지 않는다. 실제 시간 예약이 있어야 기여한다.",
+  "project_template": {
+    "max_members": 3,
+    "responsible_count": 1,
+    "support_max": 2,
+    "same_character_duplicates_allowed": false,
+    "draft_reserves_staff": false,
+    "confirm_reserves_all_active_members": true,
+    "existing_job_authority_is_not_overridden": true
+  },
+  "$schema": "../schemas/organization.schema.json"
+}

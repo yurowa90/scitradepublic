@@ -1,0 +1,16 @@
+{
+  "package_version": "0.5.0",
+  "design_version": "0.4",
+  "rebuilt_on": "2026-10-04",
+  "timezone": "Asia/Seoul",
+  "entrypoint": "README.md",
+  "game_implemented": false,
+  "art_assets_created": false,
+  "data_documents": 24,
+  "data_schemas": 24,
+  "core_acceptance_specifications": 37,
+  "character_acceptance_specifications": 8,
+  "design_path": "docs/DESIGN_v0.4.md",
+  "change_scope": "Public snapshot of the Scitrade development package (game code, data, schemas, design docs). Internal development records are kept in a private repository.",
+  "repository": "https://github.com/yurowa90/scitradepublic"
+}

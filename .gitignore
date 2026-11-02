@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+.venv/
+node_modules/
+dist/
+dist-package/
+.env
+.env.*
+!.env.example
+.DS_Store
+*.tsbuildinfo

@@ -1,0 +1,860 @@
+{
+  "schema_version": "0.3.0",
+  "data_basis": "DESIGN",
+  "source_refs": [
+    "DESIGN-V03"
+  ],
+  "numeric_values_status": "ROUTE01·02 운송일수는 실제 선사 요일표에서 센 값이다. ROUTE03~06 운송일수와 모든 운임·선복은 합성 값이다.",
+  "items": [
+    {
+      "id": "SCENARIO_M1_ONE_TRADE",
+      "stage": "M1",
+      "city_ids": [
+        "PYEONGTAEK",
+        "HAIPHONG"
+      ],
+      "good_id": "APPAREL",
+      "employee_ids": [
+        "EMP01"
+      ],
+      "offer_ids": [
+        "OFFER_BUY_01",
+        "OFFER_SELL_01"
+      ],
+      "route_id": "ROUTE01",
+      "quantity": 100,
+      "day_start": 1,
+      "booking_day": 1,
+      "departure_day": 2,
+      "arrival_day": 7,
+      "delivery_deadline_day": 8,
+      "cash_payment_due_day": 10,
+      "customs_days": 0,
+      "tax_rule": {
+        "basis": "supplier_goods_invoice_only_fictional",
+        "rate": 0.05,
+        "status": "DESIGN_not_actual_destination_tariff",
+        "duty_currency": "USD"
+      },
+      "note_ko": "contract_terms.pre_departure_cancellation.freight_refund는 ROUTE01 기준 검산 예시다. 실제 환급은 해당 예약의 선급 운임에서 고정 취소비를 뺀 금액이다.",
+      "contract_terms": {
+        "data_basis": "DESIGN",
+        "status": "USER_REVIEWED_2026-10-04",
+        "decision_ref": "docs/DECISIONS.md M1 엔진 구현 결정",
+        "prep_work_units": 2,
+        "booking_cutoff_days_before_departure": 1,
+        "pre_departure_cancellation": {
+          "freight_refund": {
+            "currency": "USD",
+            "amount": 150
+          },
+          "cancellation_fee": {
+            "currency": "USD",
+            "amount": 50
+          },
+          "customer_compensation": {
+            "currency": "USD",
+            "amount": 0
+          },
+          "supplier_return": false,
+          "applies_to_missed_sailing": true
+        },
+        "late_delivery": {
+          "price_reduction": {
+            "currency": "USD",
+            "amount": 50
+          },
+          "basis": "flat_once_regardless_of_late_days"
+        },
+        "payment_due_rule": "scenario_due_day_not_earlier_than_delivery_day",
+        "notes_ko": [
+          "수출 준비 2pt는 EMP01의 하루 처리량과 같아 1일 배정 시 2일 출항 전에 끝난다.",
+          "출항 전 취소와 준비 미완료로 출항편을 놓친 경우 모두 해당 예약의 선급 운임에서 취소비 50을 뺀 금액을 환급한다. 고객 보상 0, 공급자 반품 없음.",
+          "납기를 넘긴 인도는 지연 일수와 무관하게 판매대금을 50 USD 한 번 감액한다. 감액 후 금액을 매출로 인식한다.",
+          "결제일은 시나리오의 cash_payment_due_day이며 인도일보다 이를 수 없다.",
+          "모든 값은 현실 계약 관행이나 지체상금률이 아닌 개발용 가정이다."
+        ]
+      },
+      "expected_direct_trade_result": {
+        "purchase_usd": 1000,
+        "freight_usd": 200,
+        "duty_usd": 50,
+        "revenue_usd": 1400,
+        "contribution_before_payroll_usd": 150
+      },
+      "start_with_existing_employment": true,
+      "securities_enabled": false,
+      "culture_enabled": false,
+      "source_refs": [
+        "DESIGN-V03"
+      ],
+      "engine_rules": {
+        "rules_version": "M1-rules-1",
+        "funds_check": "immediate_cash",
+        "forwarding_enabled": false,
+        "note_ko": "M1 검산 규칙. 새 계약은 지금 현금만 확인하며 남은 운임·관세를 미리 묶지 않는다."
+      }
+    },
+    {
+      "id": "SCENARIO_CITY_CULTURE",
+      "stage": "M2",
+      "city_ids": [
+        "PYEONGTAEK"
+      ],
+      "employee_ids": [
+        "EMP01",
+        "EMP02"
+      ],
+      "good_id": "APPAREL",
+      "activity_ids": [
+        "CA01",
+        "CA02",
+        "CA03"
+      ],
+      "relationship_rule": "contact_specific",
+      "securities_enabled": false,
+      "source_refs": [
+        "DESIGN-V03"
+      ],
+      "culture_enabled": true
+    },
+    {
+      "id": "SCENARIO_STOCK_P1",
+      "stage": "P1",
+      "account_owner": "PLAYER_COMPANY",
+      "security_ids": [
+        "SEC01",
+        "SEC02",
+        "SEC03",
+        "SEC04"
+      ],
+      "securities_enabled": true,
+      "ipo_enabled": false,
+      "matching_frequency": "once_per_simulation_day",
+      "settlement": "on_execution_game_simplification",
+      "margin_allowed": false,
+      "source_refs": [
+        "DESIGN-V03"
+      ]
+    },
+    {
+      "id": "SCENARIO_M1_CANCEL_PREDEPARTURE",
+      "stage": "M1",
+      "base_scenario_id": "SCENARIO_M1_ONE_TRADE",
+      "city_ids": [
+        "PYEONGTAEK",
+        "HAIPHONG"
+      ],
+      "good_id": "APPAREL",
+      "employee_ids": [
+        "EMP01"
+      ],
+      "offer_ids": [
+        "OFFER_BUY_01",
+        "OFFER_SELL_01"
+      ],
+      "route_id": "ROUTE01",
+      "securities_enabled": false,
+      "ipo_enabled": false,
+      "source_refs": [
+        "DESIGN-V03"
+      ],
+      "actions_ko": [
+        "의류 100개를 1000 USD에 현금 매입",
+        "운임 200 USD 선지급",
+        "출항 전 계약 취소: 운임 150 USD 환급, 취소비 50 USD",
+        "공급자 반품 없음. 수입 전이므로 관세 없음. 고객 취소 보상 0은 이 fixture의 계약 조건"
+      ],
+      "expected_trade_only_usd": {
+        "opening_cash": 10000,
+        "cash_after": 8950,
+        "remaining_inventory_units": 100,
+        "inventory_cost": 1000,
+        "accounts_receivable": 0,
+        "revenue": 0,
+        "cancellation_expense": 50,
+        "contribution": -50,
+        "assets_cash_plus_inventory": 9950
+      },
+      "scope_note": "KRW 급여 등 회사 공통비는 별도 장부. 이 기대값은 USD 거래 장부만 검증."
+    },
+    {
+      "id": "SCENARIO_M1_DELAY_ACCEPTED",
+      "stage": "M1",
+      "base_scenario_id": "SCENARIO_M1_ONE_TRADE",
+      "city_ids": [
+        "PYEONGTAEK",
+        "HAIPHONG"
+      ],
+      "good_id": "APPAREL",
+      "employee_ids": [
+        "EMP01"
+      ],
+      "offer_ids": [
+        "OFFER_BUY_01",
+        "OFFER_SELL_01"
+      ],
+      "route_id": "ROUTE01",
+      "securities_enabled": false,
+      "ipo_enabled": false,
+      "source_refs": [
+        "DESIGN-V03"
+      ],
+      "departure_day": 2,
+      "arrival_day": 9,
+      "delivery_deadline_day": 8,
+      "cash_payment_due_day": 11,
+      "delay_source": "one shared port delay instance; add exactly 2 days",
+      "port_restriction": {
+        "data_basis": "DESIGN",
+        "status": "USER_REVIEWED_2026-10-04",
+        "event_template_id": "EV02",
+        "event_instance_id": "EVI_M1_EV02_HAIPHONG",
+        "city_id": "HAIPHONG",
+        "announce_day": 5,
+        "restriction_start_day": 7,
+        "restriction_end_day": 8,
+        "forecast_equals_actual": true,
+        "notes_ko": "공통 항만 사건 1개. 하역 중단 기간에 실제로 기다린 날만 지연으로 누적하며 총 지연일을 미리 더하지 않는다. 가상 공지이며 실제 기상 자료가 아니다."
+      },
+      "actions_ko": [
+        "매입 1000·운임 200·가상 관세 50 USD 지급",
+        "9일 인도: 고객이 화물을 수락하고 사전 계약 조건에 따라 판매대금 50 USD 감액",
+        "1400 USD에서 감액된 1350 USD 매출·채권 인식",
+        "11일 수금. 감액을 별도 비용으로 다시 차감하지 않음"
+      ],
+      "expected_trade_only_usd": {
+        "cash_before_collection": 8750,
+        "inventory_units": 0,
+        "accounts_receivable": 1350,
+        "net_revenue": 1350,
+        "direct_cost": 1250,
+        "contribution": 100,
+        "cash_after_collection": 10100
+      },
+      "scope_note": "가상 계약의 가격 감액 사례. 현실 지체상금률 아님. KRW 급여 등 공통비는 별도."
+    },
+    {
+      "id": "SCENARIO_CREW_M2",
+      "stage": "M2",
+      "city_ids": [
+        "PYEONGTAEK"
+      ],
+      "employee_ids": [
+        "EMP01",
+        "EMP02"
+      ],
+      "candidate_character_ids": [
+        "EMP03",
+        "EMP04",
+        "EMP05",
+        "EMP06"
+      ],
+      "character_system_enabled": true,
+      "training_enabled": true,
+      "enhancement_enabled": true,
+      "organization_enabled": true,
+      "productivity_mode": "CHARACTER_WEIGHTED",
+      "culture_enabled": true,
+      "securities_enabled": false,
+      "ipo_enabled": false,
+      "source_refs": [
+        "DESIGN-V04"
+      ],
+      "initial_level": 1,
+      "initial_enhancement_rank": 0,
+      "initial_xp": 0
+    },
+    {
+      "id": "SCENARIO_M2_MULTI_TRADE",
+      "growth": {
+        "enabled": true
+      },
+      "stage": "M2",
+      "title_ko": "복수 계약과 운송 주선 — 자금·인력·선복 예약",
+      "city_ids": [
+        "PYEONGTAEK",
+        "HAIPHONG",
+        "SHANGHAI"
+      ],
+      "employee_ids": [
+        "EMP01",
+        "EMP02"
+      ],
+      "offer_ids": [
+        "OFFER_BUY_01",
+        "OFFER_SELL_01",
+        "OFFER_BUY_02",
+        "OFFER_SELL_02",
+        "OFFER_FWD_01",
+        "OFFER_FWD_02"
+      ],
+      "route_ids": [
+        "ROUTE01",
+        "ROUTE02"
+      ],
+      "starting_cash": {
+        "USD": 3000,
+        "KRW": 10000000
+      },
+      "customs_days": 0,
+      "tax_rule": {
+        "basis": "supplier_goods_invoice_only_fictional",
+        "rate": 0.05,
+        "status": "DESIGN_not_actual_destination_tariff",
+        "duty_currency": "USD"
+      },
+      "engine_rules": {
+        "rules_version": "M2a-rules-1",
+        "funds_check": "committed_outlays",
+        "forwarding_enabled": true,
+        "note_ko": "체결한 계약이 앞으로 낼 운임·관세를 예약하고, 현금에서 예약과 미지급을 뺀 사용 가능 자금으로 새 계약을 판단한다."
+      },
+      "note_ko": "contract_terms.pre_departure_cancellation.freight_refund는 ROUTE01 기준 검산 예시다. 실제 환급은 해당 예약의 선급 운임에서 고정 취소비를 뺀 금액이다.",
+      "contract_terms": {
+        "data_basis": "DESIGN",
+        "status": "USER_REVIEWED_2026-10-05",
+        "decision_ref": "docs/DECISIONS.md M2a 복수 계약·운송 주선·자원 예약",
+        "prep_work_units": 2,
+        "booking_cutoff_days_before_departure": 1,
+        "pre_departure_cancellation": {
+          "freight_refund": {
+            "currency": "USD",
+            "amount": 150
+          },
+          "cancellation_fee": {
+            "currency": "USD",
+            "amount": 50
+          },
+          "customer_compensation": {
+            "currency": "USD",
+            "amount": 0
+          },
+          "supplier_return": false,
+          "applies_to_missed_sailing": true
+        },
+        "late_delivery": {
+          "price_reduction": {
+            "currency": "USD",
+            "amount": 50
+          },
+          "basis": "flat_once_regardless_of_late_days"
+        },
+        "payment_due_rule": "offer_due_day_not_earlier_than_delivery_day",
+        "notes_ko": [
+          "수출 준비와 운송 주선 준비(화물 인수·선적 서류)는 각각 2pt다. 직원 1명은 한 번에 업무 1건만 맡는다.",
+          "출항 전 취소와 준비 미완료로 출항편을 놓친 경우 모두 해당 예약의 선급 운임에서 취소비 50을 뺀 금액을 환급한다. 직접 무역은 공급자 반품 없음, 운송 주선 화물은 화주에게 돌려준다.",
+          "납기를 넘긴 인도는 지연 일수와 무관하게 계약 금액을 50 USD 한 번 감액한다. 상품 판매대금과 운송 주선 서비스 대금에 같은 조건을 쓴다.",
+          "결제일은 고객 견적의 payment_due_day이며 인도일보다 이를 수 없다.",
+          "운송 주선 화물의 수입 관세는 수입자(고객)가 부담하는 것으로 단순화한다. 실제로는 계약 조건(인코텀즈·대행 계약)에 따라 대납 후 청구할 수도 있다.",
+          "모든 값은 현실 계약 관행이나 운임 시세가 아닌 개발용 가정이다."
+        ],
+        "forwarding_prep_work_units": 2,
+        "forwarding_duty_payer": "consignee"
+      },
+      "expected_paths_usd": [
+        {
+          "id": "PATH_COSMETICS_AND_FORWARDING",
+          "title_ko": "화장품 직접 무역 + 운송 주선 2건 (자동차 부품은 9일 편)",
+          "trades": [
+            [
+              "OFFER_BUY_02",
+              "OFFER_SELL_02"
+            ]
+          ],
+          "forwarding_offer_ids": [
+            "OFFER_FWD_01",
+            "OFFER_FWD_02"
+          ],
+          "sailing_by_offer": {
+            "OFFER_BUY_02": "ROUTE02-D002",
+            "OFFER_FWD_01": "ROUTE01-D002",
+            "OFFER_FWD_02": "ROUTE01-D009"
+          },
+          "cash_after_day1": 420,
+          "reserved_after_day1": 100,
+          "available_after_day1": 320,
+          "cash_after_day7": 320,
+          "accounts_receivable_after_day7": 2880,
+          "goods_revenue": 2500,
+          "cost_of_goods_sold": 2280,
+          "forwarding_revenue": 680,
+          "forwarding_cost": 400,
+          "contribution": 500,
+          "final_day": 17,
+          "cash_final": 3500
+        },
+        {
+          "id": "PATH_APPAREL_AND_FORWARDING",
+          "title_ko": "의류 직접 무역 + 운송 주선 2건 (자동차 부품은 9일 편)",
+          "trades": [
+            [
+              "OFFER_BUY_01",
+              "OFFER_SELL_01"
+            ]
+          ],
+          "forwarding_offer_ids": [
+            "OFFER_FWD_01",
+            "OFFER_FWD_02"
+          ],
+          "sailing_by_offer": {
+            "OFFER_BUY_01": "ROUTE01-D002",
+            "OFFER_FWD_01": "ROUTE01-D002",
+            "OFFER_FWD_02": "ROUTE01-D009"
+          },
+          "cash_after_day1": 1400,
+          "reserved_after_day1": 50,
+          "available_after_day1": 1350,
+          "goods_revenue": 1400,
+          "cost_of_goods_sold": 1250,
+          "forwarding_revenue": 680,
+          "forwarding_cost": 400,
+          "contribution": 430,
+          "final_day": 17,
+          "cash_final": 3430
+        }
+      ],
+      "expected_rejections": [
+        {
+          "id": "REJECT_SECOND_DIRECT_TRADE",
+          "first_trade": [
+            "OFFER_BUY_01",
+            "OFFER_SELL_01"
+          ],
+          "second_trade": [
+            "OFFER_BUY_02",
+            "OFFER_SELL_02"
+          ],
+          "cash_after_first": 2000,
+          "reserved_after_first": 250,
+          "available_after_first": 1750,
+          "needed_for_second": 2280,
+          "note_ko": "두 번째 거래의 매입대금 2,000은 현금으로 낼 수 있지만, 첫 거래의 운임·관세 250을 위해 묶인 돈은 쓰지 않으므로 거절한다."
+        },
+        {
+          "id": "REJECT_FORWARDING_SAME_SAILING",
+          "sailing_id": "ROUTE01-D002",
+          "volume_m3_first": 24,
+          "volume_m3_second": 8,
+          "capacity_m3": 30,
+          "note_ko": "가구 24m³와 자동차 부품 8m³를 같은 편에 실으면 30m³를 넘는다. 무게(4,800kg)는 한도 안이다."
+        }
+      ],
+      "start_with_existing_employment": true,
+      "character_system_enabled": false,
+      "productivity_mode": "LEGACY_FIXED",
+      "culture_enabled": true,
+      "securities_enabled": false,
+      "ipo_enabled": false,
+      "source_refs": [
+        "DESIGN-V03",
+        "DESIGN-V04"
+      ],
+      "scope_note": "M2a: 복수 계약·운송 주선·자원 예약·동료 발견·영입·고용. 기대값은 USD 거래 장부만 검증하며 KRW 급여·영입 계약금은 별도. 평택 현지 활동 3종(원화 비용, USD 기대값과 무관). 창고는 이후 단계.",
+      "recruitment": {
+        "data_basis": "DESIGN",
+        "status": "USER_REVIEWED_2026-10-05",
+        "decision_ref": "docs/DECISIONS.md 앞으로의 계획과 사용자 결정 — 2026-10-05",
+        "candidate_employee_ids": [
+          "EMP03",
+          "EMP04",
+          "EMP05",
+          "EMP06"
+        ],
+        "scout_work_units": 1,
+        "quest_work_units": 3,
+        "signing_fee_wage_days": 5,
+        "scout_sites": [
+          {
+            "venue_id": "VEN_LOUNGE",
+            "city_id": "PYEONGTAEK",
+            "candidate_employee_ids": [
+              "EMP03"
+            ]
+          },
+          {
+            "venue_id": "VEN_PORT",
+            "city_id": "PYEONGTAEK",
+            "candidate_employee_ids": [
+              "EMP04",
+              "EMP06"
+            ]
+          },
+          {
+            "venue_id": "VEN_TRADE",
+            "city_id": "PYEONGTAEK",
+            "candidate_employee_ids": [
+              "EMP05"
+            ]
+          }
+        ]
+      },
+      "culture": {
+        "data_basis": "DESIGN",
+        "status": "USER_REVIEWED_2026-10-06",
+        "decision_ref": "docs/DECISIONS.md M2a-4 도시 방문·문화 활동",
+        "activity_ids": [
+          "CA01",
+          "CA02",
+          "CA03"
+        ]
+      }
+    },
+    {
+      "id": "SCENARIO_M2_OPERATIONS",
+      "base_scenario_id": "SCENARIO_M2_MULTI_TRADE",
+      "title_ko": "평택 본사 90일 운영 — 반복 견적·창고·환전",
+      "engine_rules": {
+        "rules_version": "M2a-rules-2",
+        "funds_check": "committed_outlays",
+        "forwarding_enabled": true,
+        "note_ko": "매주 새 견적이 공개되고, 창고 보관·처리 한도와 원화 고정비가 있다. 원화는 환전 명령으로만 마련하며 미지급이 14일 남으면 경영 실패다."
+      },
+      "contract_terms": {
+        "data_basis": "DESIGN",
+        "status": "PRE_TUNING_2026-10-10",
+        "decision_ref": "docs/DECISIONS.md 사용자 결정 일괄 채택 D03·D04, docs/ai/design/M2A5-SPEC.md",
+        "prep_work_units": 2,
+        "booking_cutoff_days_before_departure": 1,
+        "pre_departure_cancellation": {
+          "freight_refund": {
+            "currency": "USD",
+            "amount": 150
+          },
+          "cancellation_fee": {
+            "currency": "USD",
+            "amount": 50
+          },
+          "customer_compensation": {
+            "currency": "USD",
+            "amount": 0
+          },
+          "supplier_return": false,
+          "applies_to_missed_sailing": true
+        },
+        "late_delivery": {
+          "price_reduction": {
+            "currency": "USD",
+            "amount": 50
+          },
+          "basis": "per_late_day_capped",
+          "cap_basis_points": 10000
+        },
+        "payment_due_rule": "offer_due_day_not_earlier_than_delivery_day",
+        "notes_ko": [
+          "직접 무역 수출 준비는 기본 단위 2pt에 단위가 하나 늘 때마다 1pt를 더한다. 일반 운송 주선 준비는 6m³당 1pt(최소 2pt), 작업 포함 운송 주선은 견적마다 12pt다. 직원 1명은 한 번에 업무 1건만 맡는다.",
+          "출항 전 취소와 준비 미완료로 출항편을 놓친 경우 모두 해당 예약의 선급 운임에서 취소비 50을 뺀 금액을 환급한다. 직접 무역은 공급자 반품 없음, 운송 주선 화물은 화주에게 돌려준다.",
+          "납기를 넘긴 인도는 늦은 하루마다 50 USD를 감액하되, 감액 합계는 계약 금액(상품 판매대금 또는 운송 주선 서비스 대금)을 넘지 않는다. 이 값은 사전 조정값이며 비교 실행기 재측정으로 확정한다.",
+          "결제일은 고객 견적의 payment_due_day이며 인도일보다 이를 수 없다.",
+          "운송 주선 화물의 수입 관세는 수입자(고객)가 부담하는 것으로 단순화한다.",
+          "임차료·창고 확장비·환전 차감은 원화, 선복 계약 요금은 USD다. 원화는 환전 명령으로만 마련하고 자동 환전은 없다. 가장 오래된 미지급이 14일 남은 날 마감에 경영 실패다.",
+          "모든 값은 현실 계약 관행이나 운임 시세가 아닌 개발용 가정이다."
+        ],
+        "forwarding_prep_work_units": 2,
+        "forwarding_duty_payer": "consignee"
+      },
+      "operations": {
+        "market_rules_ref": "market_rules.json#M2A5_PYEONGTAEK",
+        "prep": {
+          "trade_extra_per_lot": 1,
+          "standard_m3_per_work_unit": 6,
+          "min_work_units": 2
+        },
+        "facility": {
+          "city_id": "PYEONGTAEK",
+          "storage_m3": 40,
+          "handling_work_units_per_day": 6,
+          "applies_to_task_kinds": [
+            "EXPORT_PREP",
+            "FORWARDING_PREP"
+          ],
+          "expansion": {
+            "max_count": 1,
+            "storage_m3": 20,
+            "handling_work_units_per_day": 3,
+            "setup_fee": {
+              "currency": "KRW",
+              "amount": 200000
+            },
+            "rent_increase": {
+              "currency": "KRW",
+              "amount": 250000
+            },
+            "effective_after_days": 1,
+            "rent_increase_from": "next_rent_day_on_or_after_effective_day"
+          }
+        },
+        "fixed_costs": {
+          "rent": {
+            "currency": "KRW",
+            "amount": 450000,
+            "period_days": 30,
+            "first_due_day": 1,
+            "timing": "prepaid_step6c"
+          }
+        },
+        "fx_exchange": {
+          "base_rate_ref": "game_config.json#/config/fx_krw_per_usd",
+          "spread_basis_points": 100,
+          "lot": {
+            "currency": "USD",
+            "amount": 100
+          },
+          "auto_exchange": false,
+          "status": "DESIGN_game_fixed_rate"
+        },
+        "space_contract": {
+          "route_ids": [
+            "ROUTE01",
+            "ROUTE02"
+          ],
+          "extra_m3": 10,
+          "extra_kg": 1500,
+          "fee_per_sailing": {
+            "currency": "USD",
+            "amount": 30
+          },
+          "lead_days": 7,
+          "covers": "departures_arriving_within_campaign",
+          "reserve_days_ahead": 7,
+          "cancellable": false,
+          "max_per_route": 1,
+          "charge": "every_covered_departure_take_or_pay"
+        },
+        "payment_default": {
+          "basis": "oldest_unpaid_obligation_any_currency",
+          "warning_from_age_days": 0,
+          "danger_from_age_days": 7,
+          "failure_age_days": 14,
+          "failure_check": "end_of_step6"
+        }
+      },
+      "scope_note": "M2a-5: 반복 견적·수량 고르기·창고·고정비·환전·지급 불이행. 화면은 후속 작업.",
+      "source_refs": [
+        "DESIGN-V04"
+      ],
+      "stage": "M2",
+      "securities_enabled": false,
+      "ipo_enabled": false
+    }
+    ,
+    {
+      "id": "SCENARIO_M2_OPS_COSMETICS",
+      "base_scenario_id": "SCENARIO_M2_OPERATIONS",
+      "title_ko": "실험: 화장품 1품목 — 평택 본사 90일 운영",
+      "stage": "M2",
+      "securities_enabled": false,
+      "ipo_enabled": false,
+      "source_refs": [
+        "DESIGN-V04"
+      ],
+      "operations": {
+        "market_rules_ref": "market_rules.json#M2A5_PYEONGTAEK_COS",
+        "prep": {
+          "trade_extra_per_lot": 1,
+          "standard_m3_per_work_unit": 6,
+          "min_work_units": 2
+        },
+        "facility": {
+          "city_id": "PYEONGTAEK",
+          "storage_m3": 40,
+          "handling_work_units_per_day": 6,
+          "applies_to_task_kinds": [
+            "EXPORT_PREP",
+            "FORWARDING_PREP"
+          ],
+          "expansion": {
+            "max_count": 1,
+            "storage_m3": 20,
+            "handling_work_units_per_day": 3,
+            "setup_fee": {
+              "currency": "KRW",
+              "amount": 200000
+            },
+            "rent_increase": {
+              "currency": "KRW",
+              "amount": 250000
+            },
+            "effective_after_days": 1,
+            "rent_increase_from": "next_rent_day_on_or_after_effective_day"
+          }
+        },
+        "fixed_costs": {
+          "rent": {
+            "currency": "KRW",
+            "amount": 450000,
+            "period_days": 30,
+            "first_due_day": 1,
+            "timing": "prepaid_step6c"
+          }
+        },
+        "fx_exchange": {
+          "base_rate_ref": "game_config.json#/config/fx_krw_per_usd",
+          "spread_basis_points": 100,
+          "lot": {
+            "currency": "USD",
+            "amount": 100
+          },
+          "auto_exchange": false,
+          "status": "DESIGN_game_fixed_rate"
+        },
+        "space_contract": {
+          "route_ids": [
+            "ROUTE01",
+            "ROUTE02"
+          ],
+          "extra_m3": 10,
+          "extra_kg": 1500,
+          "fee_per_sailing": {
+            "currency": "USD",
+            "amount": 30
+          },
+          "lead_days": 7,
+          "covers": "departures_arriving_within_campaign",
+          "reserve_days_ahead": 7,
+          "cancellable": false,
+          "max_per_route": 1,
+          "charge": "every_covered_departure_take_or_pay"
+        },
+        "payment_default": {
+          "basis": "oldest_unpaid_obligation_any_currency",
+          "warning_from_age_days": 0,
+          "danger_from_age_days": 7,
+          "failure_age_days": 14,
+          "failure_check": "end_of_step6"
+        }
+      },
+      "offer_ids": [
+        "OFFER_BUY_02",
+        "OFFER_SELL_02_NEW",
+        "OFFER_FWD_01",
+        "OFFER_FWD_02"
+      ],
+      "scope_note": "M2a-5 실험: 화장품 1품목의 반복 견적·수량 고르기·창고·고정비·환전·지급 불이행. 측정용이며 학생 선택 목록에는 넣지 않는다."
+    }
+    ,
+    {
+      "id": "SCENARIO_M2_OPS_COS_LAVER",
+      "base_scenario_id": "SCENARIO_M2_OPERATIONS",
+      "title_ko": "실험: 화장품 + 조미김 — 평택 본사 90일 운영",
+      "stage": "M2",
+      "securities_enabled": false,
+      "ipo_enabled": false,
+      "source_refs": [
+        "DESIGN-V04"
+      ],
+      "operations": {
+        "market_rules_ref": "market_rules.json#M2A5_PYEONGTAEK_COS_LAVER",
+        "prep": {
+          "trade_extra_per_lot": 1,
+          "standard_m3_per_work_unit": 6,
+          "min_work_units": 2
+        },
+        "facility": {
+          "city_id": "PYEONGTAEK",
+          "storage_m3": 40,
+          "handling_work_units_per_day": 6,
+          "applies_to_task_kinds": [
+            "EXPORT_PREP",
+            "FORWARDING_PREP"
+          ],
+          "expansion": {
+            "max_count": 1,
+            "storage_m3": 20,
+            "handling_work_units_per_day": 3,
+            "setup_fee": {
+              "currency": "KRW",
+              "amount": 200000
+            },
+            "rent_increase": {
+              "currency": "KRW",
+              "amount": 250000
+            },
+            "effective_after_days": 1,
+            "rent_increase_from": "next_rent_day_on_or_after_effective_day"
+          }
+        },
+        "fixed_costs": {
+          "rent": {
+            "currency": "KRW",
+            "amount": 450000,
+            "period_days": 30,
+            "first_due_day": 1,
+            "timing": "prepaid_step6c"
+          }
+        },
+        "fx_exchange": {
+          "base_rate_ref": "game_config.json#/config/fx_krw_per_usd",
+          "spread_basis_points": 100,
+          "lot": {
+            "currency": "USD",
+            "amount": 100
+          },
+          "auto_exchange": false,
+          "status": "DESIGN_game_fixed_rate"
+        },
+        "space_contract": {
+          "route_ids": [
+            "ROUTE01",
+            "ROUTE02"
+          ],
+          "extra_m3": 10,
+          "extra_kg": 1500,
+          "fee_per_sailing": {
+            "currency": "USD",
+            "amount": 30
+          },
+          "lead_days": 7,
+          "covers": "departures_arriving_within_campaign",
+          "reserve_days_ahead": 7,
+          "cancellable": false,
+          "max_per_route": 1,
+          "charge": "every_covered_departure_take_or_pay"
+        },
+        "payment_default": {
+          "basis": "oldest_unpaid_obligation_any_currency",
+          "warning_from_age_days": 0,
+          "danger_from_age_days": 7,
+          "failure_age_days": 14,
+          "failure_check": "end_of_step6"
+        }
+      },
+      "offer_ids": [
+        "OFFER_BUY_02",
+        "OFFER_SELL_02_NEW",
+        "OFFER_FWD_01",
+        "OFFER_FWD_02"
+      ],
+      "scope_note": "M2a-5 실험: 화장품 + 조미김의 반복 견적·수량 고르기·창고·고정비·환전·지급 불이행. 측정용이며 학생 선택 목록에는 넣지 않는다."
+    },
+    {
+      "id": "SCENARIO_M2_OPS_CREDIT",
+      "ipo_enabled": false,
+      "securities_enabled": false,
+      "source_refs": ["DESIGN-V04"],
+      "stage": "M2",
+      "base_scenario_id": "SCENARIO_M2_OPS_COS_LAVER",
+      "risk_setup": {
+        "level": "R4",
+        "profile_id": "RISK_PROFILE_V2"
+      },
+      "title_ko": "외상 거래: 화장품 + 조미김 — 평택 본사 90일 운영",
+      "scope_note": "경로 11 rules-4 놀이 시나리오. 화면 지시서 전까지 학생 선택 목록에 넣지 않는다."
+    }
+  ],
+  "$schema": "../schemas/scenarios.schema.json",
+  "configuration_merge_rule": {
+    "initialization": "new independent state; never merge prior scenario holdings",
+    "precedence": "scenario explicit fields override config defaults; arrays replace, not append",
+    "stage_mapping": {
+      "M1": "P0",
+      "M2": "P0",
+      "P1": "P1"
+    },
+    "employee_ids": "exact scenario employee set replaces starter_employee_ids",
+    "feature_flags": "scenario.securities_enabled and scenario.ipo_enabled override config",
+    "omitted_feature_flags": "false unless config explicitly allows them",
+    "variant_rule": "variant inherits named base scenario then applies overrides; inherited tables are immutable",
+    "character_system": "M1 legacy fixed. Enable CHARACTER_WEIGHTED only in dedicated M2 character scenario after implementation."
+  }
+}

@@ -1,0 +1,6499 @@
+{
+  "schema_version": "1.0.0",
+  "document_type": "acceptance_case_specification",
+  "project": "국제무역·물류경영 게임",
+  "specification_version": "v0.3",
+  "source_specification": "docs/DESIGN_v0.4.md",
+  "prepared_on": "2026-10-04",
+  "status": "PARTIALLY_LINKED_TO_ENGINE_TESTS",
+  "evidence_class": "DESIGN",
+  "purpose": "코딩 세션에서 쓰는 독립적인 인수 기준과 수동 검산 사례다. 일부 사례는 engine_test_ref·engine_test_names(화면은 ui_test_ref·ui_test_names)로 실행 시험에 연결한다. 연결은 실행 결과가 아니다. 통과 여부는 그때 돌린 npx vitest run 결과로만 말한다.",
+  "execution_contract": {
+    "isolate_every_case": true,
+    "reset_state_before_each_case": true,
+    "reuse_previous_case_state": false,
+    "assertion_paths": "개념적 상태 경로다. 연결한 사례 가운데 합성 설정이나 단위 변환이 필요한 사례는 그 대응을 engine_fixture_mapping·engine_mapping_note_ko에 적는다. scenario_id로 실제 시나리오를 그대로 쓰는 사례는 따로 적지 않는다.",
+    "numeric_comparison": "정수 금액과 수량은 정확히 비교. 지분은 정수 주식 수의 비율로 검산.",
+    "fixture_currency_rule": "accounting_unit=fixture_no_currency 사례는 통화 없는 산술 예제이다. currency가 명시된 M1 취소·지연 사례는 USD, IPO 사례는 KRW이며 사례별 장부를 합산하지 않는다.",
+    "parameter_rule": "금액·가격·일수·보상·성장량은 모두 검수용 DESIGN 값이며 관측 통계나 실증 계수가 아니다.",
+    "accounting_rule": "수익 인식과 수금을 구분하고, 자산 간 이동과 영업비용을 구분한다. 이 문서는 특정 국가의 회계·상장 규정 전체를 재현하지 않는다.",
+    "time_rule": "시간 변화는 명시적 일자 진행으로만 발생한다. 화면 열기와 도시 선택은 실제 이동 또는 Task 완료를 뜻하지 않는다.",
+    "human_review_rule": "각 사례의 human_review_check를 사람이 확인한 후 엔진 검증 결과와 별도로 기록한다. 이 파일의 작성·JSON 검증만으로 엔진 통과를 표시하지 않는다.",
+    "test_link_rule": "engine_test_ref·ui_test_ref는 저장소 기준 시험 파일 경로이고, engine_test_names·ui_test_names는 그 파일의 describe·it·test 제목(고정 문자열)이다. 자료 검사기는 파일과 제목이 있는지만 확인하고 시험을 돌리지 않는다. 연결하지 않은 사례는 engine_test_ref를 null로 두고 unlinked_reason_ko를 적는다.",
+    "human_review_record_rule": "human_review_records에는 사람이 human_review_check를 직접 확인한 사례만 적는다. 항목은 case_id, reviewed_on(YYYY-MM-DD), reviewer_ko(사람의 역할), result(일치 또는 불일치), note_ko다. 자동 검사나 AI 검토는 적지 않는다."
+  },
+  "phase_scope": {
+    "P0": "기존 M0~M5, 90일 경영 캠페인, 본사 도시 문화 활동 3종. 주식·IPO는 필수 완료 조건에서 제외.",
+    "P1": "MVP 검증 후 가상 타사 주식의 회사 명의 현금 매매·보유·평가·공개 정보 처리.",
+    "P2": "다년 성장 또는 별도 상장 준비 시나리오의 신주 발행·자사 IPO·지분 관리."
+  },
+  "cases": [
+    {
+      "id": "P0-ACC-01",
+      "phase": "P0",
+      "milestone": "M1",
+      "title": "외상 판매의 현금·채권·이익 분리",
+      "spec_sections": [
+        "7",
+        "8",
+        "11"
+      ],
+      "accounting_unit": "fixture_no_currency",
+      "currency": null,
+      "initial_state": {
+        "company_cash": 100,
+        "inventory_units": 0,
+        "inventory_carrying_amount": 0,
+        "accounts_receivable": 0,
+        "revenue": 0,
+        "profit": 0
+      },
+      "fixture_rules": [
+        "상품은 한 묶음이며 전량 인도·검수된 시점에 판매를 인식한다.",
+        "매입 60·운송 5·관세 3은 같은 상품의 매출원가 68을 구성한다. 각각을 매출원가와 별도 비용으로 중복 차감하지 않는다.",
+        "임금 4는 당기 비용으로 한 번만 처리한다. 이자·세금·환율·기타 비용은 없다."
+      ],
+      "actions": [
+        {
+          "step": 1,
+          "action": "상품 한 묶음을 현금 60으로 매입"
+        },
+        {
+          "step": 2,
+          "action": "해당 상품 운송료 5와 관세 3을 현금 지급"
+        },
+        {
+          "step": 3,
+          "action": "전량 인도·검수 후 외상 매출 90 인식, 아직 수금하지 않음"
+        },
+        {
+          "step": 4,
+          "action": "임금 4를 현금 지급"
+        }
+      ],
+      "expected_numeric": {
+        "company_cash": 28,
+        "accounts_receivable": 90,
+        "inventory_units": 0,
+        "inventory_carrying_amount": 0,
+        "revenue": 90,
+        "cost_of_goods_sold": 68,
+        "wage_expense": 4,
+        "profit": 18,
+        "total_assets": 118
+      },
+      "expected_assertions": [
+        "외상 매출 90을 현금에 미리 더하지 않는다.",
+        "운송료·관세를 매출원가에 포함한 후 별도 비용으로 다시 빼지 않는다.",
+        "상품 소유권·재고는 인도 조건에 따라 한 번만 이전한다."
+      ],
+      "human_review_check": "현금 100−60−5−3−4=28; 채권 90; 이익 90−60−5−3−4=18; 현금+채권=118.",
+      "engine_test_ref": "src/engine/acceptance-p0-acc.test.ts",
+      "engine_test_names": [
+        "P0-ACC-01 외상 판매의 현금·채권·이익 분리"
+      ],
+      "engine_mapping_note_ko": "명세 금액 1을 XXX 통화 최소 단위 1로 본다. 시험 설정은 M1 설정을 복사한 합성이다. 통화를 XXX로 바꾸고 시작 현금·매입가·판매가·운임을 명세 단계 값에 맞춘다. 관세는 관세율(bp)로, 임금은 인도일부터 근무하는 별도 직원의 하루 급여로 만든다. 같은 값을 엔진 명령 경로와 직접 분개 두 방식으로 확인한다."
+    },
+    {
+      "id": "P0-ACC-02",
+      "phase": "P0",
+      "milestone": "M1",
+      "title": "외상대금 수금과 중복 수금 방지",
+      "spec_sections": [
+        "8",
+        "9",
+        "14"
+      ],
+      "accounting_unit": "fixture_no_currency",
+      "currency": null,
+      "initial_state": {
+        "company_cash": 28,
+        "accounts_receivable": 90,
+        "revenue": 90,
+        "profit": 18,
+        "receipt_applied_count": 0
+      },
+      "fixture_rules": [
+        "이 사례의 초기 상태를 새로 생성한다. P0-ACC-01의 실행 상태를 이어받지 않는다.",
+        "고객이 원래 채권 90을 전액 지급하며 새로운 판매나 수금 수수료는 없다."
+      ],
+      "actions": [
+        {
+          "step": 1,
+          "action": "receipt_id=RECEIPT_A로 90 수금"
+        },
+        {
+          "step": 2,
+          "action": "동일 receipt_id=RECEIPT_A를 재전송하고 저장·불러오기 후 한 번 더 재전송"
+        }
+      ],
+      "expected_numeric": {
+        "company_cash": 118,
+        "accounts_receivable": 0,
+        "revenue": 90,
+        "profit": 18,
+        "receipt_applied_count": 1,
+        "total_assets": 118
+      },
+      "expected_assertions": [
+        "최초 수금은 현금 증가와 채권 감소만 발생시킨다.",
+        "수금으로 매출·이익을 재인식하지 않는다.",
+        "동일 수금 ID는 무시 또는 이미 처리됨으로 응답하며 추가 현금이 생기지 않는다."
+      ],
+      "human_review_check": "28+90=118; 채권 90−90=0; 이익은 18로 유지. 재전송 이후에도 동일.",
+      "engine_test_ref": "src/engine/acceptance-p0-acc.test.ts",
+      "engine_test_names": [
+        "P0-ACC-02 외상대금 수금과 중복 수금 방지"
+      ],
+      "engine_mapping_note_ko": "명세 금액 1을 XXX 통화 최소 단위 1로 본다. 수금 전 상태는 엔진 경로가 아니라 장부 직접 기입과 시험용 청구서 하나로 만든다. 같은 수금 ID를 다시 보내거나 저장·불러오기 뒤 보내도 한 번만 반영되는지 본다."
+    },
+    {
+      "id": "P0-CITY-01",
+      "phase": "P0",
+      "milestone": "M2",
+      "title": "장소 열기·도시 선택·보고 열람으로 시간이 진행되지 않음",
+      "spec_sections": [
+        "23.1",
+        "23.2",
+        "25.1"
+      ],
+      "accounting_unit": "fixture_no_currency",
+      "currency": null,
+      "initial_state": {
+        "simulation_day": 10,
+        "day_phase": "AWAITING_INPUT",
+        "company_cash": 100,
+        "knowledge_record_count": 0,
+        "completed_task_count": 0,
+        "employee_location": "CITY_HOME",
+        "securities_enabled": false,
+        "ipo_enabled": false
+      },
+      "actions": [
+        {
+          "step": 1,
+          "action": "5개 도시 진입점을 각각 열고 닫음"
+        },
+        {
+          "step": 2,
+          "action": "다른 도시 화면 선택 후 이미 공개된 보고를 반복 열람"
+        },
+        {
+          "step": 3,
+          "action": "원래 도시로 돌아옴. 활동 예약·명시적 하루 진행은 하지 않음"
+        }
+      ],
+      "expected_numeric": {
+        "simulation_day": 10,
+        "company_cash": 100,
+        "knowledge_record_count": 0,
+        "completed_task_count": 0
+      },
+      "expected_assertions": [
+        "직원 위치는 CITY_HOME이며 day_phase는 AWAITING_INPUT을 유지한다.",
+        "단순 출입에 경비·관계·지식 보상이나 임금 정산이 발생하지 않는다.",
+        "P0 금융센터가 미구현 주식 주문·IPO 실행을 완료된 서비스처럼 제공하지 않는다."
+      ],
+      "human_review_check": "화면 동작 전후 날짜·현금·위치·Task·지식 기록을 비교한다. 버튼 클릭 수와 시뮬레이션 시간이 분리되어야 한다.",
+      "scenario_id": "SCENARIO_M2_MULTI_TRADE",
+      "engine_test_ref": "src/engine/m2a-culture.test.ts",
+      "engine_fixture_mapping": {
+        "ACT_A": "CA01",
+        "CONTACT_A": "NPC_MARKET",
+        "CONTACT_B": "NPC_GUIDE",
+        "EMPLOYEE_A": "EMP01",
+        "EMPLOYEE_B": "EMP02",
+        "CITY_HOME": "PYEONGTAEK",
+        "CITY_REMOTE": "SHANGHAI"
+      },
+      "engine_mapping_note_ko": "ACT_A는 CA01(20,000원·1일). 현금 100 → 98은 활동 유무만 다른 두 실행의 원화 현금 차이 20,000원에 대응한다. CITY_REMOTE는 시험 전용 합성 활동으로 다룬다. 화면 열람은 엔진 읽기 함수의 상태 불변으로 검사한다.",
+      "ui_test_ref": "src/ui/main.test.ts",
+      "ui_test_note_ko": "명세의 ‘5개 도시 진입점’은 이번 범위의 ‘평택 현지 장소 5곳’ 정적 목록에 대응한다. 시험: ‘P0-CITY-01 열람·선택·미리 보기·결과 보기 전후 저장 문자열과 위쪽 막대는 같다’, ‘P0-CITY-01 금융센터는 미구현 표시가 있고 주식·상장 단추가 없다’.",
+      "engine_test_names": [
+        "P0-CITY-01 읽기 함수·미리 보기"
+      ],
+      "ui_test_names": [
+        "P0-CITY-01 열람·선택·미리 보기·결과 보기 전후 저장 문자열과 위쪽 막대는 같다",
+        "P0-CITY-01 금융센터는 미구현 표시가 있고 주식·상장 단추가 없다"
+      ]
+    },
+    {
+      "id": "P0-CITY-02",
+      "phase": "P0",
+      "milestone": "M2",
+      "title": "문화 활동 완료·대화 재방문 보상 중복 방지",
+      "spec_sections": [
+        "24.4",
+        "26.2"
+      ],
+      "accounting_unit": "fixture_no_currency",
+      "currency": null,
+      "initial_state": {
+        "simulation_day": 10,
+        "company_cash": 100,
+        "employee_location": "CITY_HOME",
+        "knowledge_record_count": 0,
+        "activity_completion_count": 0
+      },
+      "fixture_rules": [
+        "현지 Task ACT_A는 검수용 1일·비용 2이며, 완료 시 새 주제 TOPIC_A 기록 1개를 생성한다.",
+        "동일 활동 단계의 예약·결제·완료에는 동일한 식별자를 유지한다.",
+        "이 검수 동안 급여·기타 일일 비용은 비활성화한다."
+      ],
+      "actions": [
+        {
+          "step": 1,
+          "action": "ACT_A를 예약·확정하고 비용 2 지급"
+        },
+        {
+          "step": 2,
+          "action": "명시적으로 하루를 진행하여 ACT_A 완료"
+        },
+        {
+          "step": 3,
+          "action": "동일 완료 이벤트를 재전송하고 같은 장소·같은 대화 주제에 반복 진입"
+        }
+      ],
+      "expected_numeric": {
+        "simulation_day": 11,
+        "company_cash": 98,
+        "knowledge_record_count": 1,
+        "activity_completion_count": 1,
+        "activity_expense": 2
+      },
+      "expected_assertions": [
+        "반복 완료 이벤트·대화 열람으로 기록·비용·관계 보상이 다시 발생하지 않는다.",
+        "새 주제 또는 의미 있는 후속 단계는 별도 ID와 완료 조건을 갖춘 경우에만 새 활동이 된다."
+      ],
+      "human_review_check": "100−2=98. 기록 1개·완료 1회·경비 2가 재전송 전후 동일한지 확인한다.",
+      "scenario_id": "SCENARIO_M2_MULTI_TRADE",
+      "engine_test_ref": "src/engine/m2a-culture.test.ts",
+      "engine_fixture_mapping": {
+        "ACT_A": "CA01",
+        "CONTACT_A": "NPC_MARKET",
+        "CONTACT_B": "NPC_GUIDE",
+        "EMPLOYEE_A": "EMP01",
+        "EMPLOYEE_B": "EMP02",
+        "CITY_HOME": "PYEONGTAEK",
+        "CITY_REMOTE": "SHANGHAI"
+      },
+      "engine_mapping_note_ko": "ACT_A는 CA01(20,000원·1일). 현금 100 → 98은 활동 유무만 다른 두 실행의 원화 현금 차이 20,000원에 대응한다. CITY_REMOTE는 시험 전용 합성 활동으로 다룬다. 화면 열람은 엔진 읽기 함수의 상태 불변으로 검사한다.",
+      "engine_test_names": [
+        "P0-CITY-02 비용·완료·중복"
+      ]
+    },
+    {
+      "id": "P0-CITY-03",
+      "phase": "P0",
+      "milestone": "M2",
+      "title": "개인 친밀도·지역 관찰·거래 신뢰의 범위 분리",
+      "spec_sections": [
+        "24.1",
+        "24.3",
+        "24.4"
+      ],
+      "accounting_unit": "not_applicable",
+      "currency": null,
+      "initial_state": {
+        "relationship_employee_A_contact_A": 0,
+        "relationship_employee_A_contact_B": 0,
+        "relationship_employee_B_contact_A": 0,
+        "fulfilled_contract_count": 0,
+        "trade_trust": 0,
+        "knowledge_record_count": 0
+      },
+      "fixture_rules": [
+        "같은 국가 내 CITY_HOME의 CONTACT_A만 만나 한 상인의 소포장 선호를 듣는다.",
+        "해당 인물 관계의 증가량 1은 이 사례의 DESIGN 보상이며 실증 문화 효과가 아니다."
+      ],
+      "actions": [
+        {
+          "step": 1,
+          "action": "현지 EMPLOYEE_A가 CONTACT_A와 활동을 완료하고 회사에 보고"
+        }
+      ],
+      "expected_numeric": {
+        "relationship_employee_A_contact_A": 1,
+        "relationship_employee_A_contact_B": 0,
+        "relationship_employee_B_contact_A": 0,
+        "fulfilled_contract_count": 0,
+        "trade_trust": 0,
+        "knowledge_record_count": 1
+      },
+      "expected_assertions": [
+        "국가 전체 인물의 친밀도·국가 전체 상품 수요·모든 계약 마진을 일괄 변경하지 않는다.",
+        "관찰은 CITY_HOME·해당 주제·CONTACT_A 1명의 의견·시점·미검증 상태를 기록한다.",
+        "관계가 생겼다는 이유만으로 거래 이행 신뢰를 올리지 않는다.",
+        "직원이 퇴사해도 제출한 회사 보고서는 남지만 개인 친분이 다른 직원에게 자동 이전되지 않는다."
+      ],
+      "human_review_check": "관계 변경 대상이 특정 인물 쌍인지 확인하고, 동일 국가의 미접촉 인물과 다른 직원의 관계가 그대로인지 비교한다.",
+      "scenario_id": "SCENARIO_M2_MULTI_TRADE",
+      "engine_test_ref": "src/engine/m2a-culture.test.ts",
+      "engine_fixture_mapping": {
+        "ACT_A": "CA01",
+        "CONTACT_A": "NPC_MARKET",
+        "CONTACT_B": "NPC_GUIDE",
+        "EMPLOYEE_A": "EMP01",
+        "EMPLOYEE_B": "EMP02",
+        "CITY_HOME": "PYEONGTAEK",
+        "CITY_REMOTE": "SHANGHAI"
+      },
+      "engine_mapping_note_ko": "ACT_A는 CA01(20,000원·1일). 현금 100 → 98은 활동 유무만 다른 두 실행의 원화 현금 차이 20,000원에 대응한다. CITY_REMOTE는 시험 전용 합성 활동으로 다룬다. 화면 열람은 엔진 읽기 함수의 상태 불변으로 검사한다.",
+      "unexecuted_assertions": [
+        {
+          "assertion": "직원이 퇴사해도 제출한 회사 보고서는 남지만 개인 친분이 다른 직원에게 자동 이전되지 않는다.",
+          "status": "미실행 단언",
+          "reason_ko": "퇴사 기능이 없어 실행하지 않는다."
+        }
+      ],
+      "engine_test_names": [
+        "P0-CITY-03 출처·경험·쌍별 기록·거래 분리"
+      ]
+    },
+    {
+      "id": "P0-CITY-04",
+      "phase": "P0",
+      "milestone": "M2",
+      "title": "도시 화면 선택으로 직원·화물이 순간 이동하지 않음",
+      "spec_sections": [
+        "7.3",
+        "23.1",
+        "26.2"
+      ],
+      "accounting_unit": "not_applicable",
+      "currency": null,
+      "initial_state": {
+        "simulation_day": 10,
+        "employee_location": "CITY_HOME",
+        "local_agents_at_CITY_REMOTE": 0,
+        "shipment_state": "IN_TRANSIT",
+        "shipment_origin": "CITY_HOME",
+        "shipment_destination": "CITY_REMOTE",
+        "shipment_arrival_day": 13,
+        "remote_local_task_count": 0
+      },
+      "actions": [
+        {
+          "step": 1,
+          "action": "CITY_REMOTE 화면 열기"
+        },
+        {
+          "step": 2,
+          "action": "CITY_HOME의 직원을 CITY_REMOTE 현장 활동에 배정 시도"
+        },
+        {
+          "step": 3,
+          "action": "다시 화물·직원 상태 열람. 하루 진행은 하지 않음"
+        }
+      ],
+      "expected_numeric": {
+        "simulation_day": 10,
+        "local_agents_at_CITY_REMOTE": 0,
+        "shipment_arrival_day": 13,
+        "remote_local_task_count": 0
+      },
+      "expected_assertions": [
+        "직원은 CITY_HOME, 화물은 IN_TRANSIT 상태를 유지한다.",
+        "현지 인물이 없으므로 현장 활동을 거절하거나 유효한 현지 인물 배정을 요청한다.",
+        "P0에 미구현된 출장을 자동 완료하거나 이동 경비 없는 출장으로 대체하지 않는다.",
+        "원격 연락이 허용된 업무와 현장 방문이 필요한 업무를 구분한다. 향후 출장 구현 시 출발·도착·비용·업무 공백을 별도 검수한다."
+      ],
+      "human_review_check": "도시 선택만으로 위치·도착일·현장 수행 자격이 바뀌지 않는지 확인한다. 이 사례는 출장 엔진 구현을 요구하지 않는다.",
+      "scenario_id": "SCENARIO_M2_MULTI_TRADE",
+      "engine_test_ref": "src/engine/m2a-culture.test.ts",
+      "engine_fixture_mapping": {
+        "ACT_A": "CA01",
+        "CONTACT_A": "NPC_MARKET",
+        "CONTACT_B": "NPC_GUIDE",
+        "EMPLOYEE_A": "EMP01",
+        "EMPLOYEE_B": "EMP02",
+        "CITY_HOME": "PYEONGTAEK",
+        "CITY_REMOTE": "SHANGHAI"
+      },
+      "engine_mapping_note_ko": "ACT_A는 CA01(20,000원·1일). 현금 100 → 98은 활동 유무만 다른 두 실행의 원화 현금 차이 20,000원에 대응한다. CITY_REMOTE는 시험 전용 합성 활동으로 다룬다. 화면 열람은 엔진 읽기 함수의 상태 불변으로 검사한다.",
+      "engine_test_names": [
+        "P0-CITY-04 현지 인력·업무 예약"
+      ]
+    },
+    {
+      "id": "P0-TIME-01",
+      "phase": "P0",
+      "milestone": "M2",
+      "title": "저장·불러오기 후 하루 마감과 사건 적용 재현",
+      "spec_sections": [
+        "9.1",
+        "9.2",
+        "14"
+      ],
+      "accounting_unit": "fixture_no_currency",
+      "currency": null,
+      "initial_state": {
+        "simulation_day": 10,
+        "day_phase": "AWAITING_INPUT",
+        "company_cash": 100,
+        "random_seed": 12345,
+        "random_cursor": 7,
+        "daily_closure_count": 0,
+        "event_applied_count": 0
+      },
+      "fixture_rules": [
+        "당일 고정 임금 4와 이미 공개된 EVENT_A의 고정 검사비 3만 반영한다.",
+        "동일 명령·동일 저장 상태로 비교하며 난수 결과값 자체의 특정 숫자를 요구하지 않는다."
+      ],
+      "actions": [
+        {
+          "step": 1,
+          "action": "현재 상태 저장 후 임금·검사비를 포함해 하루를 정상 종료하는 분기 A 실행"
+        },
+        {
+          "step": 2,
+          "action": "저장 상태를 새 분기에 복원하고 동일 명령으로 분기 B 실행"
+        },
+        {
+          "step": 3,
+          "action": "분기 B에서 이미 처리한 마감 ID와 EVENT_A를 재전송"
+        }
+      ],
+      "expected_numeric": {
+        "company_cash_each_branch": 93,
+        "daily_closure_count_each_branch": 1,
+        "event_applied_count_each_branch": 1,
+        "wage_expense_each_branch": 4,
+        "inspection_expense_each_branch": 3
+      },
+      "expected_assertions": [
+        "분기 A와 B의 최종 장부·화물·사건·난수 커서가 동일하다.",
+        "완료된 날짜의 마감 재전송은 새 날짜를 추가 진행하거나 임금·검사비를 다시 차감하지 않는다.",
+        "저장 파일은 날짜뿐 아니라 일자 단계·명령 ID·적용 이벤트 ID·난수 상태를 보존한다."
+      ],
+      "human_review_check": "100−4−3=93. 두 분기의 의미상 동일한 상태를 비교하고 중복 마감 이후에도 93인지 확인한다.",
+      "engine_test_ref": "src/engine/acceptance-p0-time.test.ts",
+      "engine_test_names": [
+        "P0-TIME-01 저장·불러오기 후 하루 마감과 사건 적용 재현"
+      ],
+      "engine_mapping_note_ko": "명세의 시작 상태(입력 대기 단계이면서 사건 적용 0건)는 엔진에서 함께 성립하지 않는다. 엔진은 날을 열 때(openDay) 사건을 적용한다. 그래서 시험은 저장 시점 두 가지를 모두 본다. (가) 날을 열기 전(PENDING_OPEN)에 저장한다. 분기마다 사건이 0건에서 1건이 된다. (나) 날을 연 뒤(AWAITING_INPUT)에 저장한다. 사건 1건이 이미 적용되어 있고, 복원 뒤 다시 열어도 상태가 같으며 새 공지는 0건이다. 시험 설정은 합성이다. M2 설정을 복사해 급여 통화를 XXX로, 직원을 한 명(하루 급여 wage_expense_each_branch)으로, 사건을 시험용 EVENT_A 하나로 바꾸고, 사건 흐름에서 random_cursor번 추첨해 커서를 만든다. 시작 현금은 simulation_day 전날까지 급여를 낸 뒤 company_cash가 되게 정한다.",
+      "unexecuted_assertions": [
+        {
+          "assertion": "분기마다 현금이 company_cash_each_branch다(검사비 inspection_expense_each_branch 포함). 마감 재전송 뒤에도 검사비를 다시 빼지 않는다.",
+          "status": "미실행 단언",
+          "reason_ko": "검사비를 내는 비용 사건은 M3에서 생긴다. 지금 시험은 급여만 뺀 현금을 확인한다.",
+          "todo_test_name": "검사비 3(EVENT_A 비용 사건, M3) 반영 뒤 분기마다 현금 company_cash_each_branch 확인"
+        }
+      ]
+    },
+    {
+      "id": "P1-SEC-01",
+      "phase": "P1",
+      "milestone": "SEC-01",
+      "title": "회사 명의 주식 매수와 수수료 처리",
+      "spec_sections": [
+        "25.2",
+        "25.4",
+        "26.2"
+      ],
+      "accounting_unit": "fixture_no_currency",
+      "currency": null,
+      "initial_state": {
+        "company_cash": 100,
+        "shares_held": 0,
+        "investment_carrying_amount": 0,
+        "fee_expense": 0,
+        "personal_cash": 0,
+        "logistics_discount": 0
+      },
+      "fixture_rules": [
+        "공개 가격 3에 10주 전량 체결, 매수 수수료 1, 체결 즉시 결제.",
+        "수수료는 투자자산 원가에 포함하지 않고 별도 비용 1로 표시하는 검수용 단순 규칙이다.",
+        "기타 비용·세금·가격 변동은 없다. 타사 소수지분 매수 외에 제휴 계약은 체결하지 않는다."
+      ],
+      "actions": [
+        {
+          "step": 1,
+          "action": "회사 계좌로 10주를 주당 3에 매수하고 수수료 1 지급"
+        }
+      ],
+      "expected_numeric": {
+        "company_cash": 69,
+        "shares_held": 10,
+        "investment_cost_basis": 30,
+        "investment_carrying_amount": 30,
+        "fee_expense": 1,
+        "total_assets": 99,
+        "personal_cash": 0,
+        "logistics_discount": 0
+      },
+      "expected_assertions": [
+        "매수액 30 전체를 물류 영업비용으로 기록하지 않는다.",
+        "보유주식은 회사 자산이며 대표 개인 계좌로 복제하지 않는다.",
+        "소수지분 매수만으로 물류 할인·경영권·비공개정보 접근을 부여하지 않는다."
+      ],
+      "human_review_check": "100−10×3−1=69; 투자자산 10×3=30; 총자산 69+30=99.",
+      "engine_test_ref": null,
+      "unlinked_reason_ko": "P1 주식 기능은 아직 엔진에 없다(src/engine에 주식 처리 코드가 없고, 기본 설정 game_config의 securities_enabled는 false다). P0 완료 조건이 아니다."
+    },
+    {
+      "id": "P1-SEC-02",
+      "phase": "P1",
+      "milestone": "SEC-01",
+      "title": "미실현 주식 평가이익은 현금을 만들지 않음",
+      "spec_sections": [
+        "25.4",
+        "26.2"
+      ],
+      "accounting_unit": "fixture_no_currency",
+      "currency": null,
+      "initial_state": {
+        "company_cash": 69,
+        "shares_held": 10,
+        "investment_cost_basis": 30,
+        "investment_carrying_amount": 30,
+        "recognized_unrealized_gain": 0,
+        "previous_fee_expense": 1,
+        "total_assets": 99
+      },
+      "fixture_rules": [
+        "이 상태를 독립 생성하며 P1-SEC-01 실행 결과를 공유하지 않는다.",
+        "공개된 평가가격은 4이며 매매·배당·새 수수료는 없다.",
+        "평가이익은 별도 금융 평가 항목으로 표시한다. 최종 손익 표시 위치는 선택한 게임 회계 규칙에 명시하되 영업이익·현금과 혼동하지 않는다."
+      ],
+      "actions": [
+        {
+          "step": 1,
+          "action": "10주를 공개 평가가격 4로 평가"
+        },
+        {
+          "step": 2,
+          "action": "동일 valuation_id와 동일 가격을 재적용"
+        }
+      ],
+      "expected_numeric": {
+        "company_cash": 69,
+        "shares_held": 10,
+        "investment_cost_basis": 30,
+        "investment_carrying_amount": 40,
+        "recognized_unrealized_gain": 10,
+        "total_assets": 109,
+        "new_cash_inflow": 0,
+        "new_fee_expense": 0,
+        "logistics_operating_profit_change": 0
+      },
+      "expected_assertions": [
+        "40은 해당 보유주식의 장부가액이며 회사 총자산은 69+40=109이다.",
+        "평가이익 10을 현금이나 영업이익에 추가하지 않는다.",
+        "장부가액 40과 평가이익 10을 총자산에 중복 합산하지 않는다.",
+        "같은 평가 재적용으로 이익이 20이 되지 않는다."
+      ],
+      "human_review_check": "주식가액 10×4=40; 미실현 이익 40−30=10; 현금 69 유지; 총자산 109.",
+      "engine_test_ref": null,
+      "unlinked_reason_ko": "P1 주식 기능은 아직 엔진에 없다(src/engine에 주식 처리 코드가 없고, 기본 설정 game_config의 securities_enabled는 false다). P0 완료 조건이 아니다."
+    },
+    {
+      "id": "P1-SEC-03",
+      "phase": "P1",
+      "milestone": "SEC-01",
+      "title": "공개 시점 전 미래 시세·미래 뉴스 노출 금지",
+      "spec_sections": [
+        "25.2",
+        "25.5",
+        "26.2"
+      ],
+      "accounting_unit": "fixture_no_currency",
+      "currency": null,
+      "initial_state": {
+        "simulation_day": 10,
+        "day_phase": "AWAITING_INPUT",
+        "last_published_quote_day": 9,
+        "last_published_quote": 3,
+        "next_unpublished_quote": 4,
+        "future_news_publish_day": 11,
+        "relationship_with_informant": 100
+      },
+      "fixture_rules": [
+        "next_unpublished_quote=4는 오직 검수 하네스의 숨겨진 기준값이다. 플레이어용 데이터에 포함하지 않는다.",
+        "비교용 숨겨진 경로는 검수를 위해 고정하며 친밀도 100이 예측 정확도 100%를 뜻하지 않는다."
+      ],
+      "actions": [
+        {
+          "step": 1,
+          "action": "10일 의사결정 단계에서 본사·도시 증권 화면·인물 대화·플레이어용 조회 API 확인"
+        },
+        {
+          "step": 2,
+          "action": "화면을 반복 열고 같은 저장 상태를 다시 불러옴. 시장 체결·공개 시점은 진행하지 않음"
+        }
+      ],
+      "expected_numeric": {
+        "visible_quote": 3,
+        "visible_quote_day": 9,
+        "future_quote_exposure_count": 0,
+        "future_news_exposure_count": 0,
+        "simulation_day": 10
+      },
+      "expected_assertions": [
+        "미공개 가격 4와 11일 뉴스는 화면·툴팁·NPC 대사·플레이어용 상태 응답에 나오지 않는다.",
+        "친밀도 보상은 다음 날 급등 종목의 확정 정답을 주지 않는다.",
+        "화면 열람 횟수로 시세를 다시 추첨하지 않는다.",
+        "저장 복원만으로 난수 흐름을 다시 뽑지 않는다. 동일 입력이면 이후 결과가 재현돼야 한다.",
+        "로컬 저장파일을 사용자가 직접 변조·역분석하는 것까지 방지했다는 보안 주장으로 확대하지 않는다."
+      ],
+      "human_review_check": "공개가격 3만 보이는지와 미래 필드 부재를 확인한다. 시장 공개 이후 표시 전환은 별도 정상 흐름으로 확인한다.",
+      "engine_test_ref": null,
+      "unlinked_reason_ko": "P1 주식 기능은 아직 엔진에 없다(src/engine에 주식 처리 코드가 없고, 기본 설정 game_config의 securities_enabled는 false다). P0 완료 조건이 아니다."
+    },
+    {
+      "id": "P1-SEC-04",
+      "phase": "P1",
+      "milestone": "SEC-01",
+      "title": "도시·본사 공통 계좌와 상품·주식 현금 중복 예약 방지",
+      "spec_sections": [
+        "23.2",
+        "25.2",
+        "26.2"
+      ],
+      "accounting_unit": "fixture_no_currency",
+      "currency": null,
+      "initial_state": {
+        "company_cash": 100,
+        "reserved_cash": 0,
+        "available_cash": 100,
+        "stock_order_count": 0,
+        "commodity_order_count": 0,
+        "shares_held": 0
+      },
+      "fixture_rules": [
+        "주식 주문 SEC_ORDER_A는 매수대금 70·수수료 1을 포함해 71을 예약한다.",
+        "상품 주문 GOODS_ORDER_A에는 40이 필요하다. 부분 체결·부분 예약을 허용하지 않는 사례다.",
+        "아직 체결·상품 매입 확정·결제하지 않는다."
+      ],
+      "actions": [
+        {
+          "step": 1,
+          "action": "도시 금융센터에서 SEC_ORDER_A 제출"
+        },
+        {
+          "step": 2,
+          "action": "본사 투자 패널에서 같은 SEC_ORDER_A 재전송"
+        },
+        {
+          "step": 3,
+          "action": "본사에서 현금 40이 필요한 GOODS_ORDER_A 예약 시도"
+        }
+      ],
+      "expected_numeric": {
+        "company_cash": 100,
+        "reserved_cash": 71,
+        "available_cash": 29,
+        "stock_order_count": 1,
+        "commodity_order_count": 0,
+        "shares_held": 0
+      },
+      "expected_assertions": [
+        "본사와 도시 금융센터는 같은 회사 계좌·주문 상태를 읽는다.",
+        "주문 제출과 실제 결제는 구분하며 예약만으로 회사 현금과 주식을 동시에 확정하지 않는다.",
+        "가용현금 29로 40의 상품 주문을 승인하지 않는다.",
+        "중복 주문 ID를 새로운 주문으로 처리하지 않는다."
+      ],
+      "human_review_check": "주식 예약 70+1=71; 가용현금 100−71=29; 40>29이므로 상품 예약 실패. 총현금 100은 체결 전 유지.",
+      "engine_test_ref": null,
+      "unlinked_reason_ko": "P1 주식 기능은 아직 엔진에 없다(src/engine에 주식 처리 코드가 없고, 기본 설정 game_config의 securities_enabled는 false다). P0 완료 조건이 아니다."
+    },
+    {
+      "id": "P2-IPO-01",
+      "phase": "P2",
+      "milestone": "IPO-01",
+      "title": "신주 IPO의 회사 자금 유입·주식 수·희석 동시 처리",
+      "spec_sections": [
+        "25.3",
+        "25.4",
+        "26.2"
+      ],
+      "accounting_unit": "KRW",
+      "currency": "KRW",
+      "initial_state": {
+        "existing_shares": 1000000,
+        "founder_shares": 1000000,
+        "outside_investor_shares": 0,
+        "company_cash": 0,
+        "founder_personal_cash": 0,
+        "company_revenue": 0,
+        "operating_profit": 0,
+        "capital_action_applied_count": 0
+      },
+      "fixture_rules": [
+        "신주 250000주, 공모가격 주당 2000 KRW, 전량 청약·납입 완료.",
+        "세금·발행비용은 0인 산술 예제다. 실제 상장 요건·발행비용을 나타내지 않는다.",
+        "구주 매출은 없으며 이전 자본 총액을 기존 주식 수로 추정하지 않는다."
+      ],
+      "actions": [
+        {
+          "step": 1,
+          "action": "CAPITAL_ACTION_A로 신주 발행·납입 처리"
+        },
+        {
+          "step": 2,
+          "action": "동일 CAPITAL_ACTION_A를 재전송"
+        }
+      ],
+      "expected_numeric": {
+        "total_shares": 1250000,
+        "founder_shares": 1000000,
+        "outside_investor_shares": 250000,
+        "founder_ownership_numerator": 1000000,
+        "founder_ownership_denominator": 1250000,
+        "founder_ownership_percent": 80,
+        "outside_ownership_percent": 20,
+        "company_cash": 500000000,
+        "company_equity_increase": 500000000,
+        "founder_personal_cash": 0,
+        "company_revenue": 0,
+        "operating_profit": 0,
+        "capital_action_applied_count": 1
+      },
+      "expected_assertions": [
+        "신주 납입금은 회사 현금·자본 증가이며 매출·영업이익이 아니다.",
+        "대표 보유주식 수는 1000000주를 유지하며 개인 현금은 늘지 않는다.",
+        "총주식 증가로 지분율이 80%가 되며 같은 비율의 경제적 가치 손실을 자동 부여하지 않는다.",
+        "공모가격×총주식으로 표시한 가치를 회사 현금·자산 합계에 다시 더하지 않는다.",
+        "재전송으로 신주·현금·자본이 두 번 증가하지 않는다.",
+        "향후 구주 매출을 추가할 때에는 매각대금 수령자를 매도 주주로 구분한다. 구주 매각만으로 회사 현금·총발행주식 수가 증가해서는 안 된다.",
+        "이 기능은 P2이며 P0 90일 창업 캠페인의 필수 종료 조건이 아니다."
+      ],
+      "human_review_check": "1000000+250000=1250000주; 250000×2000=500000000 KRW; 1000000÷1250000×100=80%; 신규 투자자 20%.",
+      "engine_test_ref": null,
+      "unlinked_reason_ko": "P2 상장 기능은 아직 엔진에 없다(src/engine에 상장 처리 코드가 없고, 기본 설정 game_config의 ipo_enabled는 false다). P0 완료 조건이 아니다."
+    },
+    {
+      "id": "P0-ACC-13",
+      "phase": "P0",
+      "milestone": "M1",
+      "title": "출항 전 취소와 보유 재고",
+      "currency": "USD",
+      "evidence_class": "DESIGN",
+      "scenario_id": "SCENARIO_M1_CANCEL_PREDEPARTURE",
+      "expected_numeric": {
+        "opening_cash": 10000,
+        "cash_after": 8950,
+        "remaining_inventory_units": 100,
+        "inventory_cost": 1000,
+        "accounts_receivable": 0,
+        "revenue": 0,
+        "cancellation_expense": 50,
+        "contribution": -50,
+        "assets_cash_plus_inventory": 9950
+      },
+      "expected_assertions": [
+        "운임은 순취소비50만 손익에 남는다.",
+        "팔지 않은 재고100개 원가1000은 자산에 남는다.",
+        "매출·채권·관세를 만들지 않는다."
+      ],
+      "human_review_check": "10000−1000−200+150=8950; 재고1000; 자산9950; 거래손익−50",
+      "engine_test_ref": "src/engine/m1-trade.test.ts",
+      "engine_test_names": [
+        "M1 출항 전 취소 — SCENARIO_M1_CANCEL_PREDEPARTURE (P0-ACC-13)"
+      ],
+      "engine_mapping_note_ko": "시험은 기대값을 data/scenarios.json의 이 시나리오 expected_trade_only_usd에서 읽는다. 금액은 USD 최소 단위로, 남은 재고는 개수로 비교한다. opening_cash는 직접 단언하지 않고 거래 뒤 현금(cash_after)으로 간접 확인한다. 자료 검사기가 두 값이 같은지 확인한다."
+    },
+    {
+      "id": "P0-ACC-14",
+      "phase": "P0",
+      "milestone": "M1",
+      "title": "지연 인도 수락과 가격 감액",
+      "currency": "USD",
+      "evidence_class": "DESIGN",
+      "scenario_id": "SCENARIO_M1_DELAY_ACCEPTED",
+      "expected_numeric": {
+        "cash_before_collection": 8750,
+        "inventory_units": 0,
+        "accounts_receivable": 1350,
+        "net_revenue": 1350,
+        "direct_cost": 1250,
+        "contribution": 100,
+        "cash_after_collection": 10100
+      },
+      "expected_assertions": [
+        "원래도착7일에 공통지연2일을 한번만 더해9일 인도.",
+        "매출1350과 비용1250의 차이는100.",
+        "수금전8750, 수금후10100이며 채권은0."
+      ],
+      "human_review_check": "10000−1000−200−50=8750; 매출1400−50=1350; 8750+1350=10100",
+      "engine_test_ref": "src/engine/m1-trade.test.ts",
+      "engine_test_names": [
+        "M1 지연 수락 — SCENARIO_M1_DELAY_ACCEPTED (P0-ACC-14)"
+      ],
+      "engine_mapping_note_ko": "시험은 기대값을 data/scenarios.json의 이 시나리오 expected_trade_only_usd에서 읽어 USD 최소 단위로 비교한다. inventory_units는 직접 단언하지 않고 화물의 인도 상태(DELIVERED)로 간접 확인한다. 자료 검사기가 두 값이 같은지 확인한다."
+    },
+    {
+      "id": "P0-M2A-01",
+      "phase": "P0",
+      "milestone": "M2",
+      "title": "복수 계약의 자금 예약 — 남은 운임·관세를 묶은 뒤 새 계약 판단",
+      "currency": "USD",
+      "evidence_class": "DESIGN",
+      "scenario_id": "SCENARIO_M2_MULTI_TRADE",
+      "actions": [
+        {
+          "step": 1,
+          "action": "1일: 의류 직접 무역(OFFER_BUY_01+OFFER_SELL_01) 수락"
+        },
+        {
+          "step": 2,
+          "action": "같은 날 화장품 직접 무역(OFFER_BUY_02+OFFER_SELL_02) 수락 시도"
+        }
+      ],
+      "expected_numeric": {
+        "opening_cash": 3000,
+        "cash_after_first": 2000,
+        "reserved_after_first": 250,
+        "available_after_first": 1750,
+        "needed_for_second": 2280,
+        "contracts_after": 1
+      },
+      "expected_assertions": [
+        "두 번째 거래는 매입대금 2000을 현금으로 낼 수 있어도 사용 가능 자금 1750이 필요 자금 2280보다 적어 거절된다.",
+        "거절된 명령은 장부·견적·화물 상태를 바꾸지 않는다.",
+        "운임을 예약해 지급하면 그 계약의 운임 예약은 풀리고, 관세 예약은 도착해 관세를 낼 때까지 남는다."
+      ],
+      "human_review_check": "3000−1000=2000; 예약 200+50=250; 2000−250=1750 < 2000+180+100=2280",
+      "engine_test_ref": "src/engine/m2a-multi.test.ts",
+      "engine_test_names": [
+        "P0-M2A-01 복수 계약의 자금 예약"
+      ]
+    },
+    {
+      "id": "P0-M2A-02",
+      "phase": "P0",
+      "milestone": "M2",
+      "title": "운송 주선: 고객 화물·서비스 매출과 회사 재고·상품 매출 분리",
+      "currency": "USD",
+      "evidence_class": "DESIGN",
+      "scenario_id": "SCENARIO_M2_MULTI_TRADE",
+      "actions": [
+        {
+          "step": 1,
+          "action": "1일: 화장품 직접 무역, 가구·자동차 부품 운송 주선 수락. 화장품은 ROUTE02-D002, 가구는 ROUTE01-D002, 자동차 부품은 ROUTE01-D009 예약"
+        },
+        {
+          "step": 2,
+          "action": "직원 2명이 1일에 화장품·가구 준비, 2일에 자동차 부품 준비"
+        },
+        {
+          "step": 3,
+          "action": "17일까지 진행"
+        }
+      ],
+      "expected_numeric": {
+        "cash_after_day1": 420,
+        "reserved_after_day1": 100,
+        "cash_after_day7": 320,
+        "accounts_receivable_after_day7": 2880,
+        "goods_revenue": 2500,
+        "cost_of_goods_sold": 2280,
+        "forwarding_revenue": 680,
+        "forwarding_cost": 400,
+        "contribution": 500,
+        "cash_final_day17": 3500
+      },
+      "expected_assertions": [
+        "고객 화물(가구 신고가액 9600, 자동차 부품 12000)은 회사 재고·자산·매출에 들어가지 않는다.",
+        "운송 주선 매출과 상품 매출, 주선 원가와 매출원가를 따로 보고한다.",
+        "운송 주선 화물의 관세는 회사가 내지 않는다(수입자 부담 가정).",
+        "주선 운임은 출항 때 진행원가로, 인도 때 주선 원가로 옮겨 서비스 매출과 같은 날 비용이 된다."
+      ],
+      "human_review_check": "화장품 2500−2000−180−100=220; 가구 380−200=180; 자동차 부품 300−200=100; 합계 500; 3000+500=3500",
+      "engine_test_ref": "src/engine/m2a-multi.test.ts",
+      "engine_test_names": [
+        "P0-M2A-02 운송 주선: 고객 화물과 회사 재고 분리"
+      ]
+    },
+    {
+      "id": "P0-M2A-03",
+      "phase": "P0",
+      "milestone": "M2",
+      "title": "선복·직원 중복 예약 방지",
+      "currency": "USD",
+      "evidence_class": "DESIGN",
+      "scenario_id": "SCENARIO_M2_MULTI_TRADE",
+      "actions": [
+        {
+          "step": 1,
+          "action": "1일: 가구·자동차 부품 운송 주선을 모두 수락"
+        },
+        {
+          "step": 2,
+          "action": "두 화물을 모두 ROUTE01-D002에 예약 시도"
+        },
+        {
+          "step": 3,
+          "action": "두 준비 업무를 모두 EMP01에게 배정 시도"
+        }
+      ],
+      "expected_numeric": {
+        "capacity_m3": 30,
+        "volume_m3_first": 24,
+        "volume_m3_second": 8,
+        "rejected_bookings": 1,
+        "rejected_assignments": 1,
+        "cash_after_day1": 2800,
+        "reserved_after_day1": 200
+      },
+      "expected_assertions": [
+        "같은 출항편의 무게·부피 합계가 한도를 넘는 예약은 거절하며 운임을 받지 않는다.",
+        "업무 중인 직원에게 두 번째 업무를 배정하지 않는다.",
+        "같은 날 대기 명령은 앞 명령의 예약을 반영해 누적 검증한다."
+      ],
+      "human_review_check": "24+8=32 > 30m³; 3000−200=2800; 남은 예약은 자동차 부품 운임 200",
+      "engine_test_ref": "src/engine/m2a-multi.test.ts",
+      "engine_test_names": [
+        "P0-M2A-03 선복·직원 중복 예약 방지"
+      ]
+    },
+    {
+      "id": "P0-M2A-04",
+      "phase": "P0",
+      "milestone": "M2",
+      "title": "동료 영입: 발견·의뢰·고용 분리와 계약금·급여 시작일",
+      "currency": "KRW",
+      "evidence_class": "DESIGN",
+      "scenario_id": "SCENARIO_M2_MULTI_TRADE",
+      "actions": [
+        {
+          "step": 1,
+          "action": "1일 물보리가 항만을 조사한다."
+        },
+        {
+          "step": 2,
+          "action": "2일 귀솔에게 현돌 영입 의뢰를 배정하고 3일까지 진행한다."
+        },
+        {
+          "step": 3,
+          "action": "4일 현돌을 고용한다. 같은 날 배정을 시도하고 5일 다시 배정한다."
+        },
+        {
+          "step": 4,
+          "action": "중복 고용과 저장·불러오기를 검증한다."
+        }
+      ],
+      "expected_numeric": {
+        "employed_after_discovery": 2,
+        "signing_fee": 550000,
+        "daily_wage": 110000,
+        "hired_day": 4,
+        "available_from_day": 5
+      },
+      "expected_assertions": [
+        "발견과 의뢰 완료만으로 고용·급여·처리량이 생기지 않는다.",
+        "조사·의뢰는 직원의 다른 업무와 겹칠 수 없다.",
+        "계약금은 후보마다 한 번만 지급하며 자금 부족 시 고용을 거절한다.",
+        "배정·급여·운영 목록은 고용 다음 날부터 시작한다.",
+        "영입 없는 M1·M2 검산 값과 저장 전후 재현성을 유지한다."
+      ],
+      "human_review_check": "현돌 일급 110,000원 × 5일 = 계약금 550,000원. 4일 고용 → 5일부터 급여·업무.",
+      "engine_test_ref": "src/engine/m2a-recruit.test.ts",
+      "engine_test_names": [
+        "P0-M2A-04 발견·의뢰: 직원 시간을 쓰지만 고용을 만들지 않는다",
+        "P0-M2A-04 고용: 계약금 한 번, 다음 날부터 배정·급여"
+      ]
+    },
+    {
+      "id": "P0-M2A5-01",
+      "phase": "P0",
+      "milestone": "M2",
+      "title": "결정적 견적 공개",
+      "currency": "USD",
+      "evidence_class": "DESIGN",
+      "scenario_id": "SCENARIO_M2_OPERATIONS",
+      "actions": [
+        {
+          "step": 1,
+          "action": "명령을 실행하고 해당 날까지 진행한다.",
+          "day": 7,
+          "commands": [],
+          "variant": "A"
+        }
+      ],
+      "expected_numeric": {
+        "draw_values": [
+          0.805097,
+          0.736039,
+          0.966764,
+          0.413184,
+          0.252801,
+          0.315194,
+          0.559397,
+          0.71599,
+          0.676596,
+          0.425626,
+          0.35891,
+          0.449631,
+          0.617509,
+          0.438899,
+          0.362755,
+          0.564103,
+          0.25337,
+          0.26179,
+          0.520673,
+          0.418362,
+          0.594932,
+          0.850594
+        ],
+        "publish_days": [
+          1,
+          8,
+          15,
+          22,
+          29,
+          36,
+          43,
+          50,
+          57,
+          64,
+          71,
+          78
+        ],
+        "draw_count": 22,
+        "initial_offer_count": 6,
+        "generated_count": 10,
+        "handling_count": 4,
+        "index_bp": [
+          10200,
+          10200
+        ],
+        "regional_pct": [
+          -2,
+          -2,
+          1,
+          2,
+          2,
+          -1
+        ],
+        "row_prices": [
+          1000,
+          3998,
+          1566,
+          5379,
+          1514,
+          5352
+        ],
+        "counterparty_pct": [
+          -1,
+          0,
+          1,
+          0
+        ],
+        "max_lots": [
+          2,
+          3
+        ],
+        "generated": {
+          "batch": {
+            "k": 1,
+            "publishDay": 8,
+            "index": [
+              {
+                "goodId": "APPAREL",
+                "bp": 10200,
+                "stepPct": 2
+              },
+              {
+                "goodId": "COSMETICS",
+                "bp": 10200,
+                "stepPct": 2
+              }
+            ],
+            "destinations": [
+              {
+                "goodId": "APPAREL",
+                "cityId": "SHANGHAI"
+              },
+              {
+                "goodId": "COSMETICS",
+                "cityId": "HAIPHONG"
+              }
+            ],
+            "rows": [
+              {
+                "cityId": "PYEONGTAEK",
+                "goodId": "APPAREL",
+                "side": "BUY",
+                "basePriceMinor": 1000,
+                "regionalPct": -2
+              },
+              {
+                "cityId": "PYEONGTAEK",
+                "goodId": "COSMETICS",
+                "side": "BUY",
+                "basePriceMinor": 3998,
+                "regionalPct": -2
+              },
+              {
+                "cityId": "HAIPHONG",
+                "goodId": "APPAREL",
+                "side": "SELL",
+                "basePriceMinor": 1566,
+                "regionalPct": 1
+              },
+              {
+                "cityId": "HAIPHONG",
+                "goodId": "COSMETICS",
+                "side": "SELL",
+                "basePriceMinor": 5379,
+                "regionalPct": 2
+              },
+              {
+                "cityId": "SHANGHAI",
+                "goodId": "APPAREL",
+                "side": "SELL",
+                "basePriceMinor": 1514,
+                "regionalPct": 2
+              },
+              {
+                "cityId": "SHANGHAI",
+                "goodId": "COSMETICS",
+                "side": "SELL",
+                "basePriceMinor": 5352,
+                "regionalPct": -1
+              }
+            ],
+            "counterpartyPct": [
+              {
+                "goodId": "APPAREL",
+                "side": "BUY",
+                "pct": -1
+              },
+              {
+                "goodId": "APPAREL",
+                "side": "SELL",
+                "pct": 0
+              },
+              {
+                "goodId": "COSMETICS",
+                "side": "BUY",
+                "pct": 1
+              },
+              {
+                "goodId": "COSMETICS",
+                "side": "SELL",
+                "pct": 0
+              }
+            ],
+            "maxLots": [
+              {
+                "goodId": "APPAREL",
+                "lots": 2
+              },
+              {
+                "goodId": "COSMETICS",
+                "lots": 3
+              }
+            ],
+            "templateIds": [
+              "F2",
+              "F3",
+              "H1",
+              "H4",
+              "H5",
+              "H6"
+            ],
+            "offerIds": [
+              "MKT-D008-APP-BUY",
+              "MKT-D008-APP-SELL",
+              "MKT-D008-COS-BUY",
+              "MKT-D008-COS-SELL",
+              "MKT-D008-F2",
+              "MKT-D008-F3",
+              "MKT-D008-H1",
+              "MKT-D008-H4",
+              "MKT-D008-H5",
+              "MKT-D008-H6"
+            ],
+            "drawCount": 22
+          },
+          "offers": [
+            {
+              "publishDay": 8,
+              "batchK": 1,
+              "validUntilDay": 10,
+              "originCountryCode": "KR",
+              "declaredCargoValueMinor": null,
+              "id": "MKT-D008-APP-BUY",
+              "kind": "supplier",
+              "counterpartyId": "SUPPLIER_DEMO",
+              "cityId": "PYEONGTAEK",
+              "goodId": "APPAREL",
+              "quantity": 100,
+              "quantityStep": 100,
+              "maxQuantity": 200,
+              "unitPriceMinor": 990,
+              "serviceFeeMinor": 0,
+              "currency": "USD",
+              "destinationCityId": null,
+              "deliveryDeadlineDay": null,
+              "paymentDueDay": null,
+              "serviceClass": null,
+              "templateId": null,
+              "titleKo": null,
+              "prepWorkUnits": null
+            },
+            {
+              "publishDay": 8,
+              "batchK": 1,
+              "validUntilDay": 10,
+              "originCountryCode": "KR",
+              "declaredCargoValueMinor": null,
+              "id": "MKT-D008-APP-SELL",
+              "kind": "customer",
+              "counterpartyId": "CUSTOMER_SHA_APPAREL",
+              "cityId": "SHANGHAI",
+              "goodId": "APPAREL",
+              "quantity": 100,
+              "quantityStep": 100,
+              "maxQuantity": 200,
+              "unitPriceMinor": 1514,
+              "serviceFeeMinor": 0,
+              "currency": "USD",
+              "destinationCityId": null,
+              "deliveryDeadlineDay": 15,
+              "paymentDueDay": 19,
+              "serviceClass": null,
+              "templateId": null,
+              "titleKo": null,
+              "prepWorkUnits": null
+            },
+            {
+              "publishDay": 8,
+              "batchK": 1,
+              "validUntilDay": 10,
+              "originCountryCode": "KR",
+              "declaredCargoValueMinor": null,
+              "id": "MKT-D008-COS-BUY",
+              "kind": "supplier",
+              "counterpartyId": "SUPPLIER_DEMO_COSMETICS",
+              "cityId": "PYEONGTAEK",
+              "goodId": "COSMETICS",
+              "quantity": 50,
+              "quantityStep": 50,
+              "maxQuantity": 150,
+              "unitPriceMinor": 4038,
+              "serviceFeeMinor": 0,
+              "currency": "USD",
+              "destinationCityId": null,
+              "deliveryDeadlineDay": null,
+              "paymentDueDay": null,
+              "serviceClass": null,
+              "templateId": null,
+              "titleKo": null,
+              "prepWorkUnits": null
+            },
+            {
+              "publishDay": 8,
+              "batchK": 1,
+              "validUntilDay": 10,
+              "originCountryCode": "KR",
+              "declaredCargoValueMinor": null,
+              "id": "MKT-D008-COS-SELL",
+              "kind": "customer",
+              "counterpartyId": "CUSTOMER_HAI_COSMETICS",
+              "cityId": "HAIPHONG",
+              "goodId": "COSMETICS",
+              "quantity": 50,
+              "quantityStep": 50,
+              "maxQuantity": 150,
+              "unitPriceMinor": 5379,
+              "serviceFeeMinor": 0,
+              "currency": "USD",
+              "destinationCityId": null,
+              "deliveryDeadlineDay": 15,
+              "paymentDueDay": 17,
+              "serviceClass": null,
+              "templateId": null,
+              "titleKo": null,
+              "prepWorkUnits": null
+            },
+            {
+              "publishDay": 8,
+              "batchK": 1,
+              "validUntilDay": 10,
+              "originCountryCode": "KR",
+              "declaredCargoValueMinor": null,
+              "id": "MKT-D008-F2",
+              "kind": "forwarding",
+              "counterpartyId": "SHIPPER_DEMO_AUTOPARTS",
+              "cityId": "PYEONGTAEK",
+              "goodId": "AUTO_PARTS",
+              "quantity": 200,
+              "maxQuantity": 200,
+              "quantityStep": 200,
+              "unitPriceMinor": 0,
+              "serviceFeeMinor": 30000,
+              "currency": "USD",
+              "destinationCityId": "HAIPHONG",
+              "deliveryDeadlineDay": 22,
+              "paymentDueDay": 24,
+              "serviceClass": "STANDARD",
+              "templateId": "F2",
+              "titleKo": null,
+              "prepWorkUnits": null
+            },
+            {
+              "publishDay": 8,
+              "batchK": 1,
+              "validUntilDay": 10,
+              "originCountryCode": "KR",
+              "declaredCargoValueMinor": null,
+              "id": "MKT-D008-F3",
+              "kind": "forwarding",
+              "counterpartyId": "SHIPPER_DEMO_ELECTRONICS",
+              "cityId": "PYEONGTAEK",
+              "goodId": "ELECTRONICS",
+              "quantity": 300,
+              "maxQuantity": 300,
+              "quantityStep": 300,
+              "unitPriceMinor": 0,
+              "serviceFeeMinor": 30000,
+              "currency": "USD",
+              "destinationCityId": "SHANGHAI",
+              "deliveryDeadlineDay": 15,
+              "paymentDueDay": 19,
+              "serviceClass": "STANDARD",
+              "templateId": "F3",
+              "titleKo": null,
+              "prepWorkUnits": null
+            },
+            {
+              "publishDay": 8,
+              "batchK": 1,
+              "validUntilDay": 10,
+              "originCountryCode": "KR",
+              "declaredCargoValueMinor": null,
+              "id": "MKT-D008-H1",
+              "kind": "forwarding",
+              "counterpartyId": "SHIPPER_DEMO_ELECTRONICS",
+              "cityId": "PYEONGTAEK",
+              "goodId": "ELECTRONICS",
+              "quantity": 300,
+              "maxQuantity": 300,
+              "quantityStep": 300,
+              "unitPriceMinor": 0,
+              "serviceFeeMinor": 104000,
+              "currency": "USD",
+              "destinationCityId": "HAIPHONG",
+              "deliveryDeadlineDay": 22,
+              "paymentDueDay": 24,
+              "serviceClass": "HANDLING",
+              "templateId": "H1",
+              "titleKo": "라벨 작업 포함 전자제품",
+              "prepWorkUnits": 12
+            },
+            {
+              "publishDay": 8,
+              "batchK": 1,
+              "validUntilDay": 10,
+              "originCountryCode": "KR",
+              "declaredCargoValueMinor": null,
+              "id": "MKT-D008-H4",
+              "kind": "forwarding",
+              "counterpartyId": "SHIPPER_DEMO_ELECTRONICS",
+              "cityId": "PYEONGTAEK",
+              "goodId": "ELECTRONICS",
+              "quantity": 300,
+              "maxQuantity": 300,
+              "quantityStep": 300,
+              "unitPriceMinor": 0,
+              "serviceFeeMinor": 102000,
+              "currency": "USD",
+              "destinationCityId": "SHANGHAI",
+              "deliveryDeadlineDay": 22,
+              "paymentDueDay": 26,
+              "serviceClass": "HANDLING",
+              "templateId": "H4",
+              "titleKo": "라벨 작업 포함 전자제품",
+              "prepWorkUnits": 12
+            },
+            {
+              "publishDay": 8,
+              "batchK": 1,
+              "validUntilDay": 10,
+              "originCountryCode": "KR",
+              "declaredCargoValueMinor": null,
+              "id": "MKT-D008-H5",
+              "kind": "forwarding",
+              "counterpartyId": "SHIPPER_DEMO_AUTOPARTS",
+              "cityId": "PYEONGTAEK",
+              "goodId": "AUTO_PARTS",
+              "quantity": 225,
+              "maxQuantity": 225,
+              "quantityStep": 225,
+              "unitPriceMinor": 0,
+              "serviceFeeMinor": 102000,
+              "currency": "USD",
+              "destinationCityId": "SHANGHAI",
+              "deliveryDeadlineDay": 22,
+              "paymentDueDay": 26,
+              "serviceClass": "HANDLING",
+              "templateId": "H5",
+              "titleKo": "재포장 포함 자동차 부품",
+              "prepWorkUnits": 12
+            },
+            {
+              "publishDay": 8,
+              "batchK": 1,
+              "validUntilDay": 10,
+              "originCountryCode": "KR",
+              "declaredCargoValueMinor": null,
+              "id": "MKT-D008-H6",
+              "kind": "forwarding",
+              "counterpartyId": "SHIPPER_DEMO_COSMETICS",
+              "cityId": "PYEONGTAEK",
+              "goodId": "COSMETICS",
+              "quantity": 450,
+              "maxQuantity": 450,
+              "quantityStep": 450,
+              "unitPriceMinor": 0,
+              "serviceFeeMinor": 104000,
+              "currency": "USD",
+              "destinationCityId": "HAIPHONG",
+              "deliveryDeadlineDay": 22,
+              "paymentDueDay": 24,
+              "serviceClass": "HANDLING",
+              "templateId": "H6",
+              "titleKo": "검수·소분 포함 화장품",
+              "prepWorkUnits": 12
+            }
+          ]
+        },
+        "last_offer_ids": [
+          "MKT-D078-APP-BUY",
+          "MKT-D078-APP-SELL",
+          "MKT-D078-COS-BUY",
+          "MKT-D078-COS-SELL",
+          "MKT-D078-F6"
+        ],
+        "table_before_publish": [
+          {
+            "cityId": "PYEONGTAEK",
+            "goodId": "APPAREL",
+            "side": "BUY",
+            "basePriceMinor": 1000,
+            "currency": "USD",
+            "indexPoints": 100,
+            "indexBp": 10000,
+            "observedDay": 1,
+            "ageDays": 6,
+            "nextObservationDay": 8,
+            "hasQuoteInBatch": true
+          },
+          {
+            "cityId": "PYEONGTAEK",
+            "goodId": "COSMETICS",
+            "side": "BUY",
+            "basePriceMinor": 4000,
+            "currency": "USD",
+            "indexPoints": 100,
+            "indexBp": 10000,
+            "observedDay": 1,
+            "ageDays": 6,
+            "nextObservationDay": 8,
+            "hasQuoteInBatch": true
+          },
+          {
+            "cityId": "HAIPHONG",
+            "goodId": "APPAREL",
+            "side": "SELL",
+            "basePriceMinor": 1520,
+            "currency": "USD",
+            "indexPoints": 100,
+            "indexBp": 10000,
+            "observedDay": 1,
+            "ageDays": 6,
+            "nextObservationDay": 8,
+            "hasQuoteInBatch": true
+          },
+          {
+            "cityId": "HAIPHONG",
+            "goodId": "COSMETICS",
+            "side": "SELL",
+            "basePriceMinor": 5170,
+            "currency": "USD",
+            "indexPoints": 100,
+            "indexBp": 10000,
+            "observedDay": 1,
+            "ageDays": 6,
+            "nextObservationDay": 8,
+            "hasQuoteInBatch": false
+          },
+          {
+            "cityId": "SHANGHAI",
+            "goodId": "APPAREL",
+            "side": "SELL",
+            "basePriceMinor": 1455,
+            "currency": "USD",
+            "indexPoints": 100,
+            "indexBp": 10000,
+            "observedDay": 1,
+            "ageDays": 6,
+            "nextObservationDay": 8,
+            "hasQuoteInBatch": false
+          },
+          {
+            "cityId": "SHANGHAI",
+            "goodId": "COSMETICS",
+            "side": "SELL",
+            "basePriceMinor": 5300,
+            "currency": "USD",
+            "indexPoints": 100,
+            "indexBp": 10000,
+            "observedDay": 1,
+            "ageDays": 6,
+            "nextObservationDay": 8,
+            "hasQuoteInBatch": true
+          }
+        ]
+      },
+      "expected_assertions": [
+        "M2A5-SPEC 18절 01의 전체 수치·상태와 일치한다.",
+        "읽기 함수는 상태를 바꾸지 않고 저장 재개 후 같은 결과를 낸다."
+      ],
+      "human_review_check": "개발용 합성값이며 실제 시세·임금·계약 관행을 뜻하지 않는다. 전체 객체 단언과 문장 반례를 확인한다.",
+      "engine_test_ref": "src/engine/m2a5-market.test.ts",
+      "engine_test_names": [
+        "P0-M2A5-01 결정적 견적 공개"
+      ],
+      "test_fixture": {
+        "seed": 42032026,
+        "other_seed": 1001,
+        "last_day": 90,
+        "last_publish_day": 78,
+        "restart_day": 7,
+        "keep_alive_day": 50,
+        "keep_alive_command": {
+          "id": "MARKET-KEEP-ALIVE",
+          "type": "EXCHANGE_CURRENCY",
+          "direction": "USD_TO_KRW",
+          "usdAmountMinor": 300000
+        },
+        "save_day": 4,
+        "preclose_day": 6,
+        "batch_k": 1,
+        "expected_templates": [
+          "F2",
+          "F3",
+          "H1",
+          "H4",
+          "H5",
+          "H6"
+        ]
+      }
+    },
+    {
+      "id": "P0-M2A5-02",
+      "phase": "P0",
+      "milestone": "M2",
+      "title": "시세표·체결 가격 고정",
+      "currency": "USD",
+      "evidence_class": "DESIGN",
+      "scenario_id": "SCENARIO_M2_OPERATIONS",
+      "actions": [
+        {
+          "step": 1,
+          "action": "명령을 실행하고 해당 날까지 진행한다.",
+          "day": 8,
+          "commands": [
+            {
+              "id": "ACCEPT_TRADE-149-MKT-D008-APP-BUY",
+              "type": "ACCEPT_TRADE",
+              "buyOfferId": "MKT-D008-APP-BUY",
+              "sellOfferId": "MKT-D008-APP-SELL",
+              "quantity": 200,
+              "plan": {
+                "employeeId": "EMP01",
+                "sailingId": "ROUTE02-D009"
+              }
+            }
+          ],
+          "variant": "A"
+        }
+      ],
+      "expected_numeric": {
+        "purchase": 198000,
+        "sale": 302800,
+        "freight": 18000,
+        "duty": 9900,
+        "need": 225900,
+        "prep": 3,
+        "departure": 9,
+        "arrival": 13,
+        "receipt": 19,
+        "contribution": 76900,
+        "next_index": [
+          10200,
+          10506
+        ],
+        "age_at_14": 6,
+        "age_at_85": 7,
+        "next_index_rows": [
+          {
+            "goodId": "APPAREL",
+            "bp": 10200,
+            "stepPct": 0
+          },
+          {
+            "goodId": "COSMETICS",
+            "bp": 10506,
+            "stepPct": 3
+          }
+        ],
+        "tables": [
+          {
+            "day": 8,
+            "rows": [
+              {
+                "cityId": "PYEONGTAEK",
+                "goodId": "APPAREL",
+                "side": "BUY",
+                "basePriceMinor": 1000,
+                "currency": "USD",
+                "indexPoints": 102,
+                "indexBp": 10200,
+                "observedDay": 8,
+                "ageDays": 0,
+                "nextObservationDay": 15,
+                "hasQuoteInBatch": true
+              },
+              {
+                "cityId": "PYEONGTAEK",
+                "goodId": "COSMETICS",
+                "side": "BUY",
+                "basePriceMinor": 3998,
+                "currency": "USD",
+                "indexPoints": 102,
+                "indexBp": 10200,
+                "observedDay": 8,
+                "ageDays": 0,
+                "nextObservationDay": 15,
+                "hasQuoteInBatch": true
+              },
+              {
+                "cityId": "HAIPHONG",
+                "goodId": "APPAREL",
+                "side": "SELL",
+                "basePriceMinor": 1566,
+                "currency": "USD",
+                "indexPoints": 102,
+                "indexBp": 10200,
+                "observedDay": 8,
+                "ageDays": 0,
+                "nextObservationDay": 15,
+                "hasQuoteInBatch": false
+              },
+              {
+                "cityId": "HAIPHONG",
+                "goodId": "COSMETICS",
+                "side": "SELL",
+                "basePriceMinor": 5379,
+                "currency": "USD",
+                "indexPoints": 102,
+                "indexBp": 10200,
+                "observedDay": 8,
+                "ageDays": 0,
+                "nextObservationDay": 15,
+                "hasQuoteInBatch": true
+              },
+              {
+                "cityId": "SHANGHAI",
+                "goodId": "APPAREL",
+                "side": "SELL",
+                "basePriceMinor": 1514,
+                "currency": "USD",
+                "indexPoints": 102,
+                "indexBp": 10200,
+                "observedDay": 8,
+                "ageDays": 0,
+                "nextObservationDay": 15,
+                "hasQuoteInBatch": true
+              },
+              {
+                "cityId": "SHANGHAI",
+                "goodId": "COSMETICS",
+                "side": "SELL",
+                "basePriceMinor": 5352,
+                "currency": "USD",
+                "indexPoints": 102,
+                "indexBp": 10200,
+                "observedDay": 8,
+                "ageDays": 0,
+                "nextObservationDay": 15,
+                "hasQuoteInBatch": false
+              }
+            ]
+          },
+          {
+            "day": 14,
+            "rows": [
+              {
+                "cityId": "PYEONGTAEK",
+                "goodId": "APPAREL",
+                "side": "BUY",
+                "basePriceMinor": 1000,
+                "currency": "USD",
+                "indexPoints": 102,
+                "indexBp": 10200,
+                "observedDay": 8,
+                "ageDays": 6,
+                "nextObservationDay": 15,
+                "hasQuoteInBatch": true
+              },
+              {
+                "cityId": "PYEONGTAEK",
+                "goodId": "COSMETICS",
+                "side": "BUY",
+                "basePriceMinor": 3998,
+                "currency": "USD",
+                "indexPoints": 102,
+                "indexBp": 10200,
+                "observedDay": 8,
+                "ageDays": 6,
+                "nextObservationDay": 15,
+                "hasQuoteInBatch": true
+              },
+              {
+                "cityId": "HAIPHONG",
+                "goodId": "APPAREL",
+                "side": "SELL",
+                "basePriceMinor": 1566,
+                "currency": "USD",
+                "indexPoints": 102,
+                "indexBp": 10200,
+                "observedDay": 8,
+                "ageDays": 6,
+                "nextObservationDay": 15,
+                "hasQuoteInBatch": false
+              },
+              {
+                "cityId": "HAIPHONG",
+                "goodId": "COSMETICS",
+                "side": "SELL",
+                "basePriceMinor": 5379,
+                "currency": "USD",
+                "indexPoints": 102,
+                "indexBp": 10200,
+                "observedDay": 8,
+                "ageDays": 6,
+                "nextObservationDay": 15,
+                "hasQuoteInBatch": true
+              },
+              {
+                "cityId": "SHANGHAI",
+                "goodId": "APPAREL",
+                "side": "SELL",
+                "basePriceMinor": 1514,
+                "currency": "USD",
+                "indexPoints": 102,
+                "indexBp": 10200,
+                "observedDay": 8,
+                "ageDays": 6,
+                "nextObservationDay": 15,
+                "hasQuoteInBatch": true
+              },
+              {
+                "cityId": "SHANGHAI",
+                "goodId": "COSMETICS",
+                "side": "SELL",
+                "basePriceMinor": 5352,
+                "currency": "USD",
+                "indexPoints": 102,
+                "indexBp": 10200,
+                "observedDay": 8,
+                "ageDays": 6,
+                "nextObservationDay": 15,
+                "hasQuoteInBatch": false
+              }
+            ]
+          },
+          {
+            "day": 80,
+            "rows": [
+              {
+                "cityId": "PYEONGTAEK",
+                "goodId": "APPAREL",
+                "side": "BUY",
+                "basePriceMinor": 1148,
+                "currency": "USD",
+                "indexPoints": 111,
+                "indexBp": 11141,
+                "observedDay": 78,
+                "ageDays": 2,
+                "nextObservationDay": null,
+                "hasQuoteInBatch": true
+              },
+              {
+                "cityId": "PYEONGTAEK",
+                "goodId": "COSMETICS",
+                "side": "BUY",
+                "basePriceMinor": 4366,
+                "currency": "USD",
+                "indexPoints": 109,
+                "indexBp": 10916,
+                "observedDay": 78,
+                "ageDays": 2,
+                "nextObservationDay": null,
+                "hasQuoteInBatch": true
+              },
+              {
+                "cityId": "HAIPHONG",
+                "goodId": "APPAREL",
+                "side": "SELL",
+                "basePriceMinor": 1676,
+                "currency": "USD",
+                "indexPoints": 111,
+                "indexBp": 11141,
+                "observedDay": 78,
+                "ageDays": 2,
+                "nextObservationDay": null,
+                "hasQuoteInBatch": false
+              },
+              {
+                "cityId": "HAIPHONG",
+                "goodId": "COSMETICS",
+                "side": "SELL",
+                "basePriceMinor": 5700,
+                "currency": "USD",
+                "indexPoints": 109,
+                "indexBp": 10916,
+                "observedDay": 78,
+                "ageDays": 2,
+                "nextObservationDay": null,
+                "hasQuoteInBatch": true
+              },
+              {
+                "cityId": "SHANGHAI",
+                "goodId": "APPAREL",
+                "side": "SELL",
+                "basePriceMinor": 1589,
+                "currency": "USD",
+                "indexPoints": 111,
+                "indexBp": 11141,
+                "observedDay": 78,
+                "ageDays": 2,
+                "nextObservationDay": null,
+                "hasQuoteInBatch": true
+              },
+              {
+                "cityId": "SHANGHAI",
+                "goodId": "COSMETICS",
+                "side": "SELL",
+                "basePriceMinor": 5843,
+                "currency": "USD",
+                "indexPoints": 109,
+                "indexBp": 10916,
+                "observedDay": 78,
+                "ageDays": 2,
+                "nextObservationDay": null,
+                "hasQuoteInBatch": false
+              }
+            ]
+          },
+          {
+            "day": 85,
+            "rows": [
+              {
+                "cityId": "PYEONGTAEK",
+                "goodId": "APPAREL",
+                "side": "BUY",
+                "basePriceMinor": 1148,
+                "currency": "USD",
+                "indexPoints": 111,
+                "indexBp": 11141,
+                "observedDay": 78,
+                "ageDays": 7,
+                "nextObservationDay": null,
+                "hasQuoteInBatch": true
+              },
+              {
+                "cityId": "PYEONGTAEK",
+                "goodId": "COSMETICS",
+                "side": "BUY",
+                "basePriceMinor": 4366,
+                "currency": "USD",
+                "indexPoints": 109,
+                "indexBp": 10916,
+                "observedDay": 78,
+                "ageDays": 7,
+                "nextObservationDay": null,
+                "hasQuoteInBatch": true
+              },
+              {
+                "cityId": "HAIPHONG",
+                "goodId": "APPAREL",
+                "side": "SELL",
+                "basePriceMinor": 1676,
+                "currency": "USD",
+                "indexPoints": 111,
+                "indexBp": 11141,
+                "observedDay": 78,
+                "ageDays": 7,
+                "nextObservationDay": null,
+                "hasQuoteInBatch": false
+              },
+              {
+                "cityId": "HAIPHONG",
+                "goodId": "COSMETICS",
+                "side": "SELL",
+                "basePriceMinor": 5700,
+                "currency": "USD",
+                "indexPoints": 109,
+                "indexBp": 10916,
+                "observedDay": 78,
+                "ageDays": 7,
+                "nextObservationDay": null,
+                "hasQuoteInBatch": true
+              },
+              {
+                "cityId": "SHANGHAI",
+                "goodId": "APPAREL",
+                "side": "SELL",
+                "basePriceMinor": 1589,
+                "currency": "USD",
+                "indexPoints": 111,
+                "indexBp": 11141,
+                "observedDay": 78,
+                "ageDays": 7,
+                "nextObservationDay": null,
+                "hasQuoteInBatch": true
+              },
+              {
+                "cityId": "SHANGHAI",
+                "goodId": "COSMETICS",
+                "side": "SELL",
+                "basePriceMinor": 5843,
+                "currency": "USD",
+                "indexPoints": 109,
+                "indexBp": 10916,
+                "observedDay": 78,
+                "ageDays": 7,
+                "nextObservationDay": null,
+                "hasQuoteInBatch": false
+              }
+            ]
+          }
+        ]
+      },
+      "expected_assertions": [
+        "M2A5-SPEC 18절 02의 전체 수치·상태와 일치한다.",
+        "읽기 함수는 상태를 바꾸지 않고 저장 재개 후 같은 결과를 낸다."
+      ],
+      "human_review_check": "개발용 합성값이며 실제 시세·임금·계약 관행을 뜻하지 않는다. 전체 객체 단언과 문장 반례를 확인한다.",
+      "engine_test_ref": "src/engine/m2a5-market.test.ts",
+      "engine_test_names": [
+        "P0-M2A5-02 시세표·체결 가격 고정"
+      ],
+      "test_fixture": {
+        "seed": 42032026,
+        "other_seed": 1001,
+        "last_day": 90,
+        "last_publish_day": 78,
+        "restart_day": 7,
+        "keep_alive_day": 50,
+        "keep_alive_command": {
+          "id": "MARKET-KEEP-ALIVE",
+          "type": "EXCHANGE_CURRENCY",
+          "direction": "USD_TO_KRW",
+          "usdAmountMinor": 300000
+        },
+        "observation_days": [
+          8,
+          14,
+          80,
+          85
+        ],
+        "fix_day": 14,
+        "collect_day": 19,
+        "funds_signed_day": 1,
+        "funds_first_sailing_day": 9
+      }
+    },
+    {
+      "id": "P0-M2A5-03",
+      "phase": "P0",
+      "milestone": "M2",
+      "title": "보관 한도",
+      "currency": "KRW",
+      "evidence_class": "DESIGN",
+      "scenario_id": "SCENARIO_M2_OPERATIONS",
+      "actions": [
+        {
+          "step": 1,
+          "action": "명령을 실행하고 해당 날까지 진행한다.",
+          "day": 15,
+          "commands": [
+            {
+              "id": "ACCEPT_FORWARDING-88-MKT-D015-F1",
+              "type": "ACCEPT_FORWARDING",
+              "offerId": "MKT-D015-F1",
+              "plan": {
+                "employeeId": "EMP01",
+                "sailingId": "ROUTE01-D016"
+              }
+            },
+            {
+              "id": "ACCEPT_FORWARDING-88-MKT-D015-H2",
+              "type": "ACCEPT_FORWARDING",
+              "offerId": "MKT-D015-H2",
+              "plan": {
+                "employeeId": "EMP02",
+                "sailingId": "ROUTE02-D023"
+              }
+            },
+            {
+              "id": "ACCEPT_FORWARDING-26-MKT-D015-H3",
+              "type": "ACCEPT_FORWARDING",
+              "offerId": "MKT-D015-H3"
+            }
+          ],
+          "variant": "A"
+        },
+        {
+          "step": 2,
+          "action": "명령을 실행하고 해당 날까지 진행한다.",
+          "day": 14,
+          "commands": [
+            {
+              "id": "EXPAND_WAREHOUSE-2-",
+              "type": "EXPAND_WAREHOUSE"
+            }
+          ],
+          "variant": "expanded"
+        }
+      ],
+      "expected_numeric": {
+        "volumes": [
+          24000,
+          9000,
+          9000
+        ],
+        "capacity": 40000,
+        "accepted_storage": 33000,
+        "requested_storage": 42000,
+        "expanded_capacity": 60000,
+        "after_departure_storage": 9000,
+        "cash": 262000,
+        "freight_reserved": 20000,
+        "setup": 200000
+      },
+      "expected_assertions": [
+        "M2A5-SPEC 18절 03의 전체 수치·상태와 일치한다.",
+        "읽기 함수는 상태를 바꾸지 않고 저장 재개 후 같은 결과를 낸다."
+      ],
+      "human_review_check": "개발용 합성값이며 실제 시세·임금·계약 관행을 뜻하지 않는다. 전체 객체 단언과 문장 반례를 확인한다.",
+      "engine_test_ref": "src/engine/m2a5-warehouse.test.ts",
+      "engine_test_names": [
+        "P0-M2A5-03 보관 한도"
+      ],
+      "test_fixture": {
+        "seed": 42032026,
+        "other_seed": 1001,
+        "last_day": 90,
+        "last_publish_day": 78,
+        "restart_day": 7,
+        "keep_alive_day": 50,
+        "keep_alive_command": {
+          "id": "MARKET-KEEP-ALIVE",
+          "type": "EXCHANGE_CURRENCY",
+          "direction": "USD_TO_KRW",
+          "usdAmountMinor": 300000
+        },
+        "departure_day": 16,
+        "rejection_reason": "보관 공간 부족 — 평택 창고 33 / 40 m³, 이 화물 9 m³. 출항하거나 확장하면 공간이 생깁니다."
+      }
+    },
+    {
+      "id": "P0-M2A5-04",
+      "phase": "P0",
+      "milestone": "M2",
+      "title": "하루 처리 한도",
+      "currency": "KRW",
+      "evidence_class": "DESIGN",
+      "scenario_id": "SCENARIO_M2_OPERATIONS",
+      "actions": [
+        {
+          "step": 1,
+          "action": "명령을 실행하고 해당 날까지 진행한다.",
+          "day": 1,
+          "commands": [
+            {
+              "id": "SCOUT_SITE-46-",
+              "type": "SCOUT_SITE",
+              "venueId": "VEN_PORT",
+              "employeeId": "EMP02"
+            }
+          ],
+          "variant": "A"
+        },
+        {
+          "step": 2,
+          "action": "명령을 실행하고 해당 날까지 진행한다.",
+          "day": 2,
+          "commands": [
+            {
+              "id": "START_RECRUIT_QUEST-47-",
+              "type": "START_RECRUIT_QUEST",
+              "candidateId": "EMP04",
+              "employeeId": "EMP02"
+            }
+          ],
+          "variant": "A"
+        },
+        {
+          "step": 3,
+          "action": "명령을 실행하고 해당 날까지 진행한다.",
+          "day": 4,
+          "commands": [
+            {
+              "id": "HIRE_CANDIDATE-24-",
+              "type": "HIRE_CANDIDATE",
+              "candidateId": "EMP04"
+            }
+          ],
+          "variant": "A"
+        },
+        {
+          "step": 4,
+          "action": "명령을 실행하고 해당 날까지 진행한다.",
+          "day": 8,
+          "commands": [
+            {
+              "id": "ACCEPT_TRADE-149-MKT-D008-APP-BUY",
+              "type": "ACCEPT_TRADE",
+              "buyOfferId": "MKT-D008-APP-BUY",
+              "sellOfferId": "MKT-D008-APP-SELL",
+              "quantity": 100,
+              "plan": {
+                "employeeId": "EMP01",
+                "sailingId": "ROUTE02-D009"
+              }
+            },
+            {
+              "id": "ACCEPT_FORWARDING-88-MKT-D008-H1",
+              "type": "ACCEPT_FORWARDING",
+              "offerId": "MKT-D008-H1",
+              "plan": {
+                "employeeId": "EMP04",
+                "sailingId": "ROUTE01-D016"
+              }
+            },
+            {
+              "id": "ACCEPT_FORWARDING-88-MKT-D008-H4",
+              "type": "ACCEPT_FORWARDING",
+              "offerId": "MKT-D008-H4",
+              "plan": {
+                "employeeId": "EMP02",
+                "sailingId": "ROUTE02-D016"
+              }
+            }
+          ],
+          "variant": "A"
+        },
+        {
+          "step": 5,
+          "action": "명령을 실행하고 해당 날까지 진행한다.",
+          "day": 7,
+          "commands": [
+            {
+              "id": "EXPAND_WAREHOUSE-2-",
+              "type": "EXPAND_WAREHOUSE"
+            }
+          ],
+          "variant": "expanded"
+        }
+      ],
+      "expected_numeric": {
+        "cash": 145000,
+        "duty": 4950,
+        "signing_fee": 550000,
+        "available_day": 5,
+        "capacity": 6,
+        "expanded_capacity": 9,
+        "requirements": [
+          2,
+          12,
+          12
+        ],
+        "ready_days": [
+          8,
+          11,
+          14
+        ],
+        "expanded_ready_days": [
+          8,
+          11,
+          13
+        ],
+        "log": {
+          "day": 8,
+          "capacityPt": 6,
+          "usedPt": 6,
+          "waits": [
+            {
+              "taskId": "TASK003",
+              "contractId": "CT003",
+              "wantPt": 2,
+              "gotPt": 1
+            }
+          ]
+        },
+        "allocation": {
+          "capacityPt": 6,
+          "allocations": [
+            {
+              "taskId": "TASK001",
+              "contractId": "CT001",
+              "wantPt": 2,
+              "gotPt": 2
+            },
+            {
+              "taskId": "TASK002",
+              "contractId": "CT002",
+              "wantPt": 3,
+              "gotPt": 3
+            },
+            {
+              "taskId": "TASK003",
+              "contractId": "CT003",
+              "wantPt": 2,
+              "gotPt": 1
+            }
+          ]
+        },
+        "reordered_allocation": {
+          "capacityPt": 6,
+          "allocations": [
+            {
+              "taskId": "TASK003",
+              "contractId": "CT003",
+              "wantPt": 2,
+              "gotPt": 2
+            },
+            {
+              "taskId": "TASK001",
+              "contractId": "CT001",
+              "wantPt": 2,
+              "gotPt": 2
+            },
+            {
+              "taskId": "TASK002",
+              "contractId": "CT002",
+              "wantPt": 3,
+              "gotPt": 2
+            }
+          ]
+        },
+        "projection": [
+          {
+            "taskId": "TASK001",
+            "contractId": "CT001",
+            "employeeId": "EMP01",
+            "readyDay": 8,
+            "todayPt": 2,
+            "todayWantPt": 2,
+            "waitDays": 0
+          },
+          {
+            "taskId": "TASK002",
+            "contractId": "CT002",
+            "employeeId": "EMP04",
+            "readyDay": 11,
+            "todayPt": 3,
+            "todayWantPt": 3,
+            "waitDays": 0
+          },
+          {
+            "taskId": "TASK003",
+            "contractId": "CT003",
+            "employeeId": "EMP02",
+            "readyDay": 14,
+            "todayPt": 1,
+            "todayWantPt": 2,
+            "waitDays": 1
+          }
+        ],
+        "expanded_projection": [
+          {
+            "taskId": "TASK001",
+            "contractId": "CT001",
+            "employeeId": "EMP01",
+            "readyDay": 8,
+            "todayPt": 2,
+            "todayWantPt": 2,
+            "waitDays": 0
+          },
+          {
+            "taskId": "TASK002",
+            "contractId": "CT002",
+            "employeeId": "EMP04",
+            "readyDay": 11,
+            "todayPt": 3,
+            "todayWantPt": 3,
+            "waitDays": 0
+          },
+          {
+            "taskId": "TASK003",
+            "contractId": "CT003",
+            "employeeId": "EMP02",
+            "readyDay": 13,
+            "todayPt": 2,
+            "todayWantPt": 2,
+            "waitDays": 0
+          }
+        ],
+        "queued_projection": [
+          {
+            "taskId": "TASK001",
+            "contractId": "CT001",
+            "employeeId": "EMP02",
+            "readyDay": 8,
+            "todayPt": 2,
+            "todayWantPt": 2,
+            "waitDays": 0
+          },
+          {
+            "taskId": "TASK002",
+            "contractId": "CT002",
+            "employeeId": "EMP04",
+            "readyDay": 11,
+            "todayPt": 3,
+            "todayWantPt": 3,
+            "waitDays": 0
+          },
+          {
+            "taskId": "TASK003",
+            "contractId": "CT003",
+            "employeeId": "EMP01",
+            "readyDay": 14,
+            "todayPt": 0,
+            "todayWantPt": 0,
+            "waitDays": 0
+          }
+        ],
+        "queued_daily_tasks": [
+          {
+            "day": 8,
+            "tasks": [
+              {
+                "id": "TASK001",
+                "kind": "EXPORT_PREP",
+                "contractId": "CT001",
+                "subjectId": null,
+                "cityId": "PYEONGTAEK",
+                "requiredWorkUnits": 2,
+                "progressWorkUnits": 2,
+                "status": "DONE",
+                "assignedEmployeeId": "EMP02",
+                "startedDay": 8,
+                "completedDay": 8
+              },
+              {
+                "id": "TASK002",
+                "kind": "FORWARDING_PREP",
+                "contractId": "CT002",
+                "subjectId": null,
+                "cityId": "PYEONGTAEK",
+                "requiredWorkUnits": 12,
+                "progressWorkUnits": 3,
+                "status": "RUNNING",
+                "assignedEmployeeId": "EMP04",
+                "startedDay": 8,
+                "completedDay": null
+              },
+              {
+                "id": "TASK003",
+                "kind": "FORWARDING_PREP",
+                "contractId": "CT003",
+                "subjectId": null,
+                "cityId": "PYEONGTAEK",
+                "requiredWorkUnits": 12,
+                "progressWorkUnits": 0,
+                "status": "QUEUED",
+                "assignedEmployeeId": null,
+                "startedDay": null,
+                "completedDay": null
+              }
+            ]
+          },
+          {
+            "day": 9,
+            "tasks": [
+              {
+                "id": "TASK001",
+                "kind": "EXPORT_PREP",
+                "contractId": "CT001",
+                "subjectId": null,
+                "cityId": "PYEONGTAEK",
+                "requiredWorkUnits": 2,
+                "progressWorkUnits": 2,
+                "status": "DONE",
+                "assignedEmployeeId": "EMP02",
+                "startedDay": 8,
+                "completedDay": 8
+              },
+              {
+                "id": "TASK002",
+                "kind": "FORWARDING_PREP",
+                "contractId": "CT002",
+                "subjectId": null,
+                "cityId": "PYEONGTAEK",
+                "requiredWorkUnits": 12,
+                "progressWorkUnits": 6,
+                "status": "RUNNING",
+                "assignedEmployeeId": "EMP04",
+                "startedDay": 8,
+                "completedDay": null
+              },
+              {
+                "id": "TASK003",
+                "kind": "FORWARDING_PREP",
+                "contractId": "CT003",
+                "subjectId": null,
+                "cityId": "PYEONGTAEK",
+                "requiredWorkUnits": 12,
+                "progressWorkUnits": 2,
+                "status": "RUNNING",
+                "assignedEmployeeId": "EMP01",
+                "startedDay": 9,
+                "completedDay": null
+              }
+            ]
+          },
+          {
+            "day": 10,
+            "tasks": [
+              {
+                "id": "TASK001",
+                "kind": "EXPORT_PREP",
+                "contractId": "CT001",
+                "subjectId": null,
+                "cityId": "PYEONGTAEK",
+                "requiredWorkUnits": 2,
+                "progressWorkUnits": 2,
+                "status": "DONE",
+                "assignedEmployeeId": "EMP02",
+                "startedDay": 8,
+                "completedDay": 8
+              },
+              {
+                "id": "TASK002",
+                "kind": "FORWARDING_PREP",
+                "contractId": "CT002",
+                "subjectId": null,
+                "cityId": "PYEONGTAEK",
+                "requiredWorkUnits": 12,
+                "progressWorkUnits": 9,
+                "status": "RUNNING",
+                "assignedEmployeeId": "EMP04",
+                "startedDay": 8,
+                "completedDay": null
+              },
+              {
+                "id": "TASK003",
+                "kind": "FORWARDING_PREP",
+                "contractId": "CT003",
+                "subjectId": null,
+                "cityId": "PYEONGTAEK",
+                "requiredWorkUnits": 12,
+                "progressWorkUnits": 4,
+                "status": "RUNNING",
+                "assignedEmployeeId": "EMP01",
+                "startedDay": 9,
+                "completedDay": null
+              }
+            ]
+          },
+          {
+            "day": 11,
+            "tasks": [
+              {
+                "id": "TASK001",
+                "kind": "EXPORT_PREP",
+                "contractId": "CT001",
+                "subjectId": null,
+                "cityId": "PYEONGTAEK",
+                "requiredWorkUnits": 2,
+                "progressWorkUnits": 2,
+                "status": "DONE",
+                "assignedEmployeeId": "EMP02",
+                "startedDay": 8,
+                "completedDay": 8
+              },
+              {
+                "id": "TASK002",
+                "kind": "FORWARDING_PREP",
+                "contractId": "CT002",
+                "subjectId": null,
+                "cityId": "PYEONGTAEK",
+                "requiredWorkUnits": 12,
+                "progressWorkUnits": 12,
+                "status": "DONE",
+                "assignedEmployeeId": "EMP04",
+                "startedDay": 8,
+                "completedDay": 11
+              },
+              {
+                "id": "TASK003",
+                "kind": "FORWARDING_PREP",
+                "contractId": "CT003",
+                "subjectId": null,
+                "cityId": "PYEONGTAEK",
+                "requiredWorkUnits": 12,
+                "progressWorkUnits": 6,
+                "status": "RUNNING",
+                "assignedEmployeeId": "EMP01",
+                "startedDay": 9,
+                "completedDay": null
+              }
+            ]
+          },
+          {
+            "day": 12,
+            "tasks": [
+              {
+                "id": "TASK001",
+                "kind": "EXPORT_PREP",
+                "contractId": "CT001",
+                "subjectId": null,
+                "cityId": "PYEONGTAEK",
+                "requiredWorkUnits": 2,
+                "progressWorkUnits": 2,
+                "status": "DONE",
+                "assignedEmployeeId": "EMP02",
+                "startedDay": 8,
+                "completedDay": 8
+              },
+              {
+                "id": "TASK002",
+                "kind": "FORWARDING_PREP",
+                "contractId": "CT002",
+                "subjectId": null,
+                "cityId": "PYEONGTAEK",
+                "requiredWorkUnits": 12,
+                "progressWorkUnits": 12,
+                "status": "DONE",
+                "assignedEmployeeId": "EMP04",
+                "startedDay": 8,
+                "completedDay": 11
+              },
+              {
+                "id": "TASK003",
+                "kind": "FORWARDING_PREP",
+                "contractId": "CT003",
+                "subjectId": null,
+                "cityId": "PYEONGTAEK",
+                "requiredWorkUnits": 12,
+                "progressWorkUnits": 8,
+                "status": "RUNNING",
+                "assignedEmployeeId": "EMP01",
+                "startedDay": 9,
+                "completedDay": null
+              }
+            ]
+          },
+          {
+            "day": 13,
+            "tasks": [
+              {
+                "id": "TASK001",
+                "kind": "EXPORT_PREP",
+                "contractId": "CT001",
+                "subjectId": null,
+                "cityId": "PYEONGTAEK",
+                "requiredWorkUnits": 2,
+                "progressWorkUnits": 2,
+                "status": "DONE",
+                "assignedEmployeeId": "EMP02",
+                "startedDay": 8,
+                "completedDay": 8
+              },
+              {
+                "id": "TASK002",
+                "kind": "FORWARDING_PREP",
+                "contractId": "CT002",
+                "subjectId": null,
+                "cityId": "PYEONGTAEK",
+                "requiredWorkUnits": 12,
+                "progressWorkUnits": 12,
+                "status": "DONE",
+                "assignedEmployeeId": "EMP04",
+                "startedDay": 8,
+                "completedDay": 11
+              },
+              {
+                "id": "TASK003",
+                "kind": "FORWARDING_PREP",
+                "contractId": "CT003",
+                "subjectId": null,
+                "cityId": "PYEONGTAEK",
+                "requiredWorkUnits": 12,
+                "progressWorkUnits": 10,
+                "status": "RUNNING",
+                "assignedEmployeeId": "EMP01",
+                "startedDay": 9,
+                "completedDay": null
+              }
+            ]
+          },
+          {
+            "day": 14,
+            "tasks": [
+              {
+                "id": "TASK001",
+                "kind": "EXPORT_PREP",
+                "contractId": "CT001",
+                "subjectId": null,
+                "cityId": "PYEONGTAEK",
+                "requiredWorkUnits": 2,
+                "progressWorkUnits": 2,
+                "status": "DONE",
+                "assignedEmployeeId": "EMP02",
+                "startedDay": 8,
+                "completedDay": 8
+              },
+              {
+                "id": "TASK002",
+                "kind": "FORWARDING_PREP",
+                "contractId": "CT002",
+                "subjectId": null,
+                "cityId": "PYEONGTAEK",
+                "requiredWorkUnits": 12,
+                "progressWorkUnits": 12,
+                "status": "DONE",
+                "assignedEmployeeId": "EMP04",
+                "startedDay": 8,
+                "completedDay": 11
+              },
+              {
+                "id": "TASK003",
+                "kind": "FORWARDING_PREP",
+                "contractId": "CT003",
+                "subjectId": null,
+                "cityId": "PYEONGTAEK",
+                "requiredWorkUnits": 12,
+                "progressWorkUnits": 12,
+                "status": "DONE",
+                "assignedEmployeeId": "EMP01",
+                "startedDay": 9,
+                "completedDay": 14
+              }
+            ]
+          }
+        ]
+      },
+      "expected_assertions": [
+        "M2A5-SPEC 18절 04의 전체 수치·상태와 일치한다.",
+        "읽기 함수는 상태를 바꾸지 않고 저장 재개 후 같은 결과를 낸다."
+      ],
+      "human_review_check": "개발용 합성값이며 실제 시세·임금·계약 관행을 뜻하지 않는다. 전체 객체 단언과 문장 반례를 확인한다.",
+      "engine_test_ref": "src/engine/m2a5-warehouse.test.ts",
+      "engine_test_names": [
+        "P0-M2A5-04 하루 처리 한도"
+      ],
+      "test_fixture": {
+        "blocked_repro_market": {
+          "max_lots_choices": [
+            1,
+            2,
+            3
+          ],
+          "rows": [
+            {
+              "city_id": "HAIPHONG",
+              "good_id": "APPAREL",
+              "side": "SELL",
+              "base_price_minor": 1400
+            },
+            {
+              "city_id": "HAIPHONG",
+              "good_id": "COSMETICS",
+              "side": "SELL",
+              "base_price_minor": 4900
+            },
+            {
+              "city_id": "SHANGHAI",
+              "good_id": "APPAREL",
+              "side": "SELL",
+              "base_price_minor": 1350
+            },
+            {
+              "city_id": "SHANGHAI",
+              "good_id": "COSMETICS",
+              "side": "SELL",
+              "base_price_minor": 5000
+            }
+          ]
+        },
+        "seed": 42032026,
+        "other_seed": 1001,
+        "last_day": 90,
+        "last_publish_day": 78,
+        "restart_day": 7,
+        "keep_alive_day": 50,
+        "keep_alive_command": {
+          "id": "MARKET-KEEP-ALIVE",
+          "type": "EXCHANGE_CURRENCY",
+          "direction": "USD_TO_KRW",
+          "usdAmountMinor": 300000
+        },
+        "assignment_day": 8,
+        "through_day": 14,
+        "queued_absence": {
+          "employeeId": "EMP01",
+          "fromDay": 8,
+          "toDay": 8
+        },
+        "queued_commands": [
+          {
+            "day": 8,
+            "commands": [
+              {
+                "id": "QUEUE-ABSENCE",
+                "type": "START_CULTURE_ACTIVITY",
+                "activityId": "CA01",
+                "employeeId": "EMP01"
+              },
+              {
+                "id": "QUEUE-1",
+                "type": "ASSIGN_TASK",
+                "taskId": "TASK001",
+                "employeeId": "EMP02"
+              },
+              {
+                "id": "QUEUE-2",
+                "type": "ASSIGN_TASK",
+                "taskId": "TASK002",
+                "employeeId": "EMP04"
+              }
+            ]
+          },
+          {
+            "day": 9,
+            "commands": [
+              {
+                "id": "QUEUE-3",
+                "type": "ASSIGN_TASK",
+                "taskId": "TASK003",
+                "employeeId": "EMP01"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "P0-M2A5-05",
+      "phase": "P0",
+      "milestone": "M2",
+      "title": "준비 업무량",
+      "currency": "USD",
+      "evidence_class": "DESIGN",
+      "scenario_id": "SCENARIO_M2_OPERATIONS",
+      "actions": [
+        {
+          "step": 1,
+          "action": "명령을 실행하고 해당 날까지 진행한다.",
+          "day": 1,
+          "commands": [],
+          "variant": "A"
+        }
+      ],
+      "expected_numeric": {
+        "trade_quantities": [
+          [
+            100,
+            200,
+            300
+          ],
+          [
+            50,
+            100,
+            150
+          ]
+        ],
+        "trade_prep": [
+          [
+            2,
+            3,
+            4
+          ],
+          [
+            2,
+            3,
+            4
+          ]
+        ],
+        "initial_prep": [
+          2,
+          2,
+          2,
+          2,
+          4,
+          2
+        ],
+        "template_prep": [
+          4,
+          2,
+          2,
+          2,
+          3,
+          2,
+          12,
+          12,
+          12,
+          12,
+          12,
+          12
+        ]
+      },
+      "expected_assertions": [
+        "M2A5-SPEC 18절 05의 전체 수치·상태와 일치한다.",
+        "읽기 함수는 상태를 바꾸지 않고 저장 재개 후 같은 결과를 낸다."
+      ],
+      "human_review_check": "개발용 합성값이며 실제 시세·임금·계약 관행을 뜻하지 않는다. 전체 객체 단언과 문장 반례를 확인한다.",
+      "engine_test_ref": "src/engine/m2a5-market.test.ts",
+      "engine_test_names": [
+        "P0-M2A5-05 준비 업무량"
+      ],
+      "test_fixture": {
+        "seed": 42032026,
+        "other_seed": 1001,
+        "last_day": 90,
+        "last_publish_day": 78,
+        "restart_day": 7,
+        "keep_alive_day": 50,
+        "keep_alive_command": {
+          "id": "MARKET-KEEP-ALIVE",
+          "type": "EXCHANGE_CURRENCY",
+          "direction": "USD_TO_KRW",
+          "usdAmountMinor": 300000
+        }
+      }
+    },
+    {
+      "id": "P0-M2A5-06",
+      "phase": "P0",
+      "milestone": "M2",
+      "title": "임차료·고정비",
+      "currency": "KRW",
+      "evidence_class": "DESIGN",
+      "scenario_id": "SCENARIO_M2_OPERATIONS",
+      "actions": [
+        {
+          "step": 1,
+          "action": "명령을 실행하고 해당 날까지 진행한다.",
+          "day": 56,
+          "commands": [],
+          "variant": "A"
+        }
+      ],
+      "expected_numeric": {
+        "cash_day1": 9390000,
+        "cash_day56": 140000,
+        "rent_days": [
+          1,
+          31
+        ],
+        "rent": 450000,
+        "runway": 56,
+        "legacy_runway": 62,
+        "wage_daily": 160000
+      },
+      "expected_assertions": [
+        "M2A5-SPEC 18절 06의 전체 수치·상태와 일치한다.",
+        "읽기 함수는 상태를 바꾸지 않고 저장 재개 후 같은 결과를 낸다."
+      ],
+      "human_review_check": "개발용 합성값이며 실제 시세·임금·계약 관행을 뜻하지 않는다. 전체 객체 단언과 문장 반례를 확인한다.",
+      "engine_test_ref": "src/engine/m2a5-money.test.ts",
+      "engine_test_names": [
+        "P0-M2A5-06 임차료·고정비"
+      ],
+      "test_fixture": {
+        "seed": 42032026,
+        "other_seed": 1001,
+        "last_day": 90,
+        "last_publish_day": 78,
+        "restart_day": 7,
+        "keep_alive_day": 50,
+        "keep_alive_command": {
+          "id": "MARKET-KEEP-ALIVE",
+          "type": "EXCHANGE_CURRENCY",
+          "direction": "USD_TO_KRW",
+          "usdAmountMinor": 300000
+        },
+        "first_day": 1,
+        "last_wait_day": 56
+      }
+    },
+    {
+      "id": "P0-M2A5-07",
+      "phase": "P0",
+      "milestone": "M2",
+      "title": "환전·통화 간 이체",
+      "currency": "KRW",
+      "evidence_class": "DESIGN",
+      "scenario_id": "SCENARIO_M2_OPERATIONS",
+      "actions": [
+        {
+          "step": 1,
+          "action": "명령을 실행하고 해당 날까지 진행한다.",
+          "day": 1,
+          "commands": [
+            {
+              "id": "FX-OUT",
+              "type": "EXCHANGE_CURRENCY",
+              "direction": "USD_TO_KRW",
+              "usdAmountMinor": 100000
+            },
+            {
+              "id": "FX-BACK",
+              "type": "EXCHANGE_CURRENCY",
+              "direction": "KRW_TO_USD",
+              "usdAmountMinor": 100000
+            }
+          ],
+          "variant": "A"
+        },
+        {
+          "step": 2,
+          "action": "명령을 실행하고 해당 날까지 진행한다.",
+          "day": 57,
+          "commands": [
+            {
+              "id": "FX-SAME-DAY",
+              "type": "EXCHANGE_CURRENCY",
+              "direction": "USD_TO_KRW",
+              "usdAmountMinor": 10000
+            }
+          ],
+          "variant": "same_day"
+        }
+      ],
+      "expected_numeric": {
+        "initial_usd": 300000,
+        "out_usd": 200000,
+        "out_krw_cash": 11287000,
+        "in_krw_cash": 9974000,
+        "usd_transfer": -100000,
+        "krw_transfer": 1300000,
+        "spread": 13000,
+        "roundtrip_loss": 26000,
+        "day57_cash": 108700,
+        "zero_net": {
+          "positive_delivery": "CT001 고객 화물 인도 완료 (납기 6일 경과, 감액 300.00 USD). 주선 매출 0.01 USD는 채권으로 남고 현금은 10일 수금 예정",
+          "positive_invoices": [
+            {
+              "id": "INV-CT001",
+              "contractId": "CT001",
+              "currency": "USD",
+              "amountMinor": 1,
+              "issuedDay": 7,
+              "dueDay": 10,
+              "status": "OUTSTANDING",
+              "receiptIds": []
+            }
+          ],
+          "paid_invoices": [
+            {
+              "id": "INV-CT001",
+              "contractId": "CT001",
+              "currency": "USD",
+              "amountMinor": 1,
+              "issuedDay": 7,
+              "dueDay": 10,
+              "status": "PAID",
+              "receiptIds": [
+                "RCPT-INV-CT001"
+              ]
+            }
+          ],
+          "positive_receipt": "CT001 대금 0.01 USD 수금. 계약 종결"
+        }
+      },
+      "expected_assertions": [
+        "M2A5-SPEC 18절 07의 전체 수치·상태와 일치한다.",
+        "읽기 함수는 상태를 바꾸지 않고 저장 재개 후 같은 결과를 낸다."
+      ],
+      "human_review_check": "개발용 합성값이며 실제 시세·임금·계약 관행을 뜻하지 않는다. 전체 객체 단언과 문장 반례를 확인한다.",
+      "engine_test_ref": "src/engine/m2a5-money.test.ts",
+      "engine_test_names": [
+        "P0-M2A5-07 환전·통화 간 이체"
+      ],
+      "test_fixture": {
+        "seed": 42032026,
+        "other_seed": 1001,
+        "last_day": 90,
+        "last_publish_day": 78,
+        "restart_day": 7,
+        "keep_alive_day": 50,
+        "keep_alive_command": {
+          "id": "MARKET-KEEP-ALIVE",
+          "type": "EXCHANGE_CURRENCY",
+          "direction": "USD_TO_KRW",
+          "usdAmountMinor": 300000
+        },
+        "invalid_amount": 5000,
+        "insufficient_usd": 40000,
+        "allowed_usd": 30000,
+        "insufficient_krw": 10000000,
+        "zero_net": {
+          "deadline_day": 1,
+          "due_day": 10,
+          "positive_amount": 30001,
+          "variants": [
+            {
+              "offer_id": "OFFER_FWD_02",
+              "amount": 30000,
+              "arrival_day": 7,
+              "late_days": 6,
+              "command": {
+                "id": "ZERO-NET-FWD",
+                "type": "ACCEPT_FORWARDING",
+                "offerId": "OFFER_FWD_02",
+                "plan": {
+                  "employeeId": "EMP01",
+                  "sailingId": "ROUTE01-D002"
+                }
+              },
+              "delivery_text": "CT001 고객 화물 인도 완료. 납기 6일 경과로 계약 금액 300.00 USD 전액이 감액되어 받을 대금이 없습니다.",
+              "book": {
+                "cash": 280000,
+                "totalAssets": 280000,
+                "forwardingCost": 20000,
+                "profit": -20000
+              }
+            },
+            {
+              "offer_id": "OFFER_SELL_02",
+              "amount": 25000,
+              "arrival_day": 6,
+              "late_days": 5,
+              "command": {
+                "id": "ACCEPT_TRADE-124-OFFER_BUY_02",
+                "type": "ACCEPT_TRADE",
+                "buyOfferId": "OFFER_BUY_02",
+                "sellOfferId": "OFFER_SELL_02",
+                "plan": {
+                  "employeeId": "EMP01",
+                  "sailingId": "ROUTE02-D002"
+                }
+              },
+              "delivery_text": "CT001 인도 완료. 납기 5일 경과로 계약 금액 250.00 USD 전액이 감액되어 받을 대금이 없습니다.",
+              "book": {
+                "cash": 72000,
+                "totalAssets": 72000,
+                "costOfGoodsSold": 228000,
+                "profit": -228000
+              }
+            }
+          ]
+        },
+        "zero_cash": [
+          {
+            "currency": "USD",
+            "obligation": {
+              "id": "ZERO-CASH-OB",
+              "currency": "USD",
+              "amountMinor": 5000,
+              "reasonKo": "시험 미지급",
+              "incurredDay": 1,
+              "paidDay": null
+            },
+            "command": {
+              "id": "ZERO-FX",
+              "type": "EXCHANGE_CURRENCY",
+              "direction": "USD_TO_KRW",
+              "usdAmountMinor": 10000
+            },
+            "reason": "환전할 수 있는 USD가 부족합니다. 요청 100.00 USD, 사용 가능 −50.00 USD = 현금 0.00 USD − 미지급 50.00 USD."
+          },
+          {
+            "currency": "USD",
+            "obligation": null,
+            "command": {
+              "id": "ZERO-FX",
+              "type": "EXCHANGE_CURRENCY",
+              "direction": "USD_TO_KRW",
+              "usdAmountMinor": 10000
+            },
+            "reason": "환전할 수 있는 USD가 부족합니다. 요청 100.00 USD, 사용 가능 0.00 USD = 현금 0.00 USD."
+          },
+          {
+            "currency": "KRW",
+            "obligation": {
+              "id": "ZERO-CASH-OB",
+              "currency": "KRW",
+              "amountMinor": 50000,
+              "reasonKo": "시험 미지급",
+              "incurredDay": 1,
+              "paidDay": null
+            },
+            "command": {
+              "id": "ZERO-FX",
+              "type": "EXCHANGE_CURRENCY",
+              "direction": "KRW_TO_USD",
+              "usdAmountMinor": 10000
+            },
+            "reason": "환전할 수 있는 원화가 부족합니다. 필요 131,300원, 사용 가능 −50,000원 = 현금 0원 − 미지급 50,000원."
+          },
+          {
+            "currency": "KRW",
+            "obligation": null,
+            "command": {
+              "id": "ZERO-FX",
+              "type": "EXCHANGE_CURRENCY",
+              "direction": "KRW_TO_USD",
+              "usdAmountMinor": 10000
+            },
+            "reason": "환전할 수 있는 원화가 부족합니다. 필요 131,300원, 사용 가능 0원 = 현금 0원."
+          },
+          {
+            "currency": "USD",
+            "obligation": {
+              "id": "ZERO-CASH-OB",
+              "currency": "USD",
+              "amountMinor": 5000,
+              "reasonKo": "시험 미지급",
+              "incurredDay": 1,
+              "paidDay": null
+            },
+            "command": {
+              "id": "ACCEPT_TRADE-124-OFFER_BUY_02",
+              "type": "ACCEPT_TRADE",
+              "buyOfferId": "OFFER_BUY_02",
+              "sellOfferId": "OFFER_SELL_02",
+              "plan": {
+                "employeeId": "EMP01",
+                "sailingId": "ROUTE02-D002"
+              }
+            },
+            "reason": "사용 가능 자금이 부족합니다. 필요 2,280.00 USD(매입 2,000.00 USD + 운임 180.00 USD + 관세 100.00 USD), 사용 가능 −50.00 USD = 현금 0.00 USD − 미지급 50.00 USD. 체결한 계약의 남은 운임·관세는 미리 묶어 둡니다."
+          },
+          {
+            "currency": "USD",
+            "obligation": null,
+            "command": {
+              "id": "ACCEPT_TRADE-124-OFFER_BUY_02",
+              "type": "ACCEPT_TRADE",
+              "buyOfferId": "OFFER_BUY_02",
+              "sellOfferId": "OFFER_SELL_02",
+              "plan": {
+                "employeeId": "EMP01",
+                "sailingId": "ROUTE02-D002"
+              }
+            },
+            "reason": "사용 가능 자금이 부족합니다. 필요 2,280.00 USD(매입 2,000.00 USD + 운임 180.00 USD + 관세 100.00 USD), 사용 가능 0.00 USD = 현금 0.00 USD. 체결한 계약의 남은 운임·관세는 미리 묶어 둡니다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "P0-M2A5-08",
+      "phase": "P0",
+      "milestone": "M2",
+      "title": "지급 순서",
+      "currency": "KRW",
+      "evidence_class": "DESIGN",
+      "scenario_id": "SCENARIO_M2_OPERATIONS",
+      "actions": [
+        {
+          "step": 1,
+          "action": "명령을 실행하고 해당 날까지 진행한다.",
+          "day": 1,
+          "commands": [
+            {
+              "id": "EXCHANGE_CURRENCY-52-70000",
+              "type": "EXCHANGE_CURRENCY",
+              "direction": "USD_TO_KRW",
+              "usdAmountMinor": 70000
+            }
+          ],
+          "variant": "A"
+        }
+      ],
+      "expected_numeric": {
+        "cash_days": [
+          [
+            60,
+            400900
+          ],
+          [
+            61,
+            240900
+          ],
+          [
+            62,
+            80900
+          ],
+          [
+            63,
+            900
+          ]
+        ],
+        "failure_day": 75,
+        "unpaid": 2450000,
+        "count": 26,
+        "cause_amount": 450000,
+        "fx_spread": 9100,
+        "fx_transfer": 910000,
+        "settled_obligations": [
+          {
+            "id": "PAYMENT-LARGE",
+            "currency": "USD",
+            "amountMinor": 20000,
+            "reasonKo": "큰 과거 의무",
+            "incurredDay": 1,
+            "paidDay": null
+          },
+          {
+            "id": "PAYMENT-SMALL",
+            "currency": "USD",
+            "amountMinor": 5000,
+            "reasonKo": "작은 과거 의무",
+            "incurredDay": 1,
+            "paidDay": 1
+          }
+        ],
+        "old_obligations_book": {
+          "cash": 5000,
+          "totalAssets": 5000,
+          "accountsPayable": 20000,
+          "cancellationExpense": 25000,
+          "profit": -25000
+        }
+      },
+      "expected_assertions": [
+        "M2A5-SPEC 18절 08의 전체 수치·상태와 일치한다.",
+        "읽기 함수는 상태를 바꾸지 않고 저장 재개 후 같은 결과를 낸다."
+      ],
+      "human_review_check": "개발용 합성값이며 실제 시세·임금·계약 관행을 뜻하지 않는다. 전체 객체 단언과 문장 반례를 확인한다.",
+      "engine_test_ref": "src/engine/m2a5-money.test.ts",
+      "engine_test_names": [
+        "P0-M2A5-08 지급 순서"
+      ],
+      "test_fixture": {
+        "seed": 42032026,
+        "other_seed": 1001,
+        "last_day": 90,
+        "last_publish_day": 78,
+        "restart_day": 7,
+        "keep_alive_day": 50,
+        "keep_alive_command": {
+          "id": "MARKET-KEEP-ALIVE",
+          "type": "EXCHANGE_CURRENCY",
+          "direction": "USD_TO_KRW",
+          "usdAmountMinor": 300000
+        },
+        "cause_id": "RENT-D061",
+        "old_obligations_cash": 10000,
+        "old_obligations": [
+          {
+            "id": "PAYMENT-LARGE",
+            "currency": "USD",
+            "amountMinor": 20000,
+            "reasonKo": "큰 과거 의무",
+            "incurredDay": 1,
+            "paidDay": null
+          },
+          {
+            "id": "PAYMENT-SMALL",
+            "currency": "USD",
+            "amountMinor": 5000,
+            "reasonKo": "작은 과거 의무",
+            "incurredDay": 1,
+            "paidDay": null
+          }
+        ],
+        "old_obligations_entry": {
+          "id": "OLD-OBLIGATIONS",
+          "currency": "USD",
+          "day": 1,
+          "reason": "과거 의무 시험",
+          "lines": [
+            {
+              "account": "CANCELLATION_EXPENSE",
+              "amount": 25000
+            },
+            {
+              "account": "ACCOUNTS_PAYABLE",
+              "amount": -25000
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "P0-M2A5-09",
+      "phase": "P0",
+      "milestone": "M2",
+      "title": "지급 불이행 단계·경영 실패",
+      "currency": "KRW",
+      "evidence_class": "DESIGN",
+      "scenario_id": "SCENARIO_M2_OPERATIONS",
+      "actions": [
+        {
+          "step": 1,
+          "action": "명령을 실행하고 해당 날까지 진행한다.",
+          "day": 71,
+          "commands": [],
+          "variant": "A"
+        },
+        {
+          "step": 2,
+          "action": "명령을 실행하고 해당 날까지 진행한다.",
+          "day": 70,
+          "commands": [
+            {
+              "id": "EXCHANGE_CURRENCY-53-200000",
+              "type": "EXCHANGE_CURRENCY",
+              "direction": "USD_TO_KRW",
+              "usdAmountMinor": 200000
+            }
+          ],
+          "variant": "B"
+        },
+        {
+          "step": 3,
+          "action": "명령을 실행하고 해당 날까지 진행한다.",
+          "day": 70,
+          "commands": [
+            {
+              "id": "EXCHANGE_CURRENCY-52-10000",
+              "type": "EXCHANGE_CURRENCY",
+              "direction": "USD_TO_KRW",
+              "usdAmountMinor": 10000
+            }
+          ],
+          "variant": "C"
+        },
+        {
+          "step": 4,
+          "action": "명령을 실행하고 해당 날까지 진행한다.",
+          "day": 60,
+          "commands": [
+            {
+              "id": "SIGN_SPACE_CONTRACT-22-ROUTE02",
+              "type": "SIGN_SPACE_CONTRACT",
+              "routeId": "ROUTE02"
+            }
+          ],
+          "variant": "D"
+        }
+      ],
+      "expected_numeric": {
+        "cash_day56": 140000,
+        "first_unpaid_day": 57,
+        "warning_last_day": 63,
+        "danger_day": 64,
+        "failure_day": 71,
+        "next_day": 72,
+        "cash_krw": 60000,
+        "cash_usd": 300000,
+        "due_to_survive": 80000,
+        "unpaid": 2770000,
+        "count": 30,
+        "batches": 11,
+        "recovery64": {
+          "dueToSurviveMinor": 0,
+          "lotsToSurvive": 0,
+          "lotsToClearAll": 13,
+          "usdAvailableLots": 30,
+          "nextReceipt": null,
+          "krwToUsdRequiredMinor": null,
+          "heldSpendingKo": "미지급이 있는 동안 고용 계약금·훈련·현지 활동·창고 확장은 자금 기준에서 막힙니다"
+        },
+        "recovery71": {
+          "dueToSurviveMinor": 80000,
+          "lotsToSurvive": 1,
+          "lotsToClearAll": 22,
+          "usdAvailableLots": 30,
+          "nextReceipt": null,
+          "krwToUsdRequiredMinor": null,
+          "heldSpendingKo": "미지급이 있는 동안 고용 계약금·훈련·현지 활동·창고 확장은 자금 기준에서 막힙니다"
+        },
+        "B_cash70": 24000,
+        "B_fail_day": 85,
+        "C_cash70": 28700,
+        "C_fail_day": 72,
+        "D_commitments": [
+          {
+            "kind": "SPACE_CONTRACT",
+            "id": "SPC-ROUTE02",
+            "day": 60,
+            "amountMinor": 9000
+          }
+        ],
+        "prepublish_failure": {
+          "day": 21,
+          "publish_days": [
+            1,
+            8,
+            15
+          ]
+        },
+        "same_day_commitments": [
+          {
+            "kind": "SPACE_CONTRACT",
+            "id": "SPC-ROUTE02",
+            "day": 57,
+            "amountMinor": 12000
+          },
+          {
+            "kind": "CONTRACT",
+            "id": "CT001",
+            "day": 57,
+            "amountMinor": 18000
+          }
+        ],
+        "same_day_warning_available": 282000,
+        "same_day_danger_available": 279000,
+        "same_day_cash": 297000,
+        "optional_spending": [
+          {
+            "entryId": "TRAINING-FEE-IN",
+            "day": 43,
+            "amountMinor": 1000,
+            "reasonKo": "선택 지출 범위 시험"
+          },
+          {
+            "entryId": "SIGNING-IN",
+            "day": 44,
+            "amountMinor": 1000,
+            "reasonKo": "선택 지출 범위 시험"
+          },
+          {
+            "entryId": "CULTURE-FEE-IN",
+            "day": 55,
+            "amountMinor": 1000,
+            "reasonKo": "선택 지출 범위 시험"
+          },
+          {
+            "entryId": "FACILITY-SETUP-IN",
+            "day": 56,
+            "amountMinor": 1000,
+            "reasonKo": "선택 지출 범위 시험"
+          }
+        ],
+        "optional_cash": 54000,
+        "usd_recovery": {
+          "dueToSurviveMinor": 0,
+          "lotsToSurvive": null,
+          "lotsToClearAll": null,
+          "usdAvailableLots": 0,
+          "nextReceipt": {
+            "day": 3,
+            "amountMinor": 5000
+          },
+          "krwToUsdRequiredMinor": 131300,
+          "heldSpendingKo": null
+        }
+      },
+      "expected_assertions": [
+        "M2A5-SPEC 18절 09의 전체 수치·상태와 일치한다.",
+        "읽기 함수는 상태를 바꾸지 않고 저장 재개 후 같은 결과를 낸다."
+      ],
+      "human_review_check": "개발용 합성값이며 실제 시세·임금·계약 관행을 뜻하지 않는다. 전체 객체 단언과 문장 반례를 확인한다.",
+      "engine_test_ref": "src/engine/m2a5-money.test.ts",
+      "engine_test_names": [
+        "P0-M2A5-09 지급 불이행 단계·경영 실패"
+      ],
+      "test_fixture": {
+        "seed": 42032026,
+        "other_seed": 1001,
+        "last_day": 90,
+        "last_publish_day": 78,
+        "restart_day": 7,
+        "keep_alive_day": 50,
+        "keep_alive_command": {
+          "id": "MARKET-KEEP-ALIVE",
+          "type": "EXCHANGE_CURRENCY",
+          "direction": "USD_TO_KRW",
+          "usdAmountMinor": 300000
+        },
+        "cause_id": "WAGE-D057-EMP02",
+        "cause_employee": "EMP02",
+        "preclose_day": 70,
+        "variant_b_day": 70,
+        "variant_c_day": 70,
+        "same_day_commands": [
+          {
+            "id": "ORDER-SPACE",
+            "type": "SIGN_SPACE_CONTRACT",
+            "routeId": "ROUTE02"
+          },
+          {
+            "id": "ORDER-TRADE",
+            "type": "ACCEPT_FORWARDING",
+            "offerId": "MKT-D057-F4"
+          }
+        ],
+        "optional_entries": [
+          {
+            "id": "TRAINING-FEE-OLD",
+            "day": 42,
+            "currency": "KRW",
+            "reason": "선택 지출 범위 시험",
+            "lines": [
+              {
+                "account": "TRAINING_EXPENSE",
+                "amount": 1000
+              },
+              {
+                "account": "CASH",
+                "amount": -1000
+              }
+            ]
+          },
+          {
+            "id": "TRAINING-FEE-IN",
+            "day": 43,
+            "currency": "KRW",
+            "reason": "선택 지출 범위 시험",
+            "lines": [
+              {
+                "account": "TRAINING_EXPENSE",
+                "amount": 1000
+              },
+              {
+                "account": "CASH",
+                "amount": -1000
+              }
+            ]
+          },
+          {
+            "id": "SIGNING-IN",
+            "day": 44,
+            "currency": "KRW",
+            "reason": "선택 지출 범위 시험",
+            "lines": [
+              {
+                "account": "RECRUITMENT_EXPENSE",
+                "amount": 1000
+              },
+              {
+                "account": "CASH",
+                "amount": -1000
+              }
+            ]
+          },
+          {
+            "id": "CULTURE-FEE-IN",
+            "day": 55,
+            "currency": "KRW",
+            "reason": "선택 지출 범위 시험",
+            "lines": [
+              {
+                "account": "CULTURE_EXPENSE",
+                "amount": 1000
+              },
+              {
+                "account": "CASH",
+                "amount": -1000
+              }
+            ]
+          },
+          {
+            "id": "FACILITY-SETUP-IN",
+            "day": 56,
+            "currency": "KRW",
+            "reason": "선택 지출 범위 시험",
+            "lines": [
+              {
+                "account": "FACILITY_SETUP_EXPENSE",
+                "amount": 1000
+              },
+              {
+                "account": "CASH",
+                "amount": -1000
+              }
+            ]
+          },
+          {
+            "id": "CULTURE-FEE-SAME",
+            "day": 57,
+            "currency": "KRW",
+            "reason": "선택 지출 범위 시험",
+            "lines": [
+              {
+                "account": "CULTURE_EXPENSE",
+                "amount": 1000
+              },
+              {
+                "account": "CASH",
+                "amount": -1000
+              }
+            ]
+          }
+        ],
+        "usd_recovery": {
+          "obligation": {
+            "id": "USD-RECOVERY",
+            "currency": "USD",
+            "amountMinor": 5000,
+            "reasonKo": "시험 USD 의무",
+            "incurredDay": 1,
+            "paidDay": null
+          },
+          "invoices": [
+            {
+              "id": "INV-TEST-1",
+              "contractId": "CT001",
+              "currency": "USD",
+              "amountMinor": 2000,
+              "issuedDay": 1,
+              "dueDay": 3,
+              "status": "OUTSTANDING",
+              "receiptIds": []
+            },
+            {
+              "id": "INV-TEST-2",
+              "contractId": "CT002",
+              "currency": "USD",
+              "amountMinor": 3000,
+              "issuedDay": 1,
+              "dueDay": 3,
+              "status": "OUTSTANDING",
+              "receiptIds": []
+            },
+            {
+              "id": "INV-TEST-3",
+              "contractId": "CT003",
+              "currency": "USD",
+              "amountMinor": 9000,
+              "issuedDay": 1,
+              "dueDay": 4,
+              "status": "OUTSTANDING",
+              "receiptIds": []
+            }
+          ]
+        },
+        "prepublish_start_krw": 1410000
+      }
+    },
+    {
+      "id": "P0-M2A5-10",
+      "phase": "P0",
+      "milestone": "M2",
+      "title": "창고 확장",
+      "currency": "KRW",
+      "evidence_class": "DESIGN",
+      "scenario_id": "SCENARIO_M2_OPERATIONS",
+      "actions": [
+        {
+          "step": 1,
+          "action": "명령을 실행하고 해당 날까지 진행한다.",
+          "day": 22,
+          "commands": [
+            {
+              "id": "EXPAND_WAREHOUSE-2-",
+              "type": "EXPAND_WAREHOUSE"
+            }
+          ],
+          "variant": "A"
+        }
+      ],
+      "expected_numeric": {
+        "setup": 200000,
+        "ordered_day": 22,
+        "effective_day": 23,
+        "capacity_before": [
+          40000,
+          6
+        ],
+        "capacity_after": [
+          60000,
+          9
+        ],
+        "rent_days": [
+          31,
+          61
+        ],
+        "rent": 700000,
+        "runway": 54
+      },
+      "expected_assertions": [
+        "M2A5-SPEC 18절 10의 전체 수치·상태와 일치한다.",
+        "읽기 함수는 상태를 바꾸지 않고 저장 재개 후 같은 결과를 낸다."
+      ],
+      "human_review_check": "개발용 합성값이며 실제 시세·임금·계약 관행을 뜻하지 않는다. 전체 객체 단언과 문장 반례를 확인한다.",
+      "engine_test_ref": "src/engine/m2a5-warehouse.test.ts",
+      "engine_test_names": [
+        "P0-M2A5-10 창고 확장"
+      ],
+      "test_fixture": {
+        "seed": 42032026,
+        "other_seed": 1001,
+        "last_day": 90,
+        "last_publish_day": 78,
+        "restart_day": 7,
+        "keep_alive_day": 50,
+        "keep_alive_command": {
+          "id": "MARKET-KEEP-ALIVE",
+          "type": "EXCHANGE_CURRENCY",
+          "direction": "USD_TO_KRW",
+          "usdAmountMinor": 300000
+        },
+        "late_expansion_day": 62,
+        "insufficient_cash": 199999
+      }
+    },
+    {
+      "id": "P0-M2A5-11",
+      "phase": "P0",
+      "milestone": "M2",
+      "title": "선복 장기 계약",
+      "currency": "USD",
+      "evidence_class": "DESIGN",
+      "scenario_id": "SCENARIO_M2_OPERATIONS",
+      "actions": [
+        {
+          "step": 1,
+          "action": "명령을 실행하고 해당 날까지 진행한다.",
+          "day": 1,
+          "commands": [
+            {
+              "id": "ACCEPT_FORWARDING-80-S-A",
+              "type": "ACCEPT_FORWARDING",
+              "offerId": "S-A",
+              "plan": {
+                "employeeId": "EMP01",
+                "sailingId": "ROUTE02-D009"
+              }
+            },
+            {
+              "id": "ACCEPT_FORWARDING-80-S-B",
+              "type": "ACCEPT_FORWARDING",
+              "offerId": "S-B",
+              "plan": {
+                "employeeId": "EMP02",
+                "sailingId": "ROUTE02-D009"
+              }
+            }
+          ],
+          "variant": "A"
+        },
+        {
+          "step": 2,
+          "action": "명령을 실행하고 해당 날까지 진행한다.",
+          "day": 1,
+          "commands": [
+            {
+              "id": "SIGN_SPACE_CONTRACT-22-ROUTE02",
+              "type": "SIGN_SPACE_CONTRACT",
+              "routeId": "ROUTE02"
+            }
+          ],
+          "variant": "signed"
+        }
+      ],
+      "expected_numeric": {
+        "sailing_days": [
+          9,
+          16,
+          23,
+          30,
+          37,
+          44,
+          51,
+          58,
+          65,
+          72,
+          79,
+          86
+        ],
+        "other_sailing_days": [
+          9,
+          16,
+          23,
+          30,
+          37,
+          44,
+          51,
+          58,
+          65,
+          72,
+          79
+        ],
+        "capacity": [
+          40000,
+          6500000
+        ],
+        "base_capacity": [
+          30000,
+          5000000
+        ],
+        "storage": 36000,
+        "reserved_days": [
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            3000
+          ],
+          [
+            9,
+            6000
+          ],
+          [
+            10,
+            3000
+          ]
+        ],
+        "fee_total": 36000,
+        "other_fee_total": 33000,
+        "mass_grams": 3600000
+      },
+      "expected_assertions": [
+        "M2A5-SPEC 18절 11의 전체 수치·상태와 일치한다.",
+        "읽기 함수는 상태를 바꾸지 않고 저장 재개 후 같은 결과를 낸다."
+      ],
+      "human_review_check": "개발용 합성값이며 실제 시세·임금·계약 관행을 뜻하지 않는다. 전체 객체 단언과 문장 반례를 확인한다.",
+      "engine_test_ref": "src/engine/m2a5-warehouse.test.ts",
+      "engine_test_names": [
+        "P0-M2A5-11 선복 장기 계약"
+      ],
+      "test_fixture": {
+        "seed": 42032026,
+        "other_seed": 1001,
+        "last_day": 90,
+        "last_publish_day": 78,
+        "restart_day": 7,
+        "keep_alive_day": 50,
+        "keep_alive_command": {
+          "id": "MARKET-KEEP-ALIVE",
+          "type": "EXCHANGE_CURRENCY",
+          "direction": "USD_TO_KRW",
+          "usdAmountMinor": 300000
+        },
+        "offers": [
+          {
+            "id": "S-A",
+            "template_id": "F5",
+            "delivery_deadline_day": 15
+          },
+          {
+            "id": "S-B",
+            "template_id": "F5",
+            "delivery_deadline_day": 15
+          }
+        ],
+        "early_sailing": "ROUTE02-D002",
+        "covered_sailing": "ROUTE02-D009",
+        "route": "ROUTE02",
+        "other_route": "ROUTE01"
+      }
+    },
+    {
+      "id": "P0-M2A5-12",
+      "phase": "P0",
+      "milestone": "M2",
+      "title": "기존 기대값 보존",
+      "currency": "USD",
+      "evidence_class": "DESIGN",
+      "scenario_id": "SCENARIO_M2_OPERATIONS",
+      "actions": [
+        {
+          "step": 1,
+          "action": "명령을 실행하고 해당 날까지 진행한다.",
+          "day": 1,
+          "commands": [
+            {
+              "id": "ACCEPT_TRADE-124-OFFER_BUY_02",
+              "type": "ACCEPT_TRADE",
+              "buyOfferId": "OFFER_BUY_02",
+              "sellOfferId": "OFFER_SELL_02",
+              "plan": {
+                "employeeId": "EMP01",
+                "sailingId": "ROUTE02-D002"
+              }
+            },
+            {
+              "id": "ACCEPT_FORWARDING-89-OFFER_FWD_01",
+              "type": "ACCEPT_FORWARDING",
+              "offerId": "OFFER_FWD_01",
+              "plan": {
+                "employeeId": "EMP02",
+                "sailingId": "ROUTE01-D002"
+              }
+            },
+            {
+              "id": "ACCEPT_FORWARDING-66-OFFER_FWD_02",
+              "type": "ACCEPT_FORWARDING",
+              "offerId": "OFFER_FWD_02",
+              "plan": {
+                "sailingId": "ROUTE01-D009"
+              }
+            }
+          ],
+          "variant": "A"
+        },
+        {
+          "step": 2,
+          "action": "명령을 실행하고 해당 날까지 진행한다.",
+          "day": 2,
+          "commands": [
+            {
+              "id": "ASSIGN_TASK-44-",
+              "type": "ASSIGN_TASK",
+              "taskId": "TASK003",
+              "employeeId": "EMP01"
+            }
+          ],
+          "variant": "A"
+        }
+      ],
+      "expected_numeric": {
+        "day1_funds": {
+          "currency": "USD",
+          "cash": 42000,
+          "reserved": 10000,
+          "reservedCommitments": 0,
+          "unpaidObligations": 0,
+          "available": 32000
+        },
+        "day7_cash": 32000,
+        "day7_receivable": 288000,
+        "day17_usd": 350000,
+        "day17_krw": 6830000,
+        "apparel_usd": 343000,
+        "day7_book": {
+          "cash": 32000,
+          "accountsReceivable": 288000,
+          "prepaidFreight": 20000,
+          "totalAssets": 340000,
+          "revenue": 250000,
+          "costOfGoodsSold": 228000,
+          "forwardingRevenue": 38000,
+          "forwardingCost": 20000,
+          "profit": 40000
+        },
+        "day17_book": {
+          "cash": 350000,
+          "totalAssets": 350000,
+          "revenue": 250000,
+          "costOfGoodsSold": 228000,
+          "forwardingRevenue": 68000,
+          "forwardingCost": 40000,
+          "profit": 50000
+        },
+        "apparel_book": {
+          "cash": 343000,
+          "totalAssets": 343000,
+          "revenue": 140000,
+          "costOfGoodsSold": 125000,
+          "forwardingRevenue": 68000,
+          "forwardingCost": 40000,
+          "profit": 43000
+        }
+      },
+      "expected_assertions": [
+        "M2A5-SPEC 18절 12의 전체 수치·상태와 일치한다.",
+        "읽기 함수는 상태를 바꾸지 않고 저장 재개 후 같은 결과를 낸다."
+      ],
+      "human_review_check": "개발용 합성값이며 실제 시세·임금·계약 관행을 뜻하지 않는다. 전체 객체 단언과 문장 반례를 확인한다.",
+      "engine_test_ref": "src/engine/m2a5-save.test.ts",
+      "engine_test_names": [
+        "P0-M2A5-12 기존 기대값 보존"
+      ],
+      "test_fixture": {
+        "seed": 42032026,
+        "other_seed": 1001,
+        "last_day": 90,
+        "last_publish_day": 78,
+        "restart_day": 7,
+        "keep_alive_day": 50,
+        "keep_alive_command": {
+          "id": "MARKET-KEEP-ALIVE",
+          "type": "EXCHANGE_CURRENCY",
+          "direction": "USD_TO_KRW",
+          "usdAmountMinor": 300000
+        },
+        "last_check_day": 17,
+        "apparel_buy": "OFFER_BUY_01",
+        "apparel_sell": "OFFER_SELL_01",
+        "apparel_sailing": "ROUTE01-D002",
+        "rejections": [
+          {
+            "name": "second_trade",
+            "commands": [
+              {
+                "id": "FIRST-TRADE",
+                "type": "ACCEPT_TRADE",
+                "buyOfferId": "OFFER_BUY_01",
+                "sellOfferId": "OFFER_SELL_01"
+              },
+              {
+                "id": "SECOND-TRADE",
+                "type": "ACCEPT_TRADE",
+                "buyOfferId": "OFFER_BUY_02",
+                "sellOfferId": "OFFER_SELL_02"
+              }
+            ],
+            "reason": "사용 가능 자금이 부족합니다. 필요 2,280.00 USD(매입 2,000.00 USD + 운임 180.00 USD + 관세 100.00 USD), 사용 가능 1,750.00 USD = 현금 2,000.00 USD − 다른 계약 예약 250.00 USD. 체결한 계약의 남은 운임·관세는 미리 묶어 둡니다.",
+            "funds": {
+              "currency": "USD",
+              "cash": 200000,
+              "reserved": 25000,
+              "reservedCommitments": 0,
+              "unpaidObligations": 0,
+              "available": 175000
+            }
+          },
+          {
+            "name": "same_sailing",
+            "commands": [
+              {
+                "id": "FWD1",
+                "type": "ACCEPT_FORWARDING",
+                "offerId": "OFFER_FWD_01"
+              },
+              {
+                "id": "FWD2",
+                "type": "ACCEPT_FORWARDING",
+                "offerId": "OFFER_FWD_02"
+              },
+              {
+                "id": "BOOK1",
+                "type": "BOOK_SAILING",
+                "contractId": "CT001",
+                "sailingId": "ROUTE01-D002"
+              },
+              {
+                "id": "BOOK2",
+                "type": "BOOK_SAILING",
+                "contractId": "CT002",
+                "sailingId": "ROUTE01-D002"
+              }
+            ],
+            "reason": "이 출항편의 남은 화물 공간이 부족합니다 (부피 8m³ 필요, 남은 6m³).",
+            "funds": {
+              "currency": "USD",
+              "cash": 280000,
+              "reserved": 20000,
+              "reservedCommitments": 0,
+              "unpaidObligations": 0,
+              "available": 260000
+            },
+            "sailing_id": "ROUTE01-D002",
+            "load": {
+              "sailingId": "ROUTE01-D002",
+              "massGrams": 2400000,
+              "volumeLiters": 24000,
+              "capacityGrams": 5000000,
+              "capacityLiters": 30000
+            }
+          }
+        ],
+        "rejection_space_command": {
+          "id": "REJECTION-SPACE",
+          "type": "SIGN_SPACE_CONTRACT",
+          "routeId": "ROUTE01"
+        }
+      }
+    },
+    {
+      "id": "P0-M2A5-13",
+      "phase": "P0",
+      "milestone": "M2",
+      "title": "저장 판본 7과 재현",
+      "currency": "USD",
+      "evidence_class": "DESIGN",
+      "scenario_id": "SCENARIO_M2_OPERATIONS",
+      "actions": [
+        {
+          "step": 1,
+          "action": "명령을 실행하고 해당 날까지 진행한다.",
+          "day": 8,
+          "commands": [
+            {
+              "id": "EXCHANGE_CURRENCY-52-10000",
+              "type": "EXCHANGE_CURRENCY",
+              "direction": "USD_TO_KRW",
+              "usdAmountMinor": 10000
+            }
+          ],
+          "variant": "A"
+        },
+        {
+          "step": 2,
+          "action": "명령을 실행하고 해당 날까지 진행한다.",
+          "day": 22,
+          "commands": [
+            {
+              "id": "EXPAND_WAREHOUSE-2-",
+              "type": "EXPAND_WAREHOUSE"
+            }
+          ],
+          "variant": "A"
+        }
+      ],
+      "expected_numeric": {
+        "save_version": 7,
+        "save_days": [
+          7,
+          8,
+          22
+        ]
+      },
+      "expected_assertions": [
+        "M2A5-SPEC 18절 13의 전체 수치·상태와 일치한다.",
+        "읽기 함수는 상태를 바꾸지 않고 저장 재개 후 같은 결과를 낸다.",
+        "형식 5 저장은 옛 형식 문구로 거절한다"
+      ],
+      "human_review_check": "개발용 합성값이며 실제 시세·임금·계약 관행을 뜻하지 않는다. 전체 객체 단언과 문장 반례를 확인한다.",
+      "engine_test_ref": "src/engine/m2a5-save.test.ts",
+      "engine_test_names": [
+        "P0-M2A5-13 저장 판본 7과 재현"
+      ],
+      "test_fixture": {
+        "seed": 42032026,
+        "other_seed": 1001,
+        "last_day": 90,
+        "last_publish_day": 78,
+        "restart_day": 7,
+        "keep_alive_day": 50,
+        "keep_alive_command": {
+          "id": "MARKET-KEEP-ALIVE",
+          "type": "EXCHANGE_CURRENCY",
+          "direction": "USD_TO_KRW",
+          "usdAmountMinor": 300000
+        },
+        "legacy_fixture": "save-v5-m2.json"
+      }
+    },
+    {
+      "id": "P0-M2A5-14",
+      "phase": "P0",
+      "milestone": "M2",
+      "title": "결산과 같은 시드 다시",
+      "currency": "KRW",
+      "evidence_class": "DESIGN",
+      "scenario_id": "SCENARIO_M2_OPERATIONS",
+      "actions": [
+        {
+          "step": 1,
+          "action": "명령을 실행하고 해당 날까지 진행한다.",
+          "day": 1,
+          "commands": [
+            {
+              "id": "EXCHANGE_CURRENCY-53-300000",
+              "type": "EXCHANGE_CURRENCY",
+              "direction": "USD_TO_KRW",
+              "usdAmountMinor": 300000
+            }
+          ],
+          "variant": "A"
+        }
+      ],
+      "expected_numeric": {
+        "cash_day78": 31000,
+        "first_unpaid_day": 79,
+        "completed_day": 90,
+        "cash_final": 31000,
+        "unpaid": 1920000,
+        "count": 24,
+        "would_fail_day": 93,
+        "fx_spread": 39000,
+        "fx_transfer": 3900000
+      },
+      "expected_assertions": [
+        "M2A5-SPEC 18절 14의 전체 수치·상태와 일치한다.",
+        "읽기 함수는 상태를 바꾸지 않고 저장 재개 후 같은 결과를 낸다."
+      ],
+      "human_review_check": "개발용 합성값이며 실제 시세·임금·계약 관행을 뜻하지 않는다. 전체 객체 단언과 문장 반례를 확인한다.",
+      "engine_test_ref": "src/engine/m2a5-money.test.ts",
+      "engine_test_names": [
+        "P0-M2A5-14 결산과 같은 시드 다시"
+      ],
+      "test_fixture": {
+        "seed": 42032026,
+        "other_seed": 1001,
+        "last_day": 90,
+        "last_publish_day": 78,
+        "restart_day": 7,
+        "keep_alive_day": 50,
+        "keep_alive_command": {
+          "id": "MARKET-KEEP-ALIVE",
+          "type": "EXCHANGE_CURRENCY",
+          "direction": "USD_TO_KRW",
+          "usdAmountMinor": 300000
+        }
+      }
+    },
+    {
+      "id": "P0-M2A5-15",
+      "phase": "P0",
+      "milestone": "M2",
+      "title": "통화 분리",
+      "currency": "KRW",
+      "evidence_class": "DESIGN",
+      "scenario_id": "SCENARIO_M2_OPERATIONS",
+      "actions": [
+        {
+          "step": 1,
+          "action": "명령을 실행하고 해당 날까지 진행한다.",
+          "day": 71,
+          "commands": [],
+          "variant": "A"
+        }
+      ],
+      "expected_numeric": {
+        "usd_cash": 300000,
+        "krw_cash": 60000,
+        "krw_unpaid": 2770000
+      },
+      "expected_assertions": [
+        "M2A5-SPEC 18절 15의 전체 수치·상태와 일치한다.",
+        "읽기 함수는 상태를 바꾸지 않고 저장 재개 후 같은 결과를 낸다."
+      ],
+      "human_review_check": "개발용 합성값이며 실제 시세·임금·계약 관행을 뜻하지 않는다. 전체 객체 단언과 문장 반례를 확인한다.",
+      "engine_test_ref": "src/engine/m2a5-money.test.ts",
+      "engine_test_names": [
+        "P0-M2A5-15 통화 분리"
+      ],
+      "test_fixture": {
+        "seed": 42032026,
+        "other_seed": 1001,
+        "last_day": 90,
+        "last_publish_day": 78,
+        "restart_day": 7,
+        "keep_alive_day": 50,
+        "keep_alive_command": {
+          "id": "MARKET-KEEP-ALIVE",
+          "type": "EXCHANGE_CURRENCY",
+          "direction": "USD_TO_KRW",
+          "usdAmountMinor": 300000
+        }
+      }
+    },
+    {
+      "id": "P0-M2A5-16",
+      "phase": "P0",
+      "milestone": "M2",
+      "title": "가격 수용자",
+      "currency": "USD",
+      "evidence_class": "DESIGN",
+      "scenario_id": "SCENARIO_M2_OPERATIONS",
+      "actions": [
+        {
+          "step": 1,
+          "action": "명령을 실행하고 해당 날까지 진행한다.",
+          "day": 78,
+          "commands": [],
+          "variant": "A"
+        }
+      ],
+      "expected_numeric": {
+        "batches": 12,
+        "seed": 42032026
+      },
+      "expected_assertions": [
+        "M2A5-SPEC 18절 16의 전체 수치·상태와 일치한다.",
+        "읽기 함수는 상태를 바꾸지 않고 저장 재개 후 같은 결과를 낸다."
+      ],
+      "human_review_check": "개발용 합성값이며 실제 시세·임금·계약 관행을 뜻하지 않는다. 전체 객체 단언과 문장 반례를 확인한다.",
+      "engine_test_ref": "src/engine/m2a5-market.test.ts",
+      "engine_test_names": [
+        "P0-M2A5-16 가격 수용자"
+      ],
+      "test_fixture": {
+        "seed": 42032026,
+        "other_seed": 1001,
+        "last_day": 90,
+        "last_publish_day": 78,
+        "restart_day": 7,
+        "keep_alive_day": 50,
+        "keep_alive_command": {
+          "id": "MARKET-KEEP-ALIVE",
+          "type": "EXCHANGE_CURRENCY",
+          "direction": "USD_TO_KRW",
+          "usdAmountMinor": 300000
+        }
+      }
+    },
+    {
+      "id": "P0-M2A5-18",
+      "phase": "P0",
+      "milestone": "M2",
+      "title": "본사·창고 표와 병목 표",
+      "currency": "USD",
+      "evidence_class": "DESIGN",
+      "scenario_id": "SCENARIO_M2_OPERATIONS",
+      "actions": [
+        {
+          "step": 1,
+          "action": "1일 선복 두 노선과 창고 확장을 계약하고 2일 마감 뒤 3일에 확인한다.",
+          "day": 1,
+          "variant": "invested",
+          "commands": [
+            {
+              "id": "SPACE-1",
+              "type": "SIGN_SPACE_CONTRACT",
+              "routeId": "ROUTE01"
+            },
+            {
+              "id": "SPACE-2",
+              "type": "SIGN_SPACE_CONTRACT",
+              "routeId": "ROUTE02"
+            },
+            {
+              "id": "EXPAND",
+              "type": "EXPAND_WAREHOUSE"
+            }
+          ]
+        }
+      ],
+      "expected_numeric": {
+        "initial": {
+          "storage": {
+            "usedLiters": 0,
+            "capacityLiters": 40000,
+            "heldUnallocatedLiters": 0
+          },
+          "handling": {
+            "capacityPtToday": 6,
+            "plannedUsePtToday": 0,
+            "waits": [],
+            "waitTaskCount": 0,
+            "waitPt": 0
+          },
+          "prepDaysToClear": 0,
+          "demand": {
+            "batchPublishDay": 1,
+            "openVolumeLiters": 33300,
+            "openPrepPt": 10,
+            "recent": []
+          },
+          "staff": {
+            "workUnitsPerDay": 4,
+            "idleWorkUnitsToday": 4
+          },
+          "sailings": [
+            {
+              "sailingId": "ROUTE01-D002",
+              "usedLiters": 0,
+              "capacityLiters": 30000,
+              "usedGrams": 0,
+              "capacityGrams": 5000000,
+              "spaceContract": false
+            },
+            {
+              "sailingId": "ROUTE02-D002",
+              "usedLiters": 0,
+              "capacityLiters": 30000,
+              "usedGrams": 0,
+              "capacityGrams": 5000000,
+              "spaceContract": false
+            }
+          ],
+          "rent": {
+            "amountMinor": 450000,
+            "nextDueDay": 1
+          },
+          "expansion": {
+            "status": "NONE",
+            "effectiveDay": null
+          },
+          "spaceContracts": [],
+          "bottleneck": {
+            "unit": "HANDLING_JOBS_PER_WEEK",
+            "demand": null,
+            "otherPtPerWeek": 0,
+            "rows": [
+              {
+                "constraint": "DEMAND",
+                "before": null,
+                "after": null
+              },
+              {
+                "constraint": "STAFF",
+                "before": 2,
+                "after": 2
+              },
+              {
+                "constraint": "WAREHOUSE_HANDLING",
+                "before": 3,
+                "after": 3
+              },
+              {
+                "constraint": "STORAGE",
+                "before": 3,
+                "after": 3
+              },
+              {
+                "constraint": "SAILING",
+                "before": 2,
+                "after": 2
+              }
+            ],
+            "binding": {
+              "before": [
+                "STAFF",
+                "SAILING"
+              ],
+              "after": [
+                "STAFF",
+                "SAILING"
+              ]
+            },
+            "usableBefore": 2,
+            "usableAfter": 2,
+            "extraJobsPerWeek": 0,
+            "remainingHandlingBatches": 10,
+            "contributionPerJobMinor": 84000,
+            "wageKrwPerWeek": null,
+            "wageUsdLotsPerWeek": null,
+            "storageDetail": {
+              "otherOccupancyLiters": 0,
+              "otherPeakLiters": 0,
+              "handlingDwellDays": 8,
+              "windowDays": 0
+            }
+          }
+        },
+        "invested": {
+          "storage": {
+            "usedLiters": 0,
+            "capacityLiters": 60000,
+            "heldUnallocatedLiters": 0
+          },
+          "handling": {
+            "capacityPtToday": 9,
+            "plannedUsePtToday": 0,
+            "waits": [],
+            "waitTaskCount": 0,
+            "waitPt": 0
+          },
+          "prepDaysToClear": 0,
+          "demand": {
+            "batchPublishDay": 1,
+            "openVolumeLiters": 33300,
+            "openPrepPt": 10,
+            "recent": []
+          },
+          "staff": {
+            "workUnitsPerDay": 4,
+            "idleWorkUnitsToday": 4
+          },
+          "sailings": [
+            {
+              "sailingId": "ROUTE01-D009",
+              "usedLiters": 0,
+              "capacityLiters": 40000,
+              "usedGrams": 0,
+              "capacityGrams": 6500000,
+              "spaceContract": true
+            },
+            {
+              "sailingId": "ROUTE02-D009",
+              "usedLiters": 0,
+              "capacityLiters": 40000,
+              "usedGrams": 0,
+              "capacityGrams": 6500000,
+              "spaceContract": true
+            }
+          ],
+          "rent": {
+            "amountMinor": 700000,
+            "nextDueDay": 31
+          },
+          "expansion": {
+            "status": "ACTIVE",
+            "effectiveDay": 2
+          },
+          "spaceContracts": [
+            {
+              "id": "SPC-ROUTE01",
+              "routeId": "ROUTE01",
+              "signedDay": 1,
+              "firstSailingDay": 9,
+              "lastSailingDay": 79,
+              "sailingCount": 11,
+              "feeMinor": 3000,
+              "currency": "USD"
+            },
+            {
+              "id": "SPC-ROUTE02",
+              "routeId": "ROUTE02",
+              "signedDay": 1,
+              "firstSailingDay": 9,
+              "lastSailingDay": 86,
+              "sailingCount": 12,
+              "feeMinor": 3000,
+              "currency": "USD"
+            }
+          ],
+          "bottleneck": {
+            "unit": "HANDLING_JOBS_PER_WEEK",
+            "demand": null,
+            "otherPtPerWeek": 0,
+            "rows": [
+              {
+                "constraint": "DEMAND",
+                "before": null,
+                "after": null
+              },
+              {
+                "constraint": "STAFF",
+                "before": 2,
+                "after": 2
+              },
+              {
+                "constraint": "WAREHOUSE_HANDLING",
+                "before": 5,
+                "after": 5
+              },
+              {
+                "constraint": "STORAGE",
+                "before": 5,
+                "after": 5
+              },
+              {
+                "constraint": "SAILING",
+                "before": 4,
+                "after": 4
+              }
+            ],
+            "binding": {
+              "before": [
+                "STAFF"
+              ],
+              "after": [
+                "STAFF"
+              ]
+            },
+            "usableBefore": 2,
+            "usableAfter": 2,
+            "extraJobsPerWeek": 0,
+            "remainingHandlingBatches": 10,
+            "contributionPerJobMinor": 84000,
+            "wageKrwPerWeek": null,
+            "wageUsdLotsPerWeek": null,
+            "storageDetail": {
+              "otherOccupancyLiters": 0,
+              "otherPeakLiters": 0,
+              "handlingDwellDays": 8,
+              "windowDays": 2
+            }
+          }
+        },
+        "hiring": [
+          {
+            "invested": false,
+            "candidate_id": "EMP05",
+            "outlook": {
+              "workUnitsPerDay": 2,
+              "wageKrwPerDay": 90000,
+              "wageUsdLotsPerWeek": 5,
+              "bottleneck": {
+                "unit": "HANDLING_JOBS_PER_WEEK",
+                "demand": null,
+                "otherPtPerWeek": 0,
+                "rows": [
+                  {
+                    "constraint": "DEMAND",
+                    "before": null,
+                    "after": null
+                  },
+                  {
+                    "constraint": "STAFF",
+                    "before": 2,
+                    "after": 3
+                  },
+                  {
+                    "constraint": "WAREHOUSE_HANDLING",
+                    "before": 3,
+                    "after": 3
+                  },
+                  {
+                    "constraint": "STORAGE",
+                    "before": 3,
+                    "after": 3
+                  },
+                  {
+                    "constraint": "SAILING",
+                    "before": 2,
+                    "after": 2
+                  }
+                ],
+                "binding": {
+                  "before": [
+                    "STAFF",
+                    "SAILING"
+                  ],
+                  "after": [
+                    "SAILING"
+                  ]
+                },
+                "usableBefore": 2,
+                "usableAfter": 2,
+                "extraJobsPerWeek": 0,
+                "remainingHandlingBatches": 10,
+                "contributionPerJobMinor": 84000,
+                "wageKrwPerWeek": 630000,
+                "wageUsdLotsPerWeek": 5,
+                "storageDetail": {
+                  "otherOccupancyLiters": 0,
+                  "otherPeakLiters": 0,
+                  "handlingDwellDays": 8,
+                  "windowDays": 0
+                }
+              },
+              "recentHandlingOfferedPt": 0,
+              "recentHandlingAcceptedPt": 0
+            }
+          },
+          {
+            "invested": false,
+            "candidate_id": "EMP03",
+            "outlook": {
+              "workUnitsPerDay": 3,
+              "wageKrwPerDay": 110000,
+              "wageUsdLotsPerWeek": 6,
+              "bottleneck": {
+                "unit": "HANDLING_JOBS_PER_WEEK",
+                "demand": null,
+                "otherPtPerWeek": 0,
+                "rows": [
+                  {
+                    "constraint": "DEMAND",
+                    "before": null,
+                    "after": null
+                  },
+                  {
+                    "constraint": "STAFF",
+                    "before": 2,
+                    "after": 4
+                  },
+                  {
+                    "constraint": "WAREHOUSE_HANDLING",
+                    "before": 3,
+                    "after": 3
+                  },
+                  {
+                    "constraint": "STORAGE",
+                    "before": 3,
+                    "after": 3
+                  },
+                  {
+                    "constraint": "SAILING",
+                    "before": 2,
+                    "after": 2
+                  }
+                ],
+                "binding": {
+                  "before": [
+                    "STAFF",
+                    "SAILING"
+                  ],
+                  "after": [
+                    "SAILING"
+                  ]
+                },
+                "usableBefore": 2,
+                "usableAfter": 2,
+                "extraJobsPerWeek": 0,
+                "remainingHandlingBatches": 10,
+                "contributionPerJobMinor": 84000,
+                "wageKrwPerWeek": 770000,
+                "wageUsdLotsPerWeek": 6,
+                "storageDetail": {
+                  "otherOccupancyLiters": 0,
+                  "otherPeakLiters": 0,
+                  "handlingDwellDays": 8,
+                  "windowDays": 0
+                }
+              },
+              "recentHandlingOfferedPt": 0,
+              "recentHandlingAcceptedPt": 0
+            }
+          },
+          {
+            "invested": true,
+            "candidate_id": "EMP05",
+            "outlook": {
+              "workUnitsPerDay": 2,
+              "wageKrwPerDay": 90000,
+              "wageUsdLotsPerWeek": 5,
+              "bottleneck": {
+                "unit": "HANDLING_JOBS_PER_WEEK",
+                "demand": null,
+                "otherPtPerWeek": 0,
+                "rows": [
+                  {
+                    "constraint": "DEMAND",
+                    "before": null,
+                    "after": null
+                  },
+                  {
+                    "constraint": "STAFF",
+                    "before": 2,
+                    "after": 3
+                  },
+                  {
+                    "constraint": "WAREHOUSE_HANDLING",
+                    "before": 5,
+                    "after": 5
+                  },
+                  {
+                    "constraint": "STORAGE",
+                    "before": 5,
+                    "after": 5
+                  },
+                  {
+                    "constraint": "SAILING",
+                    "before": 4,
+                    "after": 4
+                  }
+                ],
+                "binding": {
+                  "before": [
+                    "STAFF"
+                  ],
+                  "after": [
+                    "STAFF"
+                  ]
+                },
+                "usableBefore": 2,
+                "usableAfter": 3,
+                "extraJobsPerWeek": 1,
+                "remainingHandlingBatches": 10,
+                "contributionPerJobMinor": 84000,
+                "wageKrwPerWeek": 630000,
+                "wageUsdLotsPerWeek": 5,
+                "storageDetail": {
+                  "otherOccupancyLiters": 0,
+                  "otherPeakLiters": 0,
+                  "handlingDwellDays": 8,
+                  "windowDays": 2
+                }
+              },
+              "recentHandlingOfferedPt": 0,
+              "recentHandlingAcceptedPt": 0
+            }
+          },
+          {
+            "invested": true,
+            "candidate_id": "EMP03",
+            "outlook": {
+              "workUnitsPerDay": 3,
+              "wageKrwPerDay": 110000,
+              "wageUsdLotsPerWeek": 6,
+              "bottleneck": {
+                "unit": "HANDLING_JOBS_PER_WEEK",
+                "demand": null,
+                "otherPtPerWeek": 0,
+                "rows": [
+                  {
+                    "constraint": "DEMAND",
+                    "before": null,
+                    "after": null
+                  },
+                  {
+                    "constraint": "STAFF",
+                    "before": 2,
+                    "after": 4
+                  },
+                  {
+                    "constraint": "WAREHOUSE_HANDLING",
+                    "before": 5,
+                    "after": 5
+                  },
+                  {
+                    "constraint": "STORAGE",
+                    "before": 5,
+                    "after": 5
+                  },
+                  {
+                    "constraint": "SAILING",
+                    "before": 4,
+                    "after": 4
+                  }
+                ],
+                "binding": {
+                  "before": [
+                    "STAFF"
+                  ],
+                  "after": [
+                    "STAFF",
+                    "SAILING"
+                  ]
+                },
+                "usableBefore": 2,
+                "usableAfter": 4,
+                "extraJobsPerWeek": 2,
+                "remainingHandlingBatches": 10,
+                "contributionPerJobMinor": 84000,
+                "wageKrwPerWeek": 770000,
+                "wageUsdLotsPerWeek": 6,
+                "storageDetail": {
+                  "otherOccupancyLiters": 0,
+                  "otherPeakLiters": 0,
+                  "handlingDwellDays": 8,
+                  "windowDays": 2
+                }
+              },
+              "recentHandlingOfferedPt": 0,
+              "recentHandlingAcceptedPt": 0
+            }
+          }
+        ],
+        "payments_initial": [
+          {
+            "kind": "RENT",
+            "currency": "KRW",
+            "amountMinor": 450000,
+            "day": 1,
+            "trigger": "AUTO",
+            "contractId": null,
+            "employeeIds": [],
+            "sourceId": "RENT-D001",
+            "labelKo": "평택 창고 1일 임차료"
+          },
+          {
+            "kind": "WAGE",
+            "currency": "KRW",
+            "amountMinor": 160000,
+            "day": 1,
+            "trigger": "AUTO",
+            "contractId": null,
+            "employeeIds": [
+              "EMP01",
+              "EMP02"
+            ],
+            "sourceId": "WAGE-D001-KRW",
+            "labelKo": "2명 급여"
+          }
+        ],
+        "payments_invested": [
+          {
+            "kind": "WAGE",
+            "currency": "KRW",
+            "amountMinor": 160000,
+            "day": 3,
+            "trigger": "AUTO",
+            "contractId": null,
+            "employeeIds": [
+              "EMP01",
+              "EMP02"
+            ],
+            "sourceId": "WAGE-D003-KRW",
+            "labelKo": "2명 급여"
+          },
+          {
+            "kind": "WAGE",
+            "currency": "KRW",
+            "amountMinor": 160000,
+            "day": 4,
+            "trigger": "AUTO",
+            "contractId": null,
+            "employeeIds": [
+              "EMP01",
+              "EMP02"
+            ],
+            "sourceId": "WAGE-D004-KRW",
+            "labelKo": "2명 급여"
+          },
+          {
+            "kind": "WAGE",
+            "currency": "KRW",
+            "amountMinor": 160000,
+            "day": 5,
+            "trigger": "AUTO",
+            "contractId": null,
+            "employeeIds": [
+              "EMP01",
+              "EMP02"
+            ],
+            "sourceId": "WAGE-D005-KRW",
+            "labelKo": "2명 급여"
+          },
+          {
+            "kind": "WAGE",
+            "currency": "KRW",
+            "amountMinor": 160000,
+            "day": 6,
+            "trigger": "AUTO",
+            "contractId": null,
+            "employeeIds": [
+              "EMP01",
+              "EMP02"
+            ],
+            "sourceId": "WAGE-D006-KRW",
+            "labelKo": "2명 급여"
+          },
+          {
+            "kind": "WAGE",
+            "currency": "KRW",
+            "amountMinor": 160000,
+            "day": 7,
+            "trigger": "AUTO",
+            "contractId": null,
+            "employeeIds": [
+              "EMP01",
+              "EMP02"
+            ],
+            "sourceId": "WAGE-D007-KRW",
+            "labelKo": "2명 급여"
+          },
+          {
+            "kind": "WAGE",
+            "currency": "KRW",
+            "amountMinor": 160000,
+            "day": 8,
+            "trigger": "AUTO",
+            "contractId": null,
+            "employeeIds": [
+              "EMP01",
+              "EMP02"
+            ],
+            "sourceId": "WAGE-D008-KRW",
+            "labelKo": "2명 급여"
+          },
+          {
+            "kind": "SPACE_FEE",
+            "currency": "USD",
+            "amountMinor": 3000,
+            "day": 9,
+            "trigger": "AUTO",
+            "contractId": null,
+            "employeeIds": [],
+            "sourceId": "SPACE-ROUTE01-D009",
+            "labelKo": "평택 → 하이퐁 9일 선복 계약 요금"
+          },
+          {
+            "kind": "SPACE_FEE",
+            "currency": "USD",
+            "amountMinor": 3000,
+            "day": 9,
+            "trigger": "AUTO",
+            "contractId": null,
+            "employeeIds": [],
+            "sourceId": "SPACE-ROUTE02-D009",
+            "labelKo": "평택 → 상하이 9일 선복 계약 요금"
+          },
+          {
+            "kind": "WAGE",
+            "currency": "KRW",
+            "amountMinor": 160000,
+            "day": 9,
+            "trigger": "AUTO",
+            "contractId": null,
+            "employeeIds": [
+              "EMP01",
+              "EMP02"
+            ],
+            "sourceId": "WAGE-D009-KRW",
+            "labelKo": "2명 급여"
+          }
+        ],
+        "payments_expanded_rent": [
+          {
+            "kind": "RENT",
+            "currency": "KRW",
+            "amountMinor": 700000,
+            "day": 31,
+            "trigger": "AUTO",
+            "contractId": null,
+            "employeeIds": [],
+            "sourceId": "RENT-D031",
+            "labelKo": "평택 창고 31일 임차료"
+          },
+          {
+            "kind": "WAGE",
+            "currency": "KRW",
+            "amountMinor": 160000,
+            "day": 31,
+            "trigger": "AUTO",
+            "contractId": null,
+            "employeeIds": [
+              "EMP01",
+              "EMP02"
+            ],
+            "sourceId": "WAGE-D031-KRW",
+            "labelKo": "2명 급여"
+          }
+        ],
+        "storage": {
+          "storage": {
+            "usedLiters": 33000,
+            "capacityLiters": 40000,
+            "heldUnallocatedLiters": 0
+          },
+          "handling": {
+            "capacityPtToday": 6,
+            "plannedUsePtToday": 4,
+            "waits": [],
+            "waitTaskCount": 0,
+            "waitPt": 0
+          },
+          "prepDaysToClear": 6,
+          "demand": {
+            "batchPublishDay": 15,
+            "openVolumeLiters": 37300,
+            "openPrepPt": 42,
+            "recent": [
+              {
+                "publishDay": 8,
+                "offeredPrepPt": 56,
+                "acceptedPrepPt": 0,
+                "handlingOffered": 4,
+                "handlingAccepted": 0
+              },
+              {
+                "publishDay": 15,
+                "offeredPrepPt": 58,
+                "acceptedPrepPt": 16,
+                "handlingOffered": 4,
+                "handlingAccepted": 12
+              }
+            ]
+          },
+          "staff": {
+            "workUnitsPerDay": 4,
+            "idleWorkUnitsToday": 0
+          },
+          "sailings": [
+            {
+              "sailingId": "ROUTE01-D016",
+              "usedLiters": 24000,
+              "capacityLiters": 30000,
+              "usedGrams": 2400000,
+              "capacityGrams": 5000000,
+              "spaceContract": false
+            },
+            {
+              "sailingId": "ROUTE02-D016",
+              "usedLiters": 0,
+              "capacityLiters": 30000,
+              "usedGrams": 0,
+              "capacityGrams": 5000000,
+              "spaceContract": false
+            }
+          ],
+          "rent": {
+            "amountMinor": 450000,
+            "nextDueDay": 31
+          },
+          "expansion": {
+            "status": "NONE",
+            "effectiveDay": null
+          },
+          "spaceContracts": [],
+          "bottleneck": {
+            "unit": "HANDLING_JOBS_PER_WEEK",
+            "demand": {
+              "handlingOffered": 8,
+              "handlingPt": 96,
+              "batches": 2
+            },
+            "otherPtPerWeek": 0,
+            "rows": [
+              {
+                "constraint": "DEMAND",
+                "before": 4,
+                "after": 4
+              },
+              {
+                "constraint": "STAFF",
+                "before": 2,
+                "after": 2
+              },
+              {
+                "constraint": "WAREHOUSE_HANDLING",
+                "before": 3,
+                "after": 3
+              },
+              {
+                "constraint": "STORAGE",
+                "before": 3,
+                "after": 3
+              },
+              {
+                "constraint": "SAILING",
+                "before": 2,
+                "after": 2
+              }
+            ],
+            "binding": {
+              "before": [
+                "STAFF",
+                "SAILING"
+              ],
+              "after": [
+                "STAFF",
+                "SAILING"
+              ]
+            },
+            "usableBefore": 2,
+            "usableAfter": 2,
+            "extraJobsPerWeek": 0,
+            "remainingHandlingBatches": 8,
+            "contributionPerJobMinor": 84000,
+            "wageKrwPerWeek": null,
+            "wageUsdLotsPerWeek": null,
+            "storageDetail": {
+              "otherOccupancyLiters": 0,
+              "otherPeakLiters": 0,
+              "handlingDwellDays": 8,
+              "windowDays": 14
+            }
+          }
+        },
+        "history_36": {
+          "storage": {
+            "usedLiters": 300,
+            "capacityLiters": 40000,
+            "heldUnallocatedLiters": 0
+          },
+          "handling": {
+            "capacityPtToday": 6,
+            "plannedUsePtToday": 0,
+            "waits": [],
+            "waitTaskCount": 0,
+            "waitPt": 0
+          },
+          "prepDaysToClear": 1,
+          "demand": {
+            "batchPublishDay": 36,
+            "openVolumeLiters": 61300,
+            "openPrepPt": 57,
+            "recent": [
+              {
+                "publishDay": 15,
+                "offeredPrepPt": 58,
+                "acceptedPrepPt": 18,
+                "handlingOffered": 4,
+                "handlingAccepted": 12
+              },
+              {
+                "publishDay": 22,
+                "offeredPrepPt": 58,
+                "acceptedPrepPt": 0,
+                "handlingOffered": 4,
+                "handlingAccepted": 0
+              },
+              {
+                "publishDay": 29,
+                "offeredPrepPt": 56,
+                "acceptedPrepPt": 0,
+                "handlingOffered": 4,
+                "handlingAccepted": 0
+              },
+              {
+                "publishDay": 36,
+                "offeredPrepPt": 57,
+                "acceptedPrepPt": 0,
+                "handlingOffered": 4,
+                "handlingAccepted": 0
+              }
+            ]
+          },
+          "staff": {
+            "workUnitsPerDay": 4,
+            "idleWorkUnitsToday": 4
+          },
+          "sailings": [
+            {
+              "sailingId": "ROUTE01-D037",
+              "usedLiters": 0,
+              "capacityLiters": 30000,
+              "usedGrams": 0,
+              "capacityGrams": 5000000,
+              "spaceContract": false
+            },
+            {
+              "sailingId": "ROUTE02-D037",
+              "usedLiters": 0,
+              "capacityLiters": 30000,
+              "usedGrams": 0,
+              "capacityGrams": 5000000,
+              "spaceContract": false
+            }
+          ],
+          "rent": {
+            "amountMinor": 450000,
+            "nextDueDay": 61
+          },
+          "expansion": {
+            "status": "NONE",
+            "effectiveDay": null
+          },
+          "spaceContracts": [],
+          "bottleneck": {
+            "unit": "HANDLING_JOBS_PER_WEEK",
+            "demand": {
+              "handlingOffered": 16,
+              "handlingPt": 192,
+              "batches": 4
+            },
+            "otherPtPerWeek": 1,
+            "rows": [
+              {
+                "constraint": "DEMAND",
+                "before": 4,
+                "after": 4
+              },
+              {
+                "constraint": "STAFF",
+                "before": 2,
+                "after": 2
+              },
+              {
+                "constraint": "WAREHOUSE_HANDLING",
+                "before": 3,
+                "after": 3
+              },
+              {
+                "constraint": "STORAGE",
+                "before": 1,
+                "after": 1
+              },
+              {
+                "constraint": "SAILING",
+                "before": 2,
+                "after": 2
+              }
+            ],
+            "binding": {
+              "before": [
+                "STORAGE"
+              ],
+              "after": [
+                "STORAGE"
+              ]
+            },
+            "usableBefore": 1,
+            "usableAfter": 1,
+            "extraJobsPerWeek": 0,
+            "remainingHandlingBatches": 5,
+            "contributionPerJobMinor": 84000,
+            "wageKrwPerWeek": null,
+            "wageUsdLotsPerWeek": null,
+            "storageDetail": {
+              "otherOccupancyLiters": 1071,
+              "otherPeakLiters": 24300,
+              "handlingDwellDays": 9,
+              "windowDays": 28
+            }
+          }
+        },
+        "history_43": {
+          "storage": {
+            "usedLiters": 300,
+            "capacityLiters": 40000,
+            "heldUnallocatedLiters": 0
+          },
+          "handling": {
+            "capacityPtToday": 6,
+            "plannedUsePtToday": 0,
+            "waits": [],
+            "waitTaskCount": 0,
+            "waitPt": 0
+          },
+          "prepDaysToClear": 1,
+          "demand": {
+            "batchPublishDay": 43,
+            "openVolumeLiters": 67300,
+            "openPrepPt": 57,
+            "recent": [
+              {
+                "publishDay": 22,
+                "offeredPrepPt": 58,
+                "acceptedPrepPt": 0,
+                "handlingOffered": 4,
+                "handlingAccepted": 0
+              },
+              {
+                "publishDay": 29,
+                "offeredPrepPt": 56,
+                "acceptedPrepPt": 0,
+                "handlingOffered": 4,
+                "handlingAccepted": 0
+              },
+              {
+                "publishDay": 36,
+                "offeredPrepPt": 57,
+                "acceptedPrepPt": 0,
+                "handlingOffered": 4,
+                "handlingAccepted": 0
+              },
+              {
+                "publishDay": 43,
+                "offeredPrepPt": 57,
+                "acceptedPrepPt": 0,
+                "handlingOffered": 4,
+                "handlingAccepted": 0
+              }
+            ]
+          },
+          "staff": {
+            "workUnitsPerDay": 4,
+            "idleWorkUnitsToday": 4
+          },
+          "sailings": [
+            {
+              "sailingId": "ROUTE01-D044",
+              "usedLiters": 0,
+              "capacityLiters": 30000,
+              "usedGrams": 0,
+              "capacityGrams": 5000000,
+              "spaceContract": false
+            },
+            {
+              "sailingId": "ROUTE02-D044",
+              "usedLiters": 0,
+              "capacityLiters": 30000,
+              "usedGrams": 0,
+              "capacityGrams": 5000000,
+              "spaceContract": false
+            }
+          ],
+          "rent": {
+            "amountMinor": 450000,
+            "nextDueDay": 61
+          },
+          "expansion": {
+            "status": "NONE",
+            "effectiveDay": null
+          },
+          "spaceContracts": [],
+          "bottleneck": {
+            "unit": "HANDLING_JOBS_PER_WEEK",
+            "demand": {
+              "handlingOffered": 16,
+              "handlingPt": 192,
+              "batches": 4
+            },
+            "otherPtPerWeek": 1,
+            "rows": [
+              {
+                "constraint": "DEMAND",
+                "before": 4,
+                "after": 4
+              },
+              {
+                "constraint": "STAFF",
+                "before": 2,
+                "after": 2
+              },
+              {
+                "constraint": "WAREHOUSE_HANDLING",
+                "before": 3,
+                "after": 3
+              },
+              {
+                "constraint": "STORAGE",
+                "before": 1,
+                "after": 1
+              },
+              {
+                "constraint": "SAILING",
+                "before": 2,
+                "after": 2
+              }
+            ],
+            "binding": {
+              "before": [
+                "STORAGE"
+              ],
+              "after": [
+                "STORAGE"
+              ]
+            },
+            "usableBefore": 1,
+            "usableAfter": 1,
+            "extraJobsPerWeek": 0,
+            "remainingHandlingBatches": 4,
+            "contributionPerJobMinor": 84000,
+            "wageKrwPerWeek": null,
+            "wageUsdLotsPerWeek": null,
+            "storageDetail": {
+              "otherOccupancyLiters": 1146,
+              "otherPeakLiters": 24300,
+              "handlingDwellDays": 9,
+              "windowDays": 28
+            }
+          }
+        },
+        "with_trade": {
+          "storage": {
+            "usedLiters": 33300,
+            "capacityLiters": 40000,
+            "heldUnallocatedLiters": 0
+          },
+          "handling": {
+            "capacityPtToday": 6,
+            "plannedUsePtToday": 4,
+            "waits": [],
+            "waitTaskCount": 0,
+            "waitPt": 0
+          },
+          "prepDaysToClear": 6,
+          "demand": {
+            "batchPublishDay": 15,
+            "openVolumeLiters": 37000,
+            "openPrepPt": 40,
+            "recent": [
+              {
+                "publishDay": 8,
+                "offeredPrepPt": 56,
+                "acceptedPrepPt": 0,
+                "handlingOffered": 4,
+                "handlingAccepted": 0
+              },
+              {
+                "publishDay": 15,
+                "offeredPrepPt": 58,
+                "acceptedPrepPt": 18,
+                "handlingOffered": 4,
+                "handlingAccepted": 12
+              }
+            ]
+          },
+          "staff": {
+            "workUnitsPerDay": 4,
+            "idleWorkUnitsToday": 0
+          },
+          "sailings": [
+            {
+              "sailingId": "ROUTE01-D016",
+              "usedLiters": 24000,
+              "capacityLiters": 30000,
+              "usedGrams": 2400000,
+              "capacityGrams": 5000000,
+              "spaceContract": false
+            },
+            {
+              "sailingId": "ROUTE02-D016",
+              "usedLiters": 0,
+              "capacityLiters": 30000,
+              "usedGrams": 0,
+              "capacityGrams": 5000000,
+              "spaceContract": false
+            }
+          ],
+          "rent": {
+            "amountMinor": 450000,
+            "nextDueDay": 31
+          },
+          "expansion": {
+            "status": "NONE",
+            "effectiveDay": null
+          },
+          "spaceContracts": [],
+          "bottleneck": {
+            "unit": "HANDLING_JOBS_PER_WEEK",
+            "demand": {
+              "handlingOffered": 8,
+              "handlingPt": 96,
+              "batches": 2
+            },
+            "otherPtPerWeek": 0,
+            "rows": [
+              {
+                "constraint": "DEMAND",
+                "before": 4,
+                "after": 4
+              },
+              {
+                "constraint": "STAFF",
+                "before": 2,
+                "after": 2
+              },
+              {
+                "constraint": "WAREHOUSE_HANDLING",
+                "before": 3,
+                "after": 3
+              },
+              {
+                "constraint": "STORAGE",
+                "before": 3,
+                "after": 3
+              },
+              {
+                "constraint": "SAILING",
+                "before": 2,
+                "after": 2
+              }
+            ],
+            "binding": {
+              "before": [
+                "STAFF",
+                "SAILING"
+              ],
+              "after": [
+                "STAFF",
+                "SAILING"
+              ]
+            },
+            "usableBefore": 2,
+            "usableAfter": 2,
+            "extraJobsPerWeek": 0,
+            "remainingHandlingBatches": 8,
+            "contributionPerJobMinor": 84000,
+            "wageKrwPerWeek": null,
+            "wageUsdLotsPerWeek": null,
+            "storageDetail": {
+              "otherOccupancyLiters": 0,
+              "otherPeakLiters": 0,
+              "handlingDwellDays": 8,
+              "windowDays": 14
+            }
+          }
+        }
+      },
+      "expected_assertions": [
+        "명세에 적은 전체 반환 객체와 일치하며 호출 전후 상태·설정이 같다."
+      ],
+      "human_review_check": "개발용 합성값이며 실제 시세·임금·계약 관행을 뜻하지 않는다. 전체 객체 단언과 문장 반례를 확인한다.",
+      "engine_test_ref": "src/engine/m2a5-readers.test.ts",
+      "engine_test_names": [
+        "P0-M2A5-18 본사·창고 표와 병목 표"
+      ],
+      "test_fixture": {
+        "initial_day": 1,
+        "invested_day": 3,
+        "candidates": [
+          {
+            "id": "EMP05",
+            "rate": 2
+          },
+          {
+            "id": "EMP03",
+            "rate": 3
+          }
+        ],
+        "payment_through_day": 9,
+        "storage_day": 15,
+        "storage_commands": [
+          {
+            "id": "ACCEPT_FORWARDING-88-MKT-D015-F1",
+            "type": "ACCEPT_FORWARDING",
+            "offerId": "MKT-D015-F1",
+            "plan": {
+              "employeeId": "EMP01",
+              "sailingId": "ROUTE01-D016"
+            }
+          },
+          {
+            "id": "ACCEPT_FORWARDING-88-MKT-D015-H2",
+            "type": "ACCEPT_FORWARDING",
+            "offerId": "MKT-D015-H2",
+            "plan": {
+              "employeeId": "EMP02",
+              "sailingId": "ROUTE02-D023"
+            }
+          }
+        ],
+        "history_commands": [
+          {
+            "id": "ACCEPT_FORWARDING-88-MKT-D015-F1",
+            "type": "ACCEPT_FORWARDING",
+            "offerId": "MKT-D015-F1",
+            "plan": {
+              "employeeId": "EMP01",
+              "sailingId": "ROUTE01-D016"
+            }
+          },
+          {
+            "id": "ACCEPT_FORWARDING-88-MKT-D015-H2",
+            "type": "ACCEPT_FORWARDING",
+            "offerId": "MKT-D015-H2",
+            "plan": {
+              "employeeId": "EMP02",
+              "sailingId": "ROUTE02-D023"
+            }
+          },
+          {
+            "id": "HISTORY-TRADE",
+            "type": "ACCEPT_TRADE",
+            "buyOfferId": "MKT-D015-APP-BUY",
+            "sellOfferId": "MKT-D015-APP-SELL",
+            "quantity": 100
+          }
+        ],
+        "history_days": [
+          36,
+          43
+        ]
+      }
+    },
+    {
+      "id": "P0-M2A5-19",
+      "phase": "P0",
+      "milestone": "M2",
+      "title": "견적·환전 미리 보기",
+      "currency": "USD",
+      "evidence_class": "DESIGN",
+      "scenario_id": "SCENARIO_M2_OPERATIONS",
+      "actions": [
+        {
+          "step": 1,
+          "action": "8일 수량 200 견적 미리 보기",
+          "day": 8,
+          "commands": [
+            {
+              "id": "ACCEPT_TRADE-149-MKT-D008-APP-BUY",
+              "type": "ACCEPT_TRADE",
+              "buyOfferId": "MKT-D008-APP-BUY",
+              "sellOfferId": "MKT-D008-APP-SELL",
+              "quantity": 200
+            }
+          ],
+          "variant": "trade"
+        },
+        {
+          "step": 2,
+          "action": "15일 33m³를 수락한 상태에서 9m³ 미리 보기",
+          "day": 15,
+          "commands": [
+            {
+              "id": "ACCEPT_FORWARDING-26-MKT-D015-H3",
+              "type": "ACCEPT_FORWARDING",
+              "offerId": "MKT-D015-H3"
+            }
+          ],
+          "variant": "storage"
+        }
+      ],
+      "expected_numeric": {
+        "trade": {
+          "kind": "DIRECT_TRADE",
+          "routeId": "ROUTE02",
+          "purchase": 198000,
+          "freight": 18000,
+          "duty": 9900,
+          "sale": 302800,
+          "contributionBeforePayroll": 76900,
+          "cashNeed": 225900,
+          "departureDay": 9,
+          "arrivalDay": 13,
+          "deliveryDeadlineDay": 15,
+          "lateOnNextSailing": false,
+          "paymentDueDay": 19,
+          "receiptDay": 19,
+          "schedule": [
+            {
+              "day": 8,
+              "labelKo": "매입 대금 지급",
+              "amount": -198000
+            },
+            {
+              "day": 8,
+              "labelKo": "운임 선지급",
+              "amount": -18000
+            },
+            {
+              "day": 13,
+              "labelKo": "도착·관세 지급",
+              "amount": -9900
+            },
+            {
+              "day": 13,
+              "labelKo": "인도: 매출·채권 인식 (현금 변화 없음)",
+              "amount": 0
+            },
+            {
+              "day": 19,
+              "labelKo": "외상대금 수금",
+              "amount": 302800
+            }
+          ],
+          "allowed": true,
+          "reasonKo": null,
+          "quantity": 200,
+          "maxQuantity": 200,
+          "quantityStep": 100,
+          "prepWorkUnits": 3,
+          "massGrams": 100000,
+          "volumeLiters": 600,
+          "storageAfterLiters": 600,
+          "storageCapacityLiters": 40000,
+          "counterpartySpreadPct": {
+            "buy": -1,
+            "sell": 0
+          },
+          "serviceClass": null,
+          "titleKo": null,
+          "contributionPerPrepPtMinor": 25633,
+          "lateDeliveryReductionMinor": 0,
+          "affectedContracts": []
+        },
+        "storage": {
+          "kind": "FORWARDING",
+          "routeId": "ROUTE01",
+          "purchase": 0,
+          "freight": 20000,
+          "duty": 0,
+          "sale": 104000,
+          "contributionBeforePayroll": 84000,
+          "cashNeed": 20000,
+          "departureDay": 16,
+          "arrivalDay": 21,
+          "deliveryDeadlineDay": 29,
+          "lateOnNextSailing": false,
+          "paymentDueDay": 31,
+          "receiptDay": 31,
+          "schedule": [
+            {
+              "day": 15,
+              "labelKo": "운임 선지급",
+              "amount": -20000
+            },
+            {
+              "day": 21,
+              "labelKo": "도착 (고객 화물: 관세는 수입자 부담)",
+              "amount": 0
+            },
+            {
+              "day": 21,
+              "labelKo": "인도: 주선 매출·채권 인식 (현금 변화 없음)",
+              "amount": 0
+            },
+            {
+              "day": 31,
+              "labelKo": "외상대금 수금",
+              "amount": 104000
+            }
+          ],
+          "allowed": false,
+          "reasonKo": "보관 공간 부족 — 평택 창고 33 / 40 m³, 이 화물 9 m³. 출항하거나 확장하면 공간이 생깁니다.",
+          "quantity": 3000,
+          "maxQuantity": 3000,
+          "quantityStep": 3000,
+          "prepWorkUnits": 12,
+          "massGrams": 1500000,
+          "volumeLiters": 9000,
+          "storageAfterLiters": 42000,
+          "storageCapacityLiters": 40000,
+          "counterpartySpreadPct": {
+            "buy": null,
+            "sell": null
+          },
+          "serviceClass": "HANDLING",
+          "titleKo": "세트 포장 포함 의류",
+          "contributionPerPrepPtMinor": 7000,
+          "lateDeliveryReductionMinor": 0,
+          "affectedContracts": []
+        },
+        "fx": [
+          {
+            "allowed": true,
+            "reasonKo": null,
+            "krwMinor": 1287000,
+            "spreadKrwMinor": 13000,
+            "usdAvailableBefore": 300000,
+            "usdAvailableAfter": 200000,
+            "krwAvailableBefore": 10000000,
+            "krwAvailableAfter": 11287000,
+            "runwayBefore": 56,
+            "runwayAfter": 62,
+            "warningKo": null
+          },
+          {
+            "allowed": true,
+            "reasonKo": null,
+            "krwMinor": 1313000,
+            "spreadKrwMinor": 13000,
+            "usdAvailableBefore": 300000,
+            "usdAvailableAfter": 400000,
+            "krwAvailableBefore": 10000000,
+            "krwAvailableAfter": 8687000,
+            "runwayBefore": 56,
+            "runwayAfter": 48,
+            "warningKo": null
+          },
+          {
+            "allowed": true,
+            "reasonKo": null,
+            "krwMinor": 9716200,
+            "spreadKrwMinor": 96200,
+            "usdAvailableBefore": 300000,
+            "usdAvailableAfter": 1040000,
+            "krwAvailableBefore": 10000000,
+            "krwAvailableAfter": 283800,
+            "runwayBefore": 56,
+            "runwayAfter": 0,
+            "warningKo": "환전 뒤 원화 283,800원으로는 오늘 급여·임차료 610,000원을 다 낼 수 없습니다."
+          },
+          {
+            "allowed": false,
+            "reasonKo": "환전할 수 있는 USD가 부족합니다. 요청 4,000.00 USD, 사용 가능 3,000.00 USD = 현금 3,000.00 USD.",
+            "krwMinor": 5148000,
+            "spreadKrwMinor": 52000,
+            "usdAvailableBefore": 300000,
+            "usdAvailableAfter": 300000,
+            "krwAvailableBefore": 10000000,
+            "krwAvailableAfter": 10000000,
+            "runwayBefore": 56,
+            "runwayAfter": 56,
+            "warningKo": null
+          },
+          {
+            "allowed": false,
+            "reasonKo": "환전은 100 USD 단위입니다. 요청 50.00 USD.",
+            "krwMinor": 64350,
+            "spreadKrwMinor": 650,
+            "usdAvailableBefore": 300000,
+            "usdAvailableAfter": 300000,
+            "krwAvailableBefore": 10000000,
+            "krwAvailableAfter": 10000000,
+            "runwayBefore": 56,
+            "runwayAfter": 56,
+            "warningKo": null
+          }
+        ],
+        "impact_affected": [
+          {
+            "contractId": "CT001",
+            "readyBefore": 16,
+            "readyAfter": 17,
+            "missesSailing": true
+          }
+        ],
+        "impact_storage_after_liters": 17600,
+        "late": {
+          "kind": "DIRECT_TRADE",
+          "routeId": "ROUTE02",
+          "purchase": 198000,
+          "freight": 18000,
+          "duty": 9900,
+          "sale": 297800,
+          "contributionBeforePayroll": 71900,
+          "cashNeed": 225900,
+          "departureDay": 9,
+          "arrivalDay": 13,
+          "deliveryDeadlineDay": 12,
+          "lateOnNextSailing": true,
+          "paymentDueDay": 19,
+          "receiptDay": 19,
+          "schedule": [
+            {
+              "day": 8,
+              "labelKo": "매입 대금 지급",
+              "amount": -198000
+            },
+            {
+              "day": 8,
+              "labelKo": "운임 선지급",
+              "amount": -18000
+            },
+            {
+              "day": 13,
+              "labelKo": "도착·관세 지급",
+              "amount": -9900
+            },
+            {
+              "day": 13,
+              "labelKo": "인도: 매출·채권 인식 (현금 변화 없음)",
+              "amount": 0
+            },
+            {
+              "day": 19,
+              "labelKo": "외상대금 수금",
+              "amount": 297800
+            }
+          ],
+          "allowed": true,
+          "reasonKo": null,
+          "quantity": 200,
+          "maxQuantity": 200,
+          "quantityStep": 100,
+          "prepWorkUnits": 3,
+          "massGrams": 100000,
+          "volumeLiters": 600,
+          "storageAfterLiters": 600,
+          "storageCapacityLiters": 40000,
+          "counterpartySpreadPct": {
+            "buy": -1,
+            "sell": 0
+          },
+          "serviceClass": null,
+          "titleKo": null,
+          "contributionPerPrepPtMinor": 23966,
+          "lateDeliveryReductionMinor": 5000,
+          "affectedContracts": []
+        },
+        "impact_handling": {
+          "capacityPtToday": 6,
+          "plannedUsePtToday": 6,
+          "waits": [
+            {
+              "taskId": "TASK001",
+              "contractId": "CT001",
+              "wantPt": 2,
+              "gotPt": 1
+            }
+          ],
+          "waitTaskCount": 1,
+          "waitPt": 1
+        }
+      },
+      "expected_assertions": [
+        "명세에 적은 전체 반환 객체와 일치하며 호출 전후 상태·설정이 같다."
+      ],
+      "human_review_check": "개발용 합성값이며 실제 시세·임금·계약 관행을 뜻하지 않는다. 전체 객체 단언과 문장 반례를 확인한다.",
+      "engine_test_ref": "src/engine/m2a5-readers.test.ts",
+      "engine_test_names": [
+        "P0-M2A5-19 견적·환전 미리 보기"
+      ],
+      "test_fixture": {
+        "storage_commands": [
+          {
+            "id": "ACCEPT_FORWARDING-88-MKT-D015-F1",
+            "type": "ACCEPT_FORWARDING",
+            "offerId": "MKT-D015-F1",
+            "plan": {
+              "employeeId": "EMP01",
+              "sailingId": "ROUTE01-D016"
+            }
+          },
+          {
+            "id": "ACCEPT_FORWARDING-88-MKT-D015-H2",
+            "type": "ACCEPT_FORWARDING",
+            "offerId": "MKT-D015-H2",
+            "plan": {
+              "employeeId": "EMP02",
+              "sailingId": "ROUTE02-D023"
+            }
+          }
+        ],
+        "fx": [
+          {
+            "direction": "USD_TO_KRW",
+            "usdAmountMinor": 100000
+          },
+          {
+            "direction": "KRW_TO_USD",
+            "usdAmountMinor": 100000
+          },
+          {
+            "direction": "KRW_TO_USD",
+            "usdAmountMinor": 740000
+          },
+          {
+            "direction": "USD_TO_KRW",
+            "usdAmountMinor": 400000
+          },
+          {
+            "direction": "USD_TO_KRW",
+            "usdAmountMinor": 5000
+          }
+        ],
+        "invalid_quantity": 201,
+        "poor_usd": 0,
+        "impact_commands": [
+          {
+            "id": "IMPACT-H",
+            "type": "ACCEPT_FORWARDING",
+            "offerId": "MKT-D008-H4",
+            "plan": {
+              "employeeId": "EMP01",
+              "sailingId": "ROUTE02-D016"
+            }
+          },
+          {
+            "id": "IMPACT-S",
+            "type": "ACCEPT_FORWARDING",
+            "offerId": "MKT-D008-F2",
+            "plan": {
+              "employeeId": "EMP02",
+              "sailingId": "ROUTE01-D009"
+            }
+          }
+        ],
+        "impact_candidate": "EMP03",
+        "impact_required_pt": 18,
+        "late_deadline": 12,
+        "impact_accept_command": {
+          "id": "ACCEPT_TRADE-149-MKT-D008-APP-BUY",
+          "type": "ACCEPT_TRADE",
+          "buyOfferId": "MKT-D008-APP-BUY",
+          "sellOfferId": "MKT-D008-APP-SELL",
+          "quantity": 200,
+          "plan": {
+            "employeeId": "EMP03",
+            "sailingId": "ROUTE02-D009"
+          }
+        }
+      }
+    },
+    {
+      "id": "P0-M2A5-17",
+      "phase": "P0",
+      "milestone": "M2",
+      "title": "비교 실행기",
+      "currency": "USD",
+      "evidence_class": "DESIGN",
+      "scenario_id": "SCENARIO_M2_OPERATIONS",
+      "actions": [
+        {
+          "step": 1,
+          "action": "정책·고정 시드 실행과 예약 단계 정시 여부 대조"
+        }
+      ],
+      "expected_numeric": {
+        "idle_failure_day": 71,
+        "zero": 0,
+        "first_matching_seed": 1001,
+        "search_seeds": [
+          1001,
+          1002,
+          1003,
+          1004,
+          1005,
+          1006,
+          1007,
+          1008,
+          1009,
+          1010,
+          1011,
+          1012,
+          1013,
+          1014,
+          1015,
+          1016,
+          1017,
+          1018,
+          1019,
+          1020
+        ],
+        "pt_values": [
+          2,
+          3
+        ],
+        "days": [
+          8,
+          29,
+          30,
+          31,
+          50
+        ],
+        "worker_seeds": 2,
+        "cap30_bp": 3000,
+        "flat200_minor": 20000,
+        "j6_rows": [
+          {
+            "extraJobsPerWeek": 0,
+            "usableAfter": 7
+          },
+          {
+            "extraJobsPerWeek": 0,
+            "usableAfter": 8
+          }
+        ],
+        "j6_expected": {
+          "value": 0,
+          "arrow": "↓"
+        },
+        "j6_half_rows": [
+          {
+            "extraJobsPerWeek": 0,
+            "usableAfter": 7
+          },
+          {
+            "extraJobsPerWeek": 1,
+            "usableAfter": 8
+          }
+        ],
+        "j6_half_expected": {
+          "value": 0.5,
+          "arrow": "↑"
+        },
+        "recruit_lead_days": 3
+      },
+      "expected_assertions": [
+        "규칙 1 기본 묶음과 JSON 모양을 보존한다.",
+        "규칙 2 환전·정시 예약·고용·장부 항등식·결정성을 검증한다.",
+        "D03 표와 J1~J7은 측정이며 통과를 보장하지 않는다."
+      ],
+      "human_review_check": "간이 모형과 엔진 측정의 차이·미측정과 실패를 구분한다.",
+      "engine_test_ref": "src/engine/sim/m2a5-sim.test.ts",
+      "engine_test_names": [
+        "P0-M2A5-17 비교 실행기",
+        "M2a-5 실행기 성질"
+      ],
+      "test_fixture": {
+        "policies": [
+          "IDLE",
+          "NO_FX",
+          "MAX_CONTRIBUTION",
+          "LATE_OK"
+        ],
+        "small_policies": [
+          "IDLE",
+          "NO_FX",
+          "MAX_CONTRIBUTION"
+        ],
+        "variant": "MAX_CONTRIBUTION~inv:SE~hire:2pt@30~scout:early",
+        "parsed_variant": {
+          "acceptance": "MAX_CONTRIBUTION",
+          "react": false,
+          "investment": "SE",
+          "hires": [
+            {
+              "pt": 2,
+              "day": 30
+            }
+          ],
+          "early": true
+        },
+        "command_types": [
+          "ACCEPT_FORWARDING",
+          "ACCEPT_TRADE",
+          "ASSIGN_TASK",
+          "BOOK_SAILING",
+          "CANCEL_CONTRACT",
+          "RESPOND_TO_DELAY",
+          "EXCHANGE_CURRENCY",
+          "EXPAND_WAREHOUSE",
+          "SIGN_SPACE_CONTRACT",
+          "SCOUT_SITE",
+          "START_RECRUIT_QUEST",
+          "HIRE_CANDIDATE"
+        ],
+        "table_titles": [
+          "① 기준 표",
+          "② 투자만",
+          "③ 고용 표(보통)",
+          "④ 고용 표(적극)",
+          "⑤ J1~J7",
+          "⑥ 시드별",
+          "⑦ 사업별",
+          "⑧ 계획 고용일"
+        ],
+        "judgements": [
+          "J1",
+          "J2",
+          "J2b",
+          "J3",
+          "J4",
+          "J5",
+          "J6",
+          "J7"
+        ],
+        "daily_command_ranks": {
+          "RESPOND_TO_DELAY": 0,
+          "EXCHANGE_CURRENCY": 1,
+          "EXPAND_WAREHOUSE": 2,
+          "SIGN_SPACE_CONTRACT": 2,
+          "SCOUT_SITE": 3,
+          "START_RECRUIT_QUEST": 3,
+          "HIRE_CANDIDATE": 3,
+          "BOOK_SAILING": 4,
+          "ASSIGN_TASK": 5,
+          "ACCEPT_TRADE": 6,
+          "ACCEPT_FORWARDING": 6
+        }
+      }
+    },
+    {
+      "id": "P0-M2A5-20",
+      "phase": "P0",
+      "milestone": "M2",
+      "title": "28일 병목 실측과 명령 시점 보관 재구성",
+      "currency": "USD",
+      "evidence_class": "DESIGN",
+      "scenario_id": "SCENARIO_M2_OPERATIONS",
+      "actions": [
+        {
+          "step": 1,
+          "action": "test_fixture의 고정 명령으로 29일 마감 뒤 30일 표를 읽는다."
+        }
+      ],
+      "expected_assertions": [
+        "수락일 창의 준비 pt, 명령 시점 점유와 실제 출항 체류를 손계산한 전체 병목 표와 비교한다.",
+        "1~29일 마감 실제 점유와 마지막 기록에서 재구성한 다음 날 명령 시점 점유가 같다."
+      ],
+      "human_review_check": "합성 게임 계약 원기록과 TASK-0031 손계산을 대조한다. 현실 물류 실측값은 아니다.",
+      "engine_test_ref": "src/engine/m2a5-readers.test.ts",
+      "engine_test_names": [
+        "P0-M2A5-20 28일 병목 실측"
+      ],
+      "test_fixture": {
+        "day": 30,
+        "candidate_id": "EMP05",
+        "script": {
+          "2": [
+            {
+              "id": "TRADE-START",
+              "type": "ACCEPT_TRADE",
+              "buyOfferId": "OFFER_BUY_01",
+              "sellOfferId": "OFFER_SELL_01",
+              "plan": {
+                "employeeId": "EMP01",
+                "sailingId": "ROUTE01-D009"
+              }
+            },
+            {
+              "id": "STANDARD-START",
+              "type": "ACCEPT_FORWARDING",
+              "offerId": "OFFER_FWD_01"
+            }
+          ],
+          "8": [
+            {
+              "id": "HANDLING-START",
+              "type": "ACCEPT_FORWARDING",
+              "offerId": "MKT-D008-H1",
+              "plan": {
+                "employeeId": "EMP02",
+                "sailingId": "ROUTE01-D016"
+              }
+            }
+          ],
+          "15": [
+            {
+              "id": "TRADE-CANCEL-START",
+              "type": "ACCEPT_TRADE",
+              "buyOfferId": "MKT-D015-APP-BUY",
+              "sellOfferId": "MKT-D015-APP-SELL"
+            }
+          ],
+          "18": [
+            {
+              "id": "TRADE-CANCEL",
+              "type": "CANCEL_CONTRACT",
+              "contractId": "CT004"
+            }
+          ],
+          "20": [
+            {
+              "id": "STANDARD-CANCEL",
+              "type": "CANCEL_CONTRACT",
+              "contractId": "CT002"
+            }
+          ]
+        }
+      },
+      "expected_numeric": {
+        "bottleneck": {
+          "unit": "HANDLING_JOBS_PER_WEEK",
+          "demand": {
+            "handlingOffered": 16,
+            "handlingPt": 192,
+            "batches": 4
+          },
+          "otherPtPerWeek": 0,
+          "storageDetail": {
+            "otherOccupancyLiters": 150,
+            "otherPeakLiters": 300,
+            "handlingDwellDays": 9,
+            "windowDays": 28
+          },
+          "rows": [
+            {
+              "constraint": "DEMAND",
+              "before": 4,
+              "after": 4
+            },
+            {
+              "constraint": "STAFF",
+              "before": 2,
+              "after": 3
+            },
+            {
+              "constraint": "WAREHOUSE_HANDLING",
+              "before": 3,
+              "after": 3
+            },
+            {
+              "constraint": "STORAGE",
+              "before": 3,
+              "after": 3
+            },
+            {
+              "constraint": "SAILING",
+              "before": 2,
+              "after": 2
+            }
+          ],
+          "binding": {
+            "before": [
+              "STAFF",
+              "SAILING"
+            ],
+            "after": [
+              "SAILING"
+            ]
+          },
+          "usableBefore": 2,
+          "usableAfter": 2,
+          "extraJobsPerWeek": 0,
+          "remainingHandlingBatches": 6,
+          "contributionPerJobMinor": 84000,
+          "wageKrwPerWeek": 630000,
+          "wageUsdLotsPerWeek": 5
+        },
+        "older_window": {
+          "otherPtPerWeek": 0,
+          "storageDetail": {
+            "otherOccupancyLiters": 300,
+            "otherPeakLiters": 300,
+            "handlingDwellDays": 9,
+            "windowDays": 28
+          }
+        },
+        "mixed_day": {
+          "day": 17,
+          "bottleneck": {
+            "unit": "HANDLING_JOBS_PER_WEEK",
+            "demand": {
+              "handlingOffered": 8,
+              "handlingPt": 96,
+              "batches": 2
+            },
+            "otherPtPerWeek": 0,
+            "storageDetail": {
+              "otherOccupancyLiters": 18,
+              "otherPeakLiters": 300,
+              "handlingDwellDays": 9,
+              "windowDays": 16
+            },
+            "rows": [
+              {
+                "constraint": "DEMAND",
+                "before": 4,
+                "after": 4
+              },
+              {
+                "constraint": "STAFF",
+                "before": 2,
+                "after": 3
+              },
+              {
+                "constraint": "WAREHOUSE_HANDLING",
+                "before": 3,
+                "after": 3
+              },
+              {
+                "constraint": "STORAGE",
+                "before": 3,
+                "after": 3
+              },
+              {
+                "constraint": "SAILING",
+                "before": 2,
+                "after": 2
+              }
+            ],
+            "binding": {
+              "before": [
+                "STAFF",
+                "SAILING"
+              ],
+              "after": [
+                "SAILING"
+              ]
+            },
+            "usableBefore": 2,
+            "usableAfter": 2,
+            "extraJobsPerWeek": 0,
+            "remainingHandlingBatches": 8,
+            "contributionPerJobMinor": 84000,
+            "wageKrwPerWeek": 630000,
+            "wageUsdLotsPerWeek": 5
+          },
+          "storage_boundary": {
+            "capacity_liters": 34715,
+            "bottleneck": {
+              "unit": "HANDLING_JOBS_PER_WEEK",
+              "demand": {
+                "handlingOffered": 8,
+                "handlingPt": 96,
+                "batches": 2
+              },
+              "otherPtPerWeek": 0,
+              "storageDetail": {
+                "otherOccupancyLiters": 18,
+                "otherPeakLiters": 300,
+                "handlingDwellDays": 9,
+                "windowDays": 16
+              },
+              "rows": [
+                {
+                  "constraint": "DEMAND",
+                  "before": 4,
+                  "after": 4
+                },
+                {
+                  "constraint": "STAFF",
+                  "before": 2,
+                  "after": 3
+                },
+                {
+                  "constraint": "WAREHOUSE_HANDLING",
+                  "before": 3,
+                  "after": 3
+                },
+                {
+                  "constraint": "STORAGE",
+                  "before": 2,
+                  "after": 2
+                },
+                {
+                  "constraint": "SAILING",
+                  "before": 2,
+                  "after": 2
+                }
+              ],
+              "binding": {
+                "before": [
+                  "STAFF",
+                  "STORAGE",
+                  "SAILING"
+                ],
+                "after": [
+                  "STORAGE",
+                  "SAILING"
+                ]
+              },
+              "usableBefore": 2,
+              "usableAfter": 2,
+              "extraJobsPerWeek": 0,
+              "remainingHandlingBatches": 8,
+              "contributionPerJobMinor": 84000,
+              "wageKrwPerWeek": 630000,
+              "wageUsdLotsPerWeek": 5
+            }
+          }
+        }
+      }
+    }
+  ],
+  "review_summary": {
+    "case_count": 38,
+    "phase_case_counts": {
+      "P0": 33,
+      "P1": 4,
+      "P2": 1
+    },
+    "arithmetic_review": "각 사례의 초기 상태·단위·직접 계산식·예상 수치를 수동 대조했다. 서로 다른 사례의 현금·자산·일자를 합산하지 않는다.",
+    "unimplemented_items": [
+      "연결하지 않은 사례(engine_test_ref가 null)의 엔진 시험",
+      "미실행 단언(사례별 unexecuted_assertions)",
+      "사람의 실제 화면 검수",
+      "경제 밸런스와 실증 계수 검증",
+      "실제 국가의 회계·상장 규정 대조"
+    ],
+    "required_human_checks": [
+      "v0.3 범위와 각 사례의 DESIGN 가정 구분",
+      "외상 판매와 수금의 구분",
+      "주식가액과 회사 총자산의 구분",
+      "신주 발행과 구주 매각의 자금 수령자 구분",
+      "도시 화면과 실제 현지 활동 자격 구분",
+      "P0 완료에 P1·P2 기능을 강요하지 않음"
+    ],
+    "engine_test_pass_claim": false,
+    "added_cases_note": "v0.3 package QA: added independent predeparture cancellation and accepted-late-delivery cases; total 14; M2a added P0-M2A-01..04, total 18.; M2a-5 added P0-M2A5-01..16, total 34.; TASK-0028 added P0-M2A5-18..19, total 36.; TASK-0029 added P0-M2A5-17, total 37.",
+    "engine_linked_case_count": 33,
+    "ui_linked_case_count": 1
+  },
+  "human_review_records": []
+}

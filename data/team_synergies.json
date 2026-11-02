@@ -1,0 +1,60 @@
+{
+  "schema_version": "0.4.0",
+  "data_basis": "DESIGN",
+  "source_refs": [
+    "DESIGN-V04"
+  ],
+  "items": [
+    {
+      "id": "SYN_ATTRIBUTE_PAIR",
+      "name_ko": "속성 협업",
+      "stage": "P0",
+      "condition": "at least 2 distinct participating employees share task.affinity_attribute",
+      "bonus": 0.05,
+      "scope": "current_task_only",
+      "third_matching_member_adds_bonus": false
+    },
+    {
+      "id": "SYN_ROLE_COMPLEMENT",
+      "name_ko": "직무 보완",
+      "stage": "P0",
+      "condition": "distinct active employees cover all task.complementary_roles",
+      "bonus": 0.05,
+      "scope": "current_task_only"
+    },
+    {
+      "id": "SYN_LOCAL_HANDOFF",
+      "name_ko": "현지 인수인계",
+      "stage": "P1",
+      "condition": "at least 2 active employees have verified work experience records for task.city_id",
+      "bonus": 0.05,
+      "scope": "current_task_only",
+      "nationality_alone_qualifies": false
+    }
+  ],
+  "aggregate_cap": 0.1,
+  "unique_rule_ids_only": true,
+  "team_snapshot_at_task_start": true,
+  "$schema": "../schemas/team_synergies.schema.json",
+  "examples": [
+    {
+      "id": "EX_WATER_HANDOFF",
+      "job_id": "JOB_LOGISTICS",
+      "member_character_ids": [
+        "EMP01",
+        "EMP02",
+        "EMP04"
+      ],
+      "preconditions": [
+        "EMP04 recruited; all three employed and available in task city",
+        "character system enabled in M2 scenario"
+      ],
+      "expected_rule_ids": [
+        "SYN_ATTRIBUTE_PAIR",
+        "SYN_ROLE_COMPLEMENT"
+      ],
+      "expected_bonus": 0.1,
+      "note_ko": "두 운영 담당과 한 영업 담당의 실제 업무 참여. 초기 직원 자동 추가를 뜻하지 않음."
+    }
+  ]
+}

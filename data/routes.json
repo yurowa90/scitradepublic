@@ -1,0 +1,311 @@
+{
+  "schema_version": "0.3.0",
+  "data_basis": "DESIGN",
+  "source_refs": [
+    "DESIGN-V03"
+  ],
+  "numeric_values_status": "ROUTE01·02 운송일수는 실제 선사 요일표에서 센 값이다. ROUTE03~06 운송일수와 모든 운임·선복은 합성 값이다.",
+  "items": [
+    {
+      "id": "ROUTE01",
+      "from_city_id": "PYEONGTAEK",
+      "to_city_id": "HAIPHONG",
+      "direction": "one_way",
+      "transit_days": 5,
+      "map_waypoints": {
+        "basis": "DESIGN",
+        "use": "map_display_only",
+        "note_ko": "지도에 그릴 바닷길 표시용 꺾은선. 실제 항로·항해 거리·운항 자료가 아니며 운송시간은 transit_days만 따른다.",
+        "points": [
+          {
+            "lat": 37,
+            "lon": 126.8
+          },
+          {
+            "lat": 37,
+            "lon": 126.3
+          },
+          {
+            "lat": 36.6,
+            "lon": 125.8
+          },
+          {
+            "lat": 35.6,
+            "lon": 125.4
+          },
+          {
+            "lat": 34,
+            "lon": 124.8
+          },
+          {
+            "lat": 31.8,
+            "lon": 124
+          },
+          {
+            "lat": 29.5,
+            "lon": 123
+          },
+          {
+            "lat": 27,
+            "lon": 121.2
+          },
+          {
+            "lat": 25.2,
+            "lon": 120
+          },
+          {
+            "lat": 23.6,
+            "lon": 118.3
+          },
+          {
+            "lat": 22.4,
+            "lon": 116
+          },
+          {
+            "lat": 21.2,
+            "lon": 113.5
+          },
+          {
+            "lat": 19.6,
+            "lon": 111.6
+          },
+          {
+            "lat": 17.7,
+            "lon": 110.2
+          },
+          {
+            "lat": 17.8,
+            "lon": 108.6
+          },
+          {
+            "lat": 19.2,
+            "lon": 107.6
+          },
+          {
+            "lat": 20.4,
+            "lon": 107.1
+          },
+          {
+            "lat": 20.9,
+            "lon": 106.7
+          }
+        ]
+      },
+      "departure_interval_days": 7,
+      "first_departure_day": 2,
+      "capacity_kg": 5000,
+      "capacity_m3": 30,
+      "booking_fee": {
+        "currency": "USD",
+        "amount": 200,
+        "basis": "per_shipment_reserved_capacity_fixture"
+      },
+      "allowed_storage_classes": [
+        "dry",
+        "refrigerated"
+      ],
+      "carrier_id": "CARRIER_DEMO",
+      "source_refs": [
+        "DESIGN-V03"
+      ],
+      "schedule_basis": {
+        "carrier_service_ko": "장금상선 IHP",
+        "departure_weekday": "일요일",
+        "arrival_weekday": "금요일",
+        "port_calls": [],
+        "day_count_rule_ko": "도착일 − 출항일, 달력 날짜 차이",
+        "source_refs": [
+          "SINOKOR-ROT-2026"
+        ],
+        "checked_on": "2026-10-09",
+        "status": "CARRIER_WEEKDAY_SCHEDULE",
+        "tolerance_days": 1,
+        "note_ko": "요일표는 계획값이며 항차 날짜가 없다. 게임은 요일 없이 2일 첫 출항·7일 간격으로 단순화한다"
+      }
+    },
+    {
+      "id": "ROUTE02",
+      "from_city_id": "PYEONGTAEK",
+      "to_city_id": "SHANGHAI",
+      "direction": "one_way",
+      "transit_days": 4,
+      "departure_interval_days": 7,
+      "first_departure_day": 2,
+      "capacity_kg": 5000,
+      "capacity_m3": 30,
+      "booking_fee": {
+        "currency": "USD",
+        "amount": 180,
+        "basis": "per_shipment_reserved_capacity_fixture"
+      },
+      "allowed_storage_classes": [
+        "dry",
+        "refrigerated"
+      ],
+      "carrier_id": "CARRIER_DEMO",
+      "source_refs": [
+        "DESIGN-V03"
+      ],
+      "map_waypoints": {
+        "basis": "DESIGN",
+        "use": "map_display_only",
+        "note_ko": "지도에 그릴 바닷길 표시용 꺾은선. 실제 항로·항해 거리·운항 자료가 아니며 운송시간은 transit_days만 따른다.",
+        "points": [
+          {
+            "lat": 37,
+            "lon": 126.8
+          },
+          {
+            "lat": 37,
+            "lon": 126.3
+          },
+          {
+            "lat": 36.6,
+            "lon": 125.8
+          },
+          {
+            "lat": 35.6,
+            "lon": 125.4
+          },
+          {
+            "lat": 34.2,
+            "lon": 124.8
+          },
+          {
+            "lat": 32.8,
+            "lon": 123.8
+          },
+          {
+            "lat": 31.7,
+            "lon": 122.8
+          },
+          {
+            "lat": 31.35,
+            "lon": 122.2
+          },
+          {
+            "lat": 31.25,
+            "lon": 121.75
+          },
+          {
+            "lat": 31.2,
+            "lon": 121.5
+          }
+        ]
+      },
+      "schedule_basis": {
+        "carrier_service_ko": "장금상선 PSS",
+        "departure_weekday": "수요일",
+        "arrival_weekday": "일요일",
+        "port_calls": [
+          "인천"
+        ],
+        "day_count_rule_ko": "도착일 − 출항일, 달력 날짜 차이",
+        "source_refs": [
+          "SINOKOR-ROT-2026"
+        ],
+        "checked_on": "2026-10-09",
+        "status": "CARRIER_WEEKDAY_SCHEDULE",
+        "tolerance_days": 1,
+        "note_ko": "요일표는 계획값이며 항차 날짜가 없다. 게임은 요일 없이 2일 첫 출항·7일 간격으로 단순화한다. 인천은 같은 배의 중간 기항이다. 같은 수요일에 떠나는 장금·흥아 BTS도 4일이다."
+      }
+    },
+    {
+      "id": "ROUTE03",
+      "from_city_id": "SHANGHAI",
+      "to_city_id": "SINGAPORE",
+      "direction": "one_way",
+      "transit_days": 10,
+      "departure_interval_days": 10,
+      "first_departure_day": 2,
+      "capacity_kg": 5000,
+      "capacity_m3": 30,
+      "booking_fee": {
+        "currency": "USD",
+        "amount": 350,
+        "basis": "per_shipment_reserved_capacity_fixture"
+      },
+      "allowed_storage_classes": [
+        "dry",
+        "refrigerated"
+      ],
+      "carrier_id": "CARRIER_DEMO",
+      "source_refs": [
+        "DESIGN-V03"
+      ]
+    },
+    {
+      "id": "ROUTE04",
+      "from_city_id": "HAIPHONG",
+      "to_city_id": "SINGAPORE",
+      "direction": "one_way",
+      "transit_days": 8,
+      "departure_interval_days": 7,
+      "first_departure_day": 2,
+      "capacity_kg": 5000,
+      "capacity_m3": 30,
+      "booking_fee": {
+        "currency": "USD",
+        "amount": 300,
+        "basis": "per_shipment_reserved_capacity_fixture"
+      },
+      "allowed_storage_classes": [
+        "dry",
+        "refrigerated"
+      ],
+      "carrier_id": "CARRIER_DEMO",
+      "source_refs": [
+        "DESIGN-V03"
+      ]
+    },
+    {
+      "id": "ROUTE05",
+      "from_city_id": "SINGAPORE",
+      "to_city_id": "JAKARTA",
+      "direction": "one_way",
+      "transit_days": 4,
+      "departure_interval_days": 7,
+      "first_departure_day": 2,
+      "capacity_kg": 5000,
+      "capacity_m3": 30,
+      "booking_fee": {
+        "currency": "USD",
+        "amount": 160,
+        "basis": "per_shipment_reserved_capacity_fixture"
+      },
+      "allowed_storage_classes": [
+        "dry",
+        "refrigerated"
+      ],
+      "carrier_id": "CARRIER_DEMO",
+      "source_refs": [
+        "DESIGN-V03"
+      ]
+    },
+    {
+      "id": "ROUTE06",
+      "from_city_id": "BUSAN",
+      "to_city_id": "SINGAPORE",
+      "direction": "one_way",
+      "transit_days": 12,
+      "departure_interval_days": 10,
+      "first_departure_day": 2,
+      "capacity_kg": 5000,
+      "capacity_m3": 30,
+      "booking_fee": {
+        "currency": "USD",
+        "amount": 450,
+        "basis": "per_shipment_reserved_capacity_fixture"
+      },
+      "allowed_storage_classes": [
+        "dry",
+        "refrigerated"
+      ],
+      "carrier_id": "CARRIER_DEMO",
+      "source_refs": [
+        "DESIGN-V03"
+      ]
+    }
+  ],
+  "$schema": "../schemas/routes.schema.json"
+}

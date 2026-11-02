@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "contacts v0.4 data shape",
+  "description": "Starter data shape, plus semantic checks in tools/validate_data.py. Not a complete game engine command contract.",
+  "type": "object",
+  "required": [
+    "$schema",
+    "data_basis",
+    "items",
+    "schema_version"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "data_basis": {
+      "type": "string"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "activity_ids",
+          "city_id",
+          "curriculum_refs",
+          "fictional",
+          "id",
+          "individual_request_ko",
+          "information_scope_ko",
+          "initial_relationship_state",
+          "knowledge_topic_ids",
+          "relationship_rules_ko",
+          "role_ko",
+          "source_refs",
+          "stage",
+          "title_ko",
+          "venue_ids",
+          "visual_motif"
+        ],
+        "properties": {
+          "activity_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "city_id": {
+            "type": "string"
+          },
+          "curriculum_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "fictional": {
+            "type": "boolean"
+          },
+          "id": {
+            "type": "string"
+          },
+          "individual_request_ko": {
+            "type": "string"
+          },
+          "information_scope_ko": {
+            "type": "string"
+          },
+          "initial_relationship_state": {
+            "type": "string"
+          },
+          "knowledge_topic_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "relationship_rules_ko": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "role_ko": {
+            "type": "string"
+          },
+          "source_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "stage": {
+            "type": "string"
+          },
+          "title_ko": {
+            "type": "string"
+          },
+          "venue_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "visual_motif": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "schema_version": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}

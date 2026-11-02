@@ -1,0 +1,373 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "world v0.4 data shape",
+  "description": "Starter data shape, plus semantic checks in tools/validate_data.py. Not a complete game engine command contract.",
+  "type": "object",
+  "required": [
+    "$schema",
+    "data_basis",
+    "items",
+    "numeric_values_status",
+    "schema_version",
+    "source_refs"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "data_basis": {
+      "type": "string"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "country_code",
+          "id",
+          "location_type",
+          "name_ko",
+          "source_refs",
+          "travel_rules",
+          "unique_content_status",
+          "venue_ids"
+        ],
+        "properties": {
+          "country_code": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "location_type": {
+            "type": "string",
+            "enum": [
+              "city_port_hub",
+              "port_hub",
+              "finance_maritime_services_city"
+            ]
+          },
+          "map_position": {
+            "type": "object",
+            "required": [
+              "coordinate_system",
+              "x",
+              "y"
+            ],
+            "properties": {
+              "coordinate_system": {
+                "type": "string"
+              },
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              }
+            },
+            "additionalProperties": true
+          },
+          "name_ko": {
+            "type": "string"
+          },
+          "source_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "travel_rules": {
+            "type": "string"
+          },
+          "unique_content_status": {
+            "type": "string"
+          },
+          "venue_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "venue_template_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "geo_position": {
+            "type": "object",
+            "description": "지도 표시용 대략 좌표. 거리 계산에 쓰지 않는다.",
+            "required": [
+              "lat",
+              "lon",
+              "precision_deg",
+              "basis",
+              "use"
+            ],
+            "properties": {
+              "lat": {
+                "type": "number",
+                "minimum": -90,
+                "maximum": 90
+              },
+              "lon": {
+                "type": "number",
+                "minimum": -180,
+                "maximum": 180
+              },
+              "precision_deg": {
+                "type": "number",
+                "minimum": 0
+              },
+              "basis": {
+                "type": "string",
+                "enum": [
+                  "APPROXIMATE_PUBLIC_COORDINATES"
+                ]
+              },
+              "use": {
+                "type": "string",
+                "enum": [
+                  "map_display_only"
+                ]
+              },
+              "note_ko": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          },
+          "hub_roles": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "CONTAINER_GATEWAY",
+                "TRANSSHIPMENT_HUB",
+                "FINANCE_CENTER",
+                "MARITIME_SERVICES",
+                "SHIPOWNING_CLUSTER",
+                "REGIONAL_GATEWAY",
+                "PRODUCTION_ORIGIN",
+                "HOME_BASE"
+              ]
+            }
+          },
+          "selection_basis": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "source_id",
+                "indicator_ko",
+                "value_ko",
+                "period"
+              ],
+              "properties": {
+                "source_id": {
+                  "type": "string"
+                },
+                "indicator_ko": {
+                  "type": "string"
+                },
+                "value_ko": {
+                  "type": "string"
+                },
+                "period": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "availability": {
+            "type": "object",
+            "required": [
+              "stage",
+              "chapter",
+              "status"
+            ],
+            "properties": {
+              "stage": {
+                "type": "string",
+                "enum": [
+                  "M1",
+                  "M2",
+                  "M3",
+                  "P1"
+                ]
+              },
+              "chapter": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "PLAYABLE",
+                  "PLANNED",
+                  "MAP_PREVIEW"
+                ]
+              },
+              "note_ko": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          },
+          "hub_note_ko": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "numeric_values_status": {
+      "type": "string"
+    },
+    "schema_version": {
+      "type": "string"
+    },
+    "source_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "hub_selection_rule_ko": {
+      "type": "string"
+    },
+    "sea_gates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name_ko",
+          "gate_type",
+          "geo_position",
+          "connects_ko",
+          "event_hook_ko",
+          "source_refs",
+          "check_level",
+          "availability"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name_ko": {
+            "type": "string"
+          },
+          "gate_type": {
+            "type": "string",
+            "enum": [
+              "strait",
+              "canal",
+              "cape_route"
+            ]
+          },
+          "geo_position": {
+            "type": "object",
+            "description": "지도 표시용 대략 좌표. 거리 계산에 쓰지 않는다.",
+            "required": [
+              "lat",
+              "lon",
+              "precision_deg",
+              "basis",
+              "use"
+            ],
+            "properties": {
+              "lat": {
+                "type": "number",
+                "minimum": -90,
+                "maximum": 90
+              },
+              "lon": {
+                "type": "number",
+                "minimum": -180,
+                "maximum": 180
+              },
+              "precision_deg": {
+                "type": "number",
+                "minimum": 0
+              },
+              "basis": {
+                "type": "string",
+                "enum": [
+                  "APPROXIMATE_PUBLIC_COORDINATES"
+                ]
+              },
+              "use": {
+                "type": "string",
+                "enum": [
+                  "map_display_only"
+                ]
+              },
+              "note_ko": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          },
+          "connects_ko": {
+            "type": "string"
+          },
+          "event_hook_ko": {
+            "type": "string"
+          },
+          "source_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "check_level": {
+            "type": "string",
+            "enum": [
+              "author_knowledge",
+              "web_search_summary"
+            ]
+          },
+          "availability": {
+            "type": "object",
+            "required": [
+              "stage",
+              "chapter",
+              "status"
+            ],
+            "properties": {
+              "stage": {
+                "type": "string",
+                "enum": [
+                  "M1",
+                  "M2",
+                  "M3",
+                  "P1"
+                ]
+              },
+              "chapter": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "PLAYABLE",
+                  "PLANNED",
+                  "MAP_PREVIEW"
+                ]
+              },
+              "note_ko": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": true
+}

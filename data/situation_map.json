@@ -1,0 +1,1253 @@
+{
+  "layers": [
+    {
+      "id": "cargo",
+      "title_ko": "내 화물·선박",
+      "provider": "게임 자료(가상)",
+      "license": "게임 자료",
+      "license_tier": "bundle_raw",
+      "verification_status": "verified",
+      "retrieved_on": "2026-10-14",
+      "credit_ko": "게임 자료(가상) · 게임 자료",
+      "source_url": null
+    },
+    {
+      "id": "routes",
+      "title_ko": "항로",
+      "provider": "게임 자료(가상)",
+      "license": "게임 자료",
+      "license_tier": "bundle_raw",
+      "verification_status": "verified",
+      "retrieved_on": "2026-10-14",
+      "credit_ko": "게임 자료(가상) · 게임 자료",
+      "source_url": null
+    },
+    {
+      "id": "ports",
+      "title_ko": "항만",
+      "provider": "Natural Earth(ne_10m_ports)",
+      "license": "퍼블릭 도메인",
+      "license_tier": "bundle_raw",
+      "verification_status": "verified",
+      "retrieved_on": "2026-10-14",
+      "credit_ko": "Natural Earth 자료로 만듦(퍼블릭 도메인). 항만 위치는 최대 약 30 km 오차가 있을 수 있음.",
+      "source_url": "https://www.naturalearthdata.com/downloads/10m-cultural-vectors/ports/"
+    },
+    {
+      "id": "nightlights",
+      "title_ko": "야간 불빛",
+      "provider": "NASA Earth Observatory Black Marble 2016",
+      "license": "NASA 크레딧 표기",
+      "license_tier": "derived_only",
+      "verification_status": "pending",
+      "retrieved_on": "2026-10-14",
+      "credit_ko": "NASA Earth Observatory, Black Marble 2016(Suomi NPP VIIRS). 확인 전.",
+      "source_url": "https://earthobservatory.nasa.gov/features/NightLights"
+    },
+    {
+      "id": "countries",
+      "title_ko": "국가 지표",
+      "provider": "World Bank WDI",
+      "license": "CC BY 4.0",
+      "license_tier": "bundle_raw",
+      "verification_status": "verified",
+      "retrieved_on": "2026-10-14",
+      "credit_ko": "World Bank 세계개발지표(CC BY 4.0). 상품 수출액 원자료 WTO, 물류성과지수는 World Bank 물류성과지수 조사. 표시 단위로 반올림함.",
+      "source_url": "https://databank.worldbank.org/source/world-development-indicators"
+    }
+  ],
+  "ports": [
+    {
+      "id": "NE-PORT-001",
+      "name_en": "Haimen",
+      "name_ko": "하이먼",
+      "lon": 121.442,
+      "lat": 28.69,
+      "scalerank": 8
+    },
+    {
+      "id": "NE-PORT-002",
+      "name_en": "Qinhuangdao",
+      "name_ko": "친황다오",
+      "lon": 119.586,
+      "lat": 39.907,
+      "scalerank": 8
+    },
+    {
+      "id": "NE-PORT-003",
+      "name_en": "Yantian",
+      "name_ko": "옌톈",
+      "lon": 114.267,
+      "lat": 22.574,
+      "scalerank": 8
+    },
+    {
+      "id": "NE-PORT-004",
+      "name_en": "Yingkou",
+      "name_ko": "잉커우",
+      "lon": 122.235,
+      "lat": 40.696,
+      "scalerank": 8
+    },
+    {
+      "id": "NE-PORT-005",
+      "name_en": "Sorong",
+      "name_ko": "소롱",
+      "lon": 131.243,
+      "lat": -0.877,
+      "scalerank": 8
+    },
+    {
+      "id": "NE-PORT-006",
+      "name_en": "Omura",
+      "name_ko": "오무라",
+      "lon": 129.95,
+      "lat": 32.902,
+      "scalerank": 8
+    },
+    {
+      "id": "NE-PORT-007",
+      "name_en": "Amagasaki",
+      "name_ko": "아마가사키",
+      "lon": 135.383,
+      "lat": 34.691,
+      "scalerank": 8
+    },
+    {
+      "id": "NE-PORT-008",
+      "name_en": "Fushiki",
+      "name_ko": "후시키",
+      "lon": 137.108,
+      "lat": 36.776,
+      "scalerank": 8
+    },
+    {
+      "id": "NE-PORT-009",
+      "name_en": "Imabari",
+      "name_ko": "이마바리",
+      "lon": 133.006,
+      "lat": 34.068,
+      "scalerank": 8
+    },
+    {
+      "id": "NE-PORT-010",
+      "name_en": "Iwakuni",
+      "name_ko": "이와쿠니",
+      "lon": 132.235,
+      "lat": 34.177,
+      "scalerank": 8
+    },
+    {
+      "id": "NE-PORT-011",
+      "name_en": "Kainan",
+      "name_ko": "가이난",
+      "lon": 135.188,
+      "lat": 34.153,
+      "scalerank": 8
+    },
+    {
+      "id": "NE-PORT-012",
+      "name_en": "Kanazawa",
+      "name_ko": "가나자와",
+      "lon": 136.607,
+      "lat": 36.617,
+      "scalerank": 8
+    },
+    {
+      "id": "NE-PORT-013",
+      "name_en": "Kawasaki",
+      "name_ko": "가와사키",
+      "lon": 139.744,
+      "lat": 35.506,
+      "scalerank": 8
+    },
+    {
+      "id": "NE-PORT-015",
+      "name_en": "Maizuru",
+      "name_ko": "마이즈루",
+      "lon": 135.385,
+      "lat": 35.482,
+      "scalerank": 8
+    },
+    {
+      "id": "NE-PORT-016",
+      "name_en": "Matsusaka",
+      "name_ko": "마쓰사카",
+      "lon": 136.553,
+      "lat": 34.608,
+      "scalerank": 8
+    },
+    {
+      "id": "NE-PORT-017",
+      "name_en": "Miyazu",
+      "name_ko": "미야즈",
+      "lon": 135.193,
+      "lat": 35.543,
+      "scalerank": 8
+    },
+    {
+      "id": "NE-PORT-018",
+      "name_en": "Muroran",
+      "name_ko": "무로란",
+      "lon": 140.954,
+      "lat": 42.336,
+      "scalerank": 8
+    },
+    {
+      "id": "NE-PORT-019",
+      "name_en": "Niigata",
+      "name_ko": "니가타",
+      "lon": 139.125,
+      "lat": 37.955,
+      "scalerank": 8
+    },
+    {
+      "id": "NE-PORT-020",
+      "name_en": "Saganoseki",
+      "name_ko": "사가노세키",
+      "lon": 131.869,
+      "lat": 33.251,
+      "scalerank": 8
+    },
+    {
+      "id": "NE-PORT-021",
+      "name_en": "Sasebo",
+      "name_ko": "사세보",
+      "lon": 129.708,
+      "lat": 33.157,
+      "scalerank": 8
+    },
+    {
+      "id": "NE-PORT-022",
+      "name_en": "Shimizu",
+      "name_ko": "시미즈",
+      "lon": 138.51,
+      "lat": 35.014,
+      "scalerank": 8
+    },
+    {
+      "id": "NE-PORT-023",
+      "name_en": "Shimotsu",
+      "name_ko": "시모쓰",
+      "lon": 135.133,
+      "lat": 34.116,
+      "scalerank": 8
+    },
+    {
+      "id": "NE-PORT-024",
+      "name_en": "Wakayama",
+      "name_ko": "와카야마",
+      "lon": 135.127,
+      "lat": 34.223,
+      "scalerank": 8
+    },
+    {
+      "id": "NE-PORT-025",
+      "name_en": "Yokosuka",
+      "name_ko": "요코스카",
+      "lon": 139.654,
+      "lat": 35.304,
+      "scalerank": 8
+    },
+    {
+      "id": "NE-PORT-026",
+      "name_en": "Kemaman",
+      "name_ko": null,
+      "lon": 103.459,
+      "lat": 4.249,
+      "scalerank": 8
+    },
+    {
+      "id": "NE-PORT-027",
+      "name_en": "Nakhodka",
+      "name_ko": "나홋카",
+      "lon": 132.908,
+      "lat": 42.805,
+      "scalerank": 8
+    },
+    {
+      "id": "NE-PORT-029",
+      "name_en": "Bangkok",
+      "name_ko": "방콕",
+      "lon": 100.585,
+      "lat": 13.696,
+      "scalerank": 8
+    },
+    {
+      "id": "NE-PORT-030",
+      "name_en": "Laem Chabang",
+      "name_ko": null,
+      "lon": 100.891,
+      "lat": 13.074,
+      "scalerank": 8
+    },
+    {
+      "id": "NE-PORT-031",
+      "name_en": "Sriracha",
+      "name_ko": null,
+      "lon": 100.919,
+      "lat": 13.171,
+      "scalerank": 8
+    },
+    {
+      "id": "NE-PORT-032",
+      "name_en": "Keelung",
+      "name_ko": "지룽",
+      "lon": 121.726,
+      "lat": 25.221,
+      "scalerank": 8
+    },
+    {
+      "id": "NE-PORT-033",
+      "name_en": "Guangzhou",
+      "name_ko": "광저우",
+      "lon": 113.671,
+      "lat": 22.64,
+      "scalerank": 7
+    },
+    {
+      "id": "NE-PORT-034",
+      "name_en": "Jiangyin",
+      "name_ko": "장인",
+      "lon": 120.221,
+      "lat": 31.932,
+      "scalerank": 7
+    },
+    {
+      "id": "NE-PORT-035",
+      "name_en": "Lianyungang",
+      "name_ko": "롄윈강",
+      "lon": 119.408,
+      "lat": 34.745,
+      "scalerank": 7
+    },
+    {
+      "id": "NE-PORT-036",
+      "name_en": "Sanya",
+      "name_ko": "싼야",
+      "lon": 109.501,
+      "lat": 18.24,
+      "scalerank": 7
+    },
+    {
+      "id": "NE-PORT-037",
+      "name_en": "Zhanjiang",
+      "name_ko": "잔장",
+      "lon": 110.406,
+      "lat": 21.17,
+      "scalerank": 7
+    },
+    {
+      "id": "NE-PORT-038",
+      "name_en": "Zhoushan",
+      "name_ko": "저우산",
+      "lon": 122.103,
+      "lat": 30.003,
+      "scalerank": 7
+    },
+    {
+      "id": "NE-PORT-039",
+      "name_en": "Yap",
+      "name_ko": null,
+      "lon": 138.119,
+      "lat": 9.513,
+      "scalerank": 7
+    },
+    {
+      "id": "NE-PORT-040",
+      "name_en": "Sorong",
+      "name_ko": "소롱",
+      "lon": 131.02,
+      "lat": -1.308,
+      "scalerank": 7
+    },
+    {
+      "id": "NE-PORT-041",
+      "name_en": "Nunukan",
+      "name_ko": "누누칸",
+      "lon": 117.655,
+      "lat": 4.146,
+      "scalerank": 7
+    },
+    {
+      "id": "NE-PORT-042",
+      "name_en": "Panjang",
+      "name_ko": "판장",
+      "lon": 105.307,
+      "lat": -5.46,
+      "scalerank": 7
+    },
+    {
+      "id": "NE-PORT-043",
+      "name_en": "Tanjung Priok",
+      "name_ko": "탄중프리옥",
+      "lon": 106.89,
+      "lat": -6.101,
+      "scalerank": 7
+    },
+    {
+      "id": "NE-PORT-044",
+      "name_en": "Nishinoomote",
+      "name_ko": "니시노오모테",
+      "lon": 130.986,
+      "lat": 30.732,
+      "scalerank": 7
+    },
+    {
+      "id": "NE-PORT-045",
+      "name_en": "Akita",
+      "name_ko": "아키타",
+      "lon": 140.04,
+      "lat": 39.762,
+      "scalerank": 7
+    },
+    {
+      "id": "NE-PORT-046",
+      "name_en": "Hachinohe",
+      "name_ko": "하치노헤",
+      "lon": 141.524,
+      "lat": 40.546,
+      "scalerank": 7
+    },
+    {
+      "id": "NE-PORT-047",
+      "name_en": "Ishigaki",
+      "name_ko": "이시가키",
+      "lon": 124.151,
+      "lat": 24.336,
+      "scalerank": 7
+    },
+    {
+      "id": "NE-PORT-048",
+      "name_en": "Matsuyama",
+      "name_ko": "마쓰야마",
+      "lon": 132.693,
+      "lat": 33.855,
+      "scalerank": 7
+    },
+    {
+      "id": "NE-PORT-049",
+      "name_en": "Sakata",
+      "name_ko": "사카타",
+      "lon": 139.804,
+      "lat": 38.939,
+      "scalerank": 7
+    },
+    {
+      "id": "NE-PORT-050",
+      "name_en": "Takamatsu",
+      "name_ko": "다카마쓰",
+      "lon": 134.053,
+      "lat": 34.355,
+      "scalerank": 7
+    },
+    {
+      "id": "NE-PORT-051",
+      "name_en": "Tottori",
+      "name_ko": "돗토리",
+      "lon": 134.188,
+      "lat": 35.54,
+      "scalerank": 7
+    },
+    {
+      "id": "NE-PORT-052",
+      "name_en": "Gunsan",
+      "name_ko": "군산",
+      "lon": 126.588,
+      "lat": 35.96,
+      "scalerank": 7
+    },
+    {
+      "id": "NE-PORT-053",
+      "name_en": "Pohang",
+      "name_ko": "포항",
+      "lon": 129.403,
+      "lat": 36.02,
+      "scalerank": 7
+    },
+    {
+      "id": "NE-PORT-054",
+      "name_en": "Samcheok",
+      "name_ko": "삼척",
+      "lon": 129.188,
+      "lat": 37.434,
+      "scalerank": 7
+    },
+    {
+      "id": "NE-PORT-055",
+      "name_en": "Sokcho",
+      "name_ko": "속초",
+      "lon": 128.592,
+      "lat": 38.207,
+      "scalerank": 7
+    },
+    {
+      "id": "NE-PORT-056",
+      "name_en": "Ulsan",
+      "name_ko": "울산",
+      "lon": 129.386,
+      "lat": 35.488,
+      "scalerank": 7
+    },
+    {
+      "id": "NE-PORT-057",
+      "name_en": "Malacca",
+      "name_ko": null,
+      "lon": 102.123,
+      "lat": 2.249,
+      "scalerank": 7
+    },
+    {
+      "id": "NE-PORT-058",
+      "name_en": "Port Dickson",
+      "name_ko": "포트딕슨",
+      "lon": 101.789,
+      "lat": 2.536,
+      "scalerank": 7
+    },
+    {
+      "id": "NE-PORT-059",
+      "name_en": "Dumaguete",
+      "name_ko": null,
+      "lon": 123.308,
+      "lat": 9.312,
+      "scalerank": 7
+    },
+    {
+      "id": "NE-PORT-060",
+      "name_en": "General Santos",
+      "name_ko": "제너럴산토스",
+      "lon": 125.154,
+      "lat": 6.086,
+      "scalerank": 7
+    },
+    {
+      "id": "NE-PORT-061",
+      "name_en": "Daru",
+      "name_ko": "다루",
+      "lon": 143.207,
+      "lat": -9.068,
+      "scalerank": 7
+    },
+    {
+      "id": "NE-PORT-062",
+      "name_en": "Madang",
+      "name_ko": "마당",
+      "lon": 145.8,
+      "lat": -5.213,
+      "scalerank": 7
+    },
+    {
+      "id": "NE-PORT-063",
+      "name_en": "Songkhla",
+      "name_ko": "송클라",
+      "lon": 100.57,
+      "lat": 7.229,
+      "scalerank": 7
+    },
+    {
+      "id": "NE-PORT-064",
+      "name_en": "Hai Phong",
+      "name_ko": "하이퐁",
+      "lon": 106.675,
+      "lat": 20.867,
+      "scalerank": 7
+    },
+    {
+      "id": "NE-PORT-065",
+      "name_en": "Phuket",
+      "name_ko": null,
+      "lon": 98.4,
+      "lat": 7.83,
+      "scalerank": 7
+    },
+    {
+      "id": "NE-PORT-066",
+      "name_en": "Pulau Pinang",
+      "name_ko": null,
+      "lon": 100.35,
+      "lat": 5.41,
+      "scalerank": 7
+    },
+    {
+      "id": "NE-PORT-067",
+      "name_en": "Belawan",
+      "name_ko": null,
+      "lon": 98.68,
+      "lat": 3.78,
+      "scalerank": 7
+    },
+    {
+      "id": "NE-PORT-068",
+      "name_en": "Semarang",
+      "name_ko": null,
+      "lon": 110.41,
+      "lat": -6.95,
+      "scalerank": 7
+    },
+    {
+      "id": "NE-PORT-069",
+      "name_en": "Kuching",
+      "name_ko": "쿠칭",
+      "lon": 110.35,
+      "lat": 1.56,
+      "scalerank": 7
+    },
+    {
+      "id": "NE-PORT-070",
+      "name_en": "Miri",
+      "name_ko": "미리",
+      "lon": 113.96,
+      "lat": 4.38,
+      "scalerank": 7
+    },
+    {
+      "id": "NE-PORT-071",
+      "name_en": "Kota Kinabalu",
+      "name_ko": "코타키나발루",
+      "lon": 116.06,
+      "lat": 5.98,
+      "scalerank": 7
+    },
+    {
+      "id": "NE-PORT-072",
+      "name_en": "Pelabuhan Sandakan",
+      "name_ko": "산다칸",
+      "lon": 118.11,
+      "lat": 5.83,
+      "scalerank": 7
+    },
+    {
+      "id": "NE-PORT-073",
+      "name_en": "Ujungpandang",
+      "name_ko": null,
+      "lon": 119.4,
+      "lat": -5.13,
+      "scalerank": 7
+    },
+    {
+      "id": "NE-PORT-074",
+      "name_en": "Davao",
+      "name_ko": "다바오",
+      "lon": 125.61,
+      "lat": 7.06,
+      "scalerank": 7
+    },
+    {
+      "id": "NE-PORT-075",
+      "name_en": "Nanjing",
+      "name_ko": "난징",
+      "lon": 118.75,
+      "lat": 32.08,
+      "scalerank": 7
+    },
+    {
+      "id": "NE-PORT-076",
+      "name_en": "Hankow",
+      "name_ko": "한커우",
+      "lon": 114.28,
+      "lat": 30.58,
+      "scalerank": 7
+    },
+    {
+      "id": "NE-PORT-077",
+      "name_en": "Chang Sha",
+      "name_ko": "창사",
+      "lon": 112.98,
+      "lat": 28.2,
+      "scalerank": 7
+    },
+    {
+      "id": "NE-PORT-078",
+      "name_en": "Beihai",
+      "name_ko": "베이하이",
+      "lon": 109.071,
+      "lat": 21.459,
+      "scalerank": 6
+    },
+    {
+      "id": "NE-PORT-079",
+      "name_en": "Jiangmen",
+      "name_ko": "장먼",
+      "lon": 113.002,
+      "lat": 22.503,
+      "scalerank": 6
+    },
+    {
+      "id": "NE-PORT-080",
+      "name_en": "Wenzhou",
+      "name_ko": "원저우",
+      "lon": 120.885,
+      "lat": 27.998,
+      "scalerank": 6
+    },
+    {
+      "id": "NE-PORT-081",
+      "name_en": "Yantai",
+      "name_ko": "옌타이",
+      "lon": 121.389,
+      "lat": 37.571,
+      "scalerank": 6
+    },
+    {
+      "id": "NE-PORT-082",
+      "name_en": "Zhuhai",
+      "name_ko": "주하이",
+      "lon": 113.584,
+      "lat": 22.24,
+      "scalerank": 6
+    },
+    {
+      "id": "NE-PORT-083",
+      "name_en": "Banjarmasin",
+      "name_ko": "반자르마신",
+      "lon": 114.555,
+      "lat": -3.322,
+      "scalerank": 6
+    },
+    {
+      "id": "NE-PORT-084",
+      "name_en": "Tanjung Pandan",
+      "name_ko": null,
+      "lon": 107.627,
+      "lat": -2.75,
+      "scalerank": 6
+    },
+    {
+      "id": "NE-PORT-085",
+      "name_en": "Aomori",
+      "name_ko": "아오모리",
+      "lon": 140.743,
+      "lat": 40.831,
+      "scalerank": 6
+    },
+    {
+      "id": "NE-PORT-086",
+      "name_en": "Hakodate",
+      "name_ko": "하코다테",
+      "lon": 140.709,
+      "lat": 41.788,
+      "scalerank": 6
+    },
+    {
+      "id": "NE-PORT-087",
+      "name_en": "Kagoshima",
+      "name_ko": "가고시마",
+      "lon": 130.569,
+      "lat": 31.593,
+      "scalerank": 6
+    },
+    {
+      "id": "NE-PORT-088",
+      "name_en": "Kochi",
+      "name_ko": "고치",
+      "lon": 133.557,
+      "lat": 33.524,
+      "scalerank": 6
+    },
+    {
+      "id": "NE-PORT-089",
+      "name_en": "Kushiro",
+      "name_ko": "구시로",
+      "lon": 144.352,
+      "lat": 42.989,
+      "scalerank": 6
+    },
+    {
+      "id": "NE-PORT-090",
+      "name_en": "Niihama",
+      "name_ko": "니이하마",
+      "lon": 133.26,
+      "lat": 33.971,
+      "scalerank": 6
+    },
+    {
+      "id": "NE-PORT-091",
+      "name_en": "Oita",
+      "name_ko": "오이타",
+      "lon": 131.676,
+      "lat": 33.272,
+      "scalerank": 6
+    },
+    {
+      "id": "NE-PORT-092",
+      "name_en": "Shimonoseki",
+      "name_ko": "시모노세키",
+      "lon": 130.901,
+      "lat": 33.934,
+      "scalerank": 6
+    },
+    {
+      "id": "NE-PORT-093",
+      "name_en": "Tomakomai",
+      "name_ko": "도마코마이",
+      "lon": 141.653,
+      "lat": 42.638,
+      "scalerank": 6
+    },
+    {
+      "id": "NE-PORT-094",
+      "name_en": "Toyama",
+      "name_ko": "도야마",
+      "lon": 137.223,
+      "lat": 36.757,
+      "scalerank": 6
+    },
+    {
+      "id": "NE-PORT-095",
+      "name_en": "Ube",
+      "name_ko": "우베",
+      "lon": 131.238,
+      "lat": 33.938,
+      "scalerank": 6
+    },
+    {
+      "id": "NE-PORT-096",
+      "name_en": "Saipan",
+      "name_ko": "사이판",
+      "lon": 145.735,
+      "lat": 15.226,
+      "scalerank": 6
+    },
+    {
+      "id": "NE-PORT-097",
+      "name_en": "Masbate",
+      "name_ko": "마스바테",
+      "lon": 123.62,
+      "lat": 12.368,
+      "scalerank": 6
+    },
+    {
+      "id": "NE-PORT-098",
+      "name_en": "Subic Bay",
+      "name_ko": "수빅만",
+      "lon": 120.275,
+      "lat": 14.808,
+      "scalerank": 6
+    },
+    {
+      "id": "NE-PORT-099",
+      "name_en": "Vanimo",
+      "name_ko": "바니모",
+      "lon": 141.292,
+      "lat": -2.684,
+      "scalerank": 6
+    },
+    {
+      "id": "NE-PORT-100",
+      "name_en": "Haikou",
+      "name_ko": "하이커우",
+      "lon": 110.275,
+      "lat": 20.028,
+      "scalerank": 5
+    },
+    {
+      "id": "NE-PORT-101",
+      "name_en": "Ningbo",
+      "name_ko": "닝보",
+      "lon": 121.553,
+      "lat": 29.867,
+      "scalerank": 5
+    },
+    {
+      "id": "NE-PORT-102",
+      "name_en": "Xiamen",
+      "name_ko": "샤먼",
+      "lon": 118.02,
+      "lat": 24.45,
+      "scalerank": 5
+    },
+    {
+      "id": "NE-PORT-103",
+      "name_en": "Surabaya",
+      "name_ko": "수라바야",
+      "lon": 113.917,
+      "lat": -7.617,
+      "scalerank": 5
+    },
+    {
+      "id": "NE-PORT-104",
+      "name_en": "Manado",
+      "name_ko": "마나도",
+      "lon": 124.826,
+      "lat": 1.482,
+      "scalerank": 5
+    },
+    {
+      "id": "NE-PORT-105",
+      "name_en": "Senipah",
+      "name_ko": null,
+      "lon": 117.217,
+      "lat": -1.05,
+      "scalerank": 5
+    },
+    {
+      "id": "NE-PORT-106",
+      "name_en": "Hiroshima",
+      "name_ko": "히로시마",
+      "lon": 132.421,
+      "lat": 34.365,
+      "scalerank": 5
+    },
+    {
+      "id": "NE-PORT-107",
+      "name_en": "Kobe",
+      "name_ko": "고베",
+      "lon": 135.238,
+      "lat": 34.684,
+      "scalerank": 5
+    },
+    {
+      "id": "NE-PORT-108",
+      "name_en": "Nagasaki",
+      "name_ko": "나가사키",
+      "lon": 129.86,
+      "lat": 32.74,
+      "scalerank": 5
+    },
+    {
+      "id": "NE-PORT-109",
+      "name_en": "Otaru",
+      "name_ko": "오타루",
+      "lon": 141.017,
+      "lat": 43.197,
+      "scalerank": 5
+    },
+    {
+      "id": "NE-PORT-110",
+      "name_en": "Tokyo",
+      "name_ko": "도쿄",
+      "lon": 139.788,
+      "lat": 35.625,
+      "scalerank": 5
+    },
+    {
+      "id": "NE-PORT-111",
+      "name_en": "Cebu",
+      "name_ko": "세부",
+      "lon": 123.923,
+      "lat": 10.306,
+      "scalerank": 5
+    },
+    {
+      "id": "NE-PORT-112",
+      "name_en": "Zamboanga",
+      "name_ko": null,
+      "lon": 122.071,
+      "lat": 6.903,
+      "scalerank": 5
+    },
+    {
+      "id": "NE-PORT-113",
+      "name_en": "Wewak",
+      "name_ko": "웨왁",
+      "lon": 143.651,
+      "lat": -3.57,
+      "scalerank": 5
+    },
+    {
+      "id": "NE-PORT-114",
+      "name_en": "Vladivostok",
+      "name_ko": "블라디보스토크",
+      "lon": 131.888,
+      "lat": 43.094,
+      "scalerank": 5
+    },
+    {
+      "id": "NE-PORT-115",
+      "name_en": "Kaohsiung",
+      "name_ko": "가오슝",
+      "lon": 120.307,
+      "lat": 22.565,
+      "scalerank": 5
+    },
+    {
+      "id": "NE-PORT-116",
+      "name_en": "Taichung",
+      "name_ko": "타이중",
+      "lon": 120.504,
+      "lat": 24.258,
+      "scalerank": 5
+    },
+    {
+      "id": "NE-PORT-117",
+      "name_en": "Da Nang",
+      "name_ko": "다낭",
+      "lon": 108.223,
+      "lat": 16.082,
+      "scalerank": 5
+    },
+    {
+      "id": "NE-PORT-118",
+      "name_en": "Dalian",
+      "name_ko": "다롄",
+      "lon": 121.65,
+      "lat": 38.934,
+      "scalerank": 4
+    },
+    {
+      "id": "NE-PORT-119",
+      "name_en": "Fuzhou",
+      "name_ko": "푸저우",
+      "lon": 119.301,
+      "lat": 26.047,
+      "scalerank": 4
+    },
+    {
+      "id": "NE-PORT-120",
+      "name_en": "Qingdao",
+      "name_ko": "칭다오",
+      "lon": 120.317,
+      "lat": 36.096,
+      "scalerank": 4
+    },
+    {
+      "id": "NE-PORT-121",
+      "name_en": "Shanghai",
+      "name_ko": "상하이",
+      "lon": 121.487,
+      "lat": 31.222,
+      "scalerank": 4
+    },
+    {
+      "id": "NE-PORT-122",
+      "name_en": "Shantou",
+      "name_ko": "산터우",
+      "lon": 116.704,
+      "lat": 23.355,
+      "scalerank": 4
+    },
+    {
+      "id": "NE-PORT-123",
+      "name_en": "Hong Kong",
+      "name_ko": "홍콩",
+      "lon": 114.156,
+      "lat": 22.321,
+      "scalerank": 4
+    },
+    {
+      "id": "NE-PORT-124",
+      "name_en": "Surabaya",
+      "name_ko": "수라바야",
+      "lon": 112.724,
+      "lat": -7.206,
+      "scalerank": 4
+    },
+    {
+      "id": "NE-PORT-125",
+      "name_en": "Kitakyushu",
+      "name_ko": "기타큐슈",
+      "lon": 130.854,
+      "lat": 33.922,
+      "scalerank": 4
+    },
+    {
+      "id": "NE-PORT-126",
+      "name_en": "Phnom Penh",
+      "name_ko": "프놈펜",
+      "lon": 104.921,
+      "lat": 11.583,
+      "scalerank": 4
+    },
+    {
+      "id": "NE-PORT-127",
+      "name_en": "Singapore",
+      "name_ko": "싱가포르",
+      "lon": 103.722,
+      "lat": 1.293,
+      "scalerank": 4
+    },
+    {
+      "id": "NE-PORT-128",
+      "name_en": "Bangkok",
+      "name_ko": "방콕",
+      "lon": 100.569,
+      "lat": 13.607,
+      "scalerank": 4
+    },
+    {
+      "id": "NE-PORT-129",
+      "name_en": "Ho Chi Minh City",
+      "name_ko": null,
+      "lon": 106.722,
+      "lat": 10.794,
+      "scalerank": 4
+    },
+    {
+      "id": "NE-PORT-130",
+      "name_en": "Guangzhou",
+      "name_ko": "광저우",
+      "lon": 113.409,
+      "lat": 23.094,
+      "scalerank": 3
+    },
+    {
+      "id": "NE-PORT-131",
+      "name_en": "Tianjin",
+      "name_ko": "톈진",
+      "lon": 117.457,
+      "lat": 39.009,
+      "scalerank": 3
+    },
+    {
+      "id": "NE-PORT-132",
+      "name_en": "Osaka",
+      "name_ko": "오사카",
+      "lon": 135.434,
+      "lat": 34.636,
+      "scalerank": 3
+    },
+    {
+      "id": "NE-PORT-133",
+      "name_en": "Yokohama",
+      "name_ko": "요코하마",
+      "lon": 139.667,
+      "lat": 35.436,
+      "scalerank": 3
+    },
+    {
+      "id": "NE-PORT-134",
+      "name_en": "Manila",
+      "name_ko": "마닐라",
+      "lon": 120.943,
+      "lat": 14.524,
+      "scalerank": 3
+    },
+    {
+      "id": "NE-PORT-135",
+      "name_en": "Taipei",
+      "name_ko": "타이베이",
+      "lon": 121.375,
+      "lat": 25.152,
+      "scalerank": 3
+    }
+  ],
+  "countries": [
+    {
+      "id": "KOR",
+      "name_ko": "대한민국",
+      "indicators": [
+        {
+          "id": "NE.TRD.GNFS.ZS",
+          "label_ko": "무역(GDP 대비)",
+          "value": 86.3616006442431,
+          "unit_ko": "%",
+          "year": 2025,
+          "source_layer": "countries",
+          "source_updated": "2026-10-08"
+        },
+        {
+          "id": "TX.VAL.MRCH.CD.WT",
+          "label_ko": "상품 수출액",
+          "value": 709330000000,
+          "unit_ko": "달러",
+          "year": 2025,
+          "source_layer": "countries",
+          "source_updated": "2026-10-08"
+        },
+        {
+          "id": "NY.GDP.PCAP.CD",
+          "label_ko": "1인당 GDP",
+          "value": 36226.9663637512,
+          "unit_ko": "달러",
+          "year": 2025,
+          "source_layer": "countries",
+          "source_updated": "2026-10-08"
+        },
+        {
+          "id": "LP.LPI.OVRL.XQ",
+          "label_ko": "물류성과지수(1~5)",
+          "value": 3.8,
+          "unit_ko": "점",
+          "year": 2022,
+          "source_layer": "countries",
+          "source_updated": "2026-10-08"
+        }
+      ]
+    },
+    {
+      "id": "CHN",
+      "name_ko": "중국",
+      "indicators": [
+        {
+          "id": "NE.TRD.GNFS.ZS",
+          "label_ko": "무역(GDP 대비)",
+          "value": 37.9563878652312,
+          "unit_ko": "%",
+          "year": 2025,
+          "source_layer": "countries",
+          "source_updated": "2026-10-08"
+        },
+        {
+          "id": "TX.VAL.MRCH.CD.WT",
+          "label_ko": "상품 수출액",
+          "value": 3771842000000,
+          "unit_ko": "달러",
+          "year": 2025,
+          "source_layer": "countries",
+          "source_updated": "2026-10-08"
+        },
+        {
+          "id": "NY.GDP.PCAP.CD",
+          "label_ko": "1인당 GDP",
+          "value": 13861.970224368,
+          "unit_ko": "달러",
+          "year": 2025,
+          "source_layer": "countries",
+          "source_updated": "2026-10-08"
+        },
+        {
+          "id": "LP.LPI.OVRL.XQ",
+          "label_ko": "물류성과지수(1~5)",
+          "value": 3.7,
+          "unit_ko": "점",
+          "year": 2022,
+          "source_layer": "countries",
+          "source_updated": "2026-10-08"
+        }
+      ]
+    },
+    {
+      "id": "VNM",
+      "name_ko": "베트남",
+      "indicators": [
+        {
+          "id": "NE.TRD.GNFS.ZS",
+          "label_ko": "무역(GDP 대비)",
+          "value": 190.336808817292,
+          "unit_ko": "%",
+          "year": 2025,
+          "source_layer": "countries",
+          "source_updated": "2026-10-08"
+        },
+        {
+          "id": "TX.VAL.MRCH.CD.WT",
+          "label_ko": "상품 수출액",
+          "value": 472929000000,
+          "unit_ko": "달러",
+          "year": 2025,
+          "source_layer": "countries",
+          "source_updated": "2026-10-08"
+        },
+        {
+          "id": "NY.GDP.PCAP.CD",
+          "label_ko": "1인당 GDP",
+          "value": 5065.99091899299,
+          "unit_ko": "달러",
+          "year": 2025,
+          "source_layer": "countries",
+          "source_updated": "2026-10-08"
+        },
+        {
+          "id": "LP.LPI.OVRL.XQ",
+          "label_ko": "물류성과지수(1~5)",
+          "value": 3.3,
+          "unit_ko": "점",
+          "year": 2022,
+          "source_layer": "countries",
+          "source_updated": "2026-10-08"
+        }
+      ]
+    }
+  ]
+}

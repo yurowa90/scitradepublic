@@ -1,0 +1,20 @@
+{
+  "schema": "scitrade-browser-scenario/1",
+  "id": "day-anchor",
+  "title_ko": "계약 본문을 읽다 하루 진행: 읽던 자리 유지(패널 닫힘)",
+  "source_ko": "TASK-0012 결과 보고 149행 B1: 수정 뒤 −0.4~+0.4px(수정 전 −1,668~−1,906px)",
+  "profiles": "all",
+  "steps": [
+    { "do": "tap", "selector": "[data-action=\"accept\"][data-buy]" },
+    { "do": "end-day", "times": 2 },
+    { "do": "scroll-to", "selector": "[id^=\"contract-h-\"]", "offset_from_bar": -30 },
+    { "do": "remember", "name": "contract", "selector": "[id^=\"contract-h-\"]" },
+    { "do": "end-day", "times": 1 },
+    { "do": "wait", "ms": 350 },
+    { "do": "measure", "name": "anchor_moved", "what": "moved", "ref": "contract" },
+    { "do": "measure", "name": "scroll_changed", "what": "scroll-y-change", "ref": "contract" }
+  ],
+  "expect": [
+    { "value": "anchor_moved", "min": -2.4, "max": 2.4, "profiles": "all", "source_ko": "149행 −0.4~+0.4px ±2px" }
+  ]
+}

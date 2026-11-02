@@ -1,0 +1,245 @@
+{
+  "schema_version": "0.3.0",
+  "data_basis": "DESIGN",
+  "source_refs": [
+    "DESIGN-V03"
+  ],
+  "commands": [
+    {
+      "id": "REVIEW_CONTRACT_COST",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "arg_names": [
+        "contract_id",
+        "policy_id"
+      ],
+      "used_by": [
+        "EV01_A"
+      ]
+    },
+    {
+      "id": "REQUEST_CONTRACT_AMENDMENT",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "arg_names": [
+        "contract_id",
+        "field",
+        "proposed_value"
+      ],
+      "used_by": [
+        "EV01_B",
+        "EV02_C",
+        "EV03_C"
+      ]
+    },
+    {
+      "id": "CREATE_RESEARCH_TASK",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "arg_names": [
+        "actor_id",
+        "good_id",
+        "shipment_id",
+        "topic"
+      ],
+      "used_by": [
+        "EV01_C",
+        "EV03_B",
+        "EV06_A"
+      ]
+    },
+    {
+      "id": "KEEP_SHIPMENT_BOOKING",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "arg_names": [
+        "shipment_id"
+      ],
+      "used_by": [
+        "EV02_A"
+      ]
+    },
+    {
+      "id": "REQUEST_REBOOKING",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "arg_names": [
+        "offer_id",
+        "shipment_id"
+      ],
+      "used_by": [
+        "EV02_B"
+      ]
+    },
+    {
+      "id": "REQUEST_PURCHASE_AMENDMENT",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "arg_names": [
+        "purchase_contract_id",
+        "quantity"
+      ],
+      "used_by": [
+        "EV03_A"
+      ]
+    },
+    {
+      "id": "REQUEST_STORAGE_TRANSFER",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "arg_names": [
+        "cargo_lot_id",
+        "storage_offer_id"
+      ],
+      "used_by": [
+        "EV04_A"
+      ]
+    },
+    {
+      "id": "REQUEST_CARGO_INSPECTION",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "arg_names": [
+        "cargo_lot_id",
+        "inspection_offer_id"
+      ],
+      "used_by": [
+        "EV04_B"
+      ]
+    },
+    {
+      "id": "REQUEST_DELIVERY_RESOLUTION",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "arg_names": [
+        "cargo_lot_id",
+        "contract_id",
+        "proposal"
+      ],
+      "used_by": [
+        "EV04_C"
+      ]
+    },
+    {
+      "id": "REQUEST_HIRING",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "arg_names": [
+        "candidate_id"
+      ],
+      "used_by": [
+        "EV05_A"
+      ]
+    },
+    {
+      "id": "REQUEST_TASK_OUTSOURCING",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "arg_names": [
+        "offer_id",
+        "task_id"
+      ],
+      "used_by": [
+        "EV05_B"
+      ]
+    },
+    {
+      "id": "REVISE_WORK_COMMITMENTS",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "arg_names": [
+        "contract_ids",
+        "proposal"
+      ],
+      "used_by": [
+        "EV05_C"
+      ]
+    },
+    {
+      "id": "REQUEST_COMPARABLE_TRANSPORT_QUOTES",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "arg_names": [
+        "contract_id",
+        "scope_id"
+      ],
+      "used_by": [
+        "EV06_B"
+      ]
+    },
+    {
+      "id": "REQUEST_EVIDENCE_TERM_RESOLUTION",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "arg_names": [
+        "contract_id",
+        "proposal"
+      ],
+      "used_by": [
+        "EV06_C"
+      ]
+    }
+  ],
+  "unlocks": [
+    {
+      "id": "DIALOGUE_CLARIFY_CUSTOMER_PACKAGING",
+      "implementation_status": "CONTENT_HOOK_ONLY",
+      "family": "dialogue",
+      "source_activity_id": "CA01"
+    },
+    {
+      "id": "TASK_RESEARCH_EXISTING_SMALL_PACK_SUPPLIERS",
+      "implementation_status": "CONTENT_HOOK_ONLY",
+      "family": "task",
+      "source_activity_id": "CA01"
+    },
+    {
+      "id": "DIALOGUE_COMPARE_PORT_RECORDS",
+      "implementation_status": "CONTENT_HOOK_ONLY",
+      "family": "dialogue",
+      "source_activity_id": "CA02"
+    },
+    {
+      "id": "TASK_RESEARCH_RECORD_PROVENANCE",
+      "implementation_status": "CONTENT_HOOK_ONLY",
+      "family": "task",
+      "source_activity_id": "CA02"
+    },
+    {
+      "id": "DIALOGUE_CONFIRM_ORDER_TERMS",
+      "implementation_status": "CONTENT_HOOK_ONLY",
+      "family": "dialogue",
+      "source_activity_id": "CA03"
+    },
+    {
+      "id": "DIALOGUE_REQUEST_FOLLOWUP_MEETING",
+      "implementation_status": "CONTENT_HOOK_ONLY",
+      "family": "dialogue",
+      "source_activity_id": "CA03"
+    },
+    {
+      "id": "DIALOGUE_ASK_EVENT_REQUIREMENTS",
+      "implementation_status": "CONTENT_HOOK_ONLY",
+      "family": "dialogue",
+      "source_activity_id": "CA04"
+    },
+    {
+      "id": "TASK_RESEARCH_EVENT_DELIVERY_FEASIBILITY",
+      "implementation_status": "CONTENT_HOOK_ONLY",
+      "family": "task",
+      "source_activity_id": "CA04"
+    },
+    {
+      "id": "DIALOGUE_VERIFY_SUPPLIER_CLAIMS",
+      "implementation_status": "CONTENT_HOOK_ONLY",
+      "family": "dialogue",
+      "source_activity_id": "CA05"
+    },
+    {
+      "id": "TASK_REQUEST_FIELD_EVIDENCE",
+      "implementation_status": "CONTENT_HOOK_ONLY",
+      "family": "task",
+      "source_activity_id": "CA05"
+    },
+    {
+      "id": "DIALOGUE_NEGOTIATE_PROJECT_ROLES",
+      "implementation_status": "CONTENT_HOOK_ONLY",
+      "family": "dialogue",
+      "source_activity_id": "CA06"
+    },
+    {
+      "id": "TASK_PLAN_COMMUNITY_PROJECT",
+      "implementation_status": "CONTENT_HOOK_ONLY",
+      "family": "task",
+      "source_activity_id": "CA06"
+    }
+  ],
+  "notes_ko": "선언형 연결점이며 실행 함수가 아님. M2에 엔진 명령·대화 콘텐츠와 매핑한다.",
+  "$schema": "../schemas/content_hooks.schema.json"
+}

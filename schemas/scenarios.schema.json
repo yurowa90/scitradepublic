@@ -1,0 +1,1089 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "scenarios v0.4 data shape",
+  "description": "Starter data shape, plus semantic checks in tools/validate_data.py. Not a complete game engine command contract.",
+  "type": "object",
+  "required": [
+    "$schema",
+    "configuration_merge_rule",
+    "data_basis",
+    "items",
+    "numeric_values_status",
+    "schema_version",
+    "source_refs"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "configuration_merge_rule": {
+      "type": "object",
+      "required": [
+        "character_system",
+        "employee_ids",
+        "feature_flags",
+        "initialization",
+        "omitted_feature_flags",
+        "precedence",
+        "stage_mapping",
+        "variant_rule"
+      ],
+      "properties": {
+        "character_system": {
+          "type": "string"
+        },
+        "employee_ids": {
+          "type": "string"
+        },
+        "feature_flags": {
+          "type": "string"
+        },
+        "initialization": {
+          "type": "string"
+        },
+        "omitted_feature_flags": {
+          "type": "string"
+        },
+        "precedence": {
+          "type": "string"
+        },
+        "stage_mapping": {
+          "type": "object",
+          "required": [
+            "M1",
+            "M2",
+            "P1"
+          ],
+          "properties": {
+            "M1": {
+              "type": "string"
+            },
+            "M2": {
+              "type": "string"
+            },
+            "P1": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": true
+        },
+        "variant_rule": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "data_basis": {
+      "type": "string"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "securities_enabled",
+          "source_refs",
+          "stage"
+        ],
+        "properties": {
+          "account_owner": {
+            "type": "string"
+          },
+          "actions_ko": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "activity_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "arrival_day": {
+            "type": "integer"
+          },
+          "base_scenario_id": {
+            "type": "string"
+          },
+          "booking_day": {
+            "type": "integer"
+          },
+          "candidate_character_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "cash_payment_due_day": {
+            "type": "integer"
+          },
+          "character_system_enabled": {
+            "type": "boolean"
+          },
+          "city_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "culture_enabled": {
+            "type": "boolean"
+          },
+          "customs_days": {
+            "type": "integer"
+          },
+          "day_start": {
+            "type": "integer"
+          },
+          "delay_source": {
+            "type": "string"
+          },
+          "delivery_deadline_day": {
+            "type": "integer"
+          },
+          "departure_day": {
+            "type": "integer"
+          },
+          "employee_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "enhancement_enabled": {
+            "type": "boolean"
+          },
+          "expected_direct_trade_result": {
+            "type": "object",
+            "required": [
+              "contribution_before_payroll_usd",
+              "duty_usd",
+              "freight_usd",
+              "purchase_usd",
+              "revenue_usd"
+            ],
+            "properties": {
+              "contribution_before_payroll_usd": {
+                "type": "integer"
+              },
+              "duty_usd": {
+                "type": "integer"
+              },
+              "freight_usd": {
+                "type": "integer"
+              },
+              "purchase_usd": {
+                "type": "integer"
+              },
+              "revenue_usd": {
+                "type": "integer"
+              }
+            },
+            "additionalProperties": true
+          },
+          "expected_trade_only_usd": {
+            "type": "object",
+            "required": [
+              "accounts_receivable",
+              "contribution"
+            ],
+            "properties": {
+              "accounts_receivable": {
+                "type": "integer"
+              },
+              "assets_cash_plus_inventory": {
+                "type": "integer"
+              },
+              "cancellation_expense": {
+                "type": "integer"
+              },
+              "cash_after": {
+                "type": "integer"
+              },
+              "cash_after_collection": {
+                "type": "integer"
+              },
+              "cash_before_collection": {
+                "type": "integer"
+              },
+              "contribution": {
+                "type": "integer"
+              },
+              "direct_cost": {
+                "type": "integer"
+              },
+              "inventory_cost": {
+                "type": "integer"
+              },
+              "inventory_units": {
+                "type": "integer"
+              },
+              "net_revenue": {
+                "type": "integer"
+              },
+              "opening_cash": {
+                "type": "integer"
+              },
+              "remaining_inventory_units": {
+                "type": "integer"
+              },
+              "revenue": {
+                "type": "integer"
+              }
+            },
+            "additionalProperties": true
+          },
+          "good_id": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "initial_enhancement_rank": {
+            "type": "integer"
+          },
+          "initial_level": {
+            "type": "integer"
+          },
+          "initial_xp": {
+            "type": "integer"
+          },
+          "ipo_enabled": {
+            "type": "boolean"
+          },
+          "margin_allowed": {
+            "type": "boolean"
+          },
+          "matching_frequency": {
+            "type": "string"
+          },
+          "offer_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "organization_enabled": {
+            "type": "boolean"
+          },
+          "productivity_mode": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "integer"
+          },
+          "relationship_rule": {
+            "type": "string"
+          },
+          "route_id": {
+            "type": "string"
+          },
+          "scope_note": {
+            "type": "string"
+          },
+          "securities_enabled": {
+            "type": "boolean"
+          },
+          "security_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "settlement": {
+            "type": "string"
+          },
+          "source_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "stage": {
+            "type": "string"
+          },
+          "start_with_existing_employment": {
+            "type": "boolean"
+          },
+          "tax_rule": {
+            "type": "object",
+            "required": [
+              "basis",
+              "duty_currency",
+              "rate",
+              "status"
+            ],
+            "properties": {
+              "basis": {
+                "type": "string"
+              },
+              "duty_currency": {
+                "type": "string"
+              },
+              "rate": {
+                "type": "number"
+              },
+              "status": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": true
+          },
+          "growth": {
+            "type": "object",
+            "required": [
+              "enabled"
+            ],
+            "properties": {
+              "enabled": {
+                "type": "boolean"
+              }
+            },
+            "additionalProperties": false
+          },
+          "training_enabled": {
+            "type": "boolean"
+          },
+          "contract_terms": {
+            "type": "object",
+            "description": "M1 엔진이 쓰는 거래 계약 조건. DESIGN 값이며 현실 계약 관행이 아니다.",
+            "required": [
+              "data_basis",
+              "prep_work_units",
+              "booking_cutoff_days_before_departure",
+              "pre_departure_cancellation",
+              "late_delivery",
+              "payment_due_rule"
+            ],
+            "properties": {
+              "data_basis": {
+                "type": "string",
+                "enum": [
+                  "DESIGN"
+                ]
+              },
+              "status": {
+                "type": "string"
+              },
+              "decision_ref": {
+                "type": "string"
+              },
+              "prep_work_units": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "booking_cutoff_days_before_departure": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "pre_departure_cancellation": {
+                "type": "object",
+                "required": [
+                  "freight_refund",
+                  "cancellation_fee",
+                  "customer_compensation",
+                  "supplier_return",
+                  "applies_to_missed_sailing"
+                ],
+                "properties": {
+                  "freight_refund": {
+                    "type": "object",
+                    "required": [
+                      "currency",
+                      "amount"
+                    ],
+                    "properties": {
+                      "currency": {
+                        "type": "string",
+                        "enum": [
+                          "USD",
+                          "KRW"
+                        ]
+                      },
+                      "amount": {
+                        "type": "number",
+                        "minimum": 0
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  "cancellation_fee": {
+                    "type": "object",
+                    "required": [
+                      "currency",
+                      "amount"
+                    ],
+                    "properties": {
+                      "currency": {
+                        "type": "string",
+                        "enum": [
+                          "USD",
+                          "KRW"
+                        ]
+                      },
+                      "amount": {
+                        "type": "number",
+                        "minimum": 0
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  "customer_compensation": {
+                    "type": "object",
+                    "required": [
+                      "currency",
+                      "amount"
+                    ],
+                    "properties": {
+                      "currency": {
+                        "type": "string",
+                        "enum": [
+                          "USD",
+                          "KRW"
+                        ]
+                      },
+                      "amount": {
+                        "type": "number",
+                        "minimum": 0
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  "supplier_return": {
+                    "type": "boolean"
+                  },
+                  "applies_to_missed_sailing": {
+                    "type": "boolean"
+                  }
+                },
+                "additionalProperties": false
+              },
+              "late_delivery": {
+                "type": "object",
+                "required": [
+                  "price_reduction",
+                  "basis"
+                ],
+                "properties": {
+                  "price_reduction": {
+                    "type": "object",
+                    "required": [
+                      "currency",
+                      "amount"
+                    ],
+                    "properties": {
+                      "currency": {
+                        "type": "string",
+                        "enum": [
+                          "USD",
+                          "KRW"
+                        ]
+                      },
+                      "amount": {
+                        "type": "number",
+                        "minimum": 0
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  "basis": {
+                    "type": "string",
+                    "enum": [
+                      "flat_once_regardless_of_late_days",
+                      "per_late_day_capped"
+                    ]
+                  },
+                  "cap_basis_points": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 10000
+                  }
+                },
+                "additionalProperties": false
+              },
+              "payment_due_rule": {
+                "type": "string",
+                "enum": [
+                  "scenario_due_day_not_earlier_than_delivery_day",
+                  "offer_due_day_not_earlier_than_delivery_day"
+                ]
+              },
+              "notes_ko": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "forwarding_prep_work_units": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "forwarding_duty_payer": {
+                "type": "string",
+                "enum": [
+                  "consignee"
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "port_restriction": {
+            "type": "object",
+            "description": "시나리오에 고정된 항만 작업 제한 사건 1개. 하역 불가 기간은 양 끝 포함.",
+            "required": [
+              "data_basis",
+              "event_template_id",
+              "event_instance_id",
+              "city_id",
+              "announce_day",
+              "restriction_start_day",
+              "restriction_end_day",
+              "forecast_equals_actual"
+            ],
+            "properties": {
+              "data_basis": {
+                "type": "string",
+                "enum": [
+                  "DESIGN"
+                ]
+              },
+              "status": {
+                "type": "string"
+              },
+              "event_template_id": {
+                "type": "string"
+              },
+              "event_instance_id": {
+                "type": "string"
+              },
+              "city_id": {
+                "type": "string"
+              },
+              "announce_day": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "restriction_start_day": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "restriction_end_day": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "forecast_equals_actual": {
+                "type": "boolean"
+              },
+              "notes_ko": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          },
+          "title_ko": {
+            "type": "string"
+          },
+          "route_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "starting_cash": {
+            "type": "object",
+            "properties": {
+              "USD": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "KRW": {
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "additionalProperties": false
+          },
+          "engine_rules": {
+            "type": "object",
+            "required": [
+              "rules_version",
+              "funds_check",
+              "forwarding_enabled"
+            ],
+            "properties": {
+              "rules_version": {
+                "type": "string",
+                "enum": [
+                  "M1-rules-1",
+                  "M2a-rules-1",
+                  "M2a-rules-2"
+                ]
+              },
+              "funds_check": {
+                "type": "string",
+                "enum": [
+                  "immediate_cash",
+                  "committed_outlays"
+                ]
+              },
+              "forwarding_enabled": {
+                "type": "boolean"
+              },
+              "note_ko": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          },
+          "expected_paths_usd": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "contribution",
+                "cash_final",
+                "final_day"
+              ],
+              "additionalProperties": true
+            }
+          },
+          "expected_rejections": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "id"
+              ],
+              "additionalProperties": true
+            }
+          },
+          "recruitment": {
+            "type": "object",
+            "required": [
+              "data_basis",
+              "status",
+              "decision_ref",
+              "candidate_employee_ids",
+              "scout_work_units",
+              "quest_work_units",
+              "signing_fee_wage_days",
+              "scout_sites"
+            ],
+            "properties": {
+              "data_basis": {
+                "type": "string",
+                "enum": [
+                  "DESIGN"
+                ]
+              },
+              "status": {
+                "type": "string"
+              },
+              "decision_ref": {
+                "type": "string"
+              },
+              "candidate_employee_ids": {
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": {
+                  "type": "string"
+                }
+              },
+              "scout_work_units": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "quest_work_units": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "signing_fee_wage_days": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "scout_sites": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "venue_id",
+                    "city_id",
+                    "candidate_employee_ids"
+                  ],
+                  "properties": {
+                    "venue_id": {
+                      "type": "string"
+                    },
+                    "city_id": {
+                      "type": "string"
+                    },
+                    "candidate_employee_ids": {
+                      "type": "array",
+                      "minItems": 1,
+                      "uniqueItems": true,
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            },
+            "additionalProperties": false
+          },
+          "culture": {
+            "type": "object",
+            "required": [
+              "data_basis",
+              "status",
+              "decision_ref",
+              "activity_ids"
+            ],
+            "properties": {
+              "data_basis": {
+                "type": "string",
+                "enum": [
+                  "DESIGN"
+                ]
+              },
+              "status": {
+                "type": "string"
+              },
+              "decision_ref": {
+                "type": "string"
+              },
+              "activity_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 1,
+                "uniqueItems": true
+              }
+            },
+            "additionalProperties": false
+          },
+          "operations": {
+            "type": "object",
+            "required": [
+              "market_rules_ref",
+              "prep",
+              "facility",
+              "fixed_costs",
+              "fx_exchange",
+              "space_contract",
+              "payment_default"
+            ],
+            "properties": {
+              "market_rules_ref": {
+                "type": "string"
+              },
+              "prep": {
+                "type": "object",
+                "required": [
+                  "trade_extra_per_lot",
+                  "standard_m3_per_work_unit",
+                  "min_work_units"
+                ],
+                "properties": {
+                  "trade_extra_per_lot": {
+                    "type": "integer"
+                  },
+                  "standard_m3_per_work_unit": {
+                    "type": "integer"
+                  },
+                  "min_work_units": {
+                    "type": "integer"
+                  }
+                },
+                "additionalProperties": false
+              },
+              "facility": {
+                "type": "object",
+                "required": [
+                  "city_id",
+                  "storage_m3",
+                  "handling_work_units_per_day",
+                  "applies_to_task_kinds",
+                  "expansion"
+                ],
+                "properties": {
+                  "city_id": {
+                    "type": "string"
+                  },
+                  "storage_m3": {
+                    "type": "integer"
+                  },
+                  "handling_work_units_per_day": {
+                    "type": "integer"
+                  },
+                  "applies_to_task_kinds": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "expansion": {
+                    "type": "object",
+                    "required": [
+                      "max_count",
+                      "storage_m3",
+                      "handling_work_units_per_day",
+                      "setup_fee",
+                      "rent_increase",
+                      "effective_after_days",
+                      "rent_increase_from"
+                    ],
+                    "properties": {
+                      "max_count": {
+                        "type": "integer"
+                      },
+                      "storage_m3": {
+                        "type": "integer"
+                      },
+                      "handling_work_units_per_day": {
+                        "type": "integer"
+                      },
+                      "setup_fee": {
+                        "type": "object",
+                        "required": [
+                          "currency",
+                          "amount"
+                        ],
+                        "properties": {
+                          "currency": {
+                            "type": "string"
+                          },
+                          "amount": {
+                            "type": "integer"
+                          }
+                        },
+                        "additionalProperties": false
+                      },
+                      "rent_increase": {
+                        "type": "object",
+                        "required": [
+                          "currency",
+                          "amount"
+                        ],
+                        "properties": {
+                          "currency": {
+                            "type": "string"
+                          },
+                          "amount": {
+                            "type": "integer"
+                          }
+                        },
+                        "additionalProperties": false
+                      },
+                      "effective_after_days": {
+                        "type": "integer"
+                      },
+                      "rent_increase_from": {
+                        "type": "string"
+                      }
+                    },
+                    "additionalProperties": false
+                  }
+                },
+                "additionalProperties": false
+              },
+              "fixed_costs": {
+                "type": "object",
+                "required": [
+                  "rent"
+                ],
+                "properties": {
+                  "rent": {
+                    "type": "object",
+                    "required": [
+                      "currency",
+                      "amount",
+                      "period_days",
+                      "first_due_day",
+                      "timing"
+                    ],
+                    "properties": {
+                      "currency": {
+                        "type": "string"
+                      },
+                      "amount": {
+                        "type": "integer"
+                      },
+                      "period_days": {
+                        "type": "integer"
+                      },
+                      "first_due_day": {
+                        "type": "integer"
+                      },
+                      "timing": {
+                        "type": "string"
+                      }
+                    },
+                    "additionalProperties": false
+                  }
+                },
+                "additionalProperties": false
+              },
+              "fx_exchange": {
+                "type": "object",
+                "required": [
+                  "base_rate_ref",
+                  "spread_basis_points",
+                  "lot",
+                  "auto_exchange",
+                  "status"
+                ],
+                "properties": {
+                  "base_rate_ref": {
+                    "type": "string"
+                  },
+                  "spread_basis_points": {
+                    "type": "integer"
+                  },
+                  "lot": {
+                    "type": "object",
+                    "required": [
+                      "currency",
+                      "amount"
+                    ],
+                    "properties": {
+                      "currency": {
+                        "type": "string"
+                      },
+                      "amount": {
+                        "type": "integer"
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  "auto_exchange": {
+                    "type": "boolean"
+                  },
+                  "status": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false
+              },
+              "space_contract": {
+                "type": "object",
+                "required": [
+                  "route_ids",
+                  "extra_m3",
+                  "extra_kg",
+                  "fee_per_sailing",
+                  "lead_days",
+                  "covers",
+                  "reserve_days_ahead",
+                  "cancellable",
+                  "max_per_route",
+                  "charge"
+                ],
+                "properties": {
+                  "route_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "extra_m3": {
+                    "type": "integer"
+                  },
+                  "extra_kg": {
+                    "type": "integer"
+                  },
+                  "fee_per_sailing": {
+                    "type": "object",
+                    "required": [
+                      "currency",
+                      "amount"
+                    ],
+                    "properties": {
+                      "currency": {
+                        "type": "string"
+                      },
+                      "amount": {
+                        "type": "integer"
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  "lead_days": {
+                    "type": "integer"
+                  },
+                  "covers": {
+                    "type": "string"
+                  },
+                  "reserve_days_ahead": {
+                    "type": "integer"
+                  },
+                  "cancellable": {
+                    "type": "boolean"
+                  },
+                  "max_per_route": {
+                    "type": "integer"
+                  },
+                  "charge": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false
+              },
+              "payment_default": {
+                "type": "object",
+                "required": [
+                  "basis",
+                  "warning_from_age_days",
+                  "danger_from_age_days",
+                  "failure_age_days",
+                  "failure_check"
+                ],
+                "properties": {
+                  "basis": {
+                    "type": "string"
+                  },
+                  "warning_from_age_days": {
+                    "type": "integer"
+                  },
+                  "danger_from_age_days": {
+                    "type": "integer"
+                  },
+                  "failure_age_days": {
+                    "type": "integer"
+                  },
+                  "failure_check": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "numeric_values_status": {
+      "type": "string"
+    },
+    "schema_version": {
+      "type": "string"
+    },
+    "source_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": true
+}

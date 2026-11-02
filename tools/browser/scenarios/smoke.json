@@ -1,0 +1,17 @@
+{
+  "schema": "scitrade-browser-scenario/1",
+  "id": "smoke",
+  "title_ko": "첫 화면과 하루 진행 뒤 가로 넘침",
+  "source_ko": "TASK-0012 지시서 584행 브라우저 측정 기준 8(가로 넘침 0)",
+  "profiles": "all",
+  "steps": [
+    { "do": "measure", "name": "overflow_x_day1", "what": "overflow-x" },
+    { "do": "measure", "name": "bar_bottom_day1", "what": "bar-bottom" },
+    { "do": "end-day", "times": 1 },
+    { "do": "measure", "name": "overflow_x_day2", "what": "overflow-x" }
+  ],
+  "expect": [
+    { "value": "overflow_x_day1", "min": 0, "max": 0, "profiles": "all", "source_ko": "기준 8" },
+    { "value": "overflow_x_day2", "min": 0, "max": 0, "profiles": "all", "source_ko": "기준 8" }
+  ]
+}

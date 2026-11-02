@@ -1,0 +1,97 @@
+{
+  "rule_ko": "같은 동료의 design_cautions_ko에 나오는 말이 visual_motif·card_pose_background에 나오면 걸린다. 몸의 부위는 넣지 않는다(1절).",
+  "terms": [
+    {
+      "term": "온천",
+      "reason_ko": "지고쿠다니 관광 도상(EMP19)"
+    },
+    {
+      "term": "수건",
+      "reason_ko": "지고쿠다니 관광 도상(EMP19)"
+    },
+    {
+      "term": "금고",
+      "reason_ko": "재물 도상(EMP18)"
+    },
+    {
+      "term": "동전",
+      "reason_ko": "재물 도상(EMP18)"
+    },
+    {
+      "term": "금괴",
+      "reason_ko": "재물 도상(EMP18)"
+    },
+    {
+      "term": "금화",
+      "reason_ko": "TASK-0084 2절 초기 금지어 목록 결정"
+    },
+    {
+      "term": "王",
+      "reason_ko": "이마 글자 도상(EMP13)"
+    },
+    {
+      "term": "왕관",
+      "reason_ko": "TASK-0084 2절 초기 금지어 목록 결정"
+    },
+    {
+      "term": "국기",
+      "reason_ko": "국가 상징 도상(EMP35)"
+    },
+    {
+      "term": "국장",
+      "reason_ko": "국가 상징 도상(EMP35)"
+    },
+    {
+      "term": "국새",
+      "reason_ko": "TASK-0084 2절 초기 금지어 목록 결정"
+    },
+    {
+      "term": "휘장",
+      "reason_ko": "TASK-0084 2절 초기 금지어 목록 결정"
+    },
+    {
+      "term": "엠블럼",
+      "reason_ko": "TASK-0084 2절 초기 금지어 목록 결정"
+    },
+    {
+      "term": "삼파문",
+      "reason_ko": "TASK-0084 2절 초기 금지어 목록 결정"
+    },
+    {
+      "term": "방패",
+      "reason_ko": "국가 상징 도상(EMP66)"
+    },
+    {
+      "term": "올리브",
+      "reason_ko": "국가 상징 도상(EMP66)"
+    },
+    {
+      "term": "무기",
+      "reason_ko": "무기 도상(EMP10)"
+    },
+    {
+      "term": "갑옷",
+      "reason_ko": "TASK-0084 2절 초기 금지어 목록 결정"
+    },
+    {
+      "term": "사슬",
+      "reason_ko": "TASK-0084 2절 초기 금지어 목록 결정"
+    },
+    {
+      "term": "불길",
+      "reason_ko": "TASK-0084 2절 초기 금지어 목록 결정"
+    },
+    {
+      "term": "신전",
+      "reason_ko": "TASK-0084 2절 초기 금지어 목록 결정"
+    },
+    {
+      "term": "마스코트",
+      "reason_ko": "상업 도상(EMP13·EMP79)"
+    },
+    {
+      "term": "로고",
+      "reason_ko": "상업 도상(EMP15·EMP29·EMP78)"
+    }
+  ]
+}

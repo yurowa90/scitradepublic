@@ -1,0 +1,55 @@
+{
+  "schema_version": "0.3.0",
+  "data_basis": "DESIGN",
+  "source_refs": [
+    "DESIGN-V03"
+  ],
+  "config": {
+    "campaign_id": "CAMPAIGN_DEMO_90",
+    "seed": 42032026,
+    "days": 90,
+    "day_unit": "simulation_day",
+    "reporting_currency": "KRW",
+    "trade_currency": "USD",
+    "enabled_stage": "P0",
+    "settlement_rule": "per_contract",
+    "starting_cash": {
+      "KRW": 10000000,
+      "USD": 10000
+    },
+    "fx_krw_per_usd": 1300,
+    "fx_status": "DESIGN_constant_fixture_not_market_quote",
+    "active_company_id": "PLAYER_COMPANY",
+    "home_city_id": "PYEONGTAEK",
+    "active_venue_ids": [
+      "VEN_TRADE",
+      "VEN_PORT",
+      "VEN_LOUNGE",
+      "VEN_CULTURE",
+      "VEN_FINANCE"
+    ],
+    "starter_employee_ids": [
+      "EMP01",
+      "EMP02"
+    ],
+    "opening_data": "fixtures only; no live APIs",
+    "max_campaign_events_target": 3,
+    "securities_enabled": false,
+    "ipo_enabled": false,
+    "character_system_enabled": false,
+    "training_enabled": false,
+    "enhancement_enabled": false,
+    "organization_enabled": false,
+    "productivity_mode": "LEGACY_FIXED"
+  },
+  "unresolved_before_realism_claim": [
+    "HS6 mappings and editions",
+    "country tariff rules and tax base",
+    "route schedules and prices",
+    "daily FX observations",
+    "quality inspection thresholds",
+    "employee productivity and wage calibration",
+    "latest curriculum amendment comparison"
+  ],
+  "$schema": "../schemas/game_config.schema.json"
+}

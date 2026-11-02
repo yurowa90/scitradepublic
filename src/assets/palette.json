@@ -1,0 +1,258 @@
+{
+  "schema": "scitrade-palette/1",
+  "id": "scitrade-32",
+  "status": "DRAFT_2026-10-05",
+  "note_ko": "픽셀아트 공용 팔레트 초안. 8개 색 줄기 × 4단계(1 어두움 → 4 밝음). 그림 일괄 제작을 시작할 때 사람이 확정한다. 규격은 docs/art/PIXEL_SPEC.md 3절.",
+  "transparent": "알파 0 픽셀. 팔레트 색으로 세지 않는다.",
+  "ramps": [
+    {
+      "id": "ink",
+      "name_ko": "잉크·남색",
+      "use_ko": "외곽선, 어두운 그림자, 글자 주변"
+    },
+    {
+      "id": "sea",
+      "name_ko": "바다",
+      "use_ko": "깊은 바다~얕은 바다, 물 속성"
+    },
+    {
+      "id": "teal",
+      "name_ko": "청록",
+      "use_ko": "얕은 바다 가장자리, 민트 화면색, 바람 속성"
+    },
+    {
+      "id": "green",
+      "name_ko": "초록",
+      "use_ko": "숲·저지대·식물"
+    },
+    {
+      "id": "earth",
+      "name_ko": "흙·모래",
+      "use_ko": "건조지·해안·털·나무, 금색 장식"
+    },
+    {
+      "id": "warm",
+      "name_ko": "빨강·주황",
+      "use_ko": "불 속성, 레서판다·여우 털, 경고"
+    },
+    {
+      "id": "violet",
+      "name_ko": "분홍·보라",
+      "use_ko": "파스텔 무지갯빛 강조, 빛·그림자 속성"
+    },
+    {
+      "id": "light",
+      "name_ko": "밝은 중성색",
+      "use_ko": "산지 회색, 눈·얼음, 크림 바탕·흰 강조(가장 밝은 색은 화면 바탕색 크림)"
+    }
+  ],
+  "colors": [
+    {
+      "id": "ink-1",
+      "hex": "#141b2e",
+      "ramp": "ink",
+      "step": 1
+    },
+    {
+      "id": "ink-2",
+      "hex": "#1f2a44",
+      "ramp": "ink",
+      "step": 2
+    },
+    {
+      "id": "ink-3",
+      "hex": "#3a4766",
+      "ramp": "ink",
+      "step": 3
+    },
+    {
+      "id": "ink-4",
+      "hex": "#5d6b8c",
+      "ramp": "ink",
+      "step": 4
+    },
+    {
+      "id": "sea-1",
+      "hex": "#16365c",
+      "ramp": "sea",
+      "step": 1
+    },
+    {
+      "id": "sea-2",
+      "hex": "#22578a",
+      "ramp": "sea",
+      "step": 2
+    },
+    {
+      "id": "sea-3",
+      "hex": "#3a7fb5",
+      "ramp": "sea",
+      "step": 3
+    },
+    {
+      "id": "sea-4",
+      "hex": "#6fb0d8",
+      "ramp": "sea",
+      "step": 4
+    },
+    {
+      "id": "teal-1",
+      "hex": "#1e5c58",
+      "ramp": "teal",
+      "step": 1
+    },
+    {
+      "id": "teal-2",
+      "hex": "#2f8a7a",
+      "ramp": "teal",
+      "step": 2
+    },
+    {
+      "id": "teal-3",
+      "hex": "#5cbfa3",
+      "ramp": "teal",
+      "step": 3
+    },
+    {
+      "id": "teal-4",
+      "hex": "#a8e6cf",
+      "ramp": "teal",
+      "step": 4
+    },
+    {
+      "id": "green-1",
+      "hex": "#2b4a2a",
+      "ramp": "green",
+      "step": 1
+    },
+    {
+      "id": "green-2",
+      "hex": "#3f6e35",
+      "ramp": "green",
+      "step": 2
+    },
+    {
+      "id": "green-3",
+      "hex": "#6a9a43",
+      "ramp": "green",
+      "step": 3
+    },
+    {
+      "id": "green-4",
+      "hex": "#a9c76a",
+      "ramp": "green",
+      "step": 4
+    },
+    {
+      "id": "earth-1",
+      "hex": "#5a3b2a",
+      "ramp": "earth",
+      "step": 1
+    },
+    {
+      "id": "earth-2",
+      "hex": "#8a5c3a",
+      "ramp": "earth",
+      "step": 2
+    },
+    {
+      "id": "earth-3",
+      "hex": "#c9a24a",
+      "ramp": "earth",
+      "step": 3
+    },
+    {
+      "id": "earth-4",
+      "hex": "#ead2a0",
+      "ramp": "earth",
+      "step": 4
+    },
+    {
+      "id": "warm-1",
+      "hex": "#6e2a2a",
+      "ramp": "warm",
+      "step": 1
+    },
+    {
+      "id": "warm-2",
+      "hex": "#b5532a",
+      "ramp": "warm",
+      "step": 2
+    },
+    {
+      "id": "warm-3",
+      "hex": "#e0874a",
+      "ramp": "warm",
+      "step": 3
+    },
+    {
+      "id": "warm-4",
+      "hex": "#f6c08a",
+      "ramp": "warm",
+      "step": 4
+    },
+    {
+      "id": "violet-1",
+      "hex": "#4b3366",
+      "ramp": "violet",
+      "step": 1
+    },
+    {
+      "id": "violet-2",
+      "hex": "#7c5a9e",
+      "ramp": "violet",
+      "step": 2
+    },
+    {
+      "id": "violet-3",
+      "hex": "#c58fc7",
+      "ramp": "violet",
+      "step": 3
+    },
+    {
+      "id": "violet-4",
+      "hex": "#f4c6dc",
+      "ramp": "violet",
+      "step": 4
+    },
+    {
+      "id": "light-1",
+      "hex": "#8e8a99",
+      "ramp": "light",
+      "step": 1
+    },
+    {
+      "id": "light-2",
+      "hex": "#b8b3c2",
+      "ramp": "light",
+      "step": 2
+    },
+    {
+      "id": "light-3",
+      "hex": "#ddd7dc",
+      "ramp": "light",
+      "step": 3
+    },
+    {
+      "id": "light-4",
+      "hex": "#fbf6ec",
+      "ramp": "light",
+      "step": 4
+    }
+  ],
+  "ui_tokens_included": {
+    "--cream": "light-4",
+    "--navy": "ink-2",
+    "--warn": "warm-2",
+    "--gold": "earth-3"
+  },
+  "accents": [
+    {
+      "id": "accent-vermilion",
+      "hex": "#cf3b2e",
+      "name_ko": "주홍(강조)",
+      "use_ko": "봉황·해치 장식, 단청 주홍, 경고 소품. 외곽선 ink-1 대비 3.52:1",
+      "added": "2026-11-01 DECISIONS 화면 미술 방향 13항"
+    }
+  ]
+}

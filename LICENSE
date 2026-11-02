@@ -1,0 +1,15 @@
+Copyright (c) 2026 Scitrade project. All rights reserved.
+
+이 저장소의 코드·자료·그림·문서에 대한 공개 라이선스는 아직 정하지 않았습니다.
+라이선스가 정해질 때까지는 열람만 허용하며, 복제·수정·재배포·상업적 이용에는
+저작권자의 사전 허락이 필요합니다.
+
+The public license for this repository has not been decided yet. Until it is,
+viewing is permitted, but copying, modification, redistribution or commercial use
+requires prior permission from the copyright holder.
+
+Third-party components keep their own licenses:
+- Fonts in public/fonts/ : SIL Open Font License 1.1 (see the license files in each folder)
+- Natural Earth data : public domain
+- World Bank World Development Indicators : CC BY 4.0
+- NASA Black Marble imagery : NASA, credit required

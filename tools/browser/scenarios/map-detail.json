@@ -1,0 +1,269 @@
+{
+  "schema": "scitrade-browser-scenario/1",
+  "id": "map-detail",
+  "title_ko": "지도 상세: 고르기 목록과 지도 아래 상세 칸",
+  "source_ko": "TASK-0035(D14 가′)",
+  "profiles": "all",
+  "steps": [
+    {
+      "do": "scroll-to",
+      "selector": "#map-pick",
+      "offset_from_bar": 120
+    },
+    {
+      "do": "measure",
+      "name": "pick_h",
+      "what": "height",
+      "selector": "#map-pick"
+    },
+    {
+      "do": "select",
+      "selector": "#map-pick",
+      "index": 1
+    },
+    {
+      "do": "wait",
+      "ms": 350
+    },
+    {
+      "do": "measure",
+      "name": "detail_head_from_bar",
+      "what": "top-from-bar",
+      "selector": "#map-detail-h"
+    },
+    {
+      "do": "measure",
+      "name": "close_from_bar",
+      "what": "top-from-bar",
+      "selector": "#map-detail [data-action=\"map-close\"]"
+    },
+    {
+      "do": "measure",
+      "name": "close_h",
+      "what": "height",
+      "selector": "#map-detail [data-action=\"map-close\"]"
+    },
+    {
+      "do": "measure",
+      "name": "overflow_x",
+      "what": "overflow-x"
+    },
+    {
+      "do": "tap",
+      "selector": "[data-action=\"map-mode\"][data-mode=\"world\"]"
+    },
+    {
+      "do": "scroll-to",
+      "selector": "#map-pick",
+      "offset_from_bar": 120
+    },
+    {
+      "do": "select",
+      "selector": "#map-pick",
+      "index": 20
+    },
+    {
+      "do": "wait",
+      "ms": 350
+    },
+    {
+      "do": "measure",
+      "name": "world_head_from_bar",
+      "what": "top-from-bar",
+      "selector": "#map-detail-h"
+    },
+    {
+      "do": "measure",
+      "name": "world_close_from_bar",
+      "what": "top-from-bar",
+      "selector": "#map-detail [data-action=\"map-close\"]"
+    },
+    {
+      "do": "measure",
+      "name": "world_overflow_x",
+      "what": "overflow-x"
+    }
+  ],
+  "expect": [
+    {
+      "value": "pick_h",
+      "min": 44,
+      "max": 60,
+      "profiles": [
+        "cb1366t",
+        "ipadAirL",
+        "ipadminiL",
+        "ipadmini6L",
+        "t1000"
+      ],
+      "source_ko": "TASK-0035(터치 프로필 목록 높이 44px 이상)"
+    },
+    {
+      "value": "close_h",
+      "min": 44,
+      "max": 60,
+      "profiles": [
+        "cb1366t",
+        "ipadAirL",
+        "ipadminiL",
+        "ipadmini6L",
+        "t1000"
+      ],
+      "source_ko": "TASK-0035(터치 프로필 닫기 단추 44px 이상)"
+    },
+    {
+      "value": "detail_head_from_bar",
+      "min": 7,
+      "max": 900,
+      "profiles": "all",
+      "source_ko": "TASK-0035(상세 제목이 막대 아래)"
+    },
+    {
+      "value": "world_head_from_bar",
+      "min": 7,
+      "max": 900,
+      "profiles": "all",
+      "source_ko": "TASK-0035(상세 제목이 막대 아래)"
+    },
+    {
+      "value": "close_from_bar",
+      "min": 0,
+      "max": 468.4,
+      "profiles": [
+        "l1366"
+      ],
+      "source_ko": "TASK-0035(닫기 단추가 72px 알림 자리 위)"
+    },
+    {
+      "value": "close_from_bar",
+      "min": 0,
+      "max": 455,
+      "profiles": [
+        "cb1366t"
+      ],
+      "source_ko": "TASK-0035(닫기 단추가 72px 알림 자리 위)"
+    },
+    {
+      "value": "close_from_bar",
+      "min": 0,
+      "max": 617.5,
+      "profiles": [
+        "ipadAirL"
+      ],
+      "source_ko": "TASK-0035(닫기 단추가 72px 알림 자리 위)"
+    },
+    {
+      "value": "close_from_bar",
+      "min": 0,
+      "max": 565.5,
+      "profiles": [
+        "ipadminiL"
+      ],
+      "source_ko": "TASK-0035(닫기 단추가 72px 알림 자리 위)"
+    },
+    {
+      "value": "close_from_bar",
+      "min": 0,
+      "max": 541.5,
+      "profiles": [
+        "ipadmini6L"
+      ],
+      "source_ko": "TASK-0035(닫기 단추가 72px 알림 자리 위)"
+    },
+    {
+      "value": "close_from_bar",
+      "min": 0,
+      "max": 780.4,
+      "profiles": [
+        "l1920"
+      ],
+      "source_ko": "TASK-0035(닫기 단추가 72px 알림 자리 위)"
+    },
+    {
+      "value": "close_from_bar",
+      "min": 0,
+      "max": 497.5,
+      "profiles": [
+        "t1000"
+      ],
+      "source_ko": "TASK-0035(닫기 단추가 72px 알림 자리 위)"
+    },
+    {
+      "value": "world_close_from_bar",
+      "min": 0,
+      "max": 468.4,
+      "profiles": [
+        "l1366"
+      ],
+      "source_ko": "TASK-0035(닫기 단추가 72px 알림 자리 위)"
+    },
+    {
+      "value": "world_close_from_bar",
+      "min": 0,
+      "max": 455,
+      "profiles": [
+        "cb1366t"
+      ],
+      "source_ko": "TASK-0035(닫기 단추가 72px 알림 자리 위)"
+    },
+    {
+      "value": "world_close_from_bar",
+      "min": 0,
+      "max": 617.5,
+      "profiles": [
+        "ipadAirL"
+      ],
+      "source_ko": "TASK-0035(닫기 단추가 72px 알림 자리 위)"
+    },
+    {
+      "value": "world_close_from_bar",
+      "min": 0,
+      "max": 565.5,
+      "profiles": [
+        "ipadminiL"
+      ],
+      "source_ko": "TASK-0035(닫기 단추가 72px 알림 자리 위)"
+    },
+    {
+      "value": "world_close_from_bar",
+      "min": 0,
+      "max": 541.5,
+      "profiles": [
+        "ipadmini6L"
+      ],
+      "source_ko": "TASK-0035(닫기 단추가 72px 알림 자리 위)"
+    },
+    {
+      "value": "world_close_from_bar",
+      "min": 0,
+      "max": 780.4,
+      "profiles": [
+        "l1920"
+      ],
+      "source_ko": "TASK-0035(닫기 단추가 72px 알림 자리 위)"
+    },
+    {
+      "value": "world_close_from_bar",
+      "min": 0,
+      "max": 497.5,
+      "profiles": [
+        "t1000"
+      ],
+      "source_ko": "TASK-0035(닫기 단추가 72px 알림 자리 위)"
+    },
+    {
+      "value": "overflow_x",
+      "min": 0,
+      "max": 0,
+      "profiles": "all",
+      "source_ko": "TASK-0035(가로 넘침 0)"
+    },
+    {
+      "value": "world_overflow_x",
+      "min": 0,
+      "max": 0,
+      "profiles": "all",
+      "source_ko": "TASK-0035(가로 넘침 0)"
+    }
+  ]
+}
