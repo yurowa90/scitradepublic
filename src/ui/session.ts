@@ -5,6 +5,7 @@ import { commitDay, openDay } from '../engine/engine';
 import { deserializeSave, SaveError } from '../engine/save';
 import type { Command, CommitPlan, GameState, ScenarioConfig } from '../engine/types';
 import type { CrewFilter } from './recruitment';
+import { displayKo } from './html';
 
 export type UiCommand = Command | Extract<import('../engine/types').OperationsCommand, { type: 'EXCHANGE_CURRENCY' | 'EXPAND_WAREHOUSE' | 'SIGN_SPACE_CONTRACT' }>;
 
@@ -75,5 +76,6 @@ export function nextAnnouncement(input: {
 
 /** 같은 글을 다시 알릴 때도 내용이 바뀌게 끝에 줄바꿈 없는 공백을 붙였다 뗀다. */
 export function liveRegionText(current: string, next: string): string {
+  next = displayKo(next);
   return current === next ? next + '\u00a0' : next;
 }

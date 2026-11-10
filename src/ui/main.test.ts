@@ -429,7 +429,7 @@ describe('B 실제 성장 화면 연결',()=>{
     ui.click({action:'train',emp:'EMP01'});
     for(const progress of [0,1]) {
       const detail=employeeSection(ui.app.innerHTML);
-      expect(detail).toContain(`◆ 교육 중 ${progress}/3일`);
+      expect(detail).toContain(`◆ 훈련 중 ${progress}/3일`);
       expect(detail.match(new RegExp(`${progress}/3일`, 'g'))).toHaveLength(1);
       expect(detail).not.toContain('class="reason"');
       if(progress===0) {
@@ -477,7 +477,7 @@ describe('B 실제 성장 화면 연결',()=>{
     expect(detail).not.toContain('반영됨');
     expect(detail).toContain('훈련에 쓸 수 있는 원화: 지금 10,000,000원 → 훈련 뒤 9,950,000원');
     expect(detail).toContain('지금 62일까지 → 훈련하면 62일까지');
-    expect(detail).toContain('<p class="reason">귀솔은(는) 다른 업무(항만 물류단지 현장 조사)를 진행 중입니다. 한 사람은 한 번에 업무 하나만 맡습니다.</p>');
+    expect(detail).toContain('<p class="reason">귀솔은 다른 업무(항만 물류단지 현장 조사)를 진행 중입니다. 한 사람은 한 번에 업무 하나만 맡습니다.</p>');
     expect(detail.match(/<button[^>]*data-action="train"[^>]*>/)![0]).toContain('disabled');
   });
 
@@ -545,13 +545,13 @@ describe('B 실제 성장 화면 연결',()=>{
     ui.focus.mockClear();ui.focusIds.length=0;
     ui.focusTrain('EMP01');ui.click({action:'train',emp:'EMP01'});
     expect(ui.focus).toHaveBeenCalledOnce();expect(ui.focusIds).toEqual(['growth-h-EMP01']);
-    expect(ui.app.innerHTML).toContain('◆ 교육 중 0/1일');
+    expect(ui.app.innerHTML).toContain('◆ 훈련 중 0/1일');
     expect(ui.app.innerHTML).not.toContain('data-action="train"');
     expect(ui.app.innerHTML).toContain('id="status-train-EMP01" tabindex="-1">일반 훈련 예정');
     expect(ui.closestSelectors).toContain('.employee-detail, .recruit-site, .recruit-candidate');
     const detail=ui.app.innerHTML.split('<section class="employee-detail"')[1]!.split('</section>')[0]!;
     expect(detail).not.toContain('훈련 뒤');expect(detail).not.toContain('훈련하면');
-    expect(detail).toContain('◆ 교육 중 0/1일 — 훈련비 50,000원 반영됨. 완료하면 +60 경험치');
+    expect(detail).toContain('◆ 훈련 중 0/1일 — 훈련비 50,000원 반영됨. 완료하면 +60 경험치');
     ui.doc.activeElement=null;ui.click({action:'end-day'});
     const status=()=>growthNotice(ui.app.innerHTML)?.[2];
     expect(status()).toBe('<h3 class="small">1일 하루 진행 — 경험치·레벨 변화</h3><p>귀솔 +60 경험치</p><p>귀솔 레벨 2 달성 (교섭 +2, 협업 +1)</p>');
@@ -610,20 +610,20 @@ describe('B 실제 성장 화면 연결',()=>{
     const ui=await startUi(); await (await import('./main-testkit')).screensReady();await ui.importText(serializeSave(p));
     ui.click({action:'select-card',emp:'EMP01'});ui.click({action:'detail',emp:'EMP01'});ui.click({action:'train',emp:'EMP01'});
     const html=ui.app.innerHTML;
-    expect(html.match(/<ul class="crew-time">([\s\S]*?)<\/ul>/)![1]).toContain('◆ 교육 중 0/1일');
-    expect(selectOptions(html,'OFFER_BUY_02+OFFER_SELL_02')).toContain('◆ 교육 중 0/1일');
+    expect(html.match(/<ul class="crew-time">([\s\S]*?)<\/ul>/)![1]).toContain('◆ 훈련 중 0/1일');
+    expect(selectOptions(html,'OFFER_BUY_02+OFFER_SELL_02')).toContain('◆ 훈련 중 0/1일');
     ui.click({action:'accept',buy:'OFFER_BUY_02',sell:'OFFER_SELL_02'});
-    expect(ui.app.innerHTML.match(/<button[^>]*data-action="assign"[^>]*data-emp="EMP01"[\s\S]*?<\/button>/)![0]).toContain('◆ 교육 중 0/1일');
+    expect(ui.app.innerHTML.match(/<button[^>]*data-action="assign"[^>]*data-emp="EMP01"[\s\S]*?<\/button>/)![0]).toContain('◆ 훈련 중 0/1일');
     ui.click({action:'unqueue',index:'0'});
     expect(ui.app.innerHTML.match(/<button[^>]*data-action="train"[^>]*>/)![0]).not.toContain('disabled');
   });
   it('M1 전체 화면에는 훈련·경험치가 없다',async()=>{
     const ui=await startUi(); await (await import('./main-testkit')).screensReady();await ui.change({action:'scenario'},'SCENARIO_M1_ONE_TRADE');ui.click({action:'select-card',emp:'EMP01'});
     expect(ui.app.innerHTML).not.toContain('data-action="train"');expect(ui.app.innerHTML).not.toContain('경험치');
-    expect(ui.app.innerHTML).toContain('레벨 1 · 강화 +0');
+    expect(ui.app.innerHTML).toContain('레벨 1');
     expect(ui.app.innerHTML).toContain('aria-label="귀솔 직원 카드, 영업, 레벨 1, 대기 — 배정 가능"');
     expect(ui.app.innerHTML).not.toContain('주능력');
-    expect(ui.app.innerHTML).toContain('업무·교육 중');
+    expect(ui.app.innerHTML).toContain('업무·훈련 중');
     expect(crewNote(ui.app.innerHTML)).toBe('처리량은 고정값(하루 2pt)만 씁니다. 능력·속성·레벨·시너지는 이 시나리오에서 쓰지 않습니다. 일급 80,000원.');
     const table=ui.app.innerHTML.split('<caption>운영 장부 · KRW</caption>')[1]!.split('</table>')[0]!;
     expect([...table.matchAll(/<th>(.*?)<\/th>/g)].map((m)=>m[1])).toEqual(['시작 운영 자금','급여','운영 손익','미지급 급여','현금']);
@@ -922,7 +922,7 @@ describe('TASK-0012 문화 활동 실제 화면 연결',()=>{
     expect(ui.doc.activeElement.id).toBe('status-culture-CA01-EMP01');
     expect(ui.app.innerHTML).toContain('id="status-culture-CA01-EMP01"');
     ui.click({action:'culture-emp',emp:'EMP02'});
-    expect(ui.app.innerHTML).toContain('같은 활동에 오늘 이미 귀솔이(가) 갑니다.');
+    expect(ui.app.innerHTML).toContain('같은 활동에 오늘 이미 귀솔이 갑니다.');
     expect(ui.rendered({action:'culture-queue'}).disabled).toBe(true);
     ui.click({action:'culture-emp',emp:'EMP01'});
     expect(local(ui.app.innerHTML)).not.toContain('를 진행 중입니다.');
@@ -1380,8 +1380,8 @@ describe('TASK-0018 키보드·입력 안전·알림·문구',()=>{
     for(let day=0;day<10&&!ui.app.innerHTML.includes('data-action="keep"');day++)ui.click({action:'end-day'});
     expect(ui.app.innerHTML).toContain('data-action="keep"');clean();
   });
-  it('빌드 표시는 머리 문구에 있고 고정 막대에는 없다',async()=>{
-    const ui=await startUi(); await (await import('./main-testkit')).screensReady();const header=/<span class="sub">시제품 · 모든 숫자는 가상값 · 빌드 (dev|[0-9a-f]{7}(\+수정)?)<\/span>/;
+  it('빌드 표시는 정보 접기 안에 있고 고정 막대에는 없다',async()=>{
+    const ui=await startUi(); await (await import('./main-testkit')).screensReady();const header=/<details class="build-info"><summary>정보<\/summary><p>빌드 (dev|[0-9a-f]{7}(\+수정)?)<\/p><\/details>/;
     expect(ui.app.innerHTML).toMatch(header);
     ui.change({action:'scenario'},'SCENARIO_M1_ONE_TRADE');expect(ui.app.innerHTML).toMatch(header);
     expect(ui.app.innerHTML.split('<div class="statusbar"')[1]!.split('</header>')[0]).not.toContain('빌드');
@@ -1910,7 +1910,7 @@ describe('TASK-0023 경영 보고·일정·결산·필터', () => {
     let report = panel(ui.app.innerHTML, 'report');
     expect(report.split('<ul class="due-list">')[1]!.split('</ul>')[0]).toBe(
       `<li><span>${freight!.day}일까지</span>${linkHtml(freight!.contractId!)} 운송편 예약 때 운임 선지급 <b>${formatMoney(freight!.currency, -freight!.amountMinor)}</b></li>`
-      + `<li><span>날짜 미정</span>${linkHtml(duty!.contractId!)} 도착 때 수입 관세 <b>${formatMoney(duty!.currency, -duty!.amountMinor)}</b></li>`);
+      + `<li><span>날짜 미정</span>${linkHtml(duty!.contractId!)} 도착 때 수입 관세 (회사 부담 · DDP 유사 단순화) <b>${formatMoney(duty!.currency, -duty!.amountMinor)}</b></li>`);
     expect(report).toContain('</table><p class="muted small">통화가 달라 USD와 KRW를 더하지 않습니다.</p>');
     // 끝난 표는 밀린 지급 한 줄이고 오늘 할 일은 종료 안내를 쓴다.
     await ui.importText(serializeSave(runToCampaignEnd(initial(), config, { 1: acceptAllFeasible(initial(), config) }).state));

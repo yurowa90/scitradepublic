@@ -231,7 +231,7 @@ describe('창고 막힘·빈 견적·정리', () => {
       .replace('id="market-scroll" tabindex="0" ', '')
       .replace('title="확정 기준" aria-describedby="payment-description"', 'title="대기 중인 명령 반영" aria-describedby="payment-description"')
       .replace('id="payment-description" class="visually-hidden">확정 기준</small>', 'id="payment-description" class="visually-hidden">대기 중인 명령 반영</small>');
-    expect(await sha256(html)).toBe('60fd0707fde9953b9201e4c71a243d01f4e7e7a6267b58cf60064b90a36a516d');
+    expect(await sha256(html)).toBe('4da1ef24aa7310a0d524e95d94a70087cbc937d0819a1e2422c9707c927b5288');
   });
 
   it('초기 환전 상태와 다섯 번째 선택 인자는 기존 네 인자 화면과 같다', () => {

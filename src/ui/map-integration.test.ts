@@ -28,7 +28,10 @@ async function start(outsideRegion = false) {
   };
   vi.stubGlobal('window', { innerHeight: 800, scrollX: 0, scrollY: 0, scrollBy: () => undefined, scrollTo: () => undefined, addEventListener: () => undefined, requestAnimationFrame: () => 0, matchMedia: () => ({ matches: false, addEventListener: () => undefined }) });
   vi.stubGlobal('document',{querySelector:()=>app,activeElement:null,addEventListener:()=>undefined,body:{insertAdjacentHTML:()=>undefined},getElementById:(id:string)=>id==='live-status' ? {textContent:''} : null,documentElement:{style:{setProperty:()=>undefined}}});
-  await import('./main');
+  const main = await import('./main');
+  await main.initialScreenReady;
+  // 지도 회귀 시험은 기존 복수 거래의 항로를 명시해서 연다.
+  await listeners.change!({target:{dataset:{action:'scenario'},value:'SCENARIO_M2_MULTI_TRADE'}});
   const click = (dataset: Record<string,string>) => listeners.click!({target:{closest:()=>({dataset,closest:()=>null})}});
   return {app, frame:()=>frame!, click,
     importText: async (text: string) => {

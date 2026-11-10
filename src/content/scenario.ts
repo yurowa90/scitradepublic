@@ -46,15 +46,15 @@ export const OPERATIONS_SCENARIO_IDS = ['SCENARIO_M2_OPERATIONS'] as const;
 export const EXPERIMENT_SCENARIO_IDS = ['SCENARIO_M2_OPS_COSMETICS', 'SCENARIO_M2_OPS_COS_LAVER'] as const;
 export const ALL_SCENARIO_IDS = [...SCENARIO_IDS, ...OPERATIONS_SCENARIO_IDS] as const;
 export const LOADABLE_SCENARIO_IDS = [...ALL_SCENARIO_IDS, 'SCENARIO_M2_OPS_CREDIT', 'SCENARIO_M2_OPS_LADDER'] as const;
-export const SELECTABLE_SCENARIO_IDS = LOADABLE_SCENARIO_IDS.filter((id) => id !== 'SCENARIO_M2_OPS_LADDER');
+export const SELECTABLE_SCENARIO_IDS = [...LOADABLE_SCENARIO_IDS.filter((id) => id !== 'SCENARIO_M2_OPS_LADDER' && id !== 'SCENARIO_M2_MULTI_TRADE'), 'SCENARIO_M2_MULTI_TRADE'] as const;
 export type AnyScenarioId = (typeof ALL_SCENARIO_IDS)[number];
 export type M1ScenarioId = (typeof M1_SCENARIO_IDS)[number];
 export type ScenarioId = (typeof SCENARIO_IDS)[number];
 
 const TITLES: Record<M1ScenarioId, string> = {
-  SCENARIO_M1_ONE_TRADE: 'M1 거래 한 건 — 정상',
-  SCENARIO_M1_CANCEL_PREDEPARTURE: 'M1 거래 한 건 — 출항 전 취소 사례',
-  SCENARIO_M1_DELAY_ACCEPTED: 'M1 거래 한 건 — 항만 지연 사례',
+  SCENARIO_M1_ONE_TRADE: '1장 · 첫 거래',
+  SCENARIO_M1_CANCEL_PREDEPARTURE: '1장 · 출항 전에 취소하면',
+  SCENARIO_M1_DELAY_ACCEPTED: '1장 · 항만이 막히면',
 };
 
 type AnyRecord = Record<string, unknown>;
@@ -143,7 +143,10 @@ function resolveScenarioRecord(id: string): AnyRecord {
   return { ...resolveScenarioRecord(baseId), ...record };
 }
 
-export function scenarioTitle(id: string): string { return String(resolveScenarioRecord(id).title_ko ?? TITLES[id as M1ScenarioId] ?? id); }
+export function scenarioTitle(id: string): string {
+  const title = TITLES[id as M1ScenarioId] ?? String(resolveScenarioRecord(id).title_ko ?? id);
+  return id === 'SCENARIO_M2_MULTI_TRADE' ? `${title} (옛 판)` : title;
+}
 export function isOperationsScenario(id: string): boolean { return !!resolveScenarioRecord(id).operations; }
 
 function toOffer(id: string): OfferDef {
@@ -390,7 +393,7 @@ export function loadScenario(id: (typeof LOADABLE_SCENARIO_IDS)[number] | (typeo
 
   const config: ScenarioConfig = {
     id,
-    titleKo: (s.title_ko as string | undefined) ?? TITLES[id as M1ScenarioId] ?? id,
+    titleKo: scenarioTitle(id),
     stage: str(s, 'stage'),
     baseScenarioId: (s.base_scenario_id as string | undefined) ?? null,
     rules,

@@ -116,7 +116,7 @@ describe('지급 경고와 위험', () => {
     expect(r.lotsToSurvive).toBe(0);
     expect(html).toContain('오늘 마감에는 실패하지 않습니다');
     expect(html).not.toContain('최소 USD');
-    expect(html).toContain(`밀린 원화를 모두 갚으려면 USD ${money('USD', r.lotsToClearAll! * cfg.operations!.fx.lotUsdMinor)}`);
+    expect(html).toContain(`밀린 원화를 모두 갚으려면 ${money('USD', r.lotsToClearAll! * cfg.operations!.fx.lotUsdMinor)}`);
     expect(html).toContain(money('USD', r.usdAvailableLots * cfg.operations!.fx.lotUsdMinor));
     expect(html).toContain(r.heldSpendingKo!);
     expect(html).toContain('실제로는 임금을 정한 날 지급해야 하며 하루 늦어도 체불입니다');
@@ -129,7 +129,7 @@ describe('지급 경고와 위험', () => {
     expect(paymentAlert(idle.danger, cfg)).toContain('지급 위험');
     const r = paymentDefaultStatus(idle.beforeFailure, cfg).recovery;
     expect(r.lotsToSurvive).toBeGreaterThan(0);
-    expect(paymentAlert(idle.beforeFailure, cfg)).toContain(`오늘 마감에 실패하지 않으려면 최소 USD ${money('USD', r.lotsToSurvive! * cfg.operations!.fx.lotUsdMinor)}`);
+    expect(paymentAlert(idle.beforeFailure, cfg)).toContain(`오늘 마감에 실패하지 않으려면 최소 ${money('USD', r.lotsToSurvive! * cfg.operations!.fx.lotUsdMinor)}`);
     expect(paymentAlert(idle.beforeFailure, cfg)).not.toContain('오늘 마감에는 실패하지 않습니다');
   });
   it('USD 미지급은 환전 묶음 대신 다음 수금과 필요한 원화를 보여 준다', async () => {
@@ -167,11 +167,11 @@ describe('경영 실패 기록과 끝 흐름', () => {
     const f = idle.failed.operations!.failure!, html = failureBlock(idle.failed, cfg);
     expect(idle.failed.day).toBe(f.day + 1);
     expect(html).toContain(`<h3 id="failure-h" tabindex="-1">${f.day}일 경영 실패</h3>`);
-    expect(html).toContain(`${f.incurredDay}일 ${esc(f.reasonKo)} ${money(f.currency, f.amountMinor)}를 ${cfg.operations!.paymentDefault.failureAgeDays}일 동안 갚지 못했습니다`);
+    expect(html).toContain(`${f.incurredDay}일 ${esc(f.reasonKo)} ${money(f.currency, f.amountMinor)}${f.currency === 'KRW' ? '을' : '를'} ${cfg.operations!.paymentDefault.failureAgeDays}일 동안 갚지 못했습니다`);
     const lines = [...html.matchAll(/<li>(.*?)<\/li>/g)].map((m) => m[1]);
     expect(lines).toEqual([...f.unpaidByCurrency.map((u) => `미지급 ${u.currency}: ${money(u.currency, u.amountMinor)} · ${u.count}건`),
       ...f.cashByCurrency.map((c) => `현금 ${c.currency}: ${money(c.currency, c.amountMinor)}`),
-      ...[f.warningEvent, f.dangerEvent].flatMap((e) => e ? [`${e.day}일 ${e.level === 'WARNING' ? '경고' : '위험'}: 밀린 원화를 모두 갚는 데 USD ${money('USD', e.lotsToClearAll! * cfg.operations!.fx.lotUsdMinor)} 필요, 그때 쓸 수 있던 USD ${money('USD', e.usdAvailableMinor)}`] : [])]);
+      ...[f.warningEvent, f.dangerEvent].flatMap((e) => e ? [`${e.day}일 ${e.level === 'WARNING' ? '경고' : '위험'}: 밀린 원화를 모두 갚는 데 ${money('USD', e.lotsToClearAll! * cfg.operations!.fx.lotUsdMinor)} 필요, 그때 쓸 수 있던 ${money('USD', e.usdAvailableMinor)}`] : [])]);
     expect(html).not.toContain('합계');
     expect(html).toContain(`첫 미지급 전 ${cfg.operations!.paymentDefault.failureAgeDays}일 동안의 원화 선택 지출</h4><p>없음</p>`);
     expect(html).toContain('미지급 뒤 새로 묶은 USD 약정</h4><p>없음</p>');
@@ -230,7 +230,7 @@ describe('결산과 원화 장부', () => {
     expect([...block.matchAll(/<caption>(.*?)<\/caption>/g)].map((m) => m[1])).toEqual([...sum.operations!.fixedCostsByCurrency.map((c) => `고정비 · ${c.currency}`), '환전 기록', ...sum.byCurrency.map((c) => `결산 · ${c.currency}`)]);
     expect(block).toContain(sum.operations!.outcome === 'FAILED' ? `결과: 경영 실패(${sum.operations!.failure!.day}일)` : '결과: 완료');
     for (const c of sum.operations!.fixedCostsByCurrency) {
-      const used: [string, number][] = [['임차료', c.rentExpense], ['확장 설치비', c.facilitySetupExpense], ['선복 요금', c.spaceContractExpense], ['환전 차감', c.fxSpreadExpense]];
+      const used: [string, number][] = [['임차료', c.rentExpense], ['확장 설치비', c.facilitySetupExpense], ['선복 요금', c.spaceContractExpense], ['환전 비용(환율 차이)', c.fxSpreadExpense]];
       expect(c.rentExpense + c.facilitySetupExpense + c.spaceContractExpense + c.fxSpreadExpense).toBeGreaterThan(0);
       const table = block.split(`<caption>고정비 · ${c.currency}</caption>`)[1]!.split('</table>')[0]!;
       expect(labelsAndValues(table)).toEqual(used.filter(([, n]) => n !== 0).map(([l, n]) => [l, money(c.currency, n)]));
@@ -253,13 +253,13 @@ describe('결산과 원화 장부', () => {
     expect(html).toContain('USD 고정비 없음'); expect(html).not.toContain('확장 설치비'); expect(html).not.toContain('선복 요금');
     for (const c of campaignSummary(idle.failed, cfg).byCurrency) expect(settlementRows(c, cfg).map(([l]) => l)).not.toContain('통화 간 이체(환전)');
     expect(krwReportRows(companyReport(idle.failed, cfg), cfg)).not.toContain('통화 간 이체(환전)');
-    expect(krwReportRows(companyReport(idle.failed, cfg), cfg)).not.toContain('환전 차감');
+    expect(krwReportRows(companyReport(idle.failed, cfg), cfg)).not.toContain('환전 비용(환율 차이)');
   });
   it('원화 행 전체와 표시 값만으로 시작 자금·비용·이체 = 현금−미지급 항등식이 맞다', () => {
     for (const s of [invested, normalCompleted, idle.failed]) {
       const report = companyReport(s, cfg), p = report.payroll;
       const expected: [string, number][] = [['시작 운영 자금', p.openingEquity], ['급여', -p.wageExpense], ['영입 계약금', -p.recruitmentExpense], ['훈련비', -p.trainingExpense], ['현지 활동비', -p.cultureExpense],
-        ...([['창고 임차료', -p.rentExpense], ['창고 확장 설치비', -p.facilitySetupExpense], ['환전 차감', -p.fxSpreadExpense], ['통화 간 이체(환전)', p.currencyTransferNet]] as [string, number][]).filter(([, n]) => n !== 0), ['운영 손익', p.profit], ['미지급(급여·임차료)', p.accountsPayable], ['현금', p.cash]];
+        ...([['창고 임차료', -p.rentExpense], ['창고 확장 설치비', -p.facilitySetupExpense], ['환전 비용(환율 차이)', -p.fxSpreadExpense], ['통화 간 이체(환전)', p.currencyTransferNet]] as [string, number][]).filter(([, n]) => n !== 0), ['운영 손익', p.profit], ['미지급(급여·임차료)', p.accountsPayable], ['현금', p.cash]];
       const rows = labelsAndValues(krwReportRows(report, cfg));
       expect(rows).toEqual(expected.map(([l, n]) => [l, money('KRW', n)]));
       const numeric = new Map(rows.map(([l, text]) => [l, Number(text!.replaceAll(',', '').replace('원', '').replace('−', '-'))]));

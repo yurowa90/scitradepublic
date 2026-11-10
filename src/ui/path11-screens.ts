@@ -114,7 +114,7 @@ export function path11Statement(s: GameState, config: ScenarioConfig, asOfDay: n
     + group('판매비와관리비', overheads) + subtotal('operating', '영업이익', operating) + group('영업외', other)
     + `<tr data-p11-account="fxTranslationKrwMinor" data-minor="${st.fxTranslationKrwMinor}"><th scope="row">${SETTLEMENT_LINE_KO.fxTranslationKrwMinor}</th><td>${money(st.fxTranslationKrwMinor)}</td></tr>` + subtotal('net', '당기순이익', net);
   const balance = ([['자산', st.assets], ['부채', st.liabilities], ['자본', st.equity]] as const).map(([name, rows]) => `<tr><th scope="rowgroup" colspan="2">${name}</th></tr>${rows.map((r) => line(r.account, r.krwMinor)).join('')}${name === '자본' ? subtotal('retained', '쌓인 이익', net) : ''}`).join('');
-  return `<div class="p11" data-p11-asof="${asOfDay}"><p>원화로 환산했습니다. 손익은 거래한 날의 참고 환율, 재무상태는 ${asOfDay}일 참고 환율 ${money(st.rateAsOf)}/$로 바꿨습니다.</p><div class="p11-statements">${table(`손익계산서 · 1~${asOfDay}일`, ['항목', '금액'], income)}${table(`재무상태표 · ${asOfDay}일 마감`, ['항목', '금액'], balance)}</div>${details(ui, `zero-${asOfDay}`, '0원 항목', table('0원 항목', ['항목', '금액'], zeros.join('')))}<small>분류 검토 중</small></div>`;
+  return `<div class="p11" data-p11-asof="${asOfDay}"><p>원화로 환산했습니다. 손익은 거래한 날의 참고 환율, 재무상태는 ${asOfDay}일 참고 환율 ${money(st.rateAsOf)}/$로 바꿨습니다.</p><div class="p11-statements">${table(`손익계산서 · 1~${asOfDay}일`, ['항목', '금액'], income)}${table(`재무상태표 · ${asOfDay}일 마감`, ['항목', '금액'], balance)}</div>${details(ui, `zero-${asOfDay}`, '0원 항목', table('0원 항목', ['항목', '금액'], zeros.join('')))}</div>`;
 }
 export function path11Missed(s: GameState, config: ScenarioConfig, asOfDay: number, ui: Ui): string {
   if (!active(config)) return '';

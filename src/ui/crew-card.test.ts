@@ -19,11 +19,10 @@ describe('M1 카드와 카드 배치 유지',()=>{
           <div class="card-art">
             <span class="card-tag ">○ 대기</span>
             <div class="card-face" aria-hidden="true">귀</div>
-            <p class="card-motif">작은 사막여우의 큰 귀, 둥근 주둥이, 접어 묶은 민트색 목도리, 크림색과 연한 구리색 털</p>
-            <span class="card-placeholder">그림 미제작 · 교체 가능한 자리표시자</span>
+
           </div>
           <footer class="card-bottom">
-            <div class="card-meta"><span class="chip role role-sales"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v11H9l-5 4v-4H3z" fill="none" stroke-width="2" stroke-linejoin="round"/><path d="M7 9h10M7 12h6" stroke-width="2" stroke-linecap="round"/></svg>영업</span><span class="card-level">레벨 1 · 강화 +0</span></div>
+            <div class="card-meta"><span class="chip role role-sales"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v11H9l-5 4v-4H3z" fill="none" stroke-width="2" stroke-linejoin="round"/><path d="M7 9h10M7 12h6" stroke-width="2" stroke-linecap="round"/></svg>영업</span><span class="card-level">레벨 1</span></div>
 
             <span class="card-schedule">대기 — 배정 가능</span>
           </footer>

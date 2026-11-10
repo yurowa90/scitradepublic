@@ -3,6 +3,7 @@ import { lateDeliveryReduction } from '../engine/operations';
 import { cityName, routeOf } from '../engine/catalog';
 import { isAvailableFromToday } from '../engine/employees';
 import { formatMoney, type Currency } from '../engine/money';
+import { receiptSchedule } from './reports';
 import { upcomingPayments, type UpcomingPayment } from '../engine/reports';
 import { isDayBasedTask, taskSubjectKo } from '../engine/tasks';
 import type { GameState, ScenarioConfig } from '../engine/types';
@@ -70,8 +71,8 @@ export function scheduleItems(s: GameState, config: ScenarioConfig, throughDay =
           { currency: c.currency, amountMinor });
       }
     }
-    for (const invoice of s.invoices) if (invoice.status !== 'PAID') add(`RCV:${invoice.contractId}`, 'RECEIPT',
-      invoice.dueDay, invoice.contractId, '수금', false, { currency: invoice.currency, amountMinor: invoice.amountMinor });
+    for (const invoice of receiptSchedule(s)) add(`RCV:${invoice.contractId}`, 'RECEIPT',
+      invoice.dueDay, invoice.contractId, '수금', false, { currency: invoice.currency, amountMinor: invoice.outstandingMinor });
   }
   const payments = upcomingPayments(s, config, throughDay);
   const wages = new Map<Currency, UpcomingPayment>();

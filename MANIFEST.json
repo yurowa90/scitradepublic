@@ -566,6 +566,11 @@
       "sha256": "51b73a782aa36d6aab8497deb2698081bb47d6824de4d2d22f4e71ccdfd01856"
     },
     {
+      "path": "tools/check_ui_copy.mjs",
+      "size_bytes": 1102,
+      "sha256": "4123bb543af16ec9384964fd0f9f67acca40971284986c1d4697cb9db44c4488"
+    },
+    {
       "path": "tools/ci/checks.sh",
       "size_bytes": 3085,
       "sha256": "3fa56609c816fd0575f709f219503bdbfbbaa3d353881a92d129087e917d02e4"

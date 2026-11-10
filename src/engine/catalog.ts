@@ -7,7 +7,7 @@ const pad = (n: number, width = 3) => String(n).padStart(width, '0');
 
 export function goodOf(config: ScenarioConfig, id: string): GoodDef {
   const good = config.goods.find((g) => g.id === id);
-  if (!good) throw new Error(`상품 ${id}이(가) 시나리오에 없습니다.`);
+  if (!good) throw new Error(`시나리오에 없는 상품입니다: ${id}.`);
   return good;
 }
 
@@ -17,7 +17,7 @@ export function offerOf(config: ScenarioConfig, id: string): OfferDef | undefine
 
 export function routeOf(config: ScenarioConfig, id: string): RouteDef {
   const route = config.routes.find((r) => r.id === id);
-  if (!route) throw new Error(`노선 ${id}이(가) 시나리오에 없습니다.`);
+  if (!route) throw new Error(`시나리오에 없는 노선입니다: ${id}.`);
   return route;
 }
 
@@ -71,7 +71,7 @@ export function cargoSpace(config: ScenarioConfig, goodId: string, quantity: num
   };
 }
 
-/** 가상 과세 규칙: 공급자 상품 송장 금액만 과세가격으로 본다. */
+/** 게임용 단순화: 매입가에 가상 세율을 곱한다. 실제 과세가격은 수입국 규칙으로 정한다. */
 export function dutyEstimate(config: ScenarioConfig, purchaseAmountMinor: number): number {
   return applyBasisPoints(purchaseAmountMinor, config.terms.dutyRateBasisPoints);
 }

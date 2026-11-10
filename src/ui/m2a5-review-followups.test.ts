@@ -203,8 +203,8 @@ describe('TASK-0058 화면 검수 후속', () => {
     for (const direction of ['USD_TO_KRW', 'KRW_TO_USD'] as const) {
       await ui.change({ action: 'exchange-direction' }, direction); await ui.change({ action: 'exchange-amount' }, '2');
       const q = exchangePreview(v, cfg, direction, 2 * lot), html = exchange(ui.app.innerHTML);
-      expect(html).toContain(`${cfg.operations!.fx.buyKrwPerUsd.toLocaleString('ko-KR')}원(받을 때)`);
-      expect(html).toContain(`${cfg.operations!.fx.sellKrwPerUsd.toLocaleString('ko-KR')}원(살 때)`);
+      expect(html).toContain(`달러 팔 때(USD→원) 1달러=${cfg.operations!.fx.buyKrwPerUsd.toLocaleString('ko-KR')}원`);
+      expect(html).toContain(`달러 살 때(원→USD) 1달러=${cfg.operations!.fx.sellKrwPerUsd.toLocaleString('ko-KR')}원`);
       expect(html).toContain(`<dt>내는 금액</dt><dd>${direction === 'USD_TO_KRW' ? usd(2 * lot) : krw(q.krwMinor)}</dd>`);
       expect(html).toContain(`<dt>받는 금액</dt><dd>${direction === 'USD_TO_KRW' ? krw(q.krwMinor) : usd(2 * lot)}</dd>`);
       expect(html).toContain(`<dd>${payrollRunwayKo(q.runwayBefore, v.day, cfg.campaignDays)} → ${payrollRunwayKo(q.runwayAfter, v.day, cfg.campaignDays)}</dd>`);

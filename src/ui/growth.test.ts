@@ -1,3 +1,4 @@
+import { esc } from './html';
 import { describe, expect, it } from 'vitest';
 import acceptance from '../../tests/character_acceptance_cases.json';
 import { loadScenario } from '../content/scenario';
@@ -66,11 +67,11 @@ describe('성장 기록과 훈련',()=>{
     if(kind==='funds')s.ledger.entries.push({...s.ledger.entries[0]!,id:'DRAIN',currency:'KRW',lines:[{account:'CASH',amount:-10_000_000},{account:'WAGE_EXPENSE',amount:10_000_000}]});
     if(kind==='unemployed')id='EMP04';
     const e=config.employees.find((e)=>e.id===id)!,p=trainingPreview(s,config,id),html=trainingBlock(s,config,e);
-    expect(p.allowed).toBe(false);expect(button(html)).toContain('disabled');expect(html).toContain(p.reasonKo!);
+    expect(p.allowed).toBe(false);expect(button(html)).toContain('disabled');expect(html).toContain(esc(p.reasonKo!));
   });
   it('교육 상태 글자를 카드·운영표·담당 선택에서 같은 함수로 표시한다',()=>{
     const s=planState(initial(),config,[train]).state,t=runningTaskOf(s,def.id)!;
-    const status='◆ 교육 중 0/1일';expect(crewStatusKo(t)).toBe(status);
+    const status='◆ 훈련 중 0/1일';expect(crewStatusKo(t)).toBe(status);
     expect(taskSchedule(t,config)).toBe('일반 훈련 중 — 0/1일');
     expect(crewEntryCard(crewEntries(s,config,'busy')[0]!,s,config,false)).toContain(status);
     expect(crewRow(def,s,config,false,undefined,t)).toContain(status);

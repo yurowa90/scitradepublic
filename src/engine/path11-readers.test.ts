@@ -338,7 +338,7 @@ describe('TASK-0075 첫 화면 밖 확인', () => {
     try {
       await vite.build({ logLevel: 'silent', build: { outDir: dir, emptyOutDir: true } });
       const dist = bundle.collectDist(dir);
-      for (const marker of ['경로 11 결산일은 현재 날짜를 넘을 수 없습니다', '관세는 매입원가에 넣음(K-IFRS 1002.11)']) {
+      for (const marker of ['경로 11 결산일은 현재 날짜를 넘을 수 없습니다', '관세는 매입원가에 넣음']) {
         const containing = dist.chunks.filter((c) => fs.readFileSync(`${dir}/${c.file}`, 'utf8').includes(marker));
         expect(containing).toHaveLength(1);
         expect(containing[0]!.file).toMatch(/ops-screens-.*\.js$/);

@@ -7,8 +7,8 @@ import { runToCampaignEnd } from '../engine/testkit';
 import { tradePairs } from '../engine/reports';
 import { initialUiState } from './session';
 
-// bd10189의 정적 import 화면에서 채집. 빌드 표시만 dev로 맞춘 전체 HTML의 SHA-256.
-const BASE_HTML = {"first": "06654dd41520d48e0c625f5b9fd45c130ce434d8e761c76b13c63ab34927c05e", "panel": "e355802ddabce0ea5f1456b5f64a2929627b83b6107b02d6e49c54e86d60701b", "ops": "df35bd3114b220adbcc77ba57de1ee8fb71fc6acad95353814daaa10cdad9d85"};
+// TASK-0087 학생 문구 수정 뒤 채집. 빌드 표시를 dev로 맞춘 전체 HTML의 SHA-256.
+const BASE_HTML = {"first": "58a5feda72f574f1d3732657c1159528a3e973728cf7b7318ce177c2ff8de595", "panel": "cf99c7e51d70498ca9fadc370d41f136bc20c4168e981387819fdeb4bf058e91", "ops": "f637f474d94bc5306e194e71b33c5b60166479c168128fd005f955c68f2fa286"};
 const BASE_COPY = {
   "local": "(city) => `${city} 현지`",
   "closeLocal": "(city) => `${city} 현지 닫기`",
@@ -218,13 +218,13 @@ describe('TASK-0059 지연 화면 진입', () => {
     expect(culture.culturePanel(state, state, [], config, initialUiState())).toBe('');
     // hash는 빌드 표시를 dev로 맞추므로 TASK-0033 문자열의 BASE 표시는 별도로 보존한다.
     const digest = async (html: string) => [...new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(normalizeArtHtml(html).replace(SITUATION_BUTTON, '').replace(/<select data-action="scenario">[\s\S]*?<\/select>/, '').replace(/빌드 [^<]+/, '빌드 BASE'))))].map((n) => n.toString(16).padStart(2, '0')).join('');
-    expect(await digest(ui.app.innerHTML)).toBe('7241637157034d2eb5e9e253e7595505503299b47516a2c675daa17f874e3f9d');
+    expect(await digest(ui.app.innerHTML)).toBe('2b9b01f74e68b28dbe1173b675f5ea75a674341677e0f67cffcf4a0e91e0dd76');
     expect(await hash(ui.app.innerHTML)).toBe(BASE_HTML.first);
     const pair = tradePairs(config)[0]!;
     await ui.click({ action: 'accept', buy: pair.buyOfferId, sell: pair.sellOfferId });
-    expect(await digest(ui.app.innerHTML)).toBe('d31254260a801c1089e5c18bf4d559fc6f43bd5634729df44a9bb8082b0dc727');
+    expect(await digest(ui.app.innerHTML)).toBe('af80f46e7aa2e31c371a6eaa66a36924f80a127b60d6fe4575c5aadcb5ac8b1e');
     await ui.importText(serializeSave(runToCampaignEnd(createGame(config), config).state));
-    expect(await digest(ui.app.innerHTML)).toBe('ae7ffa7599c6744b708326dd95b067f4125608a5cd5cef231f18ac049887b45a');
+    expect(await digest(ui.app.innerHTML)).toBe('f06fcf793c53d9cfc4bf63fa174f50b8e37de335c1e6891231f400e6444fe694');
     expect(calls).toEqual({ ops: 0, culture: 0 });
   });
   it('규칙 2 묶음을 기다린 뒤 시나리오·전체 HTML을 바꾼다', async () => {
@@ -570,7 +570,8 @@ describe('TASK-0079 빌드 청크 보호', () => {
         const source = fs.readFileSync(`${dir}/${file.file}`, 'utf8');
         for (const field of ['original_sha256', 'ai_postprocess', 'provenance', '--shell', '.office-stage']) expect(source).not.toContain(field);
       }
-      expect(result.firstScreen.reduce((n, r) => n + r.gzip, 0)).toBeLessThanOrEqual(133130 + 300);
+      // TASK-0088 견적 머리 문구, 허브 승인
+      expect(result.firstScreen.reduce((n, r) => n + r.gzip, 0)).toBeLessThanOrEqual(133600);
     } finally { fs.rmSync(dir, { recursive: true, force: true }); }
   }, 30000);
 });

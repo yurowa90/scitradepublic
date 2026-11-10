@@ -61,11 +61,10 @@ export function crewCard(def: EmployeeDef, state: GameState, selected: boolean, 
       ${art
         ? `<img class="card-img pixel-art" src="${esc(art.path)}" width="${art.logicalWidth}" height="${art.logicalHeight}" data-pixel-w="${art.logicalWidth}" data-pixel-h="${art.logicalHeight}" alt="${esc(def.nameKo)} 일러스트" loading="lazy" decoding="async" />`
         : `<div class="card-face" aria-hidden="true">${esc(initial)}</div>
-      <p class="card-motif">${esc(def.character.visualMotif ?? '')}</p>
-      <span class="card-placeholder">그림 미제작 · 교체 가능한 자리표시자</span>`}
+`}
     </div>
     <footer class="card-bottom">
-      <div class="card-meta">${roleBadge(def.role)}<span class="card-level">레벨 ${level} · 강화 +0</span></div>
+      <div class="card-meta">${roleBadge(def.role)}<span class="card-level">레벨 ${level}</span></div>
       ${progress ? `<span>${esc(coreStatsKo(def, progress.stats))}</span>` : ''}
       <span class="card-schedule">${esc(schedule)}</span>
     </footer>

@@ -132,7 +132,7 @@ describe('TASK-0012 문화 패널의 엔진 읽기와 미리 보기',()=>{
     const html=panel(s,config,pending);
     expect(html).toMatch(/id="culture-emp-EMP01"[^>]*aria-pressed="true">귀솔 · /);
     expect(html).not.toMatch(/id="culture-emp-EMP01"[^>]* disabled/);
-    expect(html).toMatch(/id="culture-emp-EMP02"[^>]* disabled>물보리 · ◆ 교육 중 0\/1일 — 일반 훈련 중/);
+    expect(html).toMatch(/id="culture-emp-EMP02"[^>]* disabled>물보리 · ◆ 훈련 중 0\/1일 — 일반 훈련 중/);
     expect(html).not.toContain('id="culture-emp-EMP03"');
     const hired=runDays(createGame(config),config,4,{
       1:[{id:'S',type:'SCOUT_SITE',venueId:'VEN_PORT',employeeId:'EMP02'}],

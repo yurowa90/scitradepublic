@@ -292,10 +292,11 @@ describe('한 열 화면 코드 순서', () => {
 });
 
 describe('머리 줄', () => {
-  it('빌드 표시 문구 폭을 9.5rem으로 묶어 빌드 표시를 둘째 줄에 두고 문구는 그대로다', async () => {
+  it('가상값 고지는 머리에 두고 빌드 표시는 정보 안에 접어 둔다', async () => {
     expect(await readCss()).toMatch(/\.brand \.sub \{ max-width: 9\.5rem; \}/);
     const ui = await startUi(); await (await import('./main-testkit')).screensReady();
+    expect(ui.app.innerHTML).toMatch(/<details class="build-info"><summary>정보<\/summary><p>빌드 (dev|[0-9a-f]{7}(\+수정)?)<\/p><\/details>/);
     // 빌드 표시는 git 작업 트리에서 해시(+수정), 밖에서 dev다(main.test.ts ‘빌드 표시는 머리 문구에 있고…’와 같은 식).
-    expect(ui.app.innerHTML).toMatch(/<div class="brand"><span class="logo">Scitrade<\/span><span class="sub">시제품 · 모든 숫자는 가상값 · 빌드 (dev|[0-9a-f]{7}(\+수정)?)<\/span><\/div>/);
+    expect(ui.app.innerHTML).toMatch(/<div class="brand"><span class="logo">Scitrade<\/span><span class="sub">시제품 · 모든 숫자는 가상값<\/span><\/div>/);
   });
 });

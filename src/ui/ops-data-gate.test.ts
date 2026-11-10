@@ -54,7 +54,7 @@ describe('TASK-0076 화면 자료 관문', () => {
     // TASK-0079: 카드 종류 클래스와 '사무실 보기' 단추 두 조각만 걷는다.
     const html = ctx.ui.app.innerHTML.replace(/ creature-(animal|myth_inspired|none)/g, '').replace(/<button[^>]*data-action="open-office"[^>]*>사무실 보기<\/button>/g, '').replace(/<option value="SCENARIO_M2_OPS_CREDIT"[^>]*>[^<]*<\/option>/g, '').replace(SITUATION_BUTTON, '').replace(/빌드 [^<]+/, '빌드 dev');
     const digest = [...new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(html)))].map((n) => n.toString(16).padStart(2, '0')).join('');
-    expect(digest).toBe('06654dd41520d48e0c625f5b9fd45c130ce434d8e761c76b13c63ab34927c05e');
+    expect(digest).toBe('58a5feda72f574f1d3732657c1159528a3e973728cf7b7318ce177c2ff8de595');
     for (let i = 0; i < 3; i++) await ctx.ui.click({ action: 'end-day' });
     expect(calls).toBe(0); missing(ctx.data);
     expect(JSON.parse((await snapshot(ctx)).state!).state.day).toBe(4);

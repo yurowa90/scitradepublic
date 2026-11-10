@@ -31,3 +31,7 @@
 }
 .p11 table h3 { background: none; padding-left: 0; }
 .p11 table { color-scheme: light; }
+
+/* 원의 크기와 별개로 라디오·라벨 모두 24px 이상의 누름 영역을 갖는다. */
+.p11-terms input[type="radio"] { width: 24px; height: 24px; flex: 0 0 24px; margin: 4px; }
+.p11-terms label { cursor: pointer; padding: 4px; gap: 4px; }

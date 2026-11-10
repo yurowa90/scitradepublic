@@ -4,7 +4,7 @@
 import './style.css';
 import { applyPixelScale } from './pixel';
 import { spriteHtml } from './sprite';
-import { esc } from './html';
+import { esc, josa } from './html';
 import { CULTURE_KO, cultureAnchorBlocks, culturePanelScreen, cultureResultTasks, cultureTab, cultureToastText } from './culture';
 import { employedDefs } from '../engine/employees';
 import { LOADABLE_SCENARIO_IDS, SELECTABLE_SCENARIO_IDS, scenarioTitle, isOperationsScenario, assumptionNotes, loadScenario, type AnyScenarioId } from '../content/scenario';
@@ -24,8 +24,8 @@ import { exchangePreview, quotePreview, type OperationsQuotePreview } from '../e
 import { counterpartyNameKo, routeLabel } from './ops-labels';
 import { lazyScreen, ScreenLoadExhaustedError } from './lazy';
 import { paymentDefaultStatus } from '../engine/operations';
-import { cancellationPreviewKo } from './trade';
-import { bottlenecks, cargoListKo, heldCargoByGood, obligationLineKo, qtyKo as reportQtyKo, rateKo, settlementRows, upcomingSummary, workloadLinesKo, krwReportRows, krwReportNoteKo, type UndatedPayments } from './reports';
+import { cancellationPreviewKo, lastDepartureWarnings } from './trade';
+import { receiptSchedule, bottlenecks, cargoListKo, heldCargoByGood, obligationLineKo, qtyKo as reportQtyKo, rateKo, settlementRows, upcomingSummary, workloadLinesKo, krwReportRows, krwReportNoteKo, type UndatedPayments } from './reports';
 import { crewNoteKo, crewStatusKo } from './crew-status';
 import { taskSubjectKo } from '../engine/tasks';
 import { employeeDetail, growthMessages, growthStatus, payrollRunwayKo } from './growth';
@@ -168,7 +168,7 @@ window.addEventListener('beforeunload', (ev) => {
   ev.returnValue = '';
 });
 
-function startScenario(id: AnyScenarioId) {
+function startScenario(id: (typeof LOADABLE_SCENARIO_IDS)[number]) {
   config = loadScenario(id);
   state = openDay(createGame(config), config).state;
   resetUi();
@@ -383,8 +383,8 @@ function stageOf(c: Contract): number {
 }
 
 const STAGES = {
-  DIRECT_TRADE: ['견적', '체결·매입', '준비 배정', '수출 준비', '출발 대기', '운송', '도착·통관', '인도·채권', '수금·종결'],
-  FORWARDING: ['의뢰', '체결·화물 인수', '준비 배정', '선적 서류', '출발 대기', '운송', '도착·반출', '인도·채권', '수금·종결'],
+  DIRECT_TRADE: ['견적', '체결·매입', '준비 배정', '수출 준비', '출발 대기', '운송', '도착·통관', '인도·청구', '수금·종결'],
+  FORWARDING: ['의뢰', '체결·화물 인수', '준비 배정', '주선 준비', '출발 대기', '운송', '도착·반출', '인도·청구', '수금·종결'],
 };
 
 function pipeline(c: Contract): string {
@@ -402,13 +402,14 @@ function pipeline(c: Contract): string {
 function topbar(): string {
   const r = companyReport(state, config);
   const f = fundsPosition(state, config, config.tradeCurrency);
-  const nextReceipt = [...state.invoices].filter((i) => i.status !== 'PAID').sort((a, b) => a.dueDay - b.dueDay)[0];
+  const nextReceipt = receiptSchedule(state)[0];
+  const warnings = lastDepartureWarnings(view, config);
   const phaseText =
     state.phase === 'AWAITING_INPUT' ? '의사결정 중 · 시간 정지' : state.phase === 'ENDED' ? '캠페인 종료' : '다음 날 준비';
   return `
   <header class="topbar">
   <div class="masthead">
-    <div class="brand"><span class="logo">Scitrade</span><span class="sub">시제품 · 모든 숫자는 가상값 · 빌드 ${esc(BUILD_ID)}</span></div>
+    <div class="brand"><span class="logo">Scitrade</span><span class="sub">시제품 · 모든 숫자는 가상값</span></div>
     <label class="scenario">시나리오
       <select data-action="scenario">
         ${SELECTABLE_SCENARIO_IDS.map((id) => `<option value="${id}" ${id === config.id ? 'selected' : ''}>${esc(SCENARIO_TITLES[id])}</option>`).join('')}
@@ -420,6 +421,7 @@ function topbar(): string {
       <button data-action="export">내보내기</button>
       <label class="file-btn">가져오기<input type="file" accept="application/json" data-action="import" class="visually-hidden" /></label>
       <button data-action="restart">처음부터</button>
+      <details class="build-info"><summary>정보</summary><p>빌드 ${esc(BUILD_ID)}</p></details>
     </div>
   </div>
   <div class="statusbar${config.operations ? ' operations-statusbar' : ''}" id="status-h" tabindex="-1" role="region" aria-label="오늘 상태">
@@ -427,8 +429,8 @@ function topbar(): string {
     <div class="stat"><span>거래 현금 (USD)</span><b>${usd(r.trade.cash)}</b></div>
     ${committedRule() ? `<div class="stat"><span>사용 가능 (예약 제외)</span><b class="${f.available < 0 ? 'neg' : ''}">${usd(f.available)}</b></div>` : ''}
     <div class="stat"><span>운영 현금 (KRW)</span><b>${krw(r.payroll.cash)}</b></div>
-    ${config.operations ? opsScreens!.operationsTopbar(view, config, state, ui.pending) : ''}<div class="stat"><span>다음 수금</span><b>${nextReceipt ? `${nextReceipt.dueDay}일 ${usd(nextReceipt.amountMinor)}` : '없음'}</b></div>
-    ${config.culture ? `<button class="queue-chip" id="queue-chip" data-action="queue-jump" aria-label="오늘 할 일 ${ui.pending.length}건 보기">오늘 할 일 <b>${ui.pending.length}</b>건</button>` : ''}<div class="day-action"><small class="amount-basis">${config.operations ? '다른 금액은 확정 기준' : '금액은 확정 기준'}</small><button class="primary" data-action="end-day" ${state.phase !== 'AWAITING_INPUT' ? 'disabled' : ''}>하루 진행 ▶</button></div>
+    ${config.operations ? opsScreens!.operationsTopbar(view, config, state, ui.pending) : ''}<div class="stat"><span>다음 수금</span><b>${nextReceipt ? `${nextReceipt.dueDay}일 ${formatMoney(nextReceipt.currency, nextReceipt.outstandingMinor)}` : '없음'}</b></div>
+    ${config.culture ? `<button class="queue-chip" id="queue-chip" data-action="queue-jump" aria-label="오늘 할 일 ${ui.pending.length}건 보기">오늘 할 일 <b>${ui.pending.length}</b>건</button>` : ''}<div class="day-action"><small class="amount-basis">${config.operations ? '다른 금액은 확정 기준' : '금액은 확정 기준'}</small><button class="primary" data-action="end-day" ${state.phase !== 'AWAITING_INPUT' ? 'disabled' : ''}>하루 진행 ▶</button>${warnings.length ? `<p class="reason">${esc(warnings.join(" "))}</p>` : ''}</div>
   </div>
   </header>`;
 }
@@ -510,17 +512,24 @@ function quoteBlock(q: QuotePreview | OperationsQuotePreview, rows: string, cmd:
   const receipt = q.departureDay !== null
     ? `<li>대금은 ${q.receiptDay}일에 받을 예정${q.receiptDay > q.paymentDueDay ? ` (인도가 계약상 대금일 ${q.paymentDueDay}일보다 늦기 때문)` : ''}</li>`
     : '';
+  const needs = q.cashNeedByCurrency?.map((m) => formatMoney(m.currency, m.amountMinor)).join(' · ') ?? usd(q.cashNeed);
+  const purchaseCurrency = cmd.type === 'ACCEPT_TRADE' ? offerDef(view, config, cmd.buyOfferId)!.currency : config.tradeCurrency;
+  const estimate = purchaseCurrency === 'KRW' ? q.referenceEstimate : undefined;
+  const first = Object.keys(offerCommands)[0] === key;
+  const purchase = formatMoney(purchaseCurrency, q.purchase);
   const need = committedRule()
-    ? `수락하려면 사용 가능 자금 ${usd(q.cashNeed)}가 필요합니다 (매입·운임·관세를 미리 묶음).`
-    : `수락하면 매입 대금 ${usd(q.purchase)}를 지금 현금으로 냅니다.`;
+    ? `수락에 필요한 돈: ${needs} (매입·운임·관세를 미리 묶음).`
+    : `수락하면 매입 대금 ${purchase}${josa(purchase, '을/를')} 지금 현금으로 냅니다.`;
   const actionAttr = cmd.type === 'ACCEPT_TRADE'
     ? `data-action="accept" data-buy="${esc(cmd.buyOfferId)}" data-sell="${esc(cmd.sellOfferId)}"`
     : cmd.type === 'ACCEPT_FORWARDING' ? `data-action="accept-fwd" data-offer="${esc(cmd.offerId)}"` : '';
   return `
-    <table class="money">${rows}<tr class="total"><th>예상 기여이익 (급여 전)</th><td>${usd(q.contributionBeforePayroll)}</td></tr></table>
+    <table class="money">${rows}<tr class="total"><th>${estimate ? '예상 이익 (원화 매입 포함 · 급여 전)' : '예상 기여이익 (급여 전)'}</th>${estimate ? `<td${estimate.pnlKrw < 0 ? ' class="neg"' : ''}>${estimate.pnlKrw >= 0 ? '+' : '−'}${usd(Math.abs(opsScreens!.referenceUsd(estimate.pnlKrw, estimate.rateKrwPerUsd)))}</td>` : `<td>${usd(q.contributionBeforePayroll)}</td>`}</tr></table>
+    ${estimate ? `<p class="reference-profit">기준 환율 ${estimate.rateKrwPerUsd.toLocaleString('ko-KR')}원/USD로 환산한 참고값입니다. USD로만 보면 ${q.contributionBeforePayroll >= 0 ? '+' : '−'}${usd(Math.abs(q.contributionBeforePayroll))}(원화 매입 ${purchase} 제외).</p>` : ''}
+    ${first ? `<details class="term-help"><summary>거래 용어 풀이</summary><p>이 거래 하나로 남는 돈. 판매 − 매입 − 운임 − 관세. 동료 급여·임차료 같은 고정비는 아직 빼지 않았습니다.${estimate ? ' 원화로 사는 거래는 원화 매입 대금까지 뺀 값을 먼저 보여 줍니다.' : ''}</p><p>pt = 업무량 단위. 동료 한 명이 하루 2pt 처리</p><p>선복: 배에 실을 자리.</p><p>신고가액: 화주가 신고한 물건 값.</p></details>` : ''}
     <ul class="quote-facts"><li>${sailing}</li>${receipt}<li>${need}</li>${extra.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
     <details><summary>현금 일정 미리 보기 — 이익과 현금은 다른 날 움직입니다</summary>
-      <ul class="schedule">${q.schedule.map((x) => `<li><span>${x.day}일</span>${esc(x.labelKo)}<b>${x.amount === 0 ? '현금 변화 없음' : (x.amount > 0 ? '+' : '−') + usd(Math.abs(x.amount))}</b></li>`).join('')}</ul>
+      <ul class="schedule">${q.schedule.map((x) => `<li><span>${x.day}일</span>${esc(x.labelKo)}<b>${x.amount === 0 ? '현금 변화 없음' : (x.amount > 0 ? '+' : '−') + formatMoney(x.currency ?? config.tradeCurrency, Math.abs(x.amount))}</b></li>`).join('')}</ul>
       <p class="muted">지연·취소가 없다는 가정의 계산이며 결과를 보장하지 않습니다.</p>
     </details>
     <p class="muted small">견적 유효: ${validUntil}일까지 · 모든 수치는 가상값</p>
@@ -583,6 +592,7 @@ function offerBoard(): string {
   if (config.operations && state.phase === 'ENDED') return `${opsScreens!.marketBlock(state, config)}<p>캠페인이 끝나 견적을 받을 수 없습니다</p>`;
   const isOpen = (id: string) => view.offers.find((o) => o.id === id)?.status === 'OPEN';
   const cards: string[] = [];
+  for (const key of Object.keys(offerCommands)) delete offerCommands[key];
   for (const pair of (config.operations ? openTradePairs(view, config) : tradePairs(config))) {
     if (!isOpen(pair.buyOfferId) || !isOpen(pair.sellOfferId)) continue;
     const buy = offerDef(view, config, pair.buyOfferId)!;
@@ -595,18 +605,19 @@ function offerBoard(): string {
     const deadline = config.terms.deliveryDeadlineDay ?? sell.deliveryDeadlineDay;
     const due = config.terms.paymentDueDay ?? sell.paymentDueDay;
     const rows = `
-      <tr><th>매입 (${quantity}${esc(unitKo(g))} × ${usd(buy.unitPriceMinor)})</th><td>−${usd(q.purchase)}</td></tr>
+      <tr><th>매입 (${quantity}${esc(unitKo(g))} × ${formatMoney(buy.currency, buy.unitPriceMinor)})</th><td>−${formatMoney(buy.currency, q.purchase)}</td></tr>
       <tr><th>운임 (선지급)</th><td>−${usd(q.freight)}</td></tr>
-      <tr><th>관세 (가상 세율 ${config.terms.dutyRateBasisPoints / 100}% · 상품 송장 기준)</th><td>−${usd(q.duty)}</td></tr>
-      <tr><th>판매 (${quantity}${esc(unitKo(g))} × ${usd(sell.unitPriceMinor)})${q.lateOnNextSailing ? ' − 지연 감액' : ''}</th><td>+${usd(q.sale)}</td></tr>`;
+      <tr><th>관세 (회사 부담 · 가상 ${config.terms.dutyRateBasisPoints / 100}%)</th><td>−${usd(q.duty)}</td></tr>
+      <tr><th>판매 (${quantity}${esc(unitKo(g))} × ${formatMoney(sell.currency, sell.unitPriceMinor)})${q.lateOnNextSailing ? ' − 지연 감액' : ''}</th><td>+${formatMoney(sell.currency, q.sale)}</td></tr>`;
     const cmd: Command = { id: newId('ACCEPT'), type: 'ACCEPT_TRADE', buyOfferId: buy.id, sellOfferId: sell.id, ...(config.operations ? { quantity, ...opsScreens!.path11Term(config, ui, key) } : {}) };
     offerCommands[`${buy.id}+${sell.id}`] = cmd;
     const space = cargoSpace(config, buy.goodId, quantity);
     cards.push(`
     <article class="offer">
       <h3><span class="kind kind-trade">직접 무역</span> ${esc(qtyKo(buy.goodId, quantity))} · ${esc(cityName(config, buy.cityId))} → ${esc(cityName(config, sell.cityId))}</h3>
-      <p class="report-line">📋 <b>${esc(by?.nameKo ?? '직원')}의 보고</b> — “${esc(cityName(config, buy.cityId))} 공급자가 ${esc(g.nameKo)} ${quantity}${esc(unitKo(g))}을(를) 내놨고, ${esc(cityName(config, sell.cityId))} 고객이 같은 수량을 원합니다. 납기 ${deadline}일, 계약상 대금일은 ${due}일입니다.”</p>
-      ${config.operations ? opsScreens!.quantityControl(key, q as OperationsQuotePreview, config, buy.goodId, buy.quantity, quoteCheck(q, cmd).status !== 'APPLIED' ? `quote-reason-${key}` : undefined) : ''}${config.operations ? opsScreens!.path11Credit(view, config, ui, key, quantity) : ''}${quoteBlock(q, rows, cmd, [`화물 공간 ${fmtKg(space.massGrams)} · ${fmtM3(space.volumeLiters)}`, ...(config.operations ? opsScreens!.operationsQuoteFacts(q as OperationsQuotePreview, view, config) : [])], Math.min(buy.validUntilDay, sell.validUntilDay), `${buy.id}+${sell.id}`, buy.cityId)}
+      <p class="report-line">📋 <b>${esc(by?.nameKo ?? '직원')}의 보고</b> — “${esc(cityName(config, buy.cityId))} 공급자가 ${esc(g.nameKo)} ${quantity}${esc(unitKo(g))}${josa(unitKo(g), '을/를')} 내놨고, ${esc(cityName(config, sell.cityId))} 고객이 같은 수량을 원합니다. 납기 ${deadline}일, 계약상 대금일은 ${due}일입니다.”</p>
+      <details class="duty-note"><summary>DDP 유사 단순화 · 왜 회사가 내나요?</summary><p>이 게임은 회사가 수입 통관까지 맡는 조건(DDP와 비슷)으로 단순화했습니다. 실제로는 보통 수입자가 내고, 과세가격은 수입국 규칙(한국은 운임·보험료 포함 CIF)으로 정합니다. 이 게임은 매입가의 ${config.terms.dutyRateBasisPoints / 100}%로 계산합니다.</p></details>
+      ${config.operations ? opsScreens!.quantityControl(key, q as OperationsQuotePreview, config, buy.goodId, buy.quantity, quoteCheck(q, cmd).status !== 'APPLIED' ? `quote-reason-${key}` : undefined) : ''}${config.operations ? opsScreens!.path11Credit(view, config, ui, key, quantity) : ''}${quoteBlock(q, rows, cmd, [`차지할 선복 ${fmtKg(space.massGrams)} · ${fmtM3(space.volumeLiters)}`, ...(config.operations ? opsScreens!.operationsQuoteFacts(q as OperationsQuotePreview, view, config) : [])], Math.min(buy.validUntilDay, sell.validUntilDay), `${buy.id}+${sell.id}`, buy.cityId)}
     </article>`);
   }
   for (const offer of visibleForwardingOffers(view, config)) {
@@ -624,10 +635,10 @@ function offerBoard(): string {
     cards.push(`
     <article class="offer forwarding">
       <h3><span class="kind kind-fwd">운송 주선</span> ${config.operations && offer.titleKo ? esc(offer.titleKo) + ' · ' : ''}고객 화물 ${esc(qtyKo(offer.goodId, offer.quantity))} · ${esc(cityName(config, offer.cityId))} → ${esc(cityName(config, offer.destinationCityId))}</h3>
-      <p class="report-line">📋 <b>${esc(by?.nameKo ?? '직원')}의 보고</b> — “${esc(partyKo(offer.counterpartyId))}가 ${esc(qtyKo(offer.goodId, offer.quantity))}을(를) ${esc(cityName(config, offer.destinationCityId))}까지 보내 달라고 합니다. 화물은 고객 것이고, 우리는 운송을 주선해 서비스 대금을 받습니다. 납기 ${offer.deliveryDeadlineDay}일, 계약상 대금일은 ${offer.paymentDueDay}일입니다.”</p>
+      <p class="report-line">📋 <b>${esc(by?.nameKo ?? '직원')}의 보고</b> — “${esc(partyKo(offer.counterpartyId))}가 ${esc(qtyKo(offer.goodId, offer.quantity))}${josa(qtyKo(offer.goodId, offer.quantity), '을/를')} ${esc(cityName(config, offer.destinationCityId))}까지 보내 달라고 합니다. 화물은 고객 것이고, 우리는 운송을 주선해 서비스 대금을 받습니다. 납기 ${offer.deliveryDeadlineDay}일, 계약상 대금일은 ${offer.paymentDueDay}일입니다.”</p>
       ${quoteBlock(q, rows, cmd, [
-        `화물 공간 ${fmtKg(space.massGrams)} · ${fmtM3(space.volumeLiters)}${route ? ` (편당 한도 ${route.capacityKg.toLocaleString('ko-KR')}kg · ${route.capacityM3}m³)` : ''}`,
-        offer.declaredCargoValueMinor ? `신고가액 ${usd(offer.declaredCargoValueMinor)}는 고객 자산입니다. 회사 재고·매출에 들어가지 않습니다.` : '',
+        `차지할 선복 ${fmtKg(space.massGrams)} · ${fmtM3(space.volumeLiters)}${route ? ` (편당 한도 ${route.capacityKg.toLocaleString('ko-KR')}kg · ${route.capacityM3}m³)` : ''}`,
+        offer.declaredCargoValueMinor ? `고객 화물(신고가액 ${formatMoney(offer.currency, offer.declaredCargoValueMinor)})은 고객 것입니다. 회사 재고·매출에 넣지 않습니다.` : '',
         ...(config.operations ? opsScreens!.operationsQuoteFacts(q as OperationsQuotePreview, view, config) : []),
       ].filter(Boolean), offer.validUntilDay, offer.id, offer.cityId)}
     </article>`);
@@ -691,14 +702,14 @@ function contractPanel(c: Contract): string {
     ? '-'
     : lot.owner === 'CUSTOMER'
       ? `${qtyKo(lot.goodId, lot.quantity)} · ${cityName(config, lot.locationCityId)} · 고객 화물(${partyKo(lot.ownerPartyId)}) — 회사 장부가액 없음`
-      : `${qtyKo(lot.goodId, lot.quantity)} · ${cityName(config, lot.locationCityId)} · 장부가액 ${usd(lot.status === 'DELIVERED' ? 0 : lot.carryingAmountMinor)}`;
+      : `${qtyKo(lot.goodId, lot.quantity)} · ${cityName(config, lot.locationCityId)} · 장부가액 ${formatMoney(lot.currency, lot.status === 'DELIVERED' ? 0 : lot.carryingAmountMinor)}`;
   const facts = [
     ['종류', forwarding ? `운송 주선 — ${partyKo(c.customerId)}의 화물` : `직접 무역 — ${partyKo(c.supplierId)} → ${partyKo(c.customerId)}`],
     ['담당', c.ownerEmployeeId ? employeeName(c.ownerEmployeeId) : '미배정'],
     ['화물', cargo],
     ['운송', shipment ? `${shipment.id} · ${shipment.departureDay}일 출항 · 도착 ${shipment.arrivalDay !== null ? `${shipment.arrivalDay}일` : `${shipment.scheduledArrivalDay}일 예정`}${shipment.observedWaitDays ? ` (항만 대기 ${shipment.observedWaitDays}일)` : ''}` : booking?.status === 'BOOKED' ? `${booking.sailingId} 예약됨` : '미예약'],
     ['납기', `${c.deliveryDeadlineDay}일 ${c.deliveredDay !== null ? (c.lateDays > 0 ? `→ ${c.deliveredDay}일 인도 (${c.lateDays}일 지연, 감액 ${usd(c.priceReductionMinor)})` : `→ ${c.deliveredDay}일 인도 (납기 내)`) : ''}`],
-    [forwarding ? '서비스 대금' : '판매대금', c.status === 'CANCELLED' ? '청구 없음 (계약 취소)' : c.invoiceId ? (() => { const inv = view.invoices.find((i) => i.id === c.invoiceId)!; return `${usd(inv.amountMinor)} · ${inv.dueDay}일 결제 · ${inv.status === 'PAID' ? '수금 완료' : '미수'}`; })() : `${usd(c.saleAmountMinor)} (인도 후 청구)`],
+    [forwarding ? '서비스 대금' : '판매대금', c.status === 'CANCELLED' ? '청구 없음 (계약 취소)' : c.invoiceId ? (() => { const inv = view.invoices.find((i) => i.id === c.invoiceId)!; return `${formatMoney(inv.currency, inv.amountMinor)} · ${inv.dueDay}일 결제 · ${inv.status === 'PAID' ? '수금 완료' : inv.status === 'WRITTEN_OFF' ? '대손' : '미수'}`; })() : `${usd(c.saleAmountMinor)} (인도 후 청구)`],
   ];
   return `
   <div class="contract ${forwarding ? 'forwarding' : ''}">
@@ -708,7 +719,7 @@ function contractPanel(c: Contract): string {
     <dl class="facts">${facts.map(([k, v]) => `<dt>${esc(k ?? '')}</dt><dd>${esc(v ?? '')}</dd>`).join('')}</dl>
     <div class="actions-row">${actions.join('')}</div>
     <details><summary>이 계약의 돈 흐름 (${entries.length}건)</summary>
-      <ul class="entries">${entries.map((e) => `<li><span>${e.day}일</span>${esc(e.reason)}<b>${e.lines.map((l) => `${esc(accountKo(l.account))} ${l.amount > 0 ? '+' : '−'}${usd(Math.abs(l.amount))}`).join(' · ')}</b></li>`).join('')}</ul>
+      <ul class="entries">${entries.map((e) => `<li><span>${e.day}일</span>${esc(e.reason)}<b>${e.lines.map((l) => `${esc(accountKo(l.account))} ${l.amount > 0 ? '+' : '−'}${formatMoney(e.currency, Math.abs(l.amount))}`).join(' · ')}</b></li>`).join('')}</ul>
     </details>
   </div>`;
 }
@@ -732,7 +743,7 @@ function closedContracts(): string {
   <details class="closed"><summary>종결된 계약 ${closed.length}건</summary>
     <ul class="entries">${closed.map((c) => {
       const r = contractReport(view, c);
-      return `<li><span>${esc(c.id)}</span>${c.kind === 'FORWARDING' ? '운송 주선' : '직접 무역'} · ${esc(qtyKo(c.goodId, c.quantity))} ${esc(cityName(config, c.originCityId))} → ${esc(cityName(config, c.destinationCityId))} · ${c.status === 'CANCELLED' ? '취소' : `${c.completedDay}일 수금`}<b>기여이익 ${r.contribution < 0 ? '−' : ''}${usd(Math.abs(r.contribution))}</b></li>`;
+      return `<li><span>${esc(c.id)}</span>${c.kind === 'FORWARDING' ? '운송 주선' : '직접 무역'} · ${esc(qtyKo(c.goodId, c.quantity))} ${esc(cityName(config, c.originCityId))} → ${esc(cityName(config, c.destinationCityId))} · ${c.status === 'CANCELLED' ? '취소' : view.invoices.some((i) => i.contractId === c.id && i.status === 'WRITTEN_OFF') ? '대손' : `${c.completedDay}일 수금`}<b>기여이익 ${r.contribution < 0 ? '−' : ''}${usd(Math.abs(r.contribution))}</b></li>`;
     }).join('')}</ul>
   </details>`;
 }
@@ -821,7 +832,7 @@ function resourcePanel(): string {
     <p class="muted small">${committedRule() ? '새 계약·운임은 사용 가능 자금으로만 판단합니다.' : '새 계약은 지금 현금만 확인합니다. 예약은 참고 표시입니다.'}</p>
     <h3>직원 시간</h3>
     <ul class="crew-time">${crew.join('')}</ul>
-    <h3>선복 (다가오는 출항편)</h3>
+    <h3>선복 · 다가오는 출항편</h3>
     <ul class="space-list">${space.join('') || '<li class="muted">남은 출항편이 없습니다.</li>'}</ul>
   </section>`;
 }
@@ -863,7 +874,7 @@ function upcomingBlock(): string {
       continue;
     }
     const date = p.day === null ? '날짜 미정' : `${p.day}${p.kind === 'FREIGHT' ? '일까지' : '일'}`;
-    list.push(`<li><span>${date}</span>${contractLink(p.contractId!)} ${p.kind === 'FREIGHT' ? '운송편 예약 때 운임 선지급' : '도착 때 수입 관세'} <b>${esc(formatMoney(p.currency, -p.amountMinor))}</b></li>`);
+    list.push(`<li><span>${date}</span>${contractLink(p.contractId!)} ${p.kind === 'FREIGHT' ? '운송편 예약 때 운임 선지급' : '도착 때 수입 관세 (회사 부담 · DDP 유사 단순화)'} <b>${esc(formatMoney(p.currency, -p.amountMinor))}</b></li>`);
   }
   return `<table class="money due-table"><caption>${ended ? '남은 미지급 (캠페인 종료)' : `앞으로 낼 돈 (${from === to ? from : `${from}~${to}`}일)`}</caption><thead><tr><th scope="col">항목</th>${summary.currencies.map((c) => `<th scope="col">${esc(c)}</th>`).join('')}</tr></thead><tbody>${summary.lines.filter((line) => !ended || line.kind === 'OVERDUE').map((line) => `<tr><th scope="row">${esc(line.labelKo)}</th>${line.amounts.map((amount, i) => `<td>${amount === null ? '—' : esc(formatMoney(summary.currencies[i]!, amount))}</td>`).join('')}</tr>`).join('')}</tbody></table><p class="muted small">통화가 달라 USD와 KRW를 더하지 않습니다.</p>${undatedKo(summary.unbooked, '운송편을 아직 예약하지 않아 관세 낼 날을')}${undatedKo(summary.noSailing, '캠페인 안에 실을 자리가 남은 출항편이 없어 날짜를')}${list.length ? `<ul class="due-list">${list.join('')}</ul>` : ''}`;
 }
@@ -894,7 +905,7 @@ function settlementBlock(): string {
     unpaid.push(`<p>남은 미지급 ${esc(standing.currency)}: ${esc(formatMoney(standing.currency, rows.reduce((a, o) => a + o.amountMinor, 0)))} — ${rows.length}건, ${first === last ? first : `${first}~${last}`}일 발생</p>`);
   }
   const books = `<p>통화마다 따로 결산합니다. USD와 KRW는 더하지 않습니다.</p><div class="books">${sum.byCurrency.map((st) => `<table class="money"><caption>결산 · ${esc(st.currency)}</caption>${settlementRows(st, config).map(([label, value, total]) => `<tr${total ? ' class="total"' : ''}><th>${esc(label)}</th><td>${esc(formatMoney(st.currency, value))}</td></tr>`).join('')}</table>`).join('')}</div>`;
-  return `<div class="settlement"><h3 id="settlement-h" tabindex="-1">${sum.operations?.outcome === 'FAILED' ? `${sum.operations.failure!.day}일 마감 결산` : `${sum.campaignDays}일 결산`}</h3>${config.operations ? opsScreens!.operationsSettlement(sum) : ''}${config.operations ? opsScreens!.path11Settlement(state, config, sum.operations?.failure?.day ?? sum.campaignDays, ui, books) : books}<p>계약 ${c.total}건 — 수금 완료 ${c.completed}건 · 인도 뒤 수금 대기 ${c.awaitingPayment}건 · 진행 중 ${c.inProgress}건 · 취소 ${c.cancelled}건</p>${deliveryRateBlock()}<p>받지 못한 대금: ${sum.openInvoices.map((i) => `${contractLink(i.contractId)} ${i.dueDay}일 ${esc(formatMoney(i.currency, i.amountMinor))}`).join(', ') || '없음'}</p>${unpaid.join('') || '<p>남은 미지급: 없음</p>'}${sum.unpaidObligations.length ? `<details class="muted small"><summary>남은 미지급 목록 (${sum.unpaidObligations.length}건)</summary><ul>${sum.unpaidObligations.map((o) => `<li>${esc(obligationLineKo(o))} ${esc(formatMoney(o.currency, o.amountMinor))}</li>`).join('')}</ul></details>` : ''}</div>`;
+  return `<div class="settlement"><h3 id="settlement-h" tabindex="-1">${sum.operations?.outcome === 'FAILED' ? `${sum.operations.failure!.day}일 마감 결산` : `${sum.campaignDays}일 결산`}</h3>${config.operations ? opsScreens!.netAssetChangeKo(state, config, sum.operations?.failure?.day ?? sum.campaignDays) + opsScreens!.operationsSettlement(sum) : ''}${config.operations ? opsScreens!.path11Settlement(state, config, sum.operations?.failure?.day ?? sum.campaignDays, ui, books) : books}<p>계약 ${c.total}건 — 수금 완료 ${c.completed}건 · 인도 뒤 수금 대기 ${c.awaitingPayment}건 · 진행 중 ${c.inProgress}건 · 취소 ${c.cancelled}건</p>${deliveryRateBlock()}<p>받지 못한 대금: ${sum.openInvoices.map((i) => `${contractLink(i.contractId)} ${i.dueDay}일 ${esc(formatMoney(i.currency, i.amountMinor))}`).join(', ') || '없음'}</p>${unpaid.join('') || '<p>남은 미지급: 없음</p>'}${sum.unpaidObligations.length ? `<details class="muted small"><summary>남은 미지급 목록 (${sum.unpaidObligations.length}건)</summary><ul>${sum.unpaidObligations.map((o) => `<li>${esc(obligationLineKo(o))} ${esc(formatMoney(o.currency, o.amountMinor))}</li>`).join('')}</ul></details>` : ''}</div>`;
 }
 
 function reportPanel(): string {
@@ -906,12 +917,12 @@ function reportPanel(): string {
   const customer = cargoListKo(config, heldCargoByGood(state, config, 'CUSTOMER'));
   const why: string[] = [];
   if (t.accountsReceivable > 0) {
-    const open = state.invoices.filter((i) => i.status !== 'PAID').sort((a, b) => a.dueDay - b.dueDay);
+    const open = state.invoices.filter((i) => i.status !== 'PAID' && i.status !== 'WRITTEN_OFF').sort((a, b) => a.dueDay - b.dueDay);
     why.push(esc(`매출 ${usd(t.accountsReceivable)}는 이미 이익에 들어갔지만 현금은 나중에 들어옵니다 (매출채권: `)
       + open.map((i) => contractLink(i.contractId) + esc(` ${i.dueDay}일 ${usd(i.amountMinor)}`)).join(', ') + esc(').'));
   }
   if (t.inventory > 0) why.push(esc(`재고 ${company}(${usd(t.inventory)})는 현금이 이미 나갔지만 팔기 전까지 비용이 아닙니다.`));
-  if (t.prepaidFreight > 0) why.push(esc(`선급운임 ${usd(t.prepaidFreight)}는 출항하면 상품 원가(직접 무역) 또는 주선 진행원가(운송 주선)가 됩니다.`));
+  if (t.prepaidFreight > 0) why.push(esc('이 게임 장부에서는 출항하면 운임을 상품 원가에 넣습니다(실제 회계에서는 판매 운송비를 판매비로 보는 경우가 많습니다). 운송 주선에서는 주선 진행원가가 됩니다.'));
   if (t.forwardingWip > 0) why.push(esc(`주선 진행원가 ${usd(t.forwardingWip)}는 고객 화물을 실은 운임입니다. 인도해 서비스 매출을 올리는 날 비용이 됩니다.`));
   if (r.customerCargoUnits > 0) why.push(esc(`맡은 고객 화물 ${customer}는 고객 자산이라 위 표 어디에도 없습니다. 우리 몫은 서비스 대금뿐입니다.`));
   if (config.operations && f.reserved + f.unpaidObligations > 0) {
@@ -940,7 +951,7 @@ function reportPanel(): string {
     <div class="books">
       <table class="money"><caption>거래 장부 · USD</caption>
         ${row('현금', usd(t.cash))}${row(`재고 (${company})`, usd(t.inventory))}${row('선급운임', usd(t.prepaidFreight))}${fwdOn ? row('주선 진행원가', usd(t.forwardingWip)) : ''}${row('매출채권', usd(t.accountsReceivable))}${row('자산 합계', usd(t.totalAssets), 'total')}${row('미지급금', usd(t.accountsPayable))}
-        ${row('상품 매출', usd(t.revenue))}${row('매출원가', neg(t.costOfGoodsSold, usd))}${fwdOn ? row('주선 매출', usd(t.forwardingRevenue)) + row('주선 원가', neg(t.forwardingCost, usd)) : ''}${row('취소비', neg(t.cancellationExpense, usd))}${row('거래 손익', usd(t.profit), 'total')}
+        ${row('상품 매출', usd(t.revenue))}${row('매출원가', neg(t.costOfGoodsSold, usd))}${fwdOn ? row('주선 매출', usd(t.forwardingRevenue)) + row('주선 원가', neg(t.forwardingCost, usd)) : ''}${row('취소비', neg(t.cancellationExpense, usd))}${row('USD 거래 손익(급여·임차료·원화 비용 제외)', usd(t.profit), 'total')}
         ${fwdOn ? `<tr><td colspan="2" class="muted small">${esc(`맡은 고객 화물 ${customer} — 회사 자산이 아니라 표에 넣지 않습니다.`)}</td></tr>` : ''}
       </table>
       <table class="money"><caption>운영 장부 · KRW</caption>
@@ -970,7 +981,7 @@ function crewPanel(): string {
   return `
   <aside class="panel crew" aria-labelledby="crew-h">
     <h2 id="crew-h" tabindex="-1">동료 <small>${employedDefs(view, config).length}명 고용 중</small>${officeButton(state)}</h2>
-    <div class="seg crew-filter" role="group" aria-label="동료 보기">${filterBtn('all', '전체')}${filterBtn('free', '대기')}${filterBtn('busy', '업무·교육 중')}${config.recruitment ? filterBtn('candidate', '후보') : ''}</div>
+    <div class="seg crew-filter" role="group" aria-label="동료 보기">${filterBtn('all', '전체')}${filterBtn('free', '대기')}${filterBtn('busy', '업무·훈련 중')}${config.recruitment ? filterBtn('candidate', '후보') : ''}</div>
     ${facets ? `<div class="crew-facets" role="group" aria-label="직무·속성으로 걸러 보기">${facets}</div>` : ''}
     <div class="crew-cards">${shown.map((entry) => crewEntryCard(entry, view, config, ui.selectedCard === entry.def.id) + (inline && entry.def.id === ui.selectedCard ? `<div class="card-detail">${detail}</div>` : '')).join('') || '<p class="muted small">이 조건의 동료가 없습니다.</p>'}</div>
     <table class="roster"><caption>운영표 — 카드와 같은 상태</caption>
@@ -1361,7 +1372,7 @@ app.addEventListener('click', (ev) => {
         }).catch((error: unknown) => { situationOpen = false; screenLoadWarning(error); })
           .finally(() => { enteringScenario = false; });
       case 'reload':
-        if (hasUnsavedWork(ui.pending, state, savedState) && !confirm('새로 고침하면 저장하지 않은 진행과 오늘 할 일이 사라집니다. 새로 고칠까요?')) return;
+        if (state && hasUnsavedWork(ui.pending, state, savedState) && !confirm('새로 고침하면 저장하지 않은 진행과 오늘 할 일이 사라집니다. 새로 고칠까요?')) return;
         skipNextBeforeUnload = true;
         location.reload();
         return;
@@ -1435,8 +1446,11 @@ app.addEventListener('click', (ev) => {
         return;
       case 'hire':
         return queue({ id: newId('HIRE'), type: 'HIRE_CANDIDATE', candidateId: d.candidate! });
-      case 'end-day':
+      case 'end-day': {
+        const warnings = lastDepartureWarnings(view, config);
+        if (warnings.length && !confirm(`${warnings.join(' ')} 예약 없이 하루를 진행할까요?`)) return;
         return endDay();
+      }
       case 'queue-jump': {
         const heading = document.getElementById('queue-h')!;
         heading.scrollIntoView({ block: 'start' });
@@ -1637,8 +1651,13 @@ async function loadText(text: string, fromSave = false) {
   render();
 }
 
-startScenario('SCENARIO_M2_MULTI_TRADE');
-render();
+export const initialScreenReady = (async () => {
+  if (isOperationsScenario('SCENARIO_M2_OPS_CREDIT')) await ensureOpsScreens();
+  startScenario('SCENARIO_M2_OPS_CREDIT');
+  render();
+})().catch(() => {
+  app.innerHTML = `<p class="flash warn">${SCREEN_LOAD_WARNING}</p><button data-action="reload">새로 고침</button>`;
+});
 
 // 첫 렌더 뒤 자개 틀만 받는다. 실패하면 기존 금선 틀을 유지한다.
 const loadNajeon = () => { void import('./card-najeon.css').catch(() => undefined); };

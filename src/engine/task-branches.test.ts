@@ -23,7 +23,7 @@ const cases: { kind: Task['kind']; dayBased: boolean; subject: string | null; st
   { kind: 'RECRUIT_QUEST', dayBased: false, subject: '현돌', status: '● 업무 중', schedule: '영입 의뢰 중 — 현돌 0/3pt',
     log: '귀솔에게 현돌 영입 의뢰 업무 배정 (3 업무 포인트)',
     command: { id: 'QUEST', type: 'START_RECRUIT_QUEST', candidateId: 'EMP04', employeeId: 'EMP01' }, reward: 'TASK_COMPLETION_XP', amount: 10 },
-  { kind: 'TRAINING', dayBased: true, subject: null, status: '◆ 교육 중 0/1일', schedule: '일반 훈련 중 — 0/1일',
+  { kind: 'TRAINING', dayBased: true, subject: null, status: '◆ 훈련 중 0/1일', schedule: '일반 훈련 중 — 0/1일',
     log: '귀솔 일반 훈련 시작 (1일, 훈련비 50,000원)',
     command: { id: 'TRAIN', type: 'START_TRAINING', employeeId: 'EMP01' }, reward: 'TRAINING_XP', amount: 60 },
 ];
@@ -50,7 +50,7 @@ describe('다섯 업무의 기존 값·문장 보존', () => {
   it('대기 문구와 진행 중 교육 문구도 유지한다', () => {
     expect(crewStatusKo()).toBe('○ 대기');
     const task = { kind: 'TRAINING', progressWorkUnits: 1, requiredWorkUnits: 2, subjectId: 'EMP01' } as Task;
-    expect(crewStatusKo(task)).toBe('◆ 교육 중 1/2일');
+    expect(crewStatusKo(task)).toBe('◆ 훈련 중 1/2일');
     expect(taskSchedule(task, config)).toBe('일반 훈련 중 — 1/2일');
   });
 

@@ -13,12 +13,28 @@ import type { Contract, ExchangeDirection, GameState, ScenarioConfig } from '../
 import { payrollRunwayKo } from './growth';
 import { esc } from './html';
 import { qtyKo } from './reports';
+import { balanceSheetAt } from '../engine/path11-readers';
+import { krwToUsdMinor, referenceRate, usdToKrwMinor } from '../engine/risk';
+
+export { krwToUsdMinor as referenceUsd };
+export { receiptSchedule } from './reports';
+
+/** 사다리 지표와 같은 통화별 순자산·기준 환율 읽기. */
+export function netAssetChangeKo(s: GameState, config: ScenarioConfig, endDay: number): string {
+  const net = (day: number) => balanceSheetAt(s, config, day).byCurrency.reduce((sum, row) => {
+    const amount = row.assets.reduce((n, r) => n + r.amountMinor, 0) - row.liabilities.reduce((n, r) => n + r.amountMinor, 0);
+    return sum + (row.currency === 'USD' ? usdToKrwMinor(amount, referenceRate(config, s.rng.seed, day)) : amount);
+  }, 0);
+  const start = net(1), end = net(endDay);
+  const percent = start === 0 ? '변화율 계산 불가' : `${end >= start ? '+' : '−'}${(Math.abs(end - start) * 100 / Math.abs(start)).toFixed(1)}%`;
+  return `<p class="net-asset-change">회사 순자산 변화: 시작 ${formatMoney('KRW', start)} → 끝 ${formatMoney('KRW', end)}(${percent}), 기준 환율 환산</p>`;
+}
 
 import { counterpartyNameKo } from './ops-labels';
 export { counterpartyNameKo } from './ops-labels';
 
 export function marketBlock(view: GameState, config: ScenarioConfig): string {
-  return `<section class="market-table" aria-labelledby="market-h"><h3 id="market-h">시세표</h3><p class="muted small">지수는 돈이 아닙니다</p><div class="table-scroll" id="market-scroll" tabindex="0" role="region" aria-label="시세표 (가로로 넘겨 보기)"><table class="money"><thead><tr><th>도시 · 상품 · 매수/매도</th><th>기준가 (USD/단위)</th><th>지수</th><th>관측</th><th>다음 관측</th><th>견적</th></tr></thead><tbody>${marketTable(view, config).map((r) => `<tr><th>${esc(cityName(config, r.cityId))} · ${esc(goodOf(config, r.goodId).nameKo)} · ${r.side === 'BUY' ? '매수' : '매도'}</th><td>${formatMoney(r.currency, r.basePriceMinor)}/단위</td><td>${r.indexPoints}</td><td>${r.observedDay}일 · ${r.ageDays}일 전 관측</td><td>${view.phase === 'ENDED' ? '없음(캠페인 종료)' : r.nextObservationDay === null ? '새 관측 없음' : `${r.nextObservationDay}일`}</td><td>${r.hasQuoteInBatch ? '이번 묶음 견적 있음' : '—'}</td></tr>`).join('')}</tbody></table></div></section>`;
+  return `<section class="market-table" aria-labelledby="market-h"><h3 id="market-h">시세표</h3><p class="muted small">지수: 기준일=100으로 본 가격 변화. 금액이 아닙니다.</p><div class="table-scroll" id="market-scroll" tabindex="0" role="region" aria-label="시세표 (가로로 넘겨 보기)"><table class="money"><thead><tr><th>도시 · 상품 · 매수/매도</th><th>기준가 (통화/단위)</th><th>지수</th><th>관측</th><th>다음 관측</th><th>견적</th></tr></thead><tbody>${marketTable(view, config).map((r) => `<tr><th>${esc(cityName(config, r.cityId))} · ${esc(goodOf(config, r.goodId).nameKo)} · ${r.side === 'BUY' ? '매수' : '매도'}</th><td>${formatMoney(r.currency, r.basePriceMinor)}/단위</td><td>${r.indexPoints}</td><td>${r.observedDay}일 · ${r.ageDays}일 전 관측</td><td>${view.phase === 'ENDED' ? '없음(캠페인 종료)' : r.nextObservationDay === null ? '새 관측 없음' : `${r.nextObservationDay}일`}</td><td>${r.hasQuoteInBatch ? '이번 묶음 견적 있음' : '—'}</td></tr>`).join('')}</tbody></table></div></section>`;
 }
 
 /** 계약 카드 제목과 같은 종류·번호·화물·항로 문구. */
@@ -89,7 +105,7 @@ export function exchangeBlock(view: GameState, config: ScenarioConfig, direction
   const descriptions = [q.warningKo ? 'exchange-warning' : '', q.reasonKo ? 'exchange-reason' : ''].filter(Boolean).join(' ');
   const fees = direction === 'USD_TO_KRW' ? upcomingPayments(view, config, config.campaignDays).filter((p) => p.kind === 'SPACE_FEE' && p.day !== null) : [];
   const upcoming = fees.length ? `<p>앞으로 낼 선복 요금 ${usd(fees.reduce((sum, p) => sum + p.amountMinor, 0))}(${fees.length}편, 다음 ${Math.min(...fees.map((p) => p.day!))}일). 출항 ${config.operations!.spaceContract.reserveDaysAhead}일 전부터 쓸 수 있는 USD에서 묶입니다.</p>` : '';
-  return `<section class="exchange" aria-labelledby="exchange-h"><h3 id="exchange-h" tabindex="-1">환전</h3><p>게임용 고정 환율 ${fx.buyKrwPerUsd.toLocaleString('ko-KR')}원(받을 때) · ${fx.sellKrwPerUsd.toLocaleString('ko-KR')}원(살 때)</p><label>방향 <select data-action="exchange-direction"><option value="USD_TO_KRW"${direction === 'USD_TO_KRW' ? ' selected' : ''}>USD→KRW</option><option value="KRW_TO_USD"${direction === 'KRW_TO_USD' ? ' selected' : ''}>KRW→USD</option></select></label> ${amountControl}<dl><dt>내는 금액</dt><dd>${direction === 'USD_TO_KRW' ? usd(usdMinor) : krw(q.krwMinor)}</dd><dt>받는 금액</dt><dd>${direction === 'USD_TO_KRW' ? krw(q.krwMinor) : usd(usdMinor)}</dd><dt>차감</dt><dd>${krw(q.spreadKrwMinor)}</dd><dt>쓸 수 있는 USD (전 → 후)</dt><dd>${usd(q.usdAvailableBefore)} → ${usd(q.usdAvailableAfter)}</dd><dt>원화 급여 가능일 (임차료 포함, 전 → 후)</dt><dd>${runway(q.runwayBefore)} → ${runway(q.runwayAfter)}</dd></dl><p>자동 환전은 없습니다</p>${upcoming}${q.warningKo ? `<p class="reason" id="exchange-warning">${esc(q.warningKo)}</p>` : ''}${q.reasonKo ? `<p class="reason" id="exchange-reason">${esc(q.reasonKo)}</p>` : ''}<button data-action="exchange"${descriptions ? ` aria-describedby="${descriptions}"` : ''}>환전을 오늘 할 일에 넣기</button></section>`;
+  return `<section class="exchange" aria-labelledby="exchange-h"><h3 id="exchange-h" tabindex="-1">환전</h3><p>달러 팔 때(USD→원) 1달러=${fx.buyKrwPerUsd.toLocaleString('ko-KR')}원 · 달러 살 때(원→USD) 1달러=${fx.sellKrwPerUsd.toLocaleString('ko-KR')}원 · 차이가 환전 비용</p><label>방향 <select data-action="exchange-direction"><option value="USD_TO_KRW"${direction === 'USD_TO_KRW' ? ' selected' : ''}>USD→KRW</option><option value="KRW_TO_USD"${direction === 'KRW_TO_USD' ? ' selected' : ''}>KRW→USD</option></select></label> ${amountControl}<dl><dt>내는 금액</dt><dd>${direction === 'USD_TO_KRW' ? usd(usdMinor) : krw(q.krwMinor)}</dd><dt>받는 금액</dt><dd>${direction === 'USD_TO_KRW' ? krw(q.krwMinor) : usd(usdMinor)}</dd><dt>환전 비용(환율 차이)</dt><dd>${krw(q.spreadKrwMinor)}</dd><dt>쓸 수 있는 USD (전 → 후)</dt><dd>${usd(q.usdAvailableBefore)} → ${usd(q.usdAvailableAfter)}</dd><dt>원화 급여 가능일 (임차료 포함, 전 → 후)</dt><dd>${runway(q.runwayBefore)} → ${runway(q.runwayAfter)}</dd></dl><p>자동 환전은 없습니다</p>${upcoming}${q.warningKo ? `<p class="reason" id="exchange-warning">${esc(q.warningKo)}</p>` : ''}${q.reasonKo ? `<p class="reason" id="exchange-reason">${esc(q.reasonKo)}</p>` : ''}<button data-action="exchange"${descriptions ? ` aria-describedby="${descriptions}"` : ''}>환전을 오늘 할 일에 넣기</button></section>`;
 }
 
 export function paymentStatusKo(view: GameState, config: ScenarioConfig): string {

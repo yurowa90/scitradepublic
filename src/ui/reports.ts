@@ -8,6 +8,14 @@ import type { Currency } from '../engine/money';
 import type { CompanyReport, CurrencyStanding, UpcomingPayment, UpcomingPaymentKind } from '../engine/reports';
 import type { GameState, ScenarioConfig } from '../engine/types';
 import { esc } from './html';
+import { receivedForInvoice } from '../engine/risk';
+
+export function receiptSchedule(s: GameState) {
+  return s.invoices.filter((i) => i.status !== 'PAID' && i.status !== 'WRITTEN_OFF')
+    .map((i) => ({ ...i, outstandingMinor: i.amountMinor - receivedForInvoice(s, i.id) }))
+    .sort((a, b) => a.dueDay - b.dueDay || (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
+}
+
 
 export function krwReportRows(report: CompanyReport, config: ScenarioConfig): string {
   const p = report.payroll;
@@ -15,7 +23,7 @@ export function krwReportRows(report: CompanyReport, config: ScenarioConfig): st
     ['시작 운영 자금', p.openingEquity], ['급여', -p.wageExpense],
     ...(config.recruitment || config.growth ? [['영입 계약금', -p.recruitmentExpense], ['훈련비', -p.trainingExpense]] as [string, number][] : []),
     ...(config.culture ? [['현지 활동비', -p.cultureExpense]] as [string, number][] : []),
-    ...(config.operations ? ([['창고 임차료', -p.rentExpense], ['창고 확장 설치비', -p.facilitySetupExpense], ['환전 차감', -p.fxSpreadExpense], ['통화 간 이체(환전)', p.currencyTransferNet]] as [string, number][]).filter(([, value]) => value !== 0) : []),
+    ...(config.operations ? ([['창고 임차료', -p.rentExpense], ['창고 확장 설치비', -p.facilitySetupExpense], ['환전 비용(환율 차이)', -p.fxSpreadExpense], ['통화 간 이체(환전)', p.currencyTransferNet]] as [string, number][]).filter(([, value]) => value !== 0) : []),
     ['운영 손익', p.profit], [config.operations ? '미지급(급여·임차료)' : '미지급 급여', p.accountsPayable], ['현금', p.cash],
   ];
   return rows.map(([label, amount]) => `<tr><th>${label}</th><td>${esc(formatMoney(config.payrollCurrency, amount))}</td></tr>`).join('');

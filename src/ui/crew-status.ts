@@ -32,7 +32,7 @@ export function crewStatusKo(task?: Task): string {
   if (!task) return '○ 대기';
   switch (task.kind) {
     case 'CULTURE': return `◇ 현지 활동 중 ${task.progressWorkUnits}/${task.requiredWorkUnits}일`;
-    case 'TRAINING': return `◆ 교육 중 ${task.progressWorkUnits}/${task.requiredWorkUnits}일`;
+    case 'TRAINING': return `◆ 훈련 중 ${task.progressWorkUnits}/${task.requiredWorkUnits}일`;
     case 'EXPORT_PREP':
     case 'FORWARDING_PREP':
     case 'SCOUT':

@@ -673,3 +673,7 @@ main.layout { padding-bottom: 5.5rem; }
 /* 세션 B 실측(TASK-0078): 상아 칸의 기본 입력(라디오)은 밝은 판으로, 그림 칸은 밝은 바탕에 맞는 글자색으로 되돌린다. */
 .offer, .contract, table.money, .market-table, .settlement, .recruit-site, .roster { color-scheme: light; }
 .card-art { --sky: #dbe6f2; --mint: #e1ece3; --navy-soft: #4a5672; --placeholder-bg: #f3ead6; --tag-bg: #f3ead6; color-scheme: light; }
+
+/* 작은 화면에서도 표의 너비는 스크롤 상자 안에서만 늘어난다. */
+.market-table { min-width: 0; width: 100%; }
+.day-action .reason { max-width: 23rem; margin: .25rem 0 0; }

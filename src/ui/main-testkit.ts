@@ -6,7 +6,7 @@ export const SITUATION_BUTTON = '\n      <button data-action="situation" aria-ha
 
 const unescape = (text: string) => text.replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
 
-export async function startUi(config?: ScenarioConfig) {
+export async function startUi(config?: ScenarioConfig, actualEntry = false) {
   vi.resetModules();
   vi.useFakeTimers();
   vi.stubGlobal('confirm', vi.fn(() => true));
@@ -36,10 +36,13 @@ export async function startUi(config?: ScenarioConfig) {
   let afterRender: (() => void) | undefined;
   vi.stubGlobal('ResizeObserver', class { constructor(callback:()=>void) { resizeStatus=callback; } observe() {} disconnect() {} });
   const content = await import('../content/scenario');
-  if (config) {
-    const original = content.loadScenario;
-    vi.spyOn(content, 'loadScenario').mockImplementation((id) => id === config.id ? config : original(id));
-  }
+  let bootstrapping = !actualEntry;
+  const originalLoad = content.loadScenario, originalOps = content.isOperationsScenario;
+  vi.spyOn(content, 'loadScenario').mockImplementation((id) => {
+    if (bootstrapping && id === 'SCENARIO_M2_OPS_CREDIT') return config?.id === 'SCENARIO_M2_MULTI_TRADE' ? config : originalLoad('SCENARIO_M2_MULTI_TRADE');
+    return config && id === config.id ? config : originalLoad(id);
+  });
+  vi.spyOn(content, 'isOperationsScenario').mockImplementation((id) => bootstrapping && id === 'SCENARIO_M2_OPS_CREDIT' ? false : originalOps(id));
   let measureCallback: ((frame: HTMLElement, width: number, dpr: number) => void) | undefined;
   const pixel = await import('./pixel');
   vi.spyOn(pixel, 'applyPixelScale').mockImplementation((_root, callback) => { measureCallback = callback; return () => undefined; });
@@ -147,7 +150,10 @@ export async function startUi(config?: ScenarioConfig) {
       : elements(),
   };
   vi.stubGlobal('document',doc);
-  await import('./main');
+  const main = await import('./main');
+  await main.initialScreenReady;
+  // 기존 지연 화면 시험은 묶음을 받기 전의 옛 판 진입을 계속 검증한다.
+  bootstrapping = false;
   const clickNow = (dataset:Record<string,string>,detail=0,fromChild=false) => {
     const element=rendered(dataset);
     return listeners.click!({detail,target:fromChild ? {closest:(selector:string)=>element.closest(selector)} : element});
